@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, ExternalLink } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
@@ -45,7 +45,7 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href={siteConfig.linkedIn}
+                href={siteConfig.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/60 hover:text-accent transition-colors"
@@ -53,20 +53,20 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href={siteConfig.twitter}
+                href={siteConfig.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/60 hover:text-accent transition-colors"
               >
-                <Twitter className="h-5 w-5" />
+                <ExternalLink className="h-5 w-5" />
               </a>
               <a
-                href={siteConfig.github}
+                href={siteConfig.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/60 hover:text-accent transition-colors"
               >
-                <Github className="h-5 w-5" />
+                <ExternalLink className="h-5 w-5" />
               </a>
             </div>
           </div>
