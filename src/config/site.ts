@@ -18,7 +18,8 @@ export const siteConfig = {
     
   // External URLs
   ACADEMY_URL: "https://dbcloud.academy/",
-  SCHEDULE_URL: "https://outlook.office365.com/book/DBCloudSolutions@dbcloud.us/",
+  // Microsoft Bookings public page (use the exact share link)
+  SCHEDULE_URL: "https://outlook.office.com/book/DBCloudSolutions@dbcloud.us/?ismsaljsauthenabled",
   
   // WhatsApp configuration (bilingual)
   WHATSAPP: {
