@@ -27,9 +27,10 @@ export function SchemaOrg() {
       "addressCountry": siteConfig.address.country
     },
     "sameAs": [
-      siteConfig.linkedIn,
-      siteConfig.twitter,
-      siteConfig.github
+      siteConfig.linkedin,
+      siteConfig.facebook,
+      siteConfig.instagram,
+      siteConfig.tiktok
     ],
     "contactPoint": {
       "@type": "ContactPoint",
