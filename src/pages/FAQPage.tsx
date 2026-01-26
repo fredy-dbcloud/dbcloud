@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLang } from '@/hooks/useLang';
 import { faqData } from '@/config/faq';
+import { siteConfig } from '@/config/site';
 
 export default function FAQPage() {
   const { lang, t, getLocalizedPath } = useLang();
@@ -87,9 +88,9 @@ export default function FAQPage() {
                 </Link>
               </Button>
               <Button asChild variant="outline">
-                <Link to={getLocalizedPath('/schedule')}>
+                <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                   {t.cta.schedule}
-                </Link>
+                </a>
               </Button>
             </div>
           </motion.div>

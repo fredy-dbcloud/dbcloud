@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Cloud, Database, Brain, Shield, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
+import { siteConfig } from '@/config/site';
 
 export function HeroSection() {
   const { t, getLocalizedPath } = useLang();
@@ -72,10 +73,10 @@ export function HeroSection() {
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground text-base px-8 shadow-glow"
             >
-              <Link to={getLocalizedPath('/schedule')}>
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.hero.cta}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild
