@@ -17,7 +17,7 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/company/dbcloud",
     
   // External URLs
-  ACADEMY_URL: "https://academy.dbcloud.io",
+  ACADEMY_URL: "https://dbcloud.academy/",
   SCHEDULE_URL: "https://outlook.office.com/book/DBCloudSolutions@dbcloud.us/?ismsaljsauthenabled",
   
   // WhatsApp configuration (bilingual)
