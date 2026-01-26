@@ -10,6 +10,8 @@ import PricingPage from "./pages/PricingPage";
 import FAQPage from "./pages/FAQPage";
 import ContactPage from "./pages/ContactPage";
 import SchedulePage from "./pages/SchedulePage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,8 @@ const App = () => (
           <Route path="/en/faq" element={<FAQPage />} />
           <Route path="/en/contact" element={<ContactPage />} />
           <Route path="/en/schedule" element={<SchedulePage />} />
+          <Route path="/en/privacy" element={<PrivacyPage />} />
+          <Route path="/en/terms" element={<TermsPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -41,6 +45,8 @@ const App = () => (
           <Route path="/es/faq" element={<FAQPage />} />
           <Route path="/es/contact" element={<ContactPage />} />
           <Route path="/es/schedule" element={<SchedulePage />} />
+          <Route path="/es/privacy" element={<PrivacyPage />} />
+          <Route path="/es/terms" element={<TermsPage />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
