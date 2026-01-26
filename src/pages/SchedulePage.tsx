@@ -1,8 +1,9 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, CheckCircle, ExternalLink } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import { Button } from '@/components/ui/button';
 
 export default function SchedulePage() {
   const { lang } = useLang();
@@ -81,46 +82,51 @@ export default function SchedulePage() {
               </div>
             </motion.div>
 
-            {/* Microsoft Bookings Embed */}
+            {/* Booking CTA (Bookings blocks iframe embeds in many browsers) */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="rounded-2xl bg-card border border-border shadow-card overflow-hidden">
-                <iframe
-                  src={siteConfig.SCHEDULE_URL}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
-                  scrolling="yes"
-                  className="w-full min-h-[600px]"
-                  title={lang === 'es' ? 'Agendar una cita' : 'Schedule an appointment'}
-                />
-              </div>
-              <div className="mt-6 text-center">
-                <p className="text-sm text-muted-foreground mb-2">
-                  {lang === 'es' ? '¿Problemas para ver el calendario? ' : 'Having trouble viewing the calendar? '}
-                  <a 
+              <div className="rounded-2xl bg-card border border-border shadow-card p-8">
+                <h2 className="font-display text-2xl font-bold mb-3">
+                  {lang === 'es' ? 'Reserva en línea' : 'Book online'}
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  {lang === 'es'
+                    ? 'Por seguridad del navegador, el calendario de Bookings se abre en una nueva pestaña.'
+                    : 'For browser security, the Bookings calendar opens in a new tab.'}
+                </p>
+
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground w-full"
+                >
+                  <a
                     href={siteConfig.SCHEDULE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-accent hover:underline"
+                    aria-label={lang === 'es' ? 'Abrir calendario de Bookings' : 'Open Bookings calendar'}
                   >
-                    {lang === 'es' ? 'Abrir en nueva ventana' : 'Open in new window'}
+                    {lang === 'es' ? 'Abrir calendario' : 'Open calendar'}
+                    <ExternalLink className="ml-2 h-4 w-4" />
                   </a>
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {lang === 'es' ? 'O contáctanos: ' : 'Or contact us: '}
-                  <a href={`mailto:${siteConfig.email}`} className="text-accent hover:underline">
-                    {siteConfig.email}
-                  </a>
-                  {' | '}
-                  <a href={`tel:${siteConfig.phoneRaw}`} className="text-accent hover:underline">
-                    {siteConfig.phone}
-                  </a>
-                </p>
+                </Button>
+
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-muted-foreground">
+                    {lang === 'es' ? '¿Prefieres contactarnos? ' : 'Prefer to contact us? '}
+                    <a href={`mailto:${siteConfig.email}`} className="text-accent hover:underline">
+                      {siteConfig.email}
+                    </a>
+                    {' | '}
+                    <a href={`tel:${siteConfig.phoneRaw}`} className="text-accent hover:underline">
+                      {siteConfig.phone}
+                    </a>
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -1,12 +1,12 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Brain, Shield, Cpu, BarChart3, Bot, Sparkles, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
+import { siteConfig } from '@/config/site';
 
 export default function AIPage() {
-  const { lang, t, getLocalizedPath } = useLang();
+  const { lang, t } = useLang();
 
   const services = [
     {
@@ -121,10 +121,10 @@ export default function AIPage() {
             className="mt-16 text-center"
           >
             <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link to={getLocalizedPath('/schedule')}>
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.cta.schedule}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </a>
             </Button>
           </motion.div>
         </div>
