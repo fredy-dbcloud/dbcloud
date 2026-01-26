@@ -2,8 +2,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ServicesPage from "./pages/ServicesPage";
+import AIPage from "./pages/AIPage";
+import PricingPage from "./pages/PricingPage";
+import FAQPage from "./pages/FAQPage";
+import ContactPage from "./pages/ContactPage";
+import SchedulePage from "./pages/SchedulePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -15,8 +21,28 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          {/* Redirect root to English */}
+          <Route path="/" element={<Navigate to="/en" replace />} />
+          
+          {/* English Routes */}
+          <Route path="/en" element={<HomePage />} />
+          <Route path="/en/services" element={<ServicesPage />} />
+          <Route path="/en/ai" element={<AIPage />} />
+          <Route path="/en/pricing" element={<PricingPage />} />
+          <Route path="/en/faq" element={<FAQPage />} />
+          <Route path="/en/contact" element={<ContactPage />} />
+          <Route path="/en/schedule" element={<SchedulePage />} />
+          
+          {/* Spanish Routes */}
+          <Route path="/es" element={<HomePage />} />
+          <Route path="/es/services" element={<ServicesPage />} />
+          <Route path="/es/ai" element={<AIPage />} />
+          <Route path="/es/pricing" element={<PricingPage />} />
+          <Route path="/es/faq" element={<FAQPage />} />
+          <Route path="/es/contact" element={<ContactPage />} />
+          <Route path="/es/schedule" element={<SchedulePage />} />
+          
+          {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
