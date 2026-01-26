@@ -1,0 +1,114 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Cloud, Database, Brain, Shield, Clock, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useLang } from '@/hooks/useLang';
+
+export function HeroSection() {
+  const { t, getLocalizedPath } = useLang();
+
+  const stats = [
+    { icon: Users, value: '500+', label: 'Enterprise Clients' },
+    { icon: Database, value: '10K+', label: 'Databases Managed' },
+    { icon: Clock, value: '99.99%', label: 'Uptime SLA' },
+    { icon: Shield, value: '24/7', label: 'Expert Support' },
+  ];
+
+  return (
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-hero-gradient" />
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+      
+      {/* Floating Elements */}
+      <div className="absolute top-1/4 left-10 animate-float opacity-20">
+        <Cloud className="h-24 w-24 text-white" />
+      </div>
+      <div className="absolute bottom-1/4 right-10 animate-float opacity-20" style={{ animationDelay: '2s' }}>
+        <Database className="h-20 w-20 text-white" />
+      </div>
+      <div className="absolute top-1/3 right-1/4 animate-float opacity-20" style={{ animationDelay: '4s' }}>
+        <Brain className="h-16 w-16 text-white" />
+      </div>
+
+      <div className="container relative z-10 py-20">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6 border border-white/20">
+              🚀 Enterprise Cloud & AI Solutions
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+          >
+            {t.hero.title}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto"
+          >
+            {t.hero.subtitle}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Button
+              asChild
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground text-base px-8 shadow-glow"
+            >
+              <Link to={getLocalizedPath('/schedule')}>
+                {t.hero.cta}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/30 text-white hover:bg-white/10 text-base px-8"
+            >
+              <Link to={getLocalizedPath('/contact')}>
+                {t.hero.ctaSecondary}
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+        >
+          {stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+            >
+              <stat.icon className="h-8 w-8 text-accent mx-auto mb-3" />
+              <div className="font-display text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-sm text-white/70">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
