@@ -127,13 +127,15 @@ export function ChatWidget() {
             {step === 'thank_you' && (
               <div className="flex flex-col gap-2">
                 <a
-                  href={getLocalizedPath('/schedule')}
+                  href={siteConfig.SCHEDULE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
                 >
                   {t.cta.schedule}
                 </a>
                 <a
-                  href={siteConfig.WHATSAPP_URL}
+                  href={siteConfig.WHATSAPP[lang]?.url || siteConfig.WHATSAPP.en.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-[#25D366] text-white hover:bg-[#25D366]/90 transition-colors"
