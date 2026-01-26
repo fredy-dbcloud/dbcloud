@@ -15,6 +15,12 @@ export function ChatWidget() {
   const { messages, step, isLoading, sendMessage } = useChatSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const openExternal = (url: string) => {
+    // Prefer opening a new tab; fall back to same-tab navigation if blocked.
+    const w = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!w) window.location.assign(url);
+  };
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -128,8 +134,10 @@ export function ChatWidget() {
               <div className="flex flex-col gap-2">
                 <a
                   href={siteConfig.SCHEDULE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openExternal(siteConfig.SCHEDULE_URL);
+                  }}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
                 >
                   {t.cta.schedule}
