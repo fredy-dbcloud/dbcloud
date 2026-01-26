@@ -87,7 +87,7 @@ export default function ContactPage() {
 
               {/* WhatsApp */}
               <a
-                href={siteConfig.WHATSAPP_URL}
+                href={siteConfig.WHATSAPP[lang]?.url || siteConfig.WHATSAPP.en.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-4 rounded-xl bg-[#25D366] text-white hover:bg-[#25D366]/90 transition-colors"

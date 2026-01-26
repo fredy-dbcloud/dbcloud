@@ -93,7 +93,9 @@ export function Header() {
           </Button>
           
           <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-            <Link to={getLocalizedPath('/schedule')}>{t.nav.schedule}</Link>
+            <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
+              {t.nav.schedule}
+            </a>
           </Button>
         </div>
 
@@ -159,9 +161,9 @@ export function Header() {
                   </Link>
                 </Button>
                 <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                  <Link to={getLocalizedPath('/schedule')} onClick={() => setMobileOpen(false)}>
+                  <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
                     {t.nav.schedule}
-                  </Link>
+                  </a>
                 </Button>
               </div>
             </nav>

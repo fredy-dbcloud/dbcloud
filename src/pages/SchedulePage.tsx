@@ -81,34 +81,46 @@ export default function SchedulePage() {
               </div>
             </motion.div>
 
-            {/* Calendar Embed Placeholder */}
+            {/* Microsoft Bookings Embed */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="p-8 rounded-2xl bg-card border border-border shadow-card min-h-[500px] flex items-center justify-center">
-                <div className="text-center">
-                  <Calendar className="h-16 w-16 text-accent mx-auto mb-6" />
-                  <h3 className="font-display text-xl font-bold mb-2">
-                    {lang === 'es' ? 'Calendario de Citas' : 'Booking Calendar'}
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    {lang === 'es' 
-                      ? 'El calendario de citas se cargará aquí (Calendly, Cal.com, etc.)'
-                      : 'Booking calendar will load here (Calendly, Cal.com, etc.)'}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {lang === 'es' ? 'O contáctanos directamente:' : 'Or contact us directly:'}
-                  </p>
+              <div className="rounded-2xl bg-card border border-border shadow-card overflow-hidden">
+                <iframe
+                  src={siteConfig.SCHEDULE_URL}
+                  width="100%"
+                  height="600"
+                  frameBorder="0"
+                  scrolling="yes"
+                  className="w-full min-h-[600px]"
+                  title={lang === 'es' ? 'Agendar una cita' : 'Schedule an appointment'}
+                />
+              </div>
+              <div className="mt-6 text-center">
+                <p className="text-sm text-muted-foreground mb-2">
+                  {lang === 'es' ? '¿Problemas para ver el calendario? ' : 'Having trouble viewing the calendar? '}
                   <a 
-                    href={`mailto:${siteConfig.salesEmail}`}
+                    href={siteConfig.SCHEDULE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-accent hover:underline"
                   >
-                    {siteConfig.salesEmail}
+                    {lang === 'es' ? 'Abrir en nueva ventana' : 'Open in new window'}
                   </a>
-                </div>
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {lang === 'es' ? 'O contáctanos: ' : 'Or contact us: '}
+                  <a href={`mailto:${siteConfig.email}`} className="text-accent hover:underline">
+                    {siteConfig.email}
+                  </a>
+                  {' | '}
+                  <a href={`tel:${siteConfig.phoneRaw}`} className="text-accent hover:underline">
+                    {siteConfig.phone}
+                  </a>
+                </p>
               </div>
             </motion.div>
           </div>

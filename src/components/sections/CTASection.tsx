@@ -6,7 +6,9 @@ import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
 export function CTASection() {
-  const { t, getLocalizedPath } = useLang();
+  const { lang, t, getLocalizedPath } = useLang();
+  
+  const whatsappUrl = siteConfig.WHATSAPP[lang]?.url || siteConfig.WHATSAPP.en.url;
 
   return (
     <section className="py-24 bg-hero-gradient relative overflow-hidden">
@@ -38,10 +40,10 @@ export function CTASection() {
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground px-8"
             >
-              <Link to={getLocalizedPath('/schedule')}>
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.cta.schedule}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild
@@ -49,7 +51,7 @@ export function CTASection() {
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 px-8"
             >
-              <a href={siteConfig.WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 {t.cta.whatsapp}
               </a>
             </Button>
