@@ -1,22 +1,32 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Cloud, Database, Brain, Shield, Clock, Users } from 'lucide-react';
+import { ArrowRight, Cloud, Database, Brain, Shield, Clock, Users, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
 export function HeroSection() {
-  const { t, getLocalizedPath } = useLang();
+  const { t, getLocalizedPath, lang } = useLang();
 
   const stats = [
-    { icon: Users, value: '500+', label: 'Enterprise Clients' },
-    { icon: Database, value: '10K+', label: 'Databases Managed' },
+    { icon: Users, value: '500+', label: lang === 'es' ? 'Clientes Enterprise' : 'Enterprise Clients' },
+    { icon: Database, value: '10K+', label: lang === 'es' ? 'Bases de Datos' : 'Databases Managed' },
     { icon: Clock, value: '99.99%', label: 'Uptime SLA' },
-    { icon: Shield, value: '24/7', label: 'Expert Support' },
+    { icon: Shield, value: '24/7', label: lang === 'es' ? 'Soporte Experto' : 'Expert Support' },
+  ];
+
+  // Enterprise hero features (like MongoDB, Snowflake)
+  const heroFeatures = lang === 'es' ? [
+    'Sin tiempo de inactividad durante migraciones',
+    'Certificado SOC 2, HIPAA, GDPR',
+    'Expertos certificados AWS, Azure, GCP',
+  ] : [
+    'Zero downtime during migrations',
+    'SOC 2, HIPAA, GDPR certified',
+    'AWS, Azure, GCP certified experts',
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -40,7 +50,7 @@ export function HeroSection() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6 border border-white/20">
-              🚀 Enterprise Cloud & AI Solutions
+              🚀 {lang === 'es' ? 'Soluciones Cloud & IA Empresariales' : 'Enterprise Cloud & AI Solutions'}
             </span>
           </motion.div>
 
@@ -57,10 +67,25 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-white/80 mb-8 max-w-2xl mx-auto"
           >
             {t.hero.subtitle}
           </motion.p>
+
+          {/* Hero feature bullets (enterprise pattern) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="flex flex-wrap items-center justify-center gap-4 mb-10"
+          >
+            {heroFeatures.map((feature) => (
+              <div key={feature} className="flex items-center gap-2 text-sm text-white/90">
+                <CheckCircle className="h-4 w-4 text-accent" />
+                {feature}
+              </div>
+            ))}
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -84,9 +109,9 @@ export function HeroSection() {
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 text-base px-8"
             >
-              <Link to={getLocalizedPath('/contact')}>
-                {t.hero.ctaSecondary}
-              </Link>
+              <a href={`tel:${siteConfig.phoneRaw}`}>
+                {siteConfig.phone}
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -98,7 +123,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"

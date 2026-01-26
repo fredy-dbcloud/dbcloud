@@ -25,6 +25,18 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
+      {/* Top bar with phone (enterprise pattern) */}
+      <div className="hidden lg:block bg-primary text-primary-foreground py-1.5">
+        <div className="container flex items-center justify-end gap-6 text-xs">
+          <a href={`tel:${siteConfig.phoneRaw}`} className="hover:text-accent transition-colors">
+            {siteConfig.phone}
+          </a>
+          <a href={`mailto:${siteConfig.email}`} className="hover:text-accent transition-colors">
+            {siteConfig.email}
+          </a>
+        </div>
+      </div>
+      
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to={getLocalizedPath('/')} className="flex items-center gap-2">
