@@ -26,11 +26,15 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
+import { AddonTriggerModal } from '@/components/addons/AddonTriggerModal';
+import { useAddonTrigger } from '@/hooks/useAddonTrigger';
 
 type PlanType = 'starter' | 'growth';
 
 interface ClientRequestFormProps {
   plan: PlanType;
+  usedHours?: number;
+  onEmailCapture?: (email: string) => void;
 }
 
 const requestSchema = z.object({
@@ -43,7 +47,7 @@ const requestSchema = z.object({
 
 type RequestFormData = z.infer<typeof requestSchema>;
 
-export function ClientRequestForm({ plan }: ClientRequestFormProps) {
+export function ClientRequestForm({ plan, usedHours = 0, onEmailCapture }: ClientRequestFormProps) {
   const { t, lang, getLocalizedPath } = useLang();
   const tAny = t as any;
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -51,6 +55,16 @@ export function ClientRequestForm({ plan }: ClientRequestFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [pendingData, setPendingData] = useState<RequestFormData | null>(null);
+  const [capturedEmail, setCapturedEmail] = useState<string>('');
+  
+  const { 
+    triggerState, 
+    closeAddonTrigger, 
+    checkHoursExhausted,
+    checkOutOfScope 
+  } = useAddonTrigger();
+
+  const planHours = plan === 'starter' ? 4 : 10;
 
   const form = tAny.clientRequest?.form || {
     title: 'Submit a Work Request',
@@ -117,9 +131,25 @@ export function ClientRequestForm({ plan }: ClientRequestFormProps) {
   const watchPriority = watch('priority');
 
   const onSubmit = (data: RequestFormData) => {
+    // Capture email for add-on triggers
+    setCapturedEmail(data.email);
+    onEmailCapture?.(data.email);
+    
     // Check for high priority + production combo
     if (data.environment === 'production' && data.priority === 'high') {
       setShowWarning(true);
+      return;
+    }
+
+    // Check if hours are exhausted
+    if (checkHoursExhausted(usedHours, planHours)) {
+      setPendingData(data);
+      return;
+    }
+
+    // Check for out-of-scope requests (enterprise features)
+    if (checkOutOfScope(data.requestType, data.description)) {
+      setPendingData(data);
       return;
     }
 
@@ -347,6 +377,21 @@ export function ClientRequestForm({ plan }: ClientRequestFormProps) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Add-on Trigger Modal */}
+      <AddonTriggerModal
+        isOpen={triggerState.isOpen}
+        onClose={() => {
+          closeAddonTrigger();
+          // If user closed trigger modal, still allow submission
+          if (pendingData) {
+            setShowConfirmation(true);
+          }
+        }}
+        reason={triggerState.reason}
+        email={capturedEmail}
+        plan={plan}
+      />
     </>
   );
 }
