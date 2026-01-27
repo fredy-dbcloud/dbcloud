@@ -31,6 +31,25 @@ export function Header() {
     { href: getLocalizedPath('/contact'), label: t.nav.contact },
   ];
 
+  const demoContent = {
+    en: {
+      viewDemo: 'View Demo',
+      starter: 'Starter Demo',
+      growth: 'Growth Demo',
+      enterprise: 'Enterprise Demo',
+      microcopy: 'Explore the exact client dashboard you will get after purchase',
+    },
+    es: {
+      viewDemo: 'Ver Demo',
+      starter: 'Demo Starter',
+      growth: 'Demo Growth',
+      enterprise: 'Demo Enterprise',
+      microcopy: 'Explora el panel de cliente exacto que obtendrás después de la compra',
+    },
+  };
+
+  const dc = demoContent[lang];
+
   const isActive = (href: string) => location.pathname === href;
 
   const portalContent = {
@@ -99,6 +118,34 @@ export function Header() {
             </Link>
           ))}
           
+          {/* Demo Dropdown - Secondary */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              {dc.viewDemo}
+              <ChevronDown className="h-3 w-3" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="w-56 bg-background border border-border shadow-lg">
+              <div className="px-3 py-2 text-xs text-muted-foreground border-b border-border">
+                {dc.microcopy}
+              </div>
+              <DropdownMenuItem asChild>
+                <Link to={getLocalizedPath('/demo/starter')} className="cursor-pointer">
+                  {dc.starter}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={getLocalizedPath('/demo/growth')} className="cursor-pointer">
+                  {dc.growth}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={getLocalizedPath('/demo/enterprise')} className="cursor-pointer">
+                  {dc.enterprise}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Academy Link - Secondary */}
           <a
             href={siteConfig.ACADEMY_URL}

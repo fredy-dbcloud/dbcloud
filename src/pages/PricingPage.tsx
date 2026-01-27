@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Check, X, ArrowRight, Sparkles, Info, Clock, Timer } from 'lucide-react';
@@ -303,7 +304,7 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                <div className="mt-auto">
+                <div className="mt-auto space-y-2">
                   <Button
                     onClick={() => handleGetStarted(plan)}
                     className={cn(
@@ -315,6 +316,15 @@ export default function PricingPage() {
                   >
                     {plan.key === 'enterprise' ? l.contactSales : t.cta.getStarted}
                     <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    asChild
+                  >
+                    <Link to={getLocalizedPath(`/demo/${plan.key}`)}>
+                      {lang === 'es' ? 'Ver Demo' : 'View Demo'}
+                    </Link>
                   </Button>
                 </div>
               </motion.div>

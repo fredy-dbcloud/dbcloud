@@ -27,9 +27,10 @@ interface RevenueOverview {
 interface AdminSummaryCardsProps {
   riskSummary: RiskSummary | null;
   revenueOverview: RevenueOverview | null;
+  lang?: 'en' | 'es';
 }
 
-export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummaryCardsProps) {
+export function AdminSummaryCards({ riskSummary, revenueOverview, lang = 'en' }: AdminSummaryCardsProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -38,6 +39,31 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
     }).format(amount);
   };
 
+  const labels = {
+    en: {
+      totalClients: 'Total Clients',
+      tracked: 'Tracked',
+      classified: 'Classified',
+      mrr: 'MRR',
+      atRisk: 'At Risk',
+      expansion: 'Expansion',
+      marginRisk: 'Margin Risk',
+      upgradeSignals: 'Upgrade Signals',
+    },
+    es: {
+      totalClients: 'Clientes Totales',
+      tracked: 'Rastreados',
+      classified: 'Clasificados',
+      mrr: 'MRR',
+      atRisk: 'En Riesgo',
+      expansion: 'Expansión',
+      marginRisk: 'Riesgo Margen',
+      upgradeSignals: 'Señales Upgrade',
+    },
+  };
+
+  const t = labels[lang];
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
       {/* Client Stats */}
@@ -45,7 +71,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
             <Users className="h-4 w-4" />
-            Total Clients
+            {t.totalClients}
           </div>
           <p className="text-2xl font-bold mt-1">{revenueOverview?.total_clients || 0}</p>
         </CardContent>
@@ -55,7 +81,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
             <Activity className="h-4 w-4" />
-            Tracked
+            {t.tracked}
           </div>
           <p className="text-2xl font-bold mt-1">{riskSummary?.total_clients_tracked || 0}</p>
         </CardContent>
@@ -65,7 +91,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
             <Clock className="h-4 w-4" />
-            Classified
+            {t.classified}
           </div>
           <p className="text-2xl font-bold mt-1">{riskSummary?.total_classified_requests || 0}</p>
         </CardContent>
@@ -76,7 +102,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-primary text-sm">
             <CreditCard className="h-4 w-4" />
-            MRR
+            {t.mrr}
           </div>
           <p className="text-2xl font-bold mt-1 text-primary">
             {formatCurrency(revenueOverview?.mrr || 0)}
@@ -89,7 +115,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-red-700 dark:text-red-400 text-sm">
             <TrendingDown className="h-4 w-4" />
-            At Risk
+            {t.atRisk}
           </div>
           <p className="text-2xl font-bold mt-1 text-red-700 dark:text-red-400">
             {riskSummary?.at_risk_clients || 0}
@@ -101,7 +127,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-green-700 dark:text-green-400 text-sm">
             <TrendingUp className="h-4 w-4" />
-            Expansion
+            {t.expansion}
           </div>
           <p className="text-2xl font-bold mt-1 text-green-700 dark:text-green-400">
             {riskSummary?.expansion_ready_clients || 0}
@@ -113,7 +139,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-orange-700 dark:text-orange-400 text-sm">
             <DollarSign className="h-4 w-4" />
-            Margin Risk
+            {t.marginRisk}
           </div>
           <p className="text-2xl font-bold mt-1 text-orange-700 dark:text-orange-400">
             {riskSummary?.margin_risk_clients || 0}
@@ -125,7 +151,7 @@ export function AdminSummaryCards({ riskSummary, revenueOverview }: AdminSummary
         <CardContent className="pt-4">
           <div className="flex items-center gap-2 text-blue-700 dark:text-blue-400 text-sm">
             <TrendingUp className="h-4 w-4" />
-            Upgrade Signals
+            {t.upgradeSignals}
           </div>
           <p className="text-2xl font-bold mt-1 text-blue-700 dark:text-blue-400">
             {revenueOverview?.upgrade_signals || 0}

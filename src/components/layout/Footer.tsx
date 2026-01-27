@@ -113,7 +113,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Clients Section - NEW */}
+          {/* Clients Section */}
           <div>
             <h4 className="font-display font-semibold mb-4">
               {lang === 'en' ? 'Clients' : 'Clientes'}
@@ -133,6 +133,30 @@ export function Footer() {
                 <BillingPortalButton>
                   {lang === 'en' ? 'Billing & Subscriptions' : 'Facturación y suscripciones'}
                 </BillingPortalButton>
+              </li>
+            </ul>
+          </div>
+
+          {/* Demos Section */}
+          <div>
+            <h4 className="font-display font-semibold mb-4">
+              {lang === 'en' ? 'Demos' : 'Demostraciones'}
+            </h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to={getLocalizedPath('/demo/starter')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  {lang === 'en' ? 'Starter Demo' : 'Demo Starter'}
+                </Link>
+              </li>
+              <li>
+                <Link to={getLocalizedPath('/demo/growth')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  {lang === 'en' ? 'Growth Demo' : 'Demo Growth'}
+                </Link>
+              </li>
+              <li>
+                <Link to={getLocalizedPath('/demo/enterprise')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  {lang === 'en' ? 'Enterprise Demo' : 'Demo Enterprise'}
+                </Link>
               </li>
             </ul>
           </div>

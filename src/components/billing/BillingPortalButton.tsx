@@ -1,6 +1,8 @@
 import { ExternalLink, Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useStripePortal } from '@/hooks/useStripePortal';
 import { useAuth } from '@/hooks/useAuth';
+import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 
 interface BillingPortalButtonProps {
@@ -16,20 +18,21 @@ export function BillingPortalButton({
 }: BillingPortalButtonProps) {
   const { openCustomerPortal, isLoading, isDisabled } = useStripePortal();
   const { isAuthenticated } = useAuth();
+  const { getLocalizedPath } = useLang();
 
-  // For unauthenticated users, show a disabled state or redirect to login
+  // For unauthenticated users, redirect to login
   if (!isAuthenticated) {
     return (
-      <span 
+      <Link 
+        to={getLocalizedPath('/login')}
         className={cn(
-          'text-primary-foreground/50 cursor-not-allowed inline-flex items-center gap-1',
+          'text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1',
           className
         )}
-        title="Please log in to access billing"
       >
         {children}
         <ExternalLink className="h-3 w-3" />
-      </span>
+      </Link>
     );
   }
 
