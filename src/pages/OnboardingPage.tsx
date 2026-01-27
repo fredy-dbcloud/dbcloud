@@ -1,22 +1,19 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { 
-  Check, 
-  X, 
-  Clock, 
-  Timer, 
-  FileText, 
-  AlertTriangle, 
-  Calendar,
-  ShieldCheck,
-  Package,
-  ArrowRight
-} from 'lucide-react';
+import { ArrowRight, FileText, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
-import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
+
+// Refactored components
+import { OnboardingHero } from '@/components/onboarding/OnboardingHero';
+import { PlanScopeSection } from '@/components/onboarding/PlanScopeSection';
+import { RulesOfEngagement } from '@/components/onboarding/RulesOfEngagement';
+import { First30DaysSection } from '@/components/onboarding/First30DaysSection';
+import { AddonsSection } from '@/components/onboarding/AddonsSection';
+import { ClientRequestForm } from '@/components/onboarding/ClientRequestForm';
+import { HoursTracker } from '@/components/onboarding/HoursTracker';
 
 type PlanType = 'starter' | 'growth';
 
@@ -30,115 +27,43 @@ export default function OnboardingPage() {
   }
 
   const onboarding = (t as any).onboarding;
-  const planData = onboarding[plan as PlanType];
-  const rules = onboarding.rulesOfEngagement;
-  const first30 = onboarding.first30Days[plan as PlanType];
-  const addons = onboarding.addons;
-
-  const planColors = {
-    starter: 'from-blue-600 to-blue-800',
-    growth: 'from-accent to-accent/80',
-  };
+  const clientRequest = (t as any).clientRequest;
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className={cn("pt-32 pb-16 bg-gradient-to-br text-white", planColors[plan as PlanType])}>
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm mb-6">
-              <ShieldCheck className="h-4 w-4" />
-              {onboarding.welcomeBadge}
-            </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
-              {planData.title}
-            </h1>
-            <p className="text-lg text-white/80">
-              {planData.subtitle}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Quick Stats */}
-      <section className="py-8 bg-muted/50 border-b">
-        <div className="container">
-          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4">
-              <Clock className="h-6 w-6 mx-auto mb-2 text-primary" />
-              <p className="text-sm text-muted-foreground">{onboarding.labels.monthlyHours}</p>
-              <p className="font-bold text-lg">{planData.hours}</p>
-            </div>
-            <div className="text-center p-4">
-              <Timer className="h-6 w-6 mx-auto mb-2 text-primary" />
-              <p className="text-sm text-muted-foreground">{onboarding.labels.responseTime}</p>
-              <p className="font-bold text-lg">{planData.responseTime}</p>
-            </div>
-            <div className="text-center p-4">
-              <FileText className="h-6 w-6 mx-auto mb-2 text-primary" />
-              <p className="text-sm text-muted-foreground">{onboarding.labels.requestChannel}</p>
-              <p className="font-bold text-lg">{onboarding.labels.clientPortal}</p>
-            </div>
-            <div className="text-center p-4">
-              <Calendar className="h-6 w-6 mx-auto mb-2 text-primary" />
-              <p className="text-sm text-muted-foreground">{onboarding.labels.billing}</p>
-              <p className="font-bold text-lg">{onboarding.labels.monthly}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <OnboardingHero plan={plan as PlanType} />
 
       <div className="container py-16">
         <div className="max-w-5xl mx-auto space-y-16">
           
-          {/* What's Included & Not Included */}
+          {/* Client Request Form Section - Primary CTA */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            id="submit-request"
           >
-            <h2 className="font-display text-2xl font-bold mb-8 text-center">
-              {onboarding.sections.scopeTitle}
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Included */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
-                    <Check className="h-5 w-5 text-green-600" />
-                  </div>
-                  <h3 className="font-semibold text-lg">{onboarding.labels.whatsIncluded}</h3>
-                </div>
-                <ul className="space-y-3">
-                  {planData.included.map((item: string, i: number) => (
-                    <li key={i} className="flex items-start gap-3 text-sm">
-                      <Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+            <div className="flex items-center gap-2 mb-2 justify-center">
+              <Send className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-2xl font-bold text-center">
+                {clientRequest?.submitCta || 'Submit Your First Request'}
+              </h2>
+            </div>
+            <p className="text-center text-muted-foreground mb-8">
+              {lang === 'es' 
+                ? 'Usa el formulario a continuación para enviar tus solicitudes de trabajo.' 
+                : 'Use the form below to submit your work requests.'}
+            </p>
+            
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Form */}
+              <div className="lg:col-span-2 bg-card border border-border rounded-xl p-6">
+                <ClientRequestForm plan={plan as PlanType} />
               </div>
-
-              {/* Not Included */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30">
-                    <X className="h-5 w-5 text-red-600" />
-                  </div>
-                  <h3 className="font-semibold text-lg">{onboarding.labels.whatsNotIncluded}</h3>
-                </div>
-                <ul className="space-y-3">
-                  {planData.notIncluded.map((item: string, i: number) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <X className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              
+              {/* Hours Tracker */}
+              <div className="lg:col-span-1">
+                <HoursTracker plan={plan as PlanType} usedHours={0} />
               </div>
             </div>
           </motion.section>
@@ -165,85 +90,13 @@ export default function OnboardingPage() {
             </div>
           </motion.section>
 
-          {/* Rules of Engagement */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-2xl font-bold mb-8 text-center">
-              {onboarding.sections.rulesTitle}
-            </h2>
-            <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-xl p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <AlertTriangle className="h-5 w-5 text-amber-600" />
-                <span className="font-semibold text-amber-800 dark:text-amber-400">
-                  {onboarding.sections.importantRules}
-                </span>
-              </div>
-              <ul className="space-y-3">
-                {rules.map((rule: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-amber-900 dark:text-amber-200">
-                    <span className="text-amber-600 font-bold">•</span>
-                    {rule}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.section>
+          <PlanScopeSection plan={plan as PlanType} />
 
-          {/* First 30 Days */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-2xl font-bold mb-8 text-center">
-              {onboarding.sections.first30Title}
-            </h2>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="flex items-center gap-2 mb-6">
-                <Calendar className="h-5 w-5 text-accent" />
-                <span className="font-semibold">{onboarding.sections.first30Subtitle}</span>
-              </div>
-              <div className="grid md:grid-cols-3 gap-4">
-                {first30.map((item: { week: string; task: string }, i: number) => (
-                  <div key={i} className="p-4 bg-muted/50 rounded-lg">
-                    <p className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">
-                      {item.week}
-                    </p>
-                    <p className="text-sm">{item.task}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.section>
+          <RulesOfEngagement />
 
-          {/* Add-ons */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-2xl font-bold mb-2 text-center">
-              {onboarding.sections.addonsTitle}
-            </h2>
-            <p className="text-center text-muted-foreground mb-8">
-              {onboarding.sections.addonsSubtitle}
-            </p>
-            <div className="grid md:grid-cols-3 gap-6">
-              {addons.map((addon: { name: string; description: string; note: string }, i: number) => (
-                <div key={i} className="bg-card border border-border rounded-xl p-6 hover:border-accent/50 transition-colors">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Package className="h-5 w-5 text-accent" />
-                    <h3 className="font-semibold">{addon.name}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-3">{addon.description}</p>
-                  <p className="text-xs text-accent font-medium">{addon.note}</p>
-                </div>
-              ))}
-            </div>
-          </motion.section>
+          <First30DaysSection plan={plan as PlanType} />
+
+          <AddonsSection />
 
           {/* CTA */}
           <motion.section

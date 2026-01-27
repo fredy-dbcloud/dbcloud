@@ -343,6 +343,62 @@ export const translations = {
         contactUs: "Contact Us",
       },
     },
+    // Client Request Form
+    clientRequest: {
+      form: {
+        title: 'Submit a Work Request',
+        emailLabel: 'Email Address',
+        emailPlaceholder: 'your@email.com',
+        typeLabel: 'Request Type',
+        types: {
+          advisory: 'Advisory',
+          optimization: 'Optimization',
+          change_request: 'Change Request',
+        },
+        descriptionLabel: 'Description',
+        descriptionPlaceholder: 'Describe what you need (max 500 characters)...',
+        descriptionHint: 'Max 500 characters',
+        environmentLabel: 'Environment',
+        environments: {
+          production: 'Production',
+          staging: 'Staging',
+          development: 'Development',
+        },
+        priorityLabel: 'Priority',
+        priorities: {
+          low: 'Low',
+          normal: 'Normal',
+          high: 'High',
+        },
+        notice: 'All requests consume monthly included hours.',
+        emergencyBlock: 'Emergency and incident response are not included in this plan.',
+        submit: 'Submit Request',
+        confirmation: {
+          title: 'Confirm Submission',
+          message: 'This request will be reviewed and prioritized based on your plan.',
+          cancel: 'Cancel',
+          confirm: 'Confirm & Submit',
+        },
+        warning: {
+          title: 'High Priority Production Request',
+          message: 'High priority requests on production environments require direct consultation. Please schedule a call or contact us.',
+          scheduleCall: 'Schedule a Call',
+          contactUs: 'Contact Us',
+        },
+        success: {
+          title: 'Request Submitted',
+          message: 'We have received your request. You will receive a confirmation email shortly.',
+        },
+      },
+      hoursTracker: {
+        title: 'Monthly Hours',
+        included: 'Included',
+        estimated: 'Estimated Used',
+        remaining: 'Remaining',
+        note: 'Hours are estimated and subject to final review. Unused hours do not roll over.',
+      },
+      submitCta: 'Submit Your First Request',
+    },
     // FAQ
     faq: {
       title: "Frequently Asked Questions",
@@ -633,7 +689,63 @@ export const translations = {
           "Propiedad de producción o SLAs",
           "Certificaciones de cumplimiento",
         ],
+    },
+    // Client Request Form
+    clientRequest: {
+      form: {
+        title: 'Enviar Solicitud de Trabajo',
+        emailLabel: 'Correo Electrónico',
+        emailPlaceholder: 'tu@email.com',
+        typeLabel: 'Tipo de Solicitud',
+        types: {
+          advisory: 'Asesoría',
+          optimization: 'Optimización',
+          change_request: 'Solicitud de Cambio',
+        },
+        descriptionLabel: 'Descripción',
+        descriptionPlaceholder: 'Describe lo que necesitas (máx 500 caracteres)...',
+        descriptionHint: 'Máximo 500 caracteres',
+        environmentLabel: 'Ambiente',
+        environments: {
+          production: 'Producción',
+          staging: 'Staging',
+          development: 'Desarrollo',
+        },
+        priorityLabel: 'Prioridad',
+        priorities: {
+          low: 'Baja',
+          normal: 'Normal',
+          high: 'Alta',
+        },
+        notice: 'Todas las solicitudes consumen horas mensuales incluidas.',
+        emergencyBlock: 'La respuesta a emergencias e incidentes no está incluida en este plan.',
+        submit: 'Enviar Solicitud',
+        confirmation: {
+          title: 'Confirmar Envío',
+          message: 'Esta solicitud será revisada y priorizada según tu plan.',
+          cancel: 'Cancelar',
+          confirm: 'Confirmar y Enviar',
+        },
+        warning: {
+          title: 'Solicitud de Alta Prioridad en Producción',
+          message: 'Las solicitudes de alta prioridad en ambientes de producción requieren consulta directa. Por favor agenda una llamada o contáctanos.',
+          scheduleCall: 'Agendar Llamada',
+          contactUs: 'Contáctanos',
+        },
+        success: {
+          title: 'Solicitud Enviada',
+          message: 'Hemos recibido tu solicitud. Recibirás un correo de confirmación en breve.',
+        },
       },
+      hoursTracker: {
+        title: 'Horas Mensuales',
+        included: 'Incluidas',
+        estimated: 'Estimado Usado',
+        remaining: 'Restante',
+        note: 'Las horas son estimadas y sujetas a revisión final. Las horas no usadas no se acumulan.',
+      },
+      submitCta: 'Envía Tu Primera Solicitud',
+    },
       growth: {
         title: "Onboarding Growth Consulting",
         subtitle: "Tu guía para aprovechar al máximo tu plan con ejecución",

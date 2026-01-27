@@ -44,6 +44,51 @@ export type Database = {
         }
         Relationships: []
       }
+      client_requests: {
+        Row: {
+          created_at: string
+          description: string
+          email: string
+          environment: string
+          estimated_hours: number | null
+          id: string
+          lang: string
+          plan: string
+          priority: string
+          request_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          email: string
+          environment: string
+          estimated_hours?: number | null
+          id?: string
+          lang?: string
+          plan: string
+          priority: string
+          request_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          email?: string
+          environment?: string
+          estimated_hours?: number | null
+          id?: string
+          lang?: string
+          plan?: string
+          priority?: string
+          request_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           company: string | null
