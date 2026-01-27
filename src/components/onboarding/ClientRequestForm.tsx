@@ -280,15 +280,15 @@ export function ClientRequestForm({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Notice */}
-        <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+        {/* Notice - Trust-building instead of warning */}
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <Send className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
             <div className="text-sm">
-              <p className="font-medium text-amber-800 dark:text-amber-400">
+              <p className="font-medium text-foreground">
                 {form.notice}
               </p>
-              <p className="text-amber-700 dark:text-amber-300 mt-1">
+              <p className="text-muted-foreground mt-1">
                 {form.emergencyBlock}
               </p>
             </div>
@@ -421,12 +421,12 @@ export function ClientRequestForm({
         </DialogContent>
       </Dialog>
 
-      {/* Warning Dialog for High Priority + Production */}
+      {/* Warning Dialog for Production - Now trust-building */}
       <Dialog open={showWarning} onOpenChange={setShowWarning}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600">
-              <AlertTriangle className="h-5 w-5" />
+            <DialogTitle className="flex items-center gap-2 text-primary">
+              <Send className="h-5 w-5" />
               {form.warning.title}
             </DialogTitle>
             <DialogDescription>{form.warning.message}</DialogDescription>

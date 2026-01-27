@@ -48,18 +48,20 @@ export function CheckoutModal({ isOpen, onClose, tier, tierName, price, isYearly
       description: `Subscribe to ${tierName} plan`,
       emailLabel: 'Email Address',
       emailPlaceholder: 'you@company.com',
-      subscribe: 'Subscribe Now',
+      subscribe: 'Start Securely',
       secure: 'Secure checkout powered by Stripe',
       billing: isYearly ? 'Billed annually' : 'Billed monthly',
+      noContract: 'No long-term contract. Cancel anytime.',
     },
     es: {
       title: 'Completa tu Compra',
       description: `Suscríbete al plan ${tierName}`,
       emailLabel: 'Correo Electrónico',
       emailPlaceholder: 'tu@empresa.com',
-      subscribe: 'Suscribirse Ahora',
+      subscribe: 'Comenzar con Seguridad',
       secure: 'Pago seguro con Stripe',
       billing: isYearly ? 'Facturado anualmente' : 'Facturado mensualmente',
+      noContract: 'Sin contrato a largo plazo. Cancela cuando quieras.',
     },
   };
 
@@ -128,6 +130,9 @@ export function CheckoutModal({ isOpen, onClose, tier, tierName, price, isYearly
             <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
               <Shield className="h-3 w-3" />
               {l.secure}
+            </p>
+            <p className="text-xs text-center text-muted-foreground mt-1">
+              {l.noContract}
             </p>
           </form>
         </div>

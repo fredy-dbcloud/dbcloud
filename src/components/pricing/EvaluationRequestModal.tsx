@@ -35,10 +35,11 @@ export function EvaluationRequestModal({ isOpen, onClose, tierName, price }: Eva
       submit: 'Request Free Scope Review',
       trustText: 'No charges will be made without prior scope validation.',
       successTitle: 'Request Received',
-      successMessage: 'A specialist will contact you within 1-2 business days to validate scope and discuss next steps.',
+      successMessage: 'A specialist will contact you within 1-2 business days to validate scope and discuss how we can best support your needs.',
       scheduleNow: 'Schedule a Call Now',
       close: 'Close',
       planSummary: 'Growth Consulting Plan',
+      noContract: 'No commitment required for the initial consultation.',
     },
     es: {
       title: 'Solicita tu Incorporación al Plan Growth',
@@ -48,10 +49,11 @@ export function EvaluationRequestModal({ isOpen, onClose, tierName, price }: Eva
       submit: 'Solicitar Evaluación Gratuita',
       trustText: 'No se realizará ningún cargo sin validación previa del alcance.',
       successTitle: 'Solicitud Recibida',
-      successMessage: 'Un especialista te contactará en 1-2 días hábiles para validar el alcance y discutir los siguientes pasos.',
+      successMessage: 'Un especialista te contactará en 1-2 días hábiles para validar el alcance y discutir cómo podemos apoyarte mejor.',
       scheduleNow: 'Agendar Llamada Ahora',
       close: 'Cerrar',
       planSummary: 'Plan Growth Consulting',
+      noContract: 'Sin compromiso requerido para la consulta inicial.',
     },
   };
 
@@ -206,6 +208,9 @@ export function EvaluationRequestModal({ isOpen, onClose, tierName, price }: Eva
             <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
               <Shield className="h-3 w-3" />
               {l.trustText}
+            </p>
+            <p className="text-xs text-center text-muted-foreground mt-1">
+              {l.noContract}
             </p>
           </form>
         </div>

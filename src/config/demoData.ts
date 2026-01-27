@@ -139,16 +139,16 @@ export const starterDemoData = {
   },
 
   limitations: [
-    'Advisory guidance only - no direct execution',
+    'Expert advisory guidance included',
     '4 hours monthly allocation',
     '1-2 business day response time',
-    'No production incident support',
+    'Critical incidents → add-on packs available',
   ],
   limitations_es: [
-    'Solo asesoría - sin ejecución directa',
+    'Asesoría experta incluida',
     '4 horas mensuales asignadas',
     'Tiempo de respuesta 1-2 días hábiles',
-    'Sin soporte de incidentes de producción',
+    'Incidentes críticos → paquetes add-on disponibles',
   ],
 };
 
@@ -294,18 +294,18 @@ export const growthDemoData = {
   },
 
   limitations: [
-    'Advisory + Limited Execution',
+    'Advisory + Hands-on Execution',
     '10 hours monthly allocation',
     'Same/next business day response',
-    'No SLA guarantees',
-    'Best-effort incident response only',
+    'Guaranteed SLAs → available in Enterprise',
+    'Critical incidents → add-on packs available',
   ],
   limitations_es: [
-    'Asesoría + Ejecución Limitada',
+    'Asesoría + Ejecución Práctica',
     '10 horas mensuales asignadas',
     'Respuesta mismo/siguiente día hábil',
-    'Sin garantías de SLA',
-    'Solo respuesta a incidentes de mejor esfuerzo',
+    'SLAs garantizados → disponible en Enterprise',
+    'Incidentes críticos → paquetes add-on disponibles',
   ],
 };
 

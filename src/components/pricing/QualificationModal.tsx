@@ -27,33 +27,33 @@ export function QualificationModal({ isOpen, onClose, onQualified, tierName }: Q
 
   const labels = {
     en: {
-      title: 'Quick Qualification',
-      description: 'Help us ensure this plan is right for you',
+      title: 'Quick Fit Check',
+      description: 'A few quick questions help us optimize your experience',
       teamSizeLabel: 'Team size',
       teamSizeOptions: ['1–5 people', '6–20 people', '20+ people'],
-      slaLabel: 'Do you require 24/7 support or SLAs?',
-      productionLabel: 'Is this a production environment?',
+      slaLabel: 'Do you need 24/7 support or formal SLAs?',
+      productionLabel: 'Will this cover production environments?',
       yes: 'Yes',
       no: 'No',
-      continue: 'Continue to Checkout',
-      blockerTitle: 'This plan may not be right for you',
-      blockerMessage: 'This plan does not include SLAs or on-call support. For 24/7 coverage and guaranteed uptime, please contact our sales team.',
+      continue: 'Continue Securely',
+      blockerTitle: 'Let\'s Find the Right Fit',
+      blockerMessage: 'For 24/7 coverage and guaranteed uptime, our Enterprise plan is designed exactly for these needs. Let\'s discuss how we can best support you.',
       contactUs: 'Contact Us',
       scheduleCall: 'Schedule a Call',
       goBack: 'Go Back',
     },
     es: {
-      title: 'Calificación Rápida',
-      description: 'Ayúdanos a asegurar que este plan es el adecuado para ti',
+      title: 'Verificación Rápida',
+      description: 'Algunas preguntas rápidas nos ayudan a optimizar tu experiencia',
       teamSizeLabel: 'Tamaño del equipo',
       teamSizeOptions: ['1–5 personas', '6–20 personas', '20+ personas'],
-      slaLabel: '¿Requieres soporte 24/7 o SLAs?',
-      productionLabel: '¿Es un ambiente de producción?',
+      slaLabel: '¿Necesitas soporte 24/7 o SLAs formales?',
+      productionLabel: '¿Cubrirá ambientes de producción?',
       yes: 'Sí',
       no: 'No',
-      continue: 'Continuar al Pago',
-      blockerTitle: 'Este plan puede no ser el adecuado',
-      blockerMessage: 'Este plan no incluye SLAs ni soporte de guardia. Para cobertura 24/7 y tiempo de actividad garantizado, por favor contacta a nuestro equipo de ventas.',
+      continue: 'Continuar de Forma Segura',
+      blockerTitle: 'Encontremos la Opción Correcta',
+      blockerMessage: 'Para cobertura 24/7 y tiempo de actividad garantizado, nuestro plan Enterprise está diseñado exactamente para estas necesidades. Hablemos de cómo podemos apoyarte mejor.',
       contactUs: 'Contáctanos',
       scheduleCall: 'Agendar Llamada',
       goBack: 'Volver',
@@ -89,15 +89,15 @@ export function QualificationModal({ isOpen, onClose, onQualified, tierName }: Q
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600">
-              <AlertTriangle className="h-5 w-5" />
+            <DialogTitle className="flex items-center gap-2 text-primary">
+              <Users className="h-5 w-5" />
               {l.blockerTitle}
             </DialogTitle>
           </DialogHeader>
 
           <div className="py-4">
-            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-6">
-              <p className="text-sm text-amber-800 dark:text-amber-200">
+            <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-6">
+              <p className="text-sm text-foreground">
                 {l.blockerMessage}
               </p>
             </div>
