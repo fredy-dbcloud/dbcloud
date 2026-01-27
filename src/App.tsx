@@ -18,8 +18,9 @@ import ClientDashboardPage from "./pages/ClientDashboardPage";
 import AddonSuccessPage from "./pages/AddonSuccessPage";
 import InternalDashboardPage from "./pages/InternalDashboardPage";
 import DemoPage from "./pages/DemoPage";
+import SummaryPage from "./pages/SummaryPage";
+import NewRequestPage from "./pages/NewRequestPage";
 import NotFound from "./pages/NotFound";
-
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,8 @@ const App = () => (
           <Route path="/en/dashboard" element={<ClientDashboardPage />} />
           <Route path="/en/addon-success" element={<AddonSuccessPage />} />
           <Route path="/en/demo/:plan" element={<DemoPage />} />
+          <Route path="/en/summary" element={<SummaryPage />} />
+          <Route path="/en/requests/new" element={<NewRequestPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -64,12 +67,16 @@ const App = () => (
           <Route path="/es/dashboard" element={<ClientDashboardPage />} />
           <Route path="/es/addon-success" element={<AddonSuccessPage />} />
           <Route path="/es/demo/:plan" element={<DemoPage />} />
+          <Route path="/es/summary" element={<SummaryPage />} />
+          <Route path="/es/requests/new" element={<NewRequestPage />} />
           
-          {/* Language-agnostic routes for Stripe redirects */}
+          {/* Language-agnostic routes - redirect to English */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/addon-success" element={<AddonSuccessPage />} />
           <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
           <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
+          <Route path="/summary" element={<Navigate to="/en/summary" replace />} />
+          <Route path="/requests/new" element={<Navigate to="/en/requests/new" replace />} />
           
           {/* Demo routes redirect */}
           <Route path="/demo/:plan" element={<DemoPage />} />
