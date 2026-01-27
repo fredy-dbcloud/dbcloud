@@ -1,82 +1,86 @@
 import { motion } from 'framer-motion';
 import { useLang } from '@/hooks/useLang';
-import { Cloud, Database, Shield, Brain, Server, Container } from 'lucide-react';
+import { Cloud, Database, Shield, Zap, Server, Users } from 'lucide-react';
 
+/**
+ * Technology Stack Section - SMB-focused
+ * Emphasizes practical technologies that small & mid-sized businesses use
+ */
 const technologyCategories = {
   en: [
     {
       icon: Cloud,
       title: "Cloud Platforms",
-      items: ["AWS", "Microsoft Azure", "Google Cloud Platform"],
+      items: ["AWS", "Microsoft Azure", "Google Cloud"],
     },
     {
       icon: Database,
-      title: "Enterprise Databases",
-      items: ["PostgreSQL", "MySQL", "Oracle", "SQL Server", "MongoDB", "Redis", "Aurora"],
+      title: "Databases We Manage",
+      items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB", "Redis"],
     },
     {
       icon: Server,
       title: "Infrastructure",
-      items: ["Kubernetes", "Docker", "Terraform", "VMware", "Red Hat OpenShift"],
+      items: ["Linux", "Docker", "Kubernetes", "Terraform"],
     },
     {
-      icon: Brain,
-      title: "AI & ML Platforms",
-      items: ["Azure OpenAI", "AWS Bedrock", "Vertex AI", "LangChain", "RAG"],
+      icon: Zap,
+      title: "AI & Automation",
+      items: ["Reporting Automation", "AI Assistants", "Process Automation"],
     },
     {
-      icon: Container,
-      title: "Vector Databases",
-      items: ["pgvector", "Pinecone", "Weaviate"],
+      icon: Users,
+      title: "Business Tools",
+      items: ["Microsoft 365", "GitHub", "Slack", "Zoom"],
     },
     {
       icon: Shield,
       title: "Security & Compliance",
-      items: ["SOC 2", "HIPAA", "GDPR", "PCI-DSS", "Zero Trust", "IAM"],
+      items: ["SOC 2", "HIPAA", "GDPR", "Encryption"],
     },
   ],
   es: [
     {
       icon: Cloud,
       title: "Plataformas Cloud",
-      items: ["AWS", "Microsoft Azure", "Google Cloud Platform"],
+      items: ["AWS", "Microsoft Azure", "Google Cloud"],
     },
     {
       icon: Database,
-      title: "Bases de Datos Empresariales",
-      items: ["PostgreSQL", "MySQL", "Oracle", "SQL Server", "MongoDB", "Redis", "Aurora"],
+      title: "Bases de Datos que Administramos",
+      items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB", "Redis"],
     },
     {
       icon: Server,
       title: "Infraestructura",
-      items: ["Kubernetes", "Docker", "Terraform", "VMware", "Red Hat OpenShift"],
+      items: ["Linux", "Docker", "Kubernetes", "Terraform"],
     },
     {
-      icon: Brain,
-      title: "Plataformas IA & ML",
-      items: ["Azure OpenAI", "AWS Bedrock", "Vertex AI", "LangChain", "RAG"],
+      icon: Zap,
+      title: "IA y Automatización",
+      items: ["Automatización de Reportes", "Asistentes IA", "Automatización de Procesos"],
     },
     {
-      icon: Container,
-      title: "Bases de Datos Vectoriales",
-      items: ["pgvector", "Pinecone", "Weaviate"],
+      icon: Users,
+      title: "Herramientas de Negocio",
+      items: ["Microsoft 365", "GitHub", "Slack", "Zoom"],
     },
     {
       icon: Shield,
       title: "Seguridad y Cumplimiento",
-      items: ["SOC 2", "HIPAA", "GDPR", "PCI-DSS", "Zero Trust", "IAM"],
+      items: ["SOC 2", "HIPAA", "GDPR", "Encriptación"],
     },
   ],
 };
 
 const sectionContent = {
   en: {
-    title: "Enterprise-Grade Technology Stack",
-    subtitle: "We partner with industry-leading platforms to deliver secure, scalable solutions",
+    title: "Technologies We Work With",
+    subtitle: "The same platforms your business already trusts",
   },
   es: {
-    title: "Stack Tecnológico de Nivel Empresarial",
-    subtitle: "Nos asociamos con plataformas líderes de la industria para entregar soluciones seguras y escalables",
+    title: "Tecnologías con las que Trabajamos",
+    subtitle: "Las mismas plataformas en las que tu negocio ya confía",
   },
 };
 

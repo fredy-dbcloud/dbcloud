@@ -8,7 +8,7 @@ export function SchemaOrg() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  // Organization Schema (site-wide) - Enhanced with more enterprise details
+  // Organization Schema - SMB-focused US business
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
@@ -17,8 +17,11 @@ export function SchemaOrg() {
     "url": siteConfig.url,
     "logo": `${siteConfig.url}/logo.png`,
     "description": lang === 'es' 
-      ? "Proveedor de servicios de bases de datos administradas, migración cloud y soluciones de IA empresarial en EE.UU. Expertos certificados en AWS, Azure y GCP."
-      : "US-based provider of managed database services, cloud migration, and enterprise AI solutions. Certified experts in AWS, Azure, and GCP.",
+      ? "Equipo fraccional de cloud y bases de datos para pequeñas y medianas empresas en EE.UU. DBA como servicio, migración cloud, y soluciones de IA práctica."
+      : "Fractional cloud and database team for US small and mid-sized businesses. DBA as a service, cloud migration, and practical AI solutions.",
+    "slogan": lang === 'es'
+      ? "Soporte cloud y bases de datos para PyMEs"
+      : "Cloud & database support for SMBs",
     "email": siteConfig.email,
     "telephone": siteConfig.phone,
     "foundingDate": "2020",
@@ -26,23 +29,19 @@ export function SchemaOrg() {
       "@type": "Country",
       "name": "United States"
     },
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": "39.8283",
-        "longitude": "-98.5795"
-      },
-      "geoRadius": "5000 km"
-    },
     "knowsAbout": [
-      "Managed Database Services",
+      // SMB-friendly terms first
+      "DBA as a Service",
+      "Fractional Cloud Team",
+      "Managed Database Services for Small Business",
       "Cloud Migration",
-      "AWS", "Microsoft Azure", "Google Cloud Platform",
-      "PostgreSQL", "MySQL", "Oracle Database", "MongoDB", "Redis",
-      "Enterprise AI", "Private AI Agents", "RAG Architecture",
-      "Kubernetes", "Docker", "Terraform",
-      "SOC 2 Compliance", "HIPAA Compliance", "GDPR"
+      "Database Support",
+      // Cloud platforms SMBs use
+      "AWS", "Microsoft Azure", "Google Cloud",
+      // Databases SMBs use
+      "PostgreSQL", "MySQL", "SQL Server", "MongoDB",
+      // Practical AI
+      "AI Automation", "Business Intelligence", "Reporting Automation"
     ],
     "sameAs": [
       siteConfig.linkedin,
@@ -69,13 +68,20 @@ export function SchemaOrg() {
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": lang === 'es' ? "Servicios DBCloud" : "DBCloud Services",
+      "name": lang === 'es' ? "Servicios DBCloud para PyMEs" : "DBCloud Services for SMBs",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": lang === 'es' ? "Bases de Datos Administradas" : "Managed Database Services"
+            "name": lang === 'es' ? "DBA como Servicio" : "DBA as a Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": lang === 'es' ? "Equipo Cloud Fraccional" : "Fractional Cloud Team"
           }
         },
         {
@@ -89,7 +95,7 @@ export function SchemaOrg() {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": lang === 'es' ? "Soluciones de IA Empresarial" : "Enterprise AI Solutions"
+            "name": lang === 'es' ? "IA Práctica para Empresas" : "Practical AI for Business"
           }
         }
       ]
@@ -114,22 +120,26 @@ export function SchemaOrg() {
     }
   };
 
-  // Enhanced Service Schemas with technology specifics
+  // SMB-focused Service Schemas
   const serviceSchemas = [
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": lang === 'es' ? "Bases de Datos Administradas" : "Managed Database Services",
-      "name": lang === 'es' ? "Servicios de Bases de Datos Administradas 24/7" : "24/7 Managed Database Services",
+      "serviceType": lang === 'es' ? "DBA como Servicio" : "DBA as a Service",
+      "name": lang === 'es' ? "Administrador de Bases de Datos para PyMEs" : "Database Administrator for Small Businesses",
       "description": lang === 'es' 
-        ? "Administración completa de PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis en AWS, Azure y GCP. Incluye monitoreo 24/7, respaldos automatizados, optimización de rendimiento y recuperación ante desastres."
-        : "Complete administration of PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis on AWS, Azure, and GCP. Includes 24/7 monitoring, automated backups, performance optimization, and disaster recovery.",
+        ? "Acceso a DBAs senior sin contratar personal de tiempo completo. Administración de PostgreSQL, MySQL, SQL Server, MongoDB. Ideal para empresas de 10-200 empleados."
+        : "Access to senior DBAs without hiring full-time staff. PostgreSQL, MySQL, SQL Server, MongoDB administration. Ideal for 10-200 employee companies.",
       "provider": { "@id": siteConfig.url },
       "areaServed": "United States",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Database Platforms",
-        "itemListElement": ["PostgreSQL", "MySQL", "Oracle Database", "Microsoft SQL Server", "MongoDB", "Redis", "Amazon Aurora", "Azure SQL"]
+      "offers": {
+        "@type": "Offer",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "499",
+          "priceCurrency": "USD",
+          "unitText": "per month"
+        }
       },
       "availableChannel": {
         "@type": "ServiceChannel",
@@ -139,57 +149,58 @@ export function SchemaOrg() {
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": lang === 'es' ? "Infraestructura Cloud" : "Cloud Infrastructure",
-      "name": lang === 'es' ? "Servicios de Infraestructura Cloud Multi-Nube" : "Multi-Cloud Infrastructure Services",
+      "serviceType": lang === 'es' ? "Equipo Cloud Fraccional" : "Fractional Cloud Team",
+      "name": lang === 'es' ? "Soporte Cloud para Equipos Pequeños" : "Cloud Support for Small Teams",
       "description": lang === 'es'
-        ? "Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure y GCP. Migración desde on-premises, Kubernetes, Terraform, y cumplimiento SOC 2/HIPAA."
-        : "Design, implementation, and management of cloud architectures on AWS, Azure, and GCP. On-premises migration, Kubernetes, Terraform, and SOC 2/HIPAA compliance.",
+        ? "Tu equipo cloud externo para empresas sin departamento de TI dedicado. AWS, Azure, GCP. Sin contratos largos, inicio en 48 horas."
+        : "Your external cloud team for businesses without a dedicated IT department. AWS, Azure, GCP. No long contracts, start in 48 hours.",
       "provider": { "@id": siteConfig.url },
-      "areaServed": "United States",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Cloud Platforms",
-        "itemListElement": ["Amazon Web Services (AWS)", "Microsoft Azure", "Google Cloud Platform (GCP)", "VMware", "Kubernetes", "Docker", "Terraform"]
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": lang === 'es' ? "Soluciones de IA Empresarial" : "Enterprise AI Solutions",
-      "name": lang === 'es' ? "Agentes de IA Privados y Soluciones RAG" : "Private AI Agents and RAG Solutions",
-      "description": lang === 'es'
-        ? "Despliegue de IA privada usando Azure OpenAI, AWS Bedrock, Google Vertex AI. Arquitecturas RAG con bases de datos vectoriales (pgvector, Pinecone, Weaviate). Cumplimiento HIPAA y SOC 2."
-        : "Private AI deployment using Azure OpenAI, AWS Bedrock, Google Vertex AI. RAG architectures with vector databases (pgvector, Pinecone, Weaviate). HIPAA and SOC 2 compliant.",
-      "provider": { "@id": siteConfig.url },
-      "areaServed": "United States",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "AI Platforms",
-        "itemListElement": ["Azure OpenAI", "AWS Bedrock", "Google Vertex AI", "LangChain", "pgvector", "Pinecone", "Weaviate"]
-      }
+      "areaServed": "United States"
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": lang === 'es' ? "Migración Cloud" : "Cloud Migration",
-      "name": lang === 'es' ? "Migración Cloud Sin Tiempo de Inactividad" : "Zero-Downtime Cloud Migration",
+      "name": lang === 'es' ? "Migración de On-Prem a Cloud" : "On-Prem to Cloud Migration",
       "description": lang === 'es'
-        ? "Migración desde on-premises a AWS, Azure o GCP sin tiempo de inactividad. Incluye evaluación, planificación, ejecución y soporte post-migración."
-        : "Migration from on-premises to AWS, Azure, or GCP with zero downtime. Includes assessment, planning, execution, and post-migration support.",
+        ? "Migración desde servidores locales a AWS, Azure o GCP. Sin tiempo de inactividad, 2-4 semanas para la mayoría de proyectos."
+        : "Migration from on-premises servers to AWS, Azure, or GCP. Zero downtime, 2-4 weeks for most projects.",
+      "provider": { "@id": siteConfig.url },
+      "areaServed": "United States"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": lang === 'es' ? "IA Práctica" : "Practical AI",
+      "name": lang === 'es' ? "Automatización con IA para PyMEs" : "AI Automation for SMBs",
+      "description": lang === 'es'
+        ? "IA que ahorra tiempo y reduce costos. Automatización de tareas, reportes inteligentes, asistentes privados. Sin complejidad innecesaria."
+        : "AI that saves time and reduces costs. Task automation, smart reporting, private assistants. No unnecessary complexity.",
+      "provider": { "@id": siteConfig.url },
+      "areaServed": "United States"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": lang === 'es' ? "Soporte de Emergencia" : "Emergency Support",
+      "name": lang === 'es' ? "Soporte de Base de Datos de Emergencia" : "Emergency Database Support",
+      "description": lang === 'es'
+        ? "Triaje de incidentes críticos para problemas de base de datos fuera de horario. Disponible como add-on o en plan Enterprise."
+        : "Critical incident triage for database issues outside business hours. Available as add-on or on Enterprise plan.",
       "provider": { "@id": siteConfig.url },
       "areaServed": "United States"
     }
   ];
 
-  // Enhanced Product Schemas (Pricing Plans)
+  // SMB-focused Product Schemas (Pricing Plans)
   const productSchemas = [
     {
       "@context": "https://schema.org",
       "@type": "Product",
-      "name": "DBCloud Starter Consulting",
+      "name": lang === 'es' ? "DBCloud Starter - Asesoría" : "DBCloud Starter - Advisory",
       "description": lang === 'es' 
-        ? "Asesoría Cloud & AI para pequeñas empresas. 4 horas/mes de consultoría experta, revisión de arquitectura, optimización de costos."
-        : "Cloud & AI advisory for small businesses. 4 hours/month of expert consulting, architecture review, cost optimization.",
+        ? "Asesoría cloud y bases de datos para pequeñas empresas. 4 horas/mes, sin contratos largos. Ideal para equipos sin TI dedicado."
+        : "Cloud and database advisory for small businesses. 4 hours/month, no long contracts. Ideal for teams without dedicated IT.",
       "brand": { "@type": "Brand", "name": siteConfig.name },
       "offers": {
         "@type": "Offer",
@@ -203,10 +214,10 @@ export function SchemaOrg() {
     {
       "@context": "https://schema.org",
       "@type": "Product",
-      "name": "DBCloud Growth Consulting",
+      "name": lang === 'es' ? "DBCloud Growth - Ejecución" : "DBCloud Growth - Execution",
       "description": lang === 'es'
-        ? "Soporte práctico Cloud & AI para empresas en crecimiento. 10 horas/mes de consultoría y ejecución, gestión de base de datos, optimización de rendimiento."
-        : "Hands-on Cloud & AI support for growing businesses. 10 hours/month of consulting and execution, database management, performance optimization.",
+        ? "Soporte práctico cloud y bases de datos. 10 horas/mes de ejecución real, no solo asesoría. Para empresas en crecimiento."
+        : "Hands-on cloud and database support. 10 hours/month of actual execution, not just advice. For growing businesses.",
       "brand": { "@type": "Brand", "name": siteConfig.name },
       "offers": {
         "@type": "Offer",
@@ -222,8 +233,8 @@ export function SchemaOrg() {
       "@type": "Product",
       "name": "DBCloud Enterprise",
       "description": lang === 'es'
-        ? "Soluciones Cloud & AI personalizadas para entornos regulados. SLAs personalizados hasta 99.99%, soporte 24/7, certificaciones SOC 2/HIPAA/PCI."
-        : "Custom Cloud & AI solutions for regulated environments. Custom SLAs up to 99.99%, 24/7 support, SOC 2/HIPAA/PCI certifications.",
+        ? "Soluciones personalizadas con SLAs garantizados, soporte 24/7, y cumplimiento regulatorio (SOC 2, HIPAA). Para cargas de trabajo críticas."
+        : "Custom solutions with guaranteed SLAs, 24/7 support, and regulatory compliance (SOC 2, HIPAA). For mission-critical workloads.",
       "brand": { "@type": "Brand", "name": siteConfig.name }
     }
   ];
