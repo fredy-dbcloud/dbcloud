@@ -3,7 +3,31 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
+};
+
+const validateCronSecret = (req: Request): boolean => {
+  const cronSecret = req.headers.get("x-cron-secret");
+  const expectedSecret = Deno.env.get("CRON_SECRET");
+  
+  if (!expectedSecret) {
+    console.error("[CRON-AUTH] CRON_SECRET not configured in environment");
+    return false;
+  }
+  
+  if (!cronSecret) {
+    console.warn("[CRON-AUTH] Missing X-Cron-Secret header");
+    return false;
+  }
+  
+  const isValid = cronSecret === expectedSecret;
+  if (isValid) {
+    console.log("[CRON-AUTH] Cron authentication successful");
+  } else {
+    console.warn("[CRON-AUTH] Invalid X-Cron-Secret provided");
+  }
+  
+  return isValid;
 };
 
 const logStep = (step: string, details?: Record<string, unknown>) => {
@@ -168,8 +192,19 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Validate cron secret for scheduled invocations
+  if (!validateCronSecret(req)) {
+    return new Response(
+      JSON.stringify({ error: "Unauthorized cron" }),
+      { 
+        status: 401, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      }
+    );
+  }
+
   try {
-    logStep("Function started");
+    logStep("Function started - cron auth passed");
 
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
