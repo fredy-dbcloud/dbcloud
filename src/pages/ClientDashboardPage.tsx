@@ -65,6 +65,9 @@ interface ClientRequest {
   created_at: string;
   plan: string;
   estimated_hours: number | null;
+  ai_classification?: string | null;
+  ai_effort_level?: string | null;
+  ai_estimated_hours?: number | null;
 }
 
 function calculateHealthStatus(

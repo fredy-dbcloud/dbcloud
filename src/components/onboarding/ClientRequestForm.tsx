@@ -192,7 +192,7 @@ export function ClientRequestForm({
     setShowConfirmation(false);
 
     try {
-      const { error } = await supabase.from('client_requests').insert({
+      const { data: insertedData, error } = await supabase.from('client_requests').insert({
         email: pendingData.email,
         plan,
         request_type: pendingData.requestType,
@@ -200,9 +200,14 @@ export function ClientRequestForm({
         environment: pendingData.environment,
         priority: pendingData.priority,
         lang,
-      });
+      }).select().single();
 
       if (error) throw error;
+
+      // Trigger AI triage in background (non-blocking)
+      if (insertedData?.id) {
+        triggerAITriage(insertedData.id, pendingData);
+      }
 
       setIsSuccess(true);
       reset();
@@ -210,6 +215,29 @@ export function ClientRequestForm({
       console.error('Error submitting request:', error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const triggerAITriage = async (requestId: string, data: RequestFormData) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-triage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          request_id: requestId,
+          request_type: data.requestType,
+          description: data.description,
+          environment: data.environment,
+          priority: data.priority,
+          plan,
+          email: data.email,
+        }),
+      });
+      const result = await response.json();
+      console.log('AI triage completed:', result);
+    } catch (error) {
+      // AI triage is non-critical - log but don't block
+      console.log('AI triage background process:', error);
     }
   };
 
