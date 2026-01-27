@@ -30,6 +30,7 @@ export function AddonCard({ addonKey, email, plan, compact = false }: AddonCardP
   const name = lang === 'es' ? addon.name_es : addon.name;
   const description = lang === 'es' ? addon.description_es : addon.description;
   const features = lang === 'es' ? addon.features_es : addon.features;
+  const upsellNote = 'upsellNote' in addon ? (lang === 'es' ? addon.upsellNote_es : addon.upsellNote) : null;
 
   const handlePurchase = async () => {
     if (!email) {
@@ -109,7 +110,13 @@ export function AddonCard({ addonKey, email, plan, compact = false }: AddonCardP
             ))}
           </ul>
 
-          <Button 
+          {upsellNote && (
+            <p className="text-xs text-primary/80 italic border-l-2 border-primary/30 pl-2">
+              {upsellNote}
+            </p>
+          )}
+
+          <Button
             className="w-full" 
             onClick={handlePurchase} 
             disabled={isLoading || !email}
