@@ -9,17 +9,17 @@ import { useLang } from '@/hooks/useLang';
 
 const technologies = [
   // Cloud & Infrastructure - High SMB familiarity
-  { name: 'AWS', category: 'cloud' },
-  { name: 'Microsoft Azure', category: 'cloud' },
-  { name: 'Google Cloud', category: 'cloud' },
+  { name: 'AWS', logo: '/logos/aws.svg', category: 'cloud' },
+  { name: 'Microsoft Azure', logo: '/logos/azure.svg', category: 'cloud' },
+  { name: 'Google Cloud', logo: '/logos/gcp.svg', category: 'cloud' },
   // Databases - High SMB pain & intent
-  { name: 'PostgreSQL', category: 'database' },
-  { name: 'MySQL', category: 'database' },
-  { name: 'SQL Server', category: 'database' },
-  { name: 'Oracle Database', category: 'database' },
+  { name: 'PostgreSQL', logo: '/logos/postgresql.svg', category: 'database' },
+  { name: 'MySQL', logo: '/logos/mysql.svg', category: 'database' },
+  { name: 'SQL Server', logo: '/logos/sqlserver.svg', category: 'database' },
+  { name: 'Oracle', logo: '/logos/oracle.svg', category: 'database' },
   // Security & Platform
-  { name: 'Cloudflare', category: 'security' },
-  { name: 'Red Hat', category: 'platform' },
+  { name: 'Cloudflare', logo: '/logos/cloudflare.svg', category: 'security' },
+  { name: 'Red Hat', logo: '/logos/redhat.svg', category: 'platform' },
 ];
 
 const sectionContent = {
@@ -38,7 +38,7 @@ export function TrustedTechnologiesSection() {
   const content = sectionContent[lang];
 
   return (
-    <section className="py-12 bg-muted/20 border-y border-border/50">
+    <section className="py-16 bg-muted/30 border-y border-border/50">
       <div className="container">
         <motion.div
           initial={{ opacity: 0 }}
@@ -46,21 +46,29 @@ export function TrustedTechnologiesSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-sm font-medium text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-sm font-medium text-muted-foreground mb-10 max-w-2xl mx-auto">
             {content.title}
           </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12 mb-8">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.03 }}
-                className="flex items-center justify-center px-4 py-2"
+                transition={{ delay: index * 0.05 }}
+                className="flex flex-col items-center justify-center gap-2 group"
               >
-                <span className="text-sm font-medium text-muted-foreground/70 hover:text-foreground transition-colors">
+                <div className="h-10 w-auto flex items-center justify-center grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                  <img 
+                    src={tech.logo} 
+                    alt={`${tech.name} logo`}
+                    className="h-8 w-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <span className="text-xs font-medium text-muted-foreground/60 group-hover:text-foreground transition-colors">
                   {tech.name}
                 </span>
               </motion.div>
