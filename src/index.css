@@ -128,16 +128,59 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 17px; /* Increased base for SMB readability */
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.7; /* Improved line-height for scanning */
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* Headings - Strong hierarchy for decision-makers */
+  h1 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-tight;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-tight;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  h3 {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     @apply font-semibold tracking-tight;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    line-height: 1.3;
+  }
+
+  h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-semibold tracking-tight;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.4;
+  }
+
+  /* Body text - Optimized for readability */
+  p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 70ch; /* Prevent overly long lines */
+  }
+
+  /* Lists - Easy scanning for benefits */
+  ul, ol {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  li {
+    margin-bottom: 0.625rem; /* Spacing between bullets */
   }
 }
 
@@ -173,6 +216,77 @@
 
   .glass {
     @apply backdrop-blur-md bg-white/80 dark:bg-black/40;
+  }
+
+  /* SMB-optimized typography utilities */
+  .text-hero {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .text-section-title {
+    font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .text-subheading {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .text-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  .text-body {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* Pricing-specific typography */
+  .text-price {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .text-plan-name {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* CTA button text */
+  .text-cta {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* FAQ typography */
+  .text-faq-question {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .text-faq-answer {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  /* Bullet/benefit lists */
+  .list-benefits li {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
   }
 }
 
