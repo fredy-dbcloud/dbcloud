@@ -28,13 +28,24 @@ import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 import { AddonTriggerModal } from '@/components/addons/AddonTriggerModal';
 import { useAddonTrigger } from '@/hooks/useAddonTrigger';
+import { PostSubmissionUpgrade } from '@/components/dashboard/PostSubmissionUpgrade';
+import { useUpgradeSignals } from '@/hooks/useUpgradeSignals';
+import type { UpgradeAnalysis, PlanType } from '@/hooks/useUpgradeSignals';
 
-type PlanType = 'starter' | 'growth';
+interface ClientRequest {
+  request_type: string;
+  description: string;
+  priority: string;
+  status: string;
+  estimated_hours?: number | null;
+}
 
 interface ClientRequestFormProps {
   plan: PlanType;
   usedHours?: number;
   onEmailCapture?: (email: string) => void;
+  existingRequests?: ClientRequest[];
+  summaries?: { hoursUsed: number; hoursIncluded: number; month: number; year: number }[];
 }
 
 const requestSchema = z.object({
@@ -47,7 +58,13 @@ const requestSchema = z.object({
 
 type RequestFormData = z.infer<typeof requestSchema>;
 
-export function ClientRequestForm({ plan, usedHours = 0, onEmailCapture }: ClientRequestFormProps) {
+export function ClientRequestForm({ 
+  plan, 
+  usedHours = 0, 
+  onEmailCapture,
+  existingRequests = [],
+  summaries = []
+}: ClientRequestFormProps) {
   const { t, lang, getLocalizedPath } = useLang();
   const tAny = t as any;
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -56,6 +73,7 @@ export function ClientRequestForm({ plan, usedHours = 0, onEmailCapture }: Clien
   const [isSuccess, setIsSuccess] = useState(false);
   const [pendingData, setPendingData] = useState<RequestFormData | null>(null);
   const [capturedEmail, setCapturedEmail] = useState<string>('');
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   
   const { 
     triggerState, 
@@ -65,6 +83,16 @@ export function ClientRequestForm({ plan, usedHours = 0, onEmailCapture }: Clien
   } = useAddonTrigger();
 
   const planHours = plan === 'starter' ? 4 : 10;
+  const currentUsagePercentage = (usedHours / planHours) * 100;
+
+  // Calculate upgrade signals
+  const upgradeAnalysis = useUpgradeSignals({
+    currentPlan: plan,
+    currentUsagePercentage,
+    requests: existingRequests,
+    summaries,
+    addonPurchases: []
+  });
 
   const form = tAny.clientRequest?.form || {
     title: 'Submit a Work Request',
@@ -199,6 +227,17 @@ export function ClientRequestForm({ plan, usedHours = 0, onEmailCapture }: Clien
         <p className="text-green-700 dark:text-green-300">
           {form.success.message}
         </p>
+        
+        {/* Post-submission upgrade recommendation */}
+        {upgradeAnalysis.shouldShowUpgrade && capturedEmail && (
+          <PostSubmissionUpgrade
+            analysis={upgradeAnalysis}
+            currentPlan={plan}
+            email={capturedEmail}
+            onUpgradeClick={() => setShowUpgradeModal(true)}
+          />
+        )}
+        
         <Button
           variant="outline"
           className="mt-6"

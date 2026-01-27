@@ -16,11 +16,12 @@ import { useLang } from '@/hooks/useLang';
 import { supabase } from '@/integrations/supabase/client';
 import { HoursTracker } from '@/components/onboarding/HoursTracker';
 import { HealthScoreBadge } from '@/components/dashboard/HealthScoreBadge';
-import { UpgradeSuggestion } from '@/components/dashboard/UpgradeSuggestion';
+import { UpgradeRecommendation } from '@/components/dashboard/UpgradeRecommendation';
 import { MonthlySummaryCard } from '@/components/dashboard/MonthlySummaryCard';
 import { RecentRequestsList } from '@/components/dashboard/RecentRequestsList';
 import { AddonsGrid } from '@/components/addons/AddonsGrid';
 import { siteConfig } from '@/config/site';
+import { useUpgradeSignals } from '@/hooks/useUpgradeSignals';
 
 type PlanType = 'starter' | 'growth';
 type HealthStatus = 'healthy' | 'at_risk' | 'inactive';
@@ -42,6 +43,16 @@ interface MonthlySummary {
   requestsCompleted: number;
   keyFindings: string[];
   recommendations: string[];
+}
+
+interface MonthlySummaryData {
+  month: number;
+  year: number;
+  hours_included: number;
+  hours_used: number;
+  requests_completed: number;
+  key_findings: string[] | null;
+  recommendations: string[] | null;
 }
 
 interface ClientRequest {
@@ -103,7 +114,9 @@ export default function ClientDashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [clientData, setClientData] = useState<ClientData | null>(null);
   const [summary, setSummary] = useState<MonthlySummary | null>(null);
+  const [allSummaries, setAllSummaries] = useState<{ hoursUsed: number; hoursIncluded: number; month: number; year: number }[]>([]);
   const [requests, setRequests] = useState<ClientRequest[]>([]);
+  const [upgradeDismissed, setUpgradeDismissed] = useState(false);
 
   const dashboard = tAny.dashboard || {
     title: 'Client Dashboard',
@@ -170,26 +183,37 @@ export default function ClientDashboardPage() {
           });
         }
 
-        // Fetch latest summary
-        const { data: summaryData } = await (supabase as any)
+        // Fetch summaries for upgrade signal analysis (last 3 months)
+        const { data: summariesData } = await (supabase as any)
           .from('client_summaries')
-          .select('*')
+          .select('month, year, hours_included, hours_used, requests_completed, key_findings, recommendations')
           .eq('email', email)
           .order('year', { ascending: false })
           .order('month', { ascending: false })
-          .limit(1)
-          .maybeSingle();
+          .limit(3);
 
-        if (summaryData) {
+        if (summariesData && summariesData.length > 0) {
+          const typedSummaries = summariesData as MonthlySummaryData[];
+          
+          // Set latest summary for display
+          const latest = typedSummaries[0];
           setSummary({
-            month: summaryData.month,
-            year: summaryData.year,
-            hoursIncluded: summaryData.hours_included,
-            hoursUsed: summaryData.hours_used,
-            requestsCompleted: summaryData.requests_completed,
-            keyFindings: summaryData.key_findings || [],
-            recommendations: summaryData.recommendations || [],
+            month: latest.month,
+            year: latest.year,
+            hoursIncluded: latest.hours_included,
+            hoursUsed: latest.hours_used,
+            requestsCompleted: latest.requests_completed,
+            keyFindings: latest.key_findings || [],
+            recommendations: latest.recommendations || [],
           });
+
+          // Set all summaries for upgrade signal analysis
+          setAllSummaries(typedSummaries.map(s => ({
+            month: s.month,
+            year: s.year,
+            hoursUsed: s.hours_used,
+            hoursIncluded: s.hours_included
+          })));
         }
       } catch (error) {
         console.error('Error fetching client data:', error);
@@ -208,10 +232,24 @@ export default function ClientDashboardPage() {
   const planHours = clientData?.plan === 'starter' ? 4 : 10;
   const usagePercentage = clientData ? (clientData.hoursUsed / planHours) * 100 : 0;
 
-  const showUpgradeSuggestion = clientData && (
-    (usagePercentage > 80 && clientData.plan === 'starter') ||
-    (requests.filter(r => r.request_type !== 'advisory').length > 2 && clientData.plan === 'starter')
-  );
+  // Calculate upgrade signals using the new hook
+  const upgradeAnalysis = useUpgradeSignals({
+    currentPlan: clientData?.plan || 'starter',
+    currentUsagePercentage: usagePercentage,
+    requests: requests.map(r => ({
+      request_type: r.request_type,
+      description: r.description,
+      priority: r.priority,
+      status: r.status,
+      estimated_hours: r.estimated_hours
+    })),
+    summaries: allSummaries,
+    addonPurchases: []
+  });
+
+  const showUpgradeRecommendation = clientData && 
+    upgradeAnalysis.shouldShowUpgrade && 
+    !upgradeDismissed;
 
   return (
     <Layout>
@@ -277,17 +315,19 @@ export default function ClientDashboardPage() {
                 </motion.div>
               </div>
 
-              {/* Upgrade Suggestion */}
-              {showUpgradeSuggestion && (
+              {/* Upgrade Recommendation */}
+              {showUpgradeRecommendation && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <UpgradeSuggestion 
-                    currentPlan={clientData.plan} 
-                    usagePercentage={usagePercentage}
-                    hasExecutionRequests={requests.filter(r => r.request_type !== 'advisory').length > 2}
+                  <UpgradeRecommendation 
+                    analysis={upgradeAnalysis}
+                    currentPlan={clientData.plan}
+                    email={email}
+                    onDismiss={() => setUpgradeDismissed(true)}
+                    variant="card"
                   />
                 </motion.div>
               )}
@@ -345,7 +385,12 @@ export default function ClientDashboardPage() {
                     </CardHeader>
                     <CardContent>
                       {summary ? (
-                        <MonthlySummaryCard summary={summary} />
+                        <MonthlySummaryCard 
+                          summary={summary}
+                          upgradeAnalysis={upgradeAnalysis}
+                          currentPlan={clientData.plan}
+                          email={email}
+                        />
                       ) : (
                         <div className="text-center py-8 text-muted-foreground">
                           <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
