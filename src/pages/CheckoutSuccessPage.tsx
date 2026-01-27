@@ -11,6 +11,10 @@ export default function CheckoutSuccessPage() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
+  // Get plan from URL params if available (passed from checkout)
+  const planParam = searchParams.get('plan') as 'starter' | 'growth' | null;
+  const plan = planParam || 'starter';
+
   const content = {
     en: {
       title: 'Welcome to DBCloud!',
@@ -25,6 +29,7 @@ export default function CheckoutSuccessPage() {
       ],
       cta: 'Return to Homepage',
       scheduleCall: 'Schedule Your Kickoff Call',
+      viewOnboarding: 'View Onboarding Guide',
       contactUs: 'Contact Support',
       // Expectation setting
       includesTitle: 'What this plan includes',
@@ -61,6 +66,7 @@ export default function CheckoutSuccessPage() {
       ],
       cta: 'Volver al Inicio',
       scheduleCall: 'Agenda tu Llamada de Inicio',
+      viewOnboarding: 'Ver Guía de Onboarding',
       contactUs: 'Contactar Soporte',
       // Expectation setting
       includesTitle: 'Qué incluye este plan',
@@ -216,16 +222,16 @@ export default function CheckoutSuccessPage() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Link to={getLocalizedPath(`/onboarding/${plan}`)}>
+                  <ArrowRight className="mr-2 h-4 w-4" />
+                  {c.viewOnboarding}
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
                 <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                   <Calendar className="mr-2 h-4 w-4" />
                   {c.scheduleCall}
                 </a>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to={getLocalizedPath('/')}>
-                  {c.cta}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
               </Button>
             </div>
 
