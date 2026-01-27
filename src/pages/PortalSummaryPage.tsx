@@ -5,20 +5,21 @@ import { motion } from 'framer-motion';
 import { 
   BarChart3, 
   Calendar,
-  Clock,
-  CheckCircle,
-  TrendingUp,
   ArrowLeft,
-  FileText
+  FileText,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useLang } from '@/hooks/useLang';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { siteConfig } from '@/config/site';
+import { MonthlySummaryReport } from '@/components/dashboard/MonthlySummaryReport';
+import { useUpgradeSignals } from '@/hooks/useUpgradeSignals';
+import type { PlanType } from '@/hooks/useUpgradeSignals';
 
 interface MonthlySummary {
   id: string;
@@ -30,13 +31,26 @@ interface MonthlySummary {
   key_findings: string[] | null;
   recommendations: string[] | null;
   health_status: string;
+  plan: string;
+}
+
+interface ClientRequest {
+  id: string;
+  request_type: string;
+  description: string;
+  status: string;
+  priority: string;
+  estimated_hours: number | null;
+  created_at: string;
 }
 
 export default function PortalSummaryPage() {
   const { lang, getLocalizedPath } = useLang();
   const { user, profile, isLoading: authLoading } = useAuth();
   const [summaries, setSummaries] = useState<MonthlySummary[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [requests, setRequests] = useState<ClientRequest[]>([]);
 
   const content = {
     en: {
@@ -46,12 +60,9 @@ export default function PortalSummaryPage() {
       noSummaries: 'No summaries available yet',
       noSummariesDesc: 'Monthly summaries will appear here after your first month of service.',
       submitRequest: 'Submit a Request',
-      hoursLabel: 'Hours Used',
-      requestsLabel: 'Requests Completed',
-      keyWins: 'Key Wins',
-      recommendations: 'Recommendations',
       scheduleCall: 'Schedule Call',
-      months: ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      previousMonth: 'Previous Month',
+      nextMonth: 'Next Month',
     },
     es: {
       title: 'Resúmenes Mensuales',
@@ -60,12 +71,9 @@ export default function PortalSummaryPage() {
       noSummaries: 'No hay resúmenes disponibles',
       noSummariesDesc: 'Los resúmenes mensuales aparecerán aquí después de tu primer mes de servicio.',
       submitRequest: 'Enviar Solicitud',
-      hoursLabel: 'Horas Usadas',
-      requestsLabel: 'Solicitudes Completadas',
-      keyWins: 'Logros Clave',
-      recommendations: 'Recomendaciones',
       scheduleCall: 'Agendar Llamada',
-      months: ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      previousMonth: 'Mes Anterior',
+      nextMonth: 'Mes Siguiente',
     },
   };
 
@@ -74,11 +82,12 @@ export default function PortalSummaryPage() {
   useEffect(() => {
     if (!user || authLoading) return;
 
-    async function fetchSummaries() {
+    async function fetchData() {
       setIsLoading(true);
 
       try {
-        const { data, error } = await supabase
+        // Fetch summaries
+        const { data: summariesData, error: summariesError } = await supabase
           .from('client_summaries')
           .select('*')
           .eq('user_id', user.id)
@@ -86,17 +95,71 @@ export default function PortalSummaryPage() {
           .order('month', { ascending: false })
           .limit(12);
 
-        if (error) throw error;
-        setSummaries(data || []);
+        if (summariesError) throw summariesError;
+        setSummaries((summariesData || []) as MonthlySummary[]);
+
+        // Fetch requests for upgrade analysis
+        const { data: requestsData, error: requestsError } = await supabase
+          .from('client_requests')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(50);
+
+        if (requestsError) throw requestsError;
+        setRequests((requestsData || []) as ClientRequest[]);
       } catch (error) {
-        console.error('Error fetching summaries:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);
       }
     }
 
-    fetchSummaries();
+    fetchData();
   }, [user, authLoading]);
+
+  const selectedSummary = summaries[selectedIndex];
+  const plan = profile?.plan || 'starter';
+  const isEnterprise = plan === 'enterprise';
+  const upgradePlan: PlanType = isEnterprise ? 'growth' : (plan as PlanType);
+
+  // Calculate metrics for the selected summary period
+  const selectedPeriodRequests = selectedSummary
+    ? requests.filter(r => {
+        const requestDate = new Date(r.created_at);
+        return requestDate.getMonth() + 1 === selectedSummary.month &&
+               requestDate.getFullYear() === selectedSummary.year;
+      })
+    : [];
+
+  const requestsSubmitted = selectedPeriodRequests.length;
+  const requestsPending = selectedPeriodRequests.filter(r => 
+    r.status === 'pending' || r.status === 'in_progress'
+  ).length;
+
+  // Calculate upgrade signals
+  const currentUsage = selectedSummary 
+    ? (selectedSummary.hours_used / selectedSummary.hours_included) * 100 
+    : 0;
+
+  const upgradeAnalysis = useUpgradeSignals({
+    currentPlan: upgradePlan,
+    currentUsagePercentage: currentUsage,
+    requests: requests.map(r => ({
+      request_type: r.request_type,
+      description: r.description,
+      priority: r.priority,
+      status: r.status,
+      estimated_hours: r.estimated_hours,
+    })),
+    summaries: summaries.map(s => ({
+      hoursUsed: s.hours_used,
+      hoursIncluded: s.hours_included,
+      month: s.month,
+      year: s.year,
+    })),
+    addonPurchases: [],
+  });
 
   if (authLoading || isLoading) {
     return (
@@ -105,9 +168,10 @@ export default function PortalSummaryPage() {
           <div className="max-w-4xl mx-auto space-y-6">
             <Skeleton className="h-8 w-48" />
             <Skeleton className="h-4 w-96" />
-            <div className="grid gap-6">
+            <div className="space-y-4">
+              <Skeleton className="h-48" />
               <Skeleton className="h-64" />
-              <Skeleton className="h-64" />
+              <Skeleton className="h-48" />
             </div>
           </div>
         </div>
@@ -173,90 +237,50 @@ export default function PortalSummaryPage() {
               </Card>
             </motion.div>
           ) : (
-            <div className="space-y-6">
-              {summaries.map((summary, index) => {
-                const usagePercent = Math.min((summary.hours_used / summary.hours_included) * 100, 100);
-                
-                return (
-                  <motion.div
-                    key={summary.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-6"
+            >
+              {/* Month Navigation */}
+              {summaries.length > 1 && (
+                <div className="flex items-center justify-between bg-muted/30 rounded-lg p-3">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedIndex(prev => Math.min(prev + 1, summaries.length - 1))}
+                    disabled={selectedIndex >= summaries.length - 1}
                   >
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Calendar className="h-5 w-5" />
-                          {c.months[summary.month]} {summary.year}
-                        </CardTitle>
-                        <CardDescription className="capitalize">
-                          {profile?.plan} Plan
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-6">
-                        {/* Stats Row */}
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="bg-muted/50 rounded-lg p-4">
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                              <Clock className="h-4 w-4" />
-                              {c.hoursLabel}
-                            </div>
-                            <div className="text-2xl font-bold mb-2">
-                              {summary.hours_used} / {summary.hours_included}h
-                            </div>
-                            <Progress value={usagePercent} className="h-2" />
-                          </div>
+                    <ChevronLeft className="h-4 w-4 mr-1" />
+                    {c.previousMonth}
+                  </Button>
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {selectedIndex + 1} / {summaries.length}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedIndex(prev => Math.max(prev - 1, 0))}
+                    disabled={selectedIndex <= 0}
+                  >
+                    {c.nextMonth}
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
+              )}
 
-                          <div className="bg-muted/50 rounded-lg p-4">
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                              <CheckCircle className="h-4 w-4" />
-                              {c.requestsLabel}
-                            </div>
-                            <div className="text-2xl font-bold">
-                              {summary.requests_completed}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Key Findings */}
-                        {summary.key_findings && summary.key_findings.length > 0 && (
-                          <div>
-                            <h4 className="font-medium mb-3 flex items-center gap-2">
-                              <TrendingUp className="h-4 w-4 text-green-500" />
-                              {c.keyWins}
-                            </h4>
-                            <ul className="space-y-2">
-                              {summary.key_findings.map((finding, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm">
-                                  <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                                  <span>{finding}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        {/* Recommendations */}
-                        {summary.recommendations && summary.recommendations.length > 0 && (
-                          <div>
-                            <h4 className="font-medium mb-3">{c.recommendations}</h4>
-                            <ul className="space-y-2">
-                              {summary.recommendations.map((rec, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                  <span className="text-accent">→</span>
-                                  <span>{rec}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
+              {/* Summary Report */}
+              {selectedSummary && (
+                <MonthlySummaryReport
+                  summary={selectedSummary}
+                  requestsSubmitted={requestsSubmitted}
+                  requestsPending={requestsPending}
+                  upgradeAnalysis={!isEnterprise ? upgradeAnalysis : undefined}
+                  currentPlan={upgradePlan}
+                  email={user?.email || ''}
+                />
+              )}
+            </motion.div>
           )}
         </div>
       </div>
