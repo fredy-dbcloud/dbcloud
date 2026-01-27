@@ -2,41 +2,92 @@ import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
+import { CheckoutModal } from '@/components/pricing/CheckoutModal';
+import { TierKey } from '@/config/stripe';
 
 export default function PricingPage() {
-  const { t, getLocalizedPath } = useLang();
+  const { t, getLocalizedPath, lang } = useLang();
   const [isYearly, setIsYearly] = useState(false);
+  const [checkoutModal, setCheckoutModal] = useState<{
+    isOpen: boolean;
+    tier: TierKey;
+    tierName: string;
+    price: string;
+  }>({
+    isOpen: false,
+    tier: 'starter',
+    tierName: '',
+    price: '',
+  });
 
-  const plans = [
+  const plans: Array<{
+    key: TierKey;
+    name: string;
+    price: string;
+    period: string;
+    description: string;
+    features: string[];
+    popular: boolean;
+  }> = [
     {
+      key: 'starter',
       name: t.pricing.starter.name,
       price: isYearly ? '$399' : '$499',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.starter.description,
-      features: t.pricing.starter.features,
+      features: t.pricing.starter.features as unknown as string[],
       popular: false,
     },
     {
+      key: 'growth',
       name: t.pricing.growth.name,
       price: isYearly ? '$1,199' : '$1,499',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.growth.description,
-      features: t.pricing.growth.features,
+      features: t.pricing.growth.features as unknown as string[],
       popular: true,
     },
     {
+      key: 'enterprise',
       name: t.pricing.enterprise.name,
       price: t.pricing.enterprise.price,
       period: '',
       description: t.pricing.enterprise.description,
-      features: t.pricing.enterprise.features,
+      features: t.pricing.enterprise.features as unknown as string[],
       popular: false,
     },
   ];
+
+  const handleGetStarted = (plan: typeof plans[0]) => {
+    if (plan.key === 'enterprise') {
+      // Redirect to contact for enterprise
+      window.location.href = getLocalizedPath('/contact');
+    } else {
+      setCheckoutModal({
+        isOpen: true,
+        tier: plan.key,
+        tierName: plan.name,
+        price: plan.price,
+      });
+    }
+  };
+
+  const labels = {
+    en: {
+      mostPopular: 'Most Popular',
+      contactSales: 'Contact Sales',
+    },
+    es: {
+      mostPopular: 'Más Popular',
+      contactSales: 'Contactar Ventas',
+    },
+  };
+
+  const l = labels[lang];
 
   return (
     <Layout>
@@ -69,11 +120,13 @@ export default function PricingPage() {
               <button
                 onClick={() => setIsYearly(true)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                  "px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-1",
                   isYearly ? "bg-white text-primary" : "text-white/70 hover:text-white"
                 )}
               >
-                {t.pricing.yearly} <span className="text-accent">-20%</span>
+                {t.pricing.yearly} 
+                <span className="text-accent font-semibold">-20%</span>
+                {isYearly && <Sparkles className="h-3 w-3 text-accent" />}
               </button>
             </div>
           </motion.div>
@@ -86,19 +139,19 @@ export default function PricingPage() {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <motion.div
-                key={plan.name}
+                key={plan.key}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={cn(
-                  "relative p-8 rounded-2xl bg-card border shadow-card",
+                  "relative p-8 rounded-2xl bg-card border shadow-card flex flex-col",
                   plan.popular ? "border-accent shadow-glow" : "border-border"
                 )}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-sm font-medium">
-                    Most Popular
+                    {l.mostPopular}
                   </div>
                 )}
 
@@ -111,7 +164,7 @@ export default function PricingPage() {
                   <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
                 </div>
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm">
                       <Check className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
@@ -121,7 +174,7 @@ export default function PricingPage() {
                 </ul>
 
                 <Button
-                  asChild
+                  onClick={() => handleGetStarted(plan)}
                   className={cn(
                     "w-full",
                     plan.popular 
@@ -129,16 +182,24 @@ export default function PricingPage() {
                       : "bg-primary hover:bg-primary/90"
                   )}
                 >
-                  <Link to={getLocalizedPath('/contact')}>
-                    {t.cta.getStarted}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  {plan.key === 'enterprise' ? l.contactSales : t.cta.getStarted}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={checkoutModal.isOpen}
+        onClose={() => setCheckoutModal(prev => ({ ...prev, isOpen: false }))}
+        tier={checkoutModal.tier}
+        tierName={checkoutModal.tierName}
+        price={checkoutModal.price}
+        isYearly={isYearly}
+      />
     </Layout>
   );
 }

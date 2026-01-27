@@ -12,6 +12,7 @@ import ContactPage from "./pages/ContactPage";
 import SchedulePage from "./pages/SchedulePage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
+import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/en/schedule" element={<SchedulePage />} />
           <Route path="/en/privacy" element={<PrivacyPage />} />
           <Route path="/en/terms" element={<TermsPage />} />
+          <Route path="/en/checkout-success" element={<CheckoutSuccessPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -47,6 +49,11 @@ const App = () => (
           <Route path="/es/schedule" element={<SchedulePage />} />
           <Route path="/es/privacy" element={<PrivacyPage />} />
           <Route path="/es/terms" element={<TermsPage />} />
+          <Route path="/es/checkout-success" element={<CheckoutSuccessPage />} />
+          
+          {/* Language-agnostic routes for Stripe redirects */}
+          <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+          <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
