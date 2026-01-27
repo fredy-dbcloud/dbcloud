@@ -17,6 +17,7 @@ import OnboardingPage from "./pages/OnboardingPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
 import AddonSuccessPage from "./pages/AddonSuccessPage";
 import InternalDashboardPage from "./pages/InternalDashboardPage";
+import DemoPage from "./pages/DemoPage";
 import NotFound from "./pages/NotFound";
 
 
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/en/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/en/dashboard" element={<ClientDashboardPage />} />
           <Route path="/en/addon-success" element={<AddonSuccessPage />} />
+          <Route path="/en/demo/:plan" element={<DemoPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -61,12 +63,16 @@ const App = () => (
           <Route path="/es/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/es/dashboard" element={<ClientDashboardPage />} />
           <Route path="/es/addon-success" element={<AddonSuccessPage />} />
+          <Route path="/es/demo/:plan" element={<DemoPage />} />
           
           {/* Language-agnostic routes for Stripe redirects */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/addon-success" element={<AddonSuccessPage />} />
           <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
           <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
+          
+          {/* Demo routes redirect */}
+          <Route path="/demo/:plan" element={<DemoPage />} />
           
           {/* Internal routes (not public) */}
           <Route path="/internal" element={<InternalDashboardPage />} />
