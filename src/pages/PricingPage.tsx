@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, X, ArrowRight, Sparkles, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
@@ -24,36 +23,67 @@ export default function PricingPage() {
     price: '',
   });
 
+  const labels = {
+    en: {
+      mostPopular: 'Most Popular',
+      contactSales: 'Contact Sales',
+      limitations: 'Limitations',
+      scopeLimitations: 'Scope Limitations',
+      bestFor: 'Best for',
+    },
+    es: {
+      mostPopular: 'Más Popular',
+      contactSales: 'Contactar Ventas',
+      limitations: 'Limitaciones',
+      scopeLimitations: 'Alcance',
+      bestFor: 'Ideal para',
+    },
+  };
+
+  const l = labels[lang];
+
   const plans: Array<{
     key: TierKey;
     name: string;
+    subtitle: string;
     price: string;
     period: string;
     description: string;
     features: string[];
+    scopeLimitations?: string[];
+    limitations?: string[];
+    bestFor?: string;
     popular: boolean;
   }> = [
     {
       key: 'starter',
       name: t.pricing.starter.name,
+      subtitle: (t.pricing.starter as any).subtitle || '',
       price: isYearly ? '$399' : '$499',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.starter.description,
       features: t.pricing.starter.features as unknown as string[],
+      limitations: (t.pricing.starter as any).limitations as string[] | undefined,
+      bestFor: (t.pricing.starter as any).bestFor as string | undefined,
       popular: false,
     },
     {
       key: 'growth',
       name: t.pricing.growth.name,
+      subtitle: (t.pricing.growth as any).subtitle || '',
       price: isYearly ? '$1,199' : '$1,499',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.growth.description,
       features: t.pricing.growth.features as unknown as string[],
+      scopeLimitations: (t.pricing.growth as any).scopeLimitations as string[] | undefined,
+      limitations: (t.pricing.growth as any).limitations as string[] | undefined,
+      bestFor: (t.pricing.growth as any).bestFor as string | undefined,
       popular: true,
     },
     {
       key: 'enterprise',
       name: t.pricing.enterprise.name,
+      subtitle: (t.pricing.enterprise as any).subtitle || '',
       price: t.pricing.enterprise.price,
       period: '',
       description: t.pricing.enterprise.description,
@@ -64,7 +94,6 @@ export default function PricingPage() {
 
   const handleGetStarted = (plan: typeof plans[0]) => {
     if (plan.key === 'enterprise') {
-      // Redirect to contact for enterprise
       window.location.href = getLocalizedPath('/contact');
     } else {
       setCheckoutModal({
@@ -75,19 +104,6 @@ export default function PricingPage() {
       });
     }
   };
-
-  const labels = {
-    en: {
-      mostPopular: 'Most Popular',
-      contactSales: 'Contact Sales',
-    },
-    es: {
-      mostPopular: 'Más Popular',
-      contactSales: 'Contactar Ventas',
-    },
-  };
-
-  const l = labels[lang];
 
   return (
     <Layout>
@@ -156,7 +172,10 @@ export default function PricingPage() {
                 )}
 
                 <div className="text-center mb-6">
-                  <h3 className="font-display text-xl font-bold mb-2">{plan.name}</h3>
+                  <h3 className="font-display text-xl font-bold mb-1">{plan.name}</h3>
+                  {plan.subtitle && (
+                    <p className="text-sm text-accent font-medium mb-3">{plan.subtitle}</p>
+                  )}
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="font-display text-4xl font-bold">{plan.price}</span>
                     <span className="text-muted-foreground text-sm">{plan.period}</span>
@@ -164,7 +183,8 @@ export default function PricingPage() {
                   <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
                 </div>
 
-                <ul className="space-y-3 mb-8 flex-grow">
+                {/* Features */}
+                <ul className="space-y-2.5 mb-6">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm">
                       <Check className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
@@ -173,18 +193,70 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Button
-                  onClick={() => handleGetStarted(plan)}
-                  className={cn(
-                    "w-full",
-                    plan.popular 
-                      ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
-                      : "bg-primary hover:bg-primary/90"
-                  )}
-                >
-                  {plan.key === 'enterprise' ? l.contactSales : t.cta.getStarted}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                {/* Scope Limitations (Growth only) */}
+                {plan.scopeLimitations && plan.scopeLimitations.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <Info className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        {l.scopeLimitations}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {plan.scopeLimitations.map((limitation) => (
+                        <li key={limitation} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <span className="text-muted-foreground/60">•</span>
+                          {limitation}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Limitations */}
+                {plan.limitations && plan.limitations.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <X className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        {l.limitations}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {plan.limitations.map((limitation) => (
+                        <li key={limitation} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <span className="text-destructive">×</span>
+                          {limitation}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Best For */}
+                {plan.bestFor && (
+                  <div className="mb-6 p-3 rounded-lg bg-muted/50">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      {l.bestFor}:
+                    </span>
+                    <p className="text-xs text-foreground mt-1">{plan.bestFor}</p>
+                  </div>
+                )}
+
+                <div className="mt-auto">
+                  <Button
+                    onClick={() => handleGetStarted(plan)}
+                    className={cn(
+                      "w-full",
+                      plan.popular 
+                        ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
+                        : "bg-primary hover:bg-primary/90"
+                    )}
+                  >
+                    {plan.key === 'enterprise' ? l.contactSales : t.cta.getStarted}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
               </motion.div>
             ))}
           </div>
