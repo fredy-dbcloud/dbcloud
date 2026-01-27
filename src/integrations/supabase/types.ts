@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_copilot_logs: {
+        Row: {
+          context: Json | null
+          created_at: string
+          id: string
+          query: string
+          response: string
+        }
+        Insert: {
+          context?: Json | null
+          created_at?: string
+          id?: string
+          query: string
+          response: string
+        }
+        Update: {
+          context?: Json | null
+          created_at?: string
+          id?: string
+          query?: string
+          response?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
@@ -44,8 +68,55 @@ export type Database = {
         }
         Relationships: []
       }
+      client_health_predictions: {
+        Row: {
+          ai_reasoning: string | null
+          churn_probability: number | null
+          created_at: string
+          email: string
+          expansion_probability: number | null
+          health_status: Database["public"]["Enums"]["ai_health_status"]
+          id: string
+          margin_risk_score: number | null
+          signals: Json | null
+          updated_at: string
+        }
+        Insert: {
+          ai_reasoning?: string | null
+          churn_probability?: number | null
+          created_at?: string
+          email: string
+          expansion_probability?: number | null
+          health_status?: Database["public"]["Enums"]["ai_health_status"]
+          id?: string
+          margin_risk_score?: number | null
+          signals?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          ai_reasoning?: string | null
+          churn_probability?: number | null
+          created_at?: string
+          email?: string
+          expansion_probability?: number | null
+          health_status?: Database["public"]["Enums"]["ai_health_status"]
+          id?: string
+          margin_risk_score?: number | null
+          signals?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       client_requests: {
         Row: {
+          ai_classification:
+            | Database["public"]["Enums"]["ai_request_classification"]
+            | null
+          ai_classified_at: string | null
+          ai_effort_level: Database["public"]["Enums"]["ai_effort_level"] | null
+          ai_estimated_hours: number | null
+          ai_reasoning: string | null
+          ai_risk_flags: Database["public"]["Enums"]["ai_risk_flag"][] | null
           created_at: string
           description: string
           email: string
@@ -60,6 +131,16 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_classification?:
+            | Database["public"]["Enums"]["ai_request_classification"]
+            | null
+          ai_classified_at?: string | null
+          ai_effort_level?:
+            | Database["public"]["Enums"]["ai_effort_level"]
+            | null
+          ai_estimated_hours?: number | null
+          ai_reasoning?: string | null
+          ai_risk_flags?: Database["public"]["Enums"]["ai_risk_flag"][] | null
           created_at?: string
           description: string
           email: string
@@ -74,6 +155,16 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_classification?:
+            | Database["public"]["Enums"]["ai_request_classification"]
+            | null
+          ai_classified_at?: string | null
+          ai_effort_level?:
+            | Database["public"]["Enums"]["ai_effort_level"]
+            | null
+          ai_estimated_hours?: number | null
+          ai_reasoning?: string | null
+          ai_risk_flags?: Database["public"]["Enums"]["ai_risk_flag"][] | null
           created_at?: string
           description?: string
           email?: string
@@ -184,7 +275,23 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ai_effort_level: "low" | "medium" | "high"
+      ai_health_status:
+        | "healthy"
+        | "at_risk"
+        | "churn_risk"
+        | "expansion_ready"
+        | "margin_risk"
+      ai_request_classification:
+        | "advisory"
+        | "execution"
+        | "incident"
+        | "out_of_scope"
+      ai_risk_flag:
+        | "scope_creep"
+        | "potential_churn"
+        | "upgrade_signal"
+        | "margin_risk"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -311,6 +418,27 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ai_effort_level: ["low", "medium", "high"],
+      ai_health_status: [
+        "healthy",
+        "at_risk",
+        "churn_risk",
+        "expansion_ready",
+        "margin_risk",
+      ],
+      ai_request_classification: [
+        "advisory",
+        "execution",
+        "incident",
+        "out_of_scope",
+      ],
+      ai_risk_flag: [
+        "scope_creep",
+        "potential_churn",
+        "upgrade_signal",
+        "margin_risk",
+      ],
+    },
   },
 } as const

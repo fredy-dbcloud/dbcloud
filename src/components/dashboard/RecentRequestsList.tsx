@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { useLang } from '@/hooks/useLang';
 import { formatDistanceToNow } from 'date-fns';
 import { es, enUS } from 'date-fns/locale';
+import { Bot, Clock } from 'lucide-react';
 
 interface Request {
   id: string;
@@ -12,6 +13,9 @@ interface Request {
   priority: string;
   environment: string;
   created_at: string;
+  ai_classification?: string | null;
+  ai_effort_level?: string | null;
+  ai_estimated_hours?: number | null;
 }
 
 interface RecentRequestsListProps {
@@ -47,6 +51,16 @@ export function RecentRequestsList({ requests }: RecentRequestsListProps) {
     change_request: lang === 'es' ? 'Cambio' : 'Change',
   };
 
+  const getAIClassificationColor = (classification: string) => {
+    switch (classification) {
+      case 'advisory': return 'bg-blue-500/10 text-blue-700 border-blue-500/20';
+      case 'execution': return 'bg-purple-500/10 text-purple-700 border-purple-500/20';
+      case 'incident': return 'bg-red-500/10 text-red-700 border-red-500/20';
+      case 'out_of_scope': return 'bg-orange-500/10 text-orange-700 border-orange-500/20';
+      default: return 'bg-muted text-muted-foreground';
+    }
+  };
+
   return (
     <div className="space-y-3">
       {requests.map((request) => {
@@ -63,7 +77,7 @@ export function RecentRequestsList({ requests }: RecentRequestsListProps) {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <Badge variant="outline" className="text-xs">
                     {typeLabels[request.request_type] || request.request_type}
                   </Badge>
@@ -73,6 +87,21 @@ export function RecentRequestsList({ requests }: RecentRequestsListProps) {
                   >
                     {status.label}
                   </Badge>
+                  {request.ai_classification && (
+                    <Badge 
+                      variant="outline" 
+                      className={cn('text-xs flex items-center gap-1', getAIClassificationColor(request.ai_classification))}
+                    >
+                      <Bot className="h-3 w-3" />
+                      {request.ai_classification.replace('_', ' ')}
+                    </Badge>
+                  )}
+                  {request.ai_estimated_hours && (
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      ~{request.ai_estimated_hours}h
+                    </Badge>
+                  )}
                 </div>
                 <p className="text-sm line-clamp-2">{request.description}</p>
                 <p className="text-xs text-muted-foreground mt-1">{timeAgo}</p>

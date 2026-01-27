@@ -16,6 +16,7 @@ import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
 import AddonSuccessPage from "./pages/AddonSuccessPage";
+import InternalDashboardPage from "./pages/InternalDashboardPage";
 import NotFound from "./pages/NotFound";
 
 
@@ -66,6 +67,9 @@ const App = () => (
           <Route path="/addon-success" element={<AddonSuccessPage />} />
           <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
           <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
+          
+          {/* Internal routes (not public) */}
+          <Route path="/internal" element={<InternalDashboardPage />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
