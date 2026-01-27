@@ -435,7 +435,7 @@ const handler = async (req: Request): Promise<Response> => {
     logStep("Sending email", { type, to, subject });
 
     const emailResponse = await resend.emails.send({
-      from: "DBCloud <noreply@dbcloud.io>",
+      from: "DBCloud Support <support@dbcloud.us>",
       to: [to],
       subject,
       html,
