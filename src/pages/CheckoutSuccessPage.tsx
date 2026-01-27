@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle } from 'lucide-react';
+import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
@@ -20,7 +20,7 @@ export default function CheckoutSuccessPage() {
       steps: [
         'You\'ll receive a confirmation email shortly',
         'Our team will contact you within 24 hours',
-        'We\'ll schedule your kickoff call',
+        'We\'ll schedule your kickoff call and grant portal access',
         'Begin your cloud consulting engagement',
       ],
       cta: 'Return to Homepage',
@@ -43,6 +43,10 @@ export default function CheckoutSuccessPage() {
         'Work limited to monthly included hours',
       ],
       acknowledgment: 'By continuing, you acknowledge and accept these limitations.',
+      // Client portal notice
+      portalNoticeTitle: 'Important: How to Request Work',
+      portalNotice: 'All work requests must be submitted through the client portal. Requests via email, WhatsApp, or chat are not tracked and may not be actioned.',
+      hoursNotice: 'Unused hours do not roll over to the next month.',
     },
     es: {
       title: '¡Bienvenido a DBCloud!',
@@ -52,7 +56,7 @@ export default function CheckoutSuccessPage() {
       steps: [
         'Recibirás un correo de confirmación en breve',
         'Nuestro equipo te contactará en 24 horas',
-        'Agendaremos tu llamada de inicio',
+        'Agendaremos tu llamada de inicio y te daremos acceso al portal',
         'Comienza tu compromiso de consultoría cloud',
       ],
       cta: 'Volver al Inicio',
@@ -75,6 +79,10 @@ export default function CheckoutSuccessPage() {
         'Trabajo limitado a las horas mensuales incluidas',
       ],
       acknowledgment: 'Al continuar, reconoces y aceptas estas limitaciones.',
+      // Client portal notice
+      portalNoticeTitle: 'Importante: Cómo Solicitar Trabajo',
+      portalNotice: 'Todas las solicitudes de trabajo deben enviarse a través del portal de cliente. Las solicitudes por email, WhatsApp o chat no se rastrean y pueden no ser atendidas.',
+      hoursNotice: 'Las horas no utilizadas no se acumulan para el siguiente mes.',
     },
   };
 
@@ -145,6 +153,26 @@ export default function CheckoutSuccessPage() {
                   ))}
                 </ul>
               </div>
+            </motion.div>
+
+            {/* Client Portal Notice */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 mb-6"
+            >
+              <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                {c.portalNoticeTitle}
+              </h3>
+              <p className="text-sm text-blue-700 dark:text-blue-400 mb-3">
+                {c.portalNotice}
+              </p>
+              <p className="text-xs text-blue-600 dark:text-blue-500 flex items-center gap-2">
+                <Clock className="h-4 w-4" />
+                {c.hoursNotice}
+              </p>
             </motion.div>
 
             {/* Acknowledgment */}
