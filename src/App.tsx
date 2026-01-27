@@ -20,6 +20,12 @@ import InternalDashboardPage from "./pages/InternalDashboardPage";
 import DemoPage from "./pages/DemoPage";
 import SummaryPage from "./pages/SummaryPage";
 import NewRequestPage from "./pages/NewRequestPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import PortalPage from "./pages/PortalPage";
+import PortalRequestsPage from "./pages/PortalRequestsPage";
+import PortalSummaryPage from "./pages/PortalSummaryPage";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +57,12 @@ const App = () => (
           <Route path="/en/demo/:plan" element={<DemoPage />} />
           <Route path="/en/summary" element={<SummaryPage />} />
           <Route path="/en/requests/new" element={<NewRequestPage />} />
+          <Route path="/en/login" element={<LoginPage />} />
+          <Route path="/en/signup" element={<SignUpPage />} />
+          {/* Protected Portal Routes - English */}
+          <Route path="/en/portal" element={<ProtectedRoute><PortalPage /></ProtectedRoute>} />
+          <Route path="/en/portal/requests" element={<ProtectedRoute><PortalRequestsPage /></ProtectedRoute>} />
+          <Route path="/en/portal/summary" element={<ProtectedRoute><PortalSummaryPage /></ProtectedRoute>} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -69,6 +81,12 @@ const App = () => (
           <Route path="/es/demo/:plan" element={<DemoPage />} />
           <Route path="/es/summary" element={<SummaryPage />} />
           <Route path="/es/requests/new" element={<NewRequestPage />} />
+          <Route path="/es/login" element={<LoginPage />} />
+          <Route path="/es/signup" element={<SignUpPage />} />
+          {/* Protected Portal Routes - Spanish */}
+          <Route path="/es/portal" element={<ProtectedRoute><PortalPage /></ProtectedRoute>} />
+          <Route path="/es/portal/requests" element={<ProtectedRoute><PortalRequestsPage /></ProtectedRoute>} />
+          <Route path="/es/portal/summary" element={<ProtectedRoute><PortalSummaryPage /></ProtectedRoute>} />
           
           {/* Language-agnostic routes - redirect to English */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
@@ -77,6 +95,11 @@ const App = () => (
           <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
           <Route path="/summary" element={<Navigate to="/en/summary" replace />} />
           <Route path="/requests/new" element={<Navigate to="/en/requests/new" replace />} />
+          <Route path="/login" element={<Navigate to="/en/login" replace />} />
+          <Route path="/signup" element={<Navigate to="/en/signup" replace />} />
+          <Route path="/portal" element={<Navigate to="/en/portal" replace />} />
+          <Route path="/portal/requests" element={<Navigate to="/en/portal/requests" replace />} />
+          <Route path="/portal/summary" element={<Navigate to="/en/portal/summary" replace />} />
           
           {/* Demo routes redirect */}
           <Route path="/demo/:plan" element={<DemoPage />} />
