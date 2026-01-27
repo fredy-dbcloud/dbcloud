@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ServicesPage from "./pages/ServicesPage";
 import AIPage from "./pages/AIPage";
+import AIOperationsPage from "./pages/AIOperationsPage";
+import AIReportingPage from "./pages/AIReportingPage";
+import AIAssistantsPage from "./pages/AIAssistantsPage";
 import PricingPage from "./pages/PricingPage";
 import FAQPage from "./pages/FAQPage";
 import ContactPage from "./pages/ContactPage";
@@ -44,6 +47,9 @@ const App = () => (
           <Route path="/en" element={<HomePage />} />
           <Route path="/en/services" element={<ServicesPage />} />
           <Route path="/en/ai" element={<AIPage />} />
+          <Route path="/en/ai/operations" element={<AIOperationsPage />} />
+          <Route path="/en/ai/reporting" element={<AIReportingPage />} />
+          <Route path="/en/ai/assistants" element={<AIAssistantsPage />} />
           <Route path="/en/pricing" element={<PricingPage />} />
           <Route path="/en/faq" element={<FAQPage />} />
           <Route path="/en/contact" element={<ContactPage />} />
@@ -65,6 +71,9 @@ const App = () => (
           <Route path="/es" element={<HomePage />} />
           <Route path="/es/services" element={<ServicesPage />} />
           <Route path="/es/ai" element={<AIPage />} />
+          <Route path="/es/ai/operations" element={<AIOperationsPage />} />
+          <Route path="/es/ai/reporting" element={<AIReportingPage />} />
+          <Route path="/es/ai/assistants" element={<AIAssistantsPage />} />
           <Route path="/es/pricing" element={<PricingPage />} />
           <Route path="/es/faq" element={<FAQPage />} />
           <Route path="/es/contact" element={<ContactPage />} />
