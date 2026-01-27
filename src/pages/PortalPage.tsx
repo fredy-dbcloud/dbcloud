@@ -23,6 +23,8 @@ import { UpgradeRecommendation } from '@/components/dashboard/UpgradeRecommendat
 import { MonthlySummaryCard } from '@/components/dashboard/MonthlySummaryCard';
 import { RecentRequestsList } from '@/components/dashboard/RecentRequestsList';
 import { AddonsGrid } from '@/components/addons/AddonsGrid';
+import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard';
+import { OnboardingChecklist } from '@/components/dashboard/OnboardingChecklist';
 import { siteConfig } from '@/config/site';
 import { useUpgradeSignals } from '@/hooks/useUpgradeSignals';
 import { toast } from 'sonner';
@@ -118,6 +120,17 @@ export default function PortalPage() {
   const [requests, setRequests] = useState<ClientRequest[]>([]);
   const [upgradeDismissed, setUpgradeDismissed] = useState(false);
   const [healthStatus, setHealthStatus] = useState<HealthStatus>('inactive');
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check if onboarding is needed
+  useEffect(() => {
+    if (user && !authLoading) {
+      const onboardingComplete = localStorage.getItem(`onboarding_complete_${user.id}`);
+      if (!onboardingComplete && profile?.plan !== 'enterprise') {
+        setShowOnboarding(true);
+      }
+    }
+  }, [user, authLoading, profile]);
 
   const dashboard = tAny.dashboard || {
     title: 'Client Portal',
@@ -252,8 +265,20 @@ export default function PortalPage() {
     );
   }
 
+  const hasSubmittedRequest = requests.length > 0;
+
   return (
     <Layout>
+      {/* Onboarding Wizard for first-time users */}
+      {showOnboarding && user && (
+        <OnboardingWizard
+          userId={user.id}
+          userEmail={user.email || ''}
+          plan={upgradePlan}
+          onComplete={() => setShowOnboarding(false)}
+        />
+      )}
+
       <div className="container py-12">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -282,6 +307,16 @@ export default function PortalPage() {
             <DashboardSkeleton />
           ) : (
             <div className="space-y-8">
+              {/* Onboarding Checklist */}
+              {!showOnboarding && user && plan !== 'enterprise' && (
+                <OnboardingChecklist
+                  userId={user.id}
+                  hasSubmittedRequest={hasSubmittedRequest}
+                  hasScheduledCall={false}
+                  hasViewedBilling={false}
+                />
+              )}
+
               {/* Top Stats Row */}
               <div className="grid md:grid-cols-3 gap-6">
                 {/* Plan Card */}

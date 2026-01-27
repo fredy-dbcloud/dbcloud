@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock, User } from 'lucide-react';
+import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock, User, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
@@ -10,10 +12,28 @@ export default function CheckoutSuccessPage() {
   const { getLocalizedPath, lang } = useLang();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
 
   // Get plan from URL params if available (passed from checkout)
   const planParam = searchParams.get('plan') as 'starter' | 'growth' | null;
   const plan = planParam || 'starter';
+
+  const welcomeContent = {
+    en: {
+      modalTitle: 'Welcome to DBCloud',
+      modalSubtitle: 'Your Client Portal access is ready.',
+      goToPortal: 'Go to Portal',
+      createAccount: 'Create Portal Account',
+      orSchedule: 'Or schedule your kickoff call first',
+    },
+    es: {
+      modalTitle: 'Bienvenido a DBCloud',
+      modalSubtitle: 'Tu acceso al Portal de Clientes está listo.',
+      goToPortal: 'Ir al Portal',
+      createAccount: 'Crear Cuenta de Portal',
+      orSchedule: 'O agenda primero tu llamada de inicio',
+    },
+  };
 
   const content = {
     en: {
@@ -32,7 +52,6 @@ export default function CheckoutSuccessPage() {
       viewOnboarding: 'View Onboarding Guide',
       viewDashboard: 'Go to Dashboard',
       contactUs: 'Contact Support',
-      // Expectation setting
       includesTitle: 'What this plan includes',
       includes: [
         'Expert consulting within your monthly hours',
@@ -49,9 +68,8 @@ export default function CheckoutSuccessPage() {
         'Work limited to monthly included hours',
       ],
       acknowledgment: 'By continuing, you acknowledge and accept these limitations.',
-      // Client portal notice
       portalNoticeTitle: 'Important: How to Request Work',
-      portalNotice: 'All work requests must be submitted through the client portal. Requests via email, WhatsApp, or chat are not tracked and may not be actioned.',
+      portalNotice: 'To ensure proper tracking and response times, all work requests are submitted through the Client Portal.',
       hoursNotice: 'Unused hours do not roll over to the next month.',
     },
     es: {
@@ -70,7 +88,6 @@ export default function CheckoutSuccessPage() {
       viewOnboarding: 'Ver Guía de Onboarding',
       viewDashboard: 'Ir al Panel',
       contactUs: 'Contactar Soporte',
-      // Expectation setting
       includesTitle: 'Qué incluye este plan',
       includes: [
         'Consultoría experta dentro de tus horas mensuales',
@@ -87,17 +104,60 @@ export default function CheckoutSuccessPage() {
         'Trabajo limitado a las horas mensuales incluidas',
       ],
       acknowledgment: 'Al continuar, reconoces y aceptas estas limitaciones.',
-      // Client portal notice
       portalNoticeTitle: 'Importante: Cómo Solicitar Trabajo',
-      portalNotice: 'Todas las solicitudes de trabajo deben enviarse a través del portal de cliente. Las solicitudes por email, WhatsApp o chat no se rastrean y pueden no ser atendidas.',
+      portalNotice: 'Para asegurar un seguimiento adecuado y tiempos de respuesta, todas las solicitudes se envían a través del Portal de Cliente.',
       hoursNotice: 'Las horas no utilizadas no se acumulan para el siguiente mes.',
     },
   };
 
   const c = content[lang];
+  const w = welcomeContent[lang];
 
   return (
     <Layout>
+      {/* Welcome Modal */}
+      <Dialog open={showWelcomeModal} onOpenChange={setShowWelcomeModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200 }}
+              className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center"
+            >
+              <Sparkles className="h-8 w-8 text-green-600 dark:text-green-400" />
+            </motion.div>
+            <DialogTitle className="text-2xl">{w.modalTitle}</DialogTitle>
+            <DialogDescription className="text-base">
+              {w.modalSubtitle}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            <Button asChild className="w-full bg-accent hover:bg-accent/90" size="lg">
+              <Link to={`${getLocalizedPath('/signup')}?plan=${plan}`}>
+                <User className="mr-2 h-4 w-4" />
+                {w.createAccount}
+              </Link>
+            </Button>
+            <Button asChild variant="secondary" className="w-full" size="lg">
+              <Link to={getLocalizedPath('/portal')}>
+                <ArrowRight className="mr-2 h-4 w-4" />
+                {w.goToPortal}
+              </Link>
+            </Button>
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">{w.orSchedule}</p>
+              <Button variant="outline" size="sm" asChild>
+                <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  {c.scheduleCall}
+                </a>
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <section className="min-h-[80vh] flex items-center justify-center py-20 bg-gradient-to-b from-background to-muted/30">
         <div className="container">
           <motion.div
@@ -181,16 +241,16 @@ export default function CheckoutSuccessPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
-              className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 mb-6"
+              className="bg-primary/10 border border-primary/20 rounded-xl p-5 mb-6"
             >
-              <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center gap-2">
+              <h3 className="font-semibold text-primary mb-2 flex items-center gap-2">
                 <FileText className="h-5 w-5" />
                 {c.portalNoticeTitle}
               </h3>
-              <p className="text-sm text-blue-700 dark:text-blue-400 mb-3">
+              <p className="text-sm text-muted-foreground mb-3">
                 {c.portalNotice}
               </p>
-              <p className="text-xs text-blue-600 dark:text-blue-500 flex items-center gap-2">
+              <p className="text-xs text-muted-foreground flex items-center gap-2">
                 <Clock className="h-4 w-4" />
                 {c.hoursNotice}
               </p>
