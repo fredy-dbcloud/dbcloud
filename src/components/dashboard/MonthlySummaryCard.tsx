@@ -1,6 +1,8 @@
 import { Clock, CheckCircle2, Lightbulb, Target } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { useLang } from '@/hooks/useLang';
+import { UpgradeRecommendation } from './UpgradeRecommendation';
+import type { UpgradeAnalysis, PlanType } from '@/hooks/useUpgradeSignals';
 
 interface MonthlySummary {
   month: number;
@@ -14,6 +16,9 @@ interface MonthlySummary {
 
 interface MonthlySummaryCardProps {
   summary: MonthlySummary;
+  upgradeAnalysis?: UpgradeAnalysis;
+  currentPlan?: PlanType;
+  email?: string;
 }
 
 const monthNames = {
@@ -21,7 +26,7 @@ const monthNames = {
   es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 };
 
-export function MonthlySummaryCard({ summary }: MonthlySummaryCardProps) {
+export function MonthlySummaryCard({ summary, upgradeAnalysis, currentPlan, email }: MonthlySummaryCardProps) {
   const { lang } = useLang();
   const usagePercentage = (summary.hoursUsed / summary.hoursIncluded) * 100;
   const monthName = monthNames[lang as keyof typeof monthNames][summary.month - 1];
@@ -60,6 +65,16 @@ export function MonthlySummaryCard({ summary }: MonthlySummaryCardProps) {
           <p className="font-bold text-lg">{summary.requestsCompleted}</p>
         </div>
       </div>
+
+      {/* Upgrade Recommendation in Summary */}
+      {upgradeAnalysis && currentPlan && email && (
+        <UpgradeRecommendation
+          analysis={upgradeAnalysis}
+          currentPlan={currentPlan}
+          email={email}
+          variant="inline"
+        />
+      )}
 
       {/* Key Findings */}
       {summary.keyFindings.length > 0 && (
