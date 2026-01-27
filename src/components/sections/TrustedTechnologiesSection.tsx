@@ -8,32 +8,28 @@ import { useLang } from '@/hooks/useLang';
  */
 
 const technologies = [
-  // Cloud Platforms - High familiarity for SMBs
+  // Cloud & Infrastructure - High SMB familiarity
   { name: 'AWS', category: 'cloud' },
   { name: 'Microsoft Azure', category: 'cloud' },
   { name: 'Google Cloud', category: 'cloud' },
-  // Databases - What SMBs actually use
+  // Databases - High SMB pain & intent
   { name: 'PostgreSQL', category: 'database' },
   { name: 'MySQL', category: 'database' },
   { name: 'SQL Server', category: 'database' },
-  // Business tools SMBs recognize
-  { name: 'Microsoft 365', category: 'business' },
-  { name: 'GitHub', category: 'business' },
-  { name: 'Slack', category: 'business' },
-  // Infrastructure
-  { name: 'Cloudflare', category: 'infrastructure' },
-  { name: 'Linux', category: 'infrastructure' },
-  { name: 'Docker', category: 'infrastructure' },
+  { name: 'Oracle Database', category: 'database' },
+  // Security & Platform
+  { name: 'Cloudflare', category: 'security' },
+  { name: 'Red Hat', category: 'platform' },
 ];
 
 const sectionContent = {
   en: {
-    title: 'Built on technologies trusted by US businesses',
-    subtitle: 'We work with the same platforms your business relies on',
+    title: 'Technologies trusted by growing US small & mid-sized businesses',
+    disclaimer: 'Logos represent the technologies we support and work with.',
   },
   es: {
-    title: 'Construido sobre tecnologías de confianza para empresas en EE.UU.',
-    subtitle: 'Trabajamos con las mismas plataformas en las que tu negocio confía',
+    title: 'Tecnologías de confianza para pequeñas y medianas empresas en EE.UU.',
+    disclaimer: 'Los logos representan las tecnologías que soportamos y con las que trabajamos.',
   },
 };
 
@@ -50,14 +46,11 @@ export function TrustedTechnologiesSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wider">
+          <p className="text-sm font-medium text-muted-foreground mb-8 max-w-2xl mx-auto">
             {content.title}
           </p>
-          <p className="text-xs text-muted-foreground/70 mb-8">
-            {content.subtitle}
-          </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10 mb-6">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.name}
@@ -67,12 +60,16 @@ export function TrustedTechnologiesSection() {
                 transition={{ delay: index * 0.03 }}
                 className="flex items-center justify-center px-4 py-2"
               >
-                <span className="text-sm font-medium text-muted-foreground/60 hover:text-foreground transition-colors">
+                <span className="text-sm font-medium text-muted-foreground/70 hover:text-foreground transition-colors">
                   {tech.name}
                 </span>
               </motion.div>
             ))}
           </div>
+          
+          <p className="text-xs text-muted-foreground/50">
+            {content.disclaimer}
+          </p>
         </motion.div>
       </div>
     </section>
