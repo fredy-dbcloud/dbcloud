@@ -9,13 +9,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useLang } from '@/hooks/useLang';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
-import { Mail, Lock, User, Building, Loader2, CheckCircle } from 'lucide-react';
+import { Mail, Lock, User, Building, Loader2, MailCheck, RefreshCw } from 'lucide-react';
 
 export default function SignUpPage() {
   const { lang, getLocalizedPath } = useLang();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { signUp } = useAuth();
+  const { signUp, resendVerificationEmail } = useAuth();
 
   // Get plan from URL if passed from checkout
   const planFromUrl = searchParams.get('plan') as 'starter' | 'growth' | null;
@@ -29,6 +29,7 @@ export default function SignUpPage() {
     plan: planFromUrl || 'starter',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const content = {
@@ -49,9 +50,15 @@ export default function SignUpPage() {
       signingUp: 'Creating account...',
       hasAccount: 'Already have an account?',
       signIn: 'Sign In',
-      successTitle: 'Account Created!',
-      successMessage: 'Your account has been created. You can now sign in to access your portal.',
-      goToLogin: 'Go to Login',
+      successTitle: 'Check Your Email',
+      successMessage: 'We\'ve sent a verification link to',
+      successInstruction: 'Click the link in your email to activate your account and access the Client Portal.',
+      resendLink: 'Didn\'t receive the email?',
+      resendButton: 'Resend verification email',
+      resending: 'Sending...',
+      resendSuccess: 'Verification email sent!',
+      checkSpam: 'Check your spam folder if you don\'t see it.',
+      goToLogin: 'Already verified? Sign In',
       errorPasswordMismatch: 'Passwords do not match',
       errorPasswordLength: 'Password must be at least 6 characters',
       errorGeneric: 'An error occurred. Please try again.',
@@ -73,9 +80,15 @@ export default function SignUpPage() {
       signingUp: 'Creando cuenta...',
       hasAccount: '¿Ya tienes una cuenta?',
       signIn: 'Iniciar Sesión',
-      successTitle: '¡Cuenta Creada!',
-      successMessage: 'Tu cuenta ha sido creada. Ahora puedes iniciar sesión para acceder a tu portal.',
-      goToLogin: 'Ir al Login',
+      successTitle: 'Revisa Tu Correo',
+      successMessage: 'Hemos enviado un enlace de verificación a',
+      successInstruction: 'Haz clic en el enlace de tu correo para activar tu cuenta y acceder al Portal de Clientes.',
+      resendLink: '¿No recibiste el correo?',
+      resendButton: 'Reenviar correo de verificación',
+      resending: 'Enviando...',
+      resendSuccess: '¡Correo de verificación enviado!',
+      checkSpam: 'Revisa tu carpeta de spam si no lo ves.',
+      goToLogin: '¿Ya verificaste? Inicia Sesión',
       errorPasswordMismatch: 'Las contraseñas no coinciden',
       errorPasswordLength: 'La contraseña debe tener al menos 6 caracteres',
       errorGeneric: 'Ocurrió un error. Por favor intenta de nuevo.',
@@ -102,12 +115,24 @@ export default function SignUpPage() {
     try {
       await signUp(formData.email, formData.password, formData.fullName, formData.plan);
       setSuccess(true);
-      toast.success(c.successTitle);
     } catch (error: any) {
       console.error('Signup error:', error);
       toast.error(error.message || c.errorGeneric);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleResendEmail = async () => {
+    setIsResending(true);
+    try {
+      await resendVerificationEmail(formData.email);
+      toast.success(c.resendSuccess);
+    } catch (error: any) {
+      console.error('Resend error:', error);
+      toast.error(c.errorGeneric);
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -118,12 +143,50 @@ export default function SignUpPage() {
           <div className="container max-w-md">
             <Card>
               <CardContent className="pt-8 text-center">
-                <CheckCircle className="h-16 w-16 mx-auto mb-4 text-green-500" />
-                <h2 className="text-2xl font-bold mb-2">{c.successTitle}</h2>
-                <p className="text-muted-foreground mb-6">{c.successMessage}</p>
-                <Button asChild className="w-full">
-                  <Link to={getLocalizedPath('/login')}>{c.goToLogin}</Link>
-                </Button>
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center">
+                  <MailCheck className="h-8 w-8 text-accent" />
+                </div>
+                <h2 className="text-2xl font-display font-bold mb-2">{c.successTitle}</h2>
+                <p className="text-muted-foreground mb-2">
+                  {c.successMessage}
+                </p>
+                <p className="font-medium text-foreground mb-4">{formData.email}</p>
+                <p className="text-sm text-muted-foreground mb-6">
+                  {c.successInstruction}
+                </p>
+                
+                <div className="border-t border-border pt-6 space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    {c.resendLink}
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    onClick={handleResendEmail} 
+                    disabled={isResending}
+                    className="w-full"
+                  >
+                    {isResending ? (
+                      <>
+                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                        {c.resending}
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="mr-2 h-4 w-4" />
+                        {c.resendButton}
+                      </>
+                    )}
+                  </Button>
+                  <p className="text-xs text-muted-foreground">
+                    {c.checkSpam}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-border">
+                  <Button asChild variant="ghost" className="w-full">
+                    <Link to={getLocalizedPath('/login')}>{c.goToLogin}</Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
