@@ -46,12 +46,12 @@ export const siteConfig = {
   meta: {
     en: {
       title: "DBCloud | Enterprise Cloud & Database Solutions",
-      description: "Enterprise-grade managed database services, cloud migration, and AI solutions. 24/7 support, 99.99% uptime SLA. Trusted by Fortune 500 companies.",
+      description: "Enterprise-grade managed database services, cloud migration, and AI-powered solutions. US-registered company with remote-first operations and certified AWS, Azure, GCP experts.",
       keywords: "managed database services, cloud migration, database management, AI services, enterprise cloud, AWS, Azure, GCP"
     },
     es: {
       title: "DBCloud | Soluciones Cloud y Bases de Datos Empresariales",
-      description: "Servicios de bases de datos administradas empresariales, migración a la nube y soluciones de IA. Soporte 24/7, SLA 99.99% de tiempo de actividad.",
+      description: "Servicios de bases de datos administradas empresariales, migración a la nube y soluciones de IA. Empresa registrada en EE.UU. con operaciones remotas y expertos certificados.",
       keywords: "servicios de bases de datos administradas, migración a la nube, gestión de bases de datos, servicios de IA, nube empresarial"
     }
   }

@@ -7,21 +7,34 @@ import { siteConfig } from '@/config/site';
 export function HeroSection() {
   const { t, getLocalizedPath, lang } = useLang();
 
-  const stats = [
-    { icon: Users, value: '500+', label: lang === 'es' ? 'Clientes Enterprise' : 'Enterprise Clients' },
-    { icon: Database, value: '10K+', label: lang === 'es' ? 'Bases de Datos' : 'Databases Managed' },
-    { icon: Clock, value: '99.99%', label: 'Uptime SLA' },
-    { icon: Shield, value: '24/7', label: lang === 'es' ? 'Soporte Experto' : 'Expert Support' },
+  // Capability-based trust signals (no fake metrics)
+  const capabilities = [
+    { 
+      icon: Shield, 
+      label: lang === 'es' ? 'Seguridad Empresarial' : 'Enterprise Security' 
+    },
+    { 
+      icon: Brain, 
+      label: lang === 'es' ? 'Operaciones con IA' : 'AI-Powered Operations' 
+    },
+    { 
+      icon: Clock, 
+      label: lang === 'es' ? 'Flujos SLA' : 'SLA-Based Workflows' 
+    },
+    { 
+      icon: Database, 
+      label: lang === 'es' ? 'Multi-Cloud' : 'Multi-Cloud Ready' 
+    },
   ];
 
   // Enterprise hero features (like MongoDB, Snowflake)
   const heroFeatures = lang === 'es' ? [
-    'Sin tiempo de inactividad durante migraciones',
-    'Certificado SOC 2, HIPAA, GDPR',
+    'Empresa registrada en EE.UU.',
+    'Operaciones remotas en todo el país',
     'Expertos certificados AWS, Azure, GCP',
   ] : [
-    'Zero downtime during migrations',
-    'SOC 2, HIPAA, GDPR certified',
+    'US-Registered Company',
+    'Remote-first operations nationwide',
     'AWS, Azure, GCP certified experts',
   ];
 
@@ -116,21 +129,20 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Stats */}
+        {/* Capability badges (no fake metrics) */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
-          {stats.map((stat) => (
+          {capabilities.map((cap) => (
             <div
-              key={stat.label}
-              className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+              key={cap.label}
+              className="flex items-center justify-center gap-3 p-5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
             >
-              <stat.icon className="h-8 w-8 text-accent mx-auto mb-3" />
-              <div className="font-display text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-white/70">{stat.label}</div>
+              <cap.icon className="h-6 w-6 text-accent" />
+              <span className="text-sm font-medium text-white">{cap.label}</span>
             </div>
           ))}
         </motion.div>

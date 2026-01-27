@@ -203,8 +203,9 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 text-accent" />
                 <span className="text-primary-foreground/70">
-                  {siteConfig.address.street}<br />
-                  {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
+                  {lang === 'es' 
+                    ? 'Empresa registrada en EE.UU. — Operando remotamente en todo el país'
+                    : 'US-Registered Company — Operating Remotely Across the United States'}
                 </span>
               </li>
             </ul>

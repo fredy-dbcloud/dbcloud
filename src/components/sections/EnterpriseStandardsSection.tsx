@@ -6,13 +6,13 @@ import {
   LayoutDashboard, 
   Clock, 
   Puzzle, 
-  CheckCircle 
+  Globe
 } from 'lucide-react';
 
 /**
  * Enterprise Standards Section
- * Replaces fake client logos with credibility-driven trust signals.
- * Shows architectural and operational principles that build trust.
+ * Credibility-driven trust signals based on actual platform capabilities.
+ * No fake metrics or unverifiable claims.
  */
 export function EnterpriseStandardsSection() {
   const { lang } = useLang();
@@ -20,22 +20,22 @@ export function EnterpriseStandardsSection() {
   const content = {
     en: {
       title: 'Built for Enterprise Standards',
-      subtitle: 'Designed using the same operational principles trusted by high-growth enterprise consultancies.',
+      subtitle: 'Process-driven operations designed for transparency, not hype.',
       features: [
         {
           icon: Shield,
-          title: 'Security-First Architecture',
-          description: 'Role-based access control, encrypted communications, and audit-ready infrastructure.',
+          title: 'Security & Compliance-Ready',
+          description: 'Role-based access, encrypted communications, and infrastructure prepared for SOC 2, HIPAA, and GDPR.',
         },
         {
           icon: Brain,
-          title: 'AI-Driven Operations',
-          description: 'Automated request triage, intelligent prioritization, and predictive health monitoring.',
+          title: 'AI-Driven Request Triage',
+          description: 'Automatic classification, risk detection, and intelligent prioritization for every client request.',
         },
         {
           icon: LayoutDashboard,
-          title: 'Transparent Dashboards',
-          description: 'Real-time visibility into hours used, requests status, and monthly summaries.',
+          title: 'Transparent Client Dashboards',
+          description: 'Real-time visibility into hours used, request status, and monthly performance summaries.',
         },
         {
           icon: Clock,
@@ -44,49 +44,49 @@ export function EnterpriseStandardsSection() {
         },
         {
           icon: Puzzle,
-          title: 'Modular Add-ons',
-          description: 'Prevent scope creep with structured add-on packages for out-of-scope work.',
+          title: 'Modular Plans & Add-Ons',
+          description: 'Prevent scope creep with structured packages. Pay only for what you need.',
         },
         {
-          icon: CheckCircle,
-          title: 'Enterprise Compliance Ready',
-          description: 'SOC 2, HIPAA, and GDPR compliant infrastructure available for Enterprise tier.',
+          icon: Globe,
+          title: 'US-Registered, Remote-First',
+          description: 'US-based company operating remotely across the nation. No overhead, pure expertise.',
         },
       ],
     },
     es: {
       title: 'Construido para Estándares Empresariales',
-      subtitle: 'Diseñado utilizando los mismos principios operativos de confianza de consultorías empresariales de alto crecimiento.',
+      subtitle: 'Operaciones basadas en procesos diseñadas para transparencia, no exageración.',
       features: [
         {
           icon: Shield,
-          title: 'Arquitectura de Seguridad Primero',
-          description: 'Control de acceso basado en roles, comunicaciones cifradas e infraestructura lista para auditorías.',
+          title: 'Seguridad y Cumplimiento Listo',
+          description: 'Acceso basado en roles, comunicaciones cifradas e infraestructura preparada para SOC 2, HIPAA y GDPR.',
         },
         {
           icon: Brain,
-          title: 'Operaciones Impulsadas por IA',
-          description: 'Triage automatizado de solicitudes, priorización inteligente y monitoreo predictivo de salud.',
+          title: 'Triage de Solicitudes con IA',
+          description: 'Clasificación automática, detección de riesgos y priorización inteligente para cada solicitud.',
         },
         {
           icon: LayoutDashboard,
-          title: 'Paneles Transparentes',
+          title: 'Dashboards Transparentes',
           description: 'Visibilidad en tiempo real de horas usadas, estado de solicitudes y resúmenes mensuales.',
         },
         {
           icon: Clock,
-          title: 'Flujos de Trabajo Basados en SLA',
+          title: 'Flujos Basados en SLA',
           description: 'Tiempos de respuesta definidos, límites de alcance claros y modelos de entrega estructurados.',
         },
         {
           icon: Puzzle,
-          title: 'Complementos Modulares',
-          description: 'Previene el scope creep con paquetes de complementos estructurados para trabajo fuera de alcance.',
+          title: 'Planes y Add-Ons Modulares',
+          description: 'Previene el scope creep con paquetes estructurados. Paga solo por lo que necesitas.',
         },
         {
-          icon: CheckCircle,
-          title: 'Listo para Cumplimiento Empresarial',
-          description: 'Infraestructura compatible con SOC 2, HIPAA y GDPR disponible para el nivel Enterprise.',
+          icon: Globe,
+          title: 'Empresa en EE.UU., Remota Primero',
+          description: 'Empresa registrada en EE.UU. operando remotamente en todo el país. Sin overhead, pura experiencia.',
         },
       ],
     },
