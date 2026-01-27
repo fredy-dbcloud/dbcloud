@@ -17,6 +17,8 @@ import { DemoBanner } from '@/components/demo/DemoBanner';
 import { DemoAIInsights } from '@/components/demo/DemoAIInsights';
 import { DemoMonthlySummaries } from '@/components/demo/DemoMonthlySummaries';
 import { DemoPlanLimitations } from '@/components/demo/DemoPlanLimitations';
+import { DemoBillingPreview } from '@/components/demo/DemoBillingPreview';
+import { DemoAddonsSection } from '@/components/demo/DemoAddonsSection';
 import { getDemoData, type DemoPlan } from '@/config/demoData';
 import { formatDistanceToNow } from 'date-fns';
 import { es, enUS } from 'date-fns/locale';
@@ -223,11 +225,31 @@ export default function DemoPage() {
               <DemoMonthlySummaries summaries={demoData.summaries} />
             </motion.div>
 
+            {/* Billing Preview */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75 }}
+            >
+              <DemoBillingPreview plan={plan as DemoPlan} />
+            </motion.div>
+
+            {/* Add-ons Section */}
+            {!isEnterprise && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <DemoAddonsSection plan={plan as DemoPlan} />
+              </motion.div>
+            )}
+
             {/* CTA Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.85 }}
               className="flex flex-wrap gap-4 justify-center pt-4"
             >
               <Button size="lg" asChild>

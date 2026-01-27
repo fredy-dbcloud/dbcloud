@@ -121,6 +121,19 @@ export default function CheckoutSuccessPage() {
               </h1>
               <p className="text-xl text-accent font-medium mb-2">{c.subtitle}</p>
               <p className="text-muted-foreground">{c.description}</p>
+              
+              {/* Demo-to-Product Continuity Notice */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-6 inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium"
+              >
+                <CheckCircle className="h-4 w-4" />
+                {lang === 'es' 
+                  ? 'Este es el mismo panel que viste en la demo, ahora con tus datos reales'
+                  : 'This is the same dashboard you saw in the demo, now with your real data'}
+              </motion.div>
             </div>
 
             {/* Expectations Section */}

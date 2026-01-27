@@ -93,6 +93,57 @@ export default function InternalDashboardPage() {
   const [healthPredictions, setHealthPredictions] = useState<HealthPrediction[]>([]);
   const [pendingRequests, setPendingRequests] = useState<any[]>([]);
 
+  // Detect language from URL
+  const pathname = window.location.pathname;
+  const lang = pathname.startsWith('/es') ? 'es' : 'en';
+
+  const labels = {
+    en: {
+      title: 'Admin Operations Dashboard',
+      subtitle: 'Enterprise Client Management & AI Insights',
+      refresh: 'Refresh',
+      clients: 'Clients',
+      requests: 'Requests',
+      revenue: 'Revenue',
+      aiInsights: 'AI Insights',
+      charts: 'Charts',
+      copilot: 'Copilot',
+      pending: 'Pending',
+      pendingClassification: 'Pending AI Classification',
+      pendingDesc: 'Requests awaiting AI triage',
+      runTriage: 'Run AI Triage',
+      allClassified: 'All requests have been classified!',
+      runningTriage: 'Running AI triage...',
+      classifiedSuccess: 'Request classified successfully',
+      classificationFailed: 'Classification failed',
+      triageFailed: 'Failed to run AI triage',
+      loadFailed: 'Failed to load dashboard data',
+    },
+    es: {
+      title: 'Panel de Operaciones Admin',
+      subtitle: 'Gestión de Clientes Empresariales e Insights de IA',
+      refresh: 'Actualizar',
+      clients: 'Clientes',
+      requests: 'Solicitudes',
+      revenue: 'Ingresos',
+      aiInsights: 'Insights IA',
+      charts: 'Gráficos',
+      copilot: 'Copiloto',
+      pending: 'Pendientes',
+      pendingClassification: 'Clasificación de IA Pendiente',
+      pendingDesc: 'Solicitudes esperando triage de IA',
+      runTriage: 'Ejecutar Triage IA',
+      allClassified: '¡Todas las solicitudes han sido clasificadas!',
+      runningTriage: 'Ejecutando triage de IA...',
+      classifiedSuccess: 'Solicitud clasificada exitosamente',
+      classificationFailed: 'Falló la clasificación',
+      triageFailed: 'Falló el triage de IA',
+      loadFailed: 'Falló la carga de datos del panel',
+    },
+  };
+
+  const t = labels[lang];
+
   useEffect(() => {
     loadAllData();
   }, []);
@@ -111,7 +162,7 @@ export default function InternalDashboardPage() {
       ]);
     } catch (error) {
       console.error('Failed to load data:', error);
-      toast.error('Failed to load dashboard data');
+      toast.error(t.loadFailed);
     }
     setIsLoading(false);
   };
@@ -167,7 +218,7 @@ export default function InternalDashboardPage() {
 
   const triggerAITriage = async (request: any) => {
     try {
-      toast.loading('Running AI triage...');
+      toast.loading(t.runningTriage);
       const { data, error } = await supabase.functions.invoke('ai-triage', {
         body: {
           request_id: request.id,
@@ -181,14 +232,14 @@ export default function InternalDashboardPage() {
       });
       toast.dismiss();
       if (!error && data?.success) {
-        toast.success('Request classified successfully');
+        toast.success(t.classifiedSuccess);
         loadAllData();
       } else {
-        toast.error(data?.error || 'Classification failed');
+        toast.error(data?.error || t.classificationFailed);
       }
     } catch (err) {
       toast.dismiss();
-      toast.error('Failed to run AI triage');
+      toast.error(t.triageFailed);
     }
   };
 
@@ -199,51 +250,51 @@ export default function InternalDashboardPage() {
           <div className="flex items-center gap-3">
             <Shield className="h-6 w-6 text-primary" />
             <div>
-              <h1 className="text-lg font-semibold">Admin Operations Dashboard</h1>
-              <p className="text-xs text-muted-foreground">Enterprise Client Management & AI Insights</p>
+              <h1 className="text-lg font-semibold">{t.title}</h1>
+              <p className="text-xs text-muted-foreground">{t.subtitle}</p>
             </div>
           </div>
           <Button variant="outline" size="sm" onClick={loadAllData} disabled={isLoading}>
             <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
-            Refresh
+            {t.refresh}
           </Button>
         </div>
       </header>
 
       <main className="container py-6 space-y-6">
         {/* Summary Cards */}
-        <AdminSummaryCards riskSummary={riskSummary} revenueOverview={revenueData} />
+        <AdminSummaryCards riskSummary={riskSummary} revenueOverview={revenueData} lang={lang} />
 
         {/* Main Tabs */}
         <Tabs defaultValue="clients" className="space-y-4">
           <TabsList className="flex-wrap h-auto gap-1">
             <TabsTrigger value="clients" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Clients
+              {t.clients}
             </TabsTrigger>
             <TabsTrigger value="requests" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Requests
+              {t.requests}
             </TabsTrigger>
             <TabsTrigger value="revenue" className="flex items-center gap-2">
               <DollarSign className="h-4 w-4" />
-              Revenue
+              {t.revenue}
             </TabsTrigger>
             <TabsTrigger value="insights" className="flex items-center gap-2">
               <Brain className="h-4 w-4" />
-              AI Insights
+              {t.aiInsights}
             </TabsTrigger>
             <TabsTrigger value="charts" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
-              Charts
+              {t.charts}
             </TabsTrigger>
             <TabsTrigger value="copilot" className="flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              Copilot
+              {t.copilot}
             </TabsTrigger>
             <TabsTrigger value="pending" className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              Pending ({pendingRequests.length})
+              {t.pending} ({pendingRequests.length})
             </TabsTrigger>
           </TabsList>
 
@@ -286,9 +337,9 @@ export default function InternalDashboardPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock className="h-5 w-5" />
-                  Pending AI Classification
+                  {t.pendingClassification}
                 </CardTitle>
-                <CardDescription>Requests awaiting AI triage</CardDescription>
+                <CardDescription>{t.pendingDesc}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[500px]">
@@ -299,24 +350,24 @@ export default function InternalDashboardPage() {
                           <div>
                             <p className="font-medium">{req.email}</p>
                             <p className="text-sm text-muted-foreground">
-                              {req.plan} • {req.request_type} • {req.priority} priority
+                              {req.plan} • {req.request_type} • {req.priority} {lang === 'es' ? 'prioridad' : 'priority'}
                             </p>
                           </div>
                           <Button size="sm" onClick={() => triggerAITriage(req)}>
                             <Bot className="h-4 w-4 mr-2" />
-                            Run AI Triage
+                            {t.runTriage}
                           </Button>
                         </div>
                         <p className="text-sm">{req.description}</p>
                         <p className="text-xs text-muted-foreground">
-                          Submitted: {new Date(req.created_at).toLocaleString()}
+                          {lang === 'es' ? 'Enviado:' : 'Submitted:'} {new Date(req.created_at).toLocaleString(lang === 'es' ? 'es-ES' : 'en-US')}
                         </p>
                       </div>
                     ))}
                     {pendingRequests.length === 0 && (
                       <div className="text-center py-8">
                         <CheckCircle className="h-12 w-12 mx-auto text-green-500 mb-4" />
-                        <p className="text-muted-foreground">All requests have been classified!</p>
+                        <p className="text-muted-foreground">{t.allClassified}</p>
                       </div>
                     )}
                   </div>
