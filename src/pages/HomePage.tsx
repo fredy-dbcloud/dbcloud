@@ -3,7 +3,6 @@ import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustedTechnologiesSection } from '@/components/sections/TrustedTechnologiesSection';
 import { EnterpriseStandardsSection } from '@/components/sections/EnterpriseStandardsSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
-import { TechnologyStackSection } from '@/components/sections/TechnologyStackSection';
 import { TrustSection } from '@/components/sections/TrustSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
@@ -11,7 +10,7 @@ import { CTASection } from '@/components/sections/CTASection';
 /**
  * HomePage - SMB-focused B2B Landing Page
  * Optimized for US small & mid-sized businesses
- * Trust signals emphasize technologies, not fake client logos
+ * Consolidated trust signals: logos once, expertise once
  */
 export default function HomePage() {
   return (
@@ -20,7 +19,6 @@ export default function HomePage() {
       <TrustedTechnologiesSection />
       <EnterpriseStandardsSection />
       <ServicesSection />
-      <TechnologyStackSection />
       <TrustSection />
       <TestimonialsSection />
       <CTASection />
