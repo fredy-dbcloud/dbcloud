@@ -19,6 +19,7 @@ import { HealthScoreBadge } from '@/components/dashboard/HealthScoreBadge';
 import { UpgradeSuggestion } from '@/components/dashboard/UpgradeSuggestion';
 import { MonthlySummaryCard } from '@/components/dashboard/MonthlySummaryCard';
 import { RecentRequestsList } from '@/components/dashboard/RecentRequestsList';
+import { AddonsGrid } from '@/components/addons/AddonsGrid';
 import { siteConfig } from '@/config/site';
 
 type PlanType = 'starter' | 'growth';
@@ -356,11 +357,24 @@ export default function ClientDashboardPage() {
                 </motion.div>
               </div>
 
-              {/* Quick Actions */}
+              {/* Add-ons Section */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
+              >
+                <AddonsGrid 
+                  email={email || ''} 
+                  plan={clientData.plan} 
+                  showTitle={true}
+                />
+              </motion.div>
+
+              {/* Quick Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
                 className="flex flex-wrap gap-4 justify-center"
               >
                 <Button asChild>

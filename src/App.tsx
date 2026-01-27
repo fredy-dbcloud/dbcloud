@@ -15,6 +15,7 @@ import TermsPage from "./pages/TermsPage";
 import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
+import AddonSuccessPage from "./pages/AddonSuccessPage";
 import NotFound from "./pages/NotFound";
 
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/en/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/en/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/en/dashboard" element={<ClientDashboardPage />} />
+          <Route path="/en/addon-success" element={<AddonSuccessPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -57,10 +59,13 @@ const App = () => (
           <Route path="/es/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/es/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/es/dashboard" element={<ClientDashboardPage />} />
+          <Route path="/es/addon-success" element={<AddonSuccessPage />} />
           
           {/* Language-agnostic routes for Stripe redirects */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+          <Route path="/addon-success" element={<AddonSuccessPage />} />
           <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
+          <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

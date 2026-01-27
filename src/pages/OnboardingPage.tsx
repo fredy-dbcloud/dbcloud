@@ -96,7 +96,7 @@ export default function OnboardingPage() {
 
           <First30DaysSection plan={plan as PlanType} />
 
-          <AddonsSection />
+          <AddonsSection plan={plan as PlanType} />
 
           {/* CTA */}
           <motion.section
