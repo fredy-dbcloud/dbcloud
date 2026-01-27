@@ -176,9 +176,9 @@ This obligation survives termination for 3 years. Standard exceptions apply (pub
 **${siteConfig.name}**
 Email: ${siteConfig.email}
 Phone: ${siteConfig.phone}
-Address: ${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}
+Operating remotely across the United States
 
-For legal notices, please send correspondence to our address above with "Legal Department" in the attention line.`
+For legal notices, please send correspondence via email with "Legal Department" in the subject line.`
       }
     ]
   },
@@ -354,9 +354,9 @@ Esta obligación sobrevive la terminación por 3 años. Se aplican excepciones e
 **${siteConfig.name}**
 Email: ${siteConfig.email}
 Teléfono: ${siteConfig.phone}
-Dirección: ${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}
+Operando remotamente en Estados Unidos
 
-Para avisos legales, por favor envíe correspondencia a nuestra dirección arriba con "Departamento Legal" en la línea de atención.`
+Para avisos legales, por favor envíe correspondencia por email con "Departamento Legal" en la línea de asunto.`
       }
     ]
   }

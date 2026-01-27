@@ -27,14 +27,14 @@ export function HeroSection() {
     },
   ];
 
-  // Enterprise hero features (like MongoDB, Snowflake)
+  // Enterprise hero features (experience-based, no fake metrics)
   const heroFeatures = lang === 'es' ? [
-    'Empresa registrada en EE.UU.',
-    'Operaciones remotas en todo el país',
+    'Empresa registrada y operando en EE.UU.',
+    'Equipo remoto de ingenieros senior',
     'Expertos certificados AWS, Azure, GCP',
   ] : [
-    'US-Registered Company',
-    'Remote-first operations nationwide',
+    'US-registered and compliant company',
+    'Remote-first team of senior engineers',
     'AWS, Azure, GCP certified experts',
   ];
 

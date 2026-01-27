@@ -22,15 +22,6 @@ export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const navItems = [
-    { href: getLocalizedPath('/'), label: t.nav.home },
-    { href: getLocalizedPath('/services'), label: t.nav.services },
-    { href: getLocalizedPath('/ai'), label: t.nav.ai },
-    { href: getLocalizedPath('/pricing'), label: t.nav.pricing },
-    { href: getLocalizedPath('/faq'), label: t.nav.faq },
-    { href: getLocalizedPath('/contact'), label: t.nav.contact },
-  ];
-
   const demoContent = {
     en: {
       viewDemo: 'View Demo',
@@ -49,6 +40,16 @@ export function Header() {
   };
 
   const dc = demoContent[lang];
+
+  const navItems = [
+    { href: getLocalizedPath('/'), label: t.nav.home },
+    { href: getLocalizedPath('/services'), label: t.nav.services },
+    { href: getLocalizedPath('/ai'), label: t.nav.ai },
+    { href: getLocalizedPath('/pricing'), label: t.nav.pricing },
+    { href: getLocalizedPath('/demo/growth'), label: dc.viewDemo },
+    { href: getLocalizedPath('/faq'), label: t.nav.faq },
+    { href: getLocalizedPath('/contact'), label: t.nav.contact },
+  ];
 
   const isActive = (href: string) => location.pathname === href;
 

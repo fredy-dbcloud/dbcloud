@@ -43,8 +43,8 @@ export const translations = {
     cta: {
       schedule: "Schedule a Call",
       contact: "Contact Us",
-      startSecurely: "Start Securely",
-      requestEvaluation: "Request Evaluation",
+      startAdvisory: "Start Advisory Plan",
+      requestGrowthEvaluation: "Request Growth Evaluation",
       talkToArchitect: "Talk to an Architect",
       whatsapp: "Chat on WhatsApp",
       getStarted: "Get Started",
@@ -329,9 +329,9 @@ export const translations = {
           note: "Contact us for pricing",
         },
         {
-          name: "Incident Response Pack",
-          description: "On-demand emergency support for critical issues.",
-          note: "Scoped separately",
+          name: "Emergency Incident Triage",
+          description: "Initial diagnosis and stabilization for production incidents.",
+          note: "Single incident scope",
         },
         {
           name: "One-Time Assessment",
@@ -472,8 +472,8 @@ export const translations = {
       whatsapp: "Chatear por WhatsApp",
       getStarted: "Comenzar",
       learnMore: "Saber Más",
-      startSecurely: "Comenzar con Seguridad",
-      requestEvaluation: "Solicitar Evaluación",
+      startAdvisory: "Iniciar Plan Asesor",
+      requestGrowthEvaluation: "Solicitar Evaluación Growth",
       talkToArchitect: "Hablar con un Arquitecto",
     },
     // Footer
@@ -811,9 +811,9 @@ export const translations = {
           note: "Contáctanos para precios",
         },
         {
-          name: "Paquete de Respuesta a Incidentes",
-          description: "Soporte de emergencia bajo demanda para problemas críticos.",
-          note: "Se cotiza por separado",
+          name: "Triage de Incidentes de Emergencia",
+          description: "Diagnóstico inicial y estabilización para incidentes de producción.",
+          note: "Alcance de un solo incidente",
         },
         {
           name: "Evaluación Única",

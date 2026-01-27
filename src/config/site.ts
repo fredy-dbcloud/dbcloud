@@ -33,13 +33,10 @@ export const siteConfig = {
     }
   },
   
-  // Company info
-  address: {
-    street: "100 Innovation Drive, Suite 400",
-    city: "San Francisco",
-    state: "CA",
-    zip: "94107",
-    country: "USA"
+  // Company info (remote-first, no physical address displayed)
+  companyLocation: {
+    en: "Operating remotely across the United States",
+    es: "Operando remotamente en Estados Unidos"
   },
   
   // Meta descriptions by language

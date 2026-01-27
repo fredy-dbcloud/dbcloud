@@ -60,8 +60,8 @@ export default function PricingPage() {
       limitations: 'Scope',
       scopeLimitations: 'Scope',
       bestFor: 'Best for',
-      requestEvaluation: 'Request Evaluation',
-      startSecurely: 'Start Securely',
+      requestEvaluation: 'Request Growth Evaluation',
+      startSecurely: 'Start Advisory Plan',
     },
     es: {
       mostPopular: 'Más Popular',
@@ -69,8 +69,8 @@ export default function PricingPage() {
       limitations: 'Alcance',
       scopeLimitations: 'Alcance',
       bestFor: 'Ideal para',
-      requestEvaluation: 'Solicitar Evaluación',
-      startSecurely: 'Comenzar con Seguridad',
+      requestEvaluation: 'Solicitar Evaluación Growth',
+      startSecurely: 'Iniciar Plan Asesor',
     },
   };
 
