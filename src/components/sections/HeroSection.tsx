@@ -31,11 +31,11 @@ export function HeroSection() {
   const heroFeatures = lang === 'es' ? [
     'Empresa registrada y operando en EE.UU.',
     'Equipo remoto de ingenieros senior',
-    'Expertos certificados AWS, Azure, GCP',
+    'Expertos certificados AWS, Azure, GCP, Oracle',
   ] : [
     'US-registered and compliant company',
     'Remote-first team of senior engineers',
-    'AWS, Azure, GCP certified experts',
+    'AWS, Azure, GCP, Oracle certified experts',
   ];
 
   return (
