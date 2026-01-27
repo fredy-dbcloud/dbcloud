@@ -18,8 +18,6 @@ import ClientDashboardPage from "./pages/ClientDashboardPage";
 import AddonSuccessPage from "./pages/AddonSuccessPage";
 import InternalDashboardPage from "./pages/InternalDashboardPage";
 import DemoPage from "./pages/DemoPage";
-import SummaryPage from "./pages/SummaryPage";
-import NewRequestPage from "./pages/NewRequestPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PortalPage from "./pages/PortalPage";
@@ -52,11 +50,8 @@ const App = () => (
           <Route path="/en/terms" element={<TermsPage />} />
           <Route path="/en/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/en/onboarding/:plan" element={<OnboardingPage />} />
-          <Route path="/en/dashboard" element={<ClientDashboardPage />} />
           <Route path="/en/addon-success" element={<AddonSuccessPage />} />
           <Route path="/en/demo/:plan" element={<DemoPage />} />
-          <Route path="/en/summary" element={<SummaryPage />} />
-          <Route path="/en/requests/new" element={<NewRequestPage />} />
           <Route path="/en/login" element={<LoginPage />} />
           <Route path="/en/signup" element={<SignUpPage />} />
           {/* Protected Portal Routes - English */}
@@ -76,11 +71,8 @@ const App = () => (
           <Route path="/es/terms" element={<TermsPage />} />
           <Route path="/es/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/es/onboarding/:plan" element={<OnboardingPage />} />
-          <Route path="/es/dashboard" element={<ClientDashboardPage />} />
           <Route path="/es/addon-success" element={<AddonSuccessPage />} />
           <Route path="/es/demo/:plan" element={<DemoPage />} />
-          <Route path="/es/summary" element={<SummaryPage />} />
-          <Route path="/es/requests/new" element={<NewRequestPage />} />
           <Route path="/es/login" element={<LoginPage />} />
           <Route path="/es/signup" element={<SignUpPage />} />
           {/* Protected Portal Routes - Spanish */}
@@ -88,20 +80,34 @@ const App = () => (
           <Route path="/es/portal/requests" element={<ProtectedRoute><PortalRequestsPage /></ProtectedRoute>} />
           <Route path="/es/portal/summary" element={<ProtectedRoute><PortalSummaryPage /></ProtectedRoute>} />
           
-          {/* Language-agnostic routes - redirect to English */}
+          {/* Language-agnostic routes - redirect to English portal equivalents */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/addon-success" element={<AddonSuccessPage />} />
           <Route path="/pricing" element={<Navigate to="/en/pricing" replace />} />
-          <Route path="/dashboard" element={<Navigate to="/en/dashboard" replace />} />
-          <Route path="/summary" element={<Navigate to="/en/summary" replace />} />
-          <Route path="/requests/new" element={<Navigate to="/en/requests/new" replace />} />
+          
+          {/* Legacy client routes -> redirect to portal */}
+          <Route path="/dashboard" element={<Navigate to="/en/portal" replace />} />
+          <Route path="/summary" element={<Navigate to="/en/portal/summary" replace />} />
+          <Route path="/requests/new" element={<Navigate to="/en/portal/requests" replace />} />
+          <Route path="/en/summary" element={<Navigate to="/en/portal/summary" replace />} />
+          <Route path="/es/summary" element={<Navigate to="/es/portal/summary" replace />} />
+          <Route path="/en/requests/new" element={<Navigate to="/en/portal/requests" replace />} />
+          <Route path="/es/requests/new" element={<Navigate to="/es/portal/requests" replace />} />
+          <Route path="/en/dashboard" element={<Navigate to="/en/portal" replace />} />
+          <Route path="/es/dashboard" element={<Navigate to="/es/portal" replace />} />
+          
+          {/* Onboarding redirects to portal for existing users */}
+          <Route path="/onboarding/starter" element={<Navigate to="/en/portal" replace />} />
+          <Route path="/onboarding/growth" element={<Navigate to="/en/portal" replace />} />
+          
+          {/* Auth redirects */}
           <Route path="/login" element={<Navigate to="/en/login" replace />} />
           <Route path="/signup" element={<Navigate to="/en/signup" replace />} />
           <Route path="/portal" element={<Navigate to="/en/portal" replace />} />
           <Route path="/portal/requests" element={<Navigate to="/en/portal/requests" replace />} />
           <Route path="/portal/summary" element={<Navigate to="/en/portal/summary" replace />} />
           
-          {/* Demo routes redirect */}
+          {/* Demo routes - keep public */}
           <Route path="/demo/:plan" element={<DemoPage />} />
           
           {/* Internal routes (not public) */}
