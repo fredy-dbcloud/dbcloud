@@ -56,19 +56,21 @@ export default function PricingPage() {
   const labels = {
     en: {
       mostPopular: 'Most Popular',
-      contactSales: 'Contact Sales',
-      limitations: 'Limitations',
-      scopeLimitations: 'Scope Limitations',
+      contactSales: 'Talk to an Architect',
+      limitations: 'Scope',
+      scopeLimitations: 'Scope',
       bestFor: 'Best for',
-      requestEvaluation: 'Request Scope Review',
+      requestEvaluation: 'Request Evaluation',
+      startSecurely: 'Start Securely',
     },
     es: {
       mostPopular: 'Más Popular',
-      contactSales: 'Contactar Ventas',
-      limitations: 'Limitaciones',
+      contactSales: 'Hablar con un Arquitecto',
+      limitations: 'Alcance',
       scopeLimitations: 'Alcance',
       bestFor: 'Ideal para',
       requestEvaluation: 'Solicitar Evaluación',
+      startSecurely: 'Comenzar con Seguridad',
     },
   };
 
@@ -339,7 +341,7 @@ export default function PricingPage() {
                       ? l.contactSales 
                       : plan.key === 'growth' 
                         ? l.requestEvaluation 
-                        : t.cta.getStarted}
+                        : l.startSecurely}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Clock, Timer, CheckCircle, MessageSquare, AlertTriangle, FileText } from 'lucide-react';
+import { Clock, Timer, CheckCircle, MessageSquare, ArrowRight, FileText, Info } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 
 interface PlanDeliveryProps {
@@ -89,18 +89,18 @@ export function ScopeBoundariesSection({ planKey }: PlanDeliveryProps) {
         </ul>
       </div>
 
-      {/* Out of Scope */}
+      {/* Out of Scope - now framed as available upgrades */}
       <div>
         <div className="flex items-center gap-1.5 mb-2">
-          <AlertTriangle className="h-4 w-4 text-amber-600" />
-          <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wide">
+          <ArrowRight className="h-4 w-4 text-primary" />
+          <span className="text-xs font-semibold text-primary uppercase tracking-wide">
             {dm.outOfScope}
           </span>
         </div>
         <ul className="space-y-1">
           {plan.outOfScope.map((item: string) => (
             <li key={item} className="flex items-start gap-2 text-xs text-muted-foreground">
-              <span className="text-amber-600">×</span>
+              <span className="text-primary">→</span>
               {item}
             </li>
           ))}
@@ -137,9 +137,9 @@ export function EmergencyExclusionNotice() {
   const dm = (t.pricing as any).deliveryModel;
 
   return (
-    <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mt-4">
-      <p className="text-xs text-amber-700 dark:text-amber-400 font-medium flex items-center gap-2">
-        <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+    <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 mt-4">
+      <p className="text-xs text-foreground font-medium flex items-center gap-2">
+        <Info className="h-4 w-4 flex-shrink-0 text-primary" />
         {dm.outOfScopeNote}
       </p>
     </div>

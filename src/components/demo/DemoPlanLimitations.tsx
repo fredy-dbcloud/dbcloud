@@ -1,4 +1,4 @@
-import { Info, Check, X } from 'lucide-react';
+import { Info, Check, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLang } from '@/hooks/useLang';
 import type { DemoPlan } from '@/config/demoData';
@@ -13,47 +13,47 @@ export function DemoPlanLimitations({ plan, limitations }: DemoPlanLimitationsPr
 
   const labels = {
     en: {
-      title: 'Plan Scope & Boundaries',
+      title: 'Plan Scope & Capabilities',
       included: "What's Included",
-      excluded: "What's Not Included",
+      available: "Available via Add-ons or Enterprise",
     },
     es: {
-      title: 'Alcance y Límites del Plan',
+      title: 'Alcance y Capacidades del Plan',
       included: 'Qué Está Incluido',
-      excluded: 'Qué No Está Incluido',
+      available: 'Disponible vía Add-ons o Enterprise',
     },
   };
 
   const t = labels[lang as keyof typeof labels] || labels.en;
 
-  // Define exclusions per plan
-  const exclusions = {
+  // Define available add-ons per plan with positive framing
+  const availableUpgrades = {
     starter: lang === 'es' ? [
-      'Ejecución directa de cambios',
-      'Soporte de incidentes de producción',
-      'Soporte de cumplimiento',
-      'Garantías de SLA',
+      'Ejecución directa de cambios → disponible en Growth',
+      'Soporte de incidentes críticos → paquetes add-on',
+      'Certificaciones de cumplimiento → Enterprise',
+      'SLAs garantizados → Enterprise',
     ] : [
-      'Direct execution of changes',
-      'Production incident support',
-      'Compliance support',
-      'SLA guarantees',
+      'Direct execution of changes → available in Growth',
+      'Critical incident support → add-on packs',
+      'Compliance certifications → Enterprise',
+      'Guaranteed SLAs → Enterprise',
     ],
     growth: lang === 'es' ? [
-      'Garantías de SLA formales',
-      'Soporte 24/7',
-      'Soporte de cumplimiento dedicado',
-      'Respuesta garantizada a incidentes',
+      'SLAs formales garantizados → Enterprise',
+      'Soporte 24/7 → Enterprise',
+      'Soporte de cumplimiento dedicado → Enterprise',
+      'Respuesta garantizada a incidentes → Enterprise',
     ] : [
-      'Formal SLA guarantees',
-      '24/7 on-call support',
-      'Dedicated compliance support',
-      'Guaranteed incident response',
+      'Formal guaranteed SLAs → Enterprise',
+      '24/7 on-call support → Enterprise',
+      'Dedicated compliance support → Enterprise',
+      'Guaranteed incident response → Enterprise',
     ],
     enterprise: lang === 'es' ? [
-      'Ninguna exclusión - cobertura completa',
+      'Cobertura completa incluida',
     ] : [
-      'No exclusions - full coverage',
+      'Full coverage included',
     ],
   };
 
@@ -82,15 +82,15 @@ export function DemoPlanLimitations({ plan, limitations }: DemoPlanLimitationsPr
             </ul>
           </div>
 
-          {/* Excluded */}
+          {/* Available Upgrades */}
           <div>
-            <h4 className="text-sm font-semibold mb-3 text-muted-foreground">
-              {t.excluded}
+            <h4 className="text-sm font-semibold mb-3 text-primary">
+              {t.available}
             </h4>
             <ul className="space-y-2">
-              {exclusions[plan].map((item, index) => (
+              {availableUpgrades[plan].map((item, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <X className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                  <ArrowRight className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
