@@ -25,12 +25,54 @@ interface Client {
 
 interface ClientsManagementProps {
   clients: Client[];
+  lang?: 'en' | 'es';
 }
 
-export function ClientsManagement({ clients }: ClientsManagementProps) {
+export function ClientsManagement({ clients, lang = 'en' }: ClientsManagementProps) {
   const [search, setSearch] = useState('');
   const [planFilter, setPlanFilter] = useState<string>('all');
   const [healthFilter, setHealthFilter] = useState<string>('all');
+
+  const labels = {
+    en: {
+      title: 'Clients Management',
+      description: 'View all clients, their plans, usage, and health status',
+      searchPlaceholder: 'Search by email, name, or company...',
+      allPlans: 'All Plans',
+      allHealth: 'All Health',
+      healthy: 'Healthy',
+      atRisk: 'At Risk',
+      churnRisk: 'Churn Risk',
+      expansionReady: 'Expansion Ready',
+      marginRisk: 'Margin Risk',
+      joined: 'Joined',
+      hoursUsed: 'Hours Used',
+      requests: 'Requests',
+      churn: 'Churn Risk',
+      expansion: 'Expansion',
+      noClients: 'No clients found matching your filters.',
+    },
+    es: {
+      title: 'Gestión de Clientes',
+      description: 'Ver todos los clientes, sus planes, uso y estado de salud',
+      searchPlaceholder: 'Buscar por email, nombre o empresa...',
+      allPlans: 'Todos los Planes',
+      allHealth: 'Toda la Salud',
+      healthy: 'Saludable',
+      atRisk: 'En Riesgo',
+      churnRisk: 'Riesgo de Abandono',
+      expansionReady: 'Listo para Expansión',
+      marginRisk: 'Riesgo de Margen',
+      joined: 'Desde',
+      hoursUsed: 'Horas Usadas',
+      requests: 'Solicitudes',
+      churn: 'Riesgo Abandono',
+      expansion: 'Expansión',
+      noClients: 'No se encontraron clientes con los filtros aplicados.',
+    },
+  };
+
+  const t = labels[lang];
 
   const filteredClients = clients.filter(client => {
     const matchesSearch = 
@@ -64,10 +106,10 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Users className="h-5 w-5" />
-          Clients Management
+          {t.title}
         </CardTitle>
         <CardDescription>
-          View all clients, their plans, usage, and health status
+          {t.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -76,7 +118,7 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by email, name, or company..."
+              placeholder={t.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -87,23 +129,23 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
               <SelectValue placeholder="Plan" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Plans</SelectItem>
+              <SelectItem value="all">{t.allPlans}</SelectItem>
               <SelectItem value="starter">Starter</SelectItem>
               <SelectItem value="growth">Growth</SelectItem>
               <SelectItem value="enterprise">Enterprise</SelectItem>
             </SelectContent>
           </Select>
           <Select value={healthFilter} onValueChange={setHealthFilter}>
-            <SelectTrigger className="w-[160px]">
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Health" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Health</SelectItem>
-              <SelectItem value="healthy">Healthy</SelectItem>
-              <SelectItem value="at_risk">At Risk</SelectItem>
-              <SelectItem value="churn_risk">Churn Risk</SelectItem>
-              <SelectItem value="expansion_ready">Expansion Ready</SelectItem>
-              <SelectItem value="margin_risk">Margin Risk</SelectItem>
+              <SelectItem value="all">{t.allHealth}</SelectItem>
+              <SelectItem value="healthy">{t.healthy}</SelectItem>
+              <SelectItem value="at_risk">{t.atRisk}</SelectItem>
+              <SelectItem value="churn_risk">{t.churnRisk}</SelectItem>
+              <SelectItem value="expansion_ready">{t.expansionReady}</SelectItem>
+              <SelectItem value="margin_risk">{t.marginRisk}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -124,7 +166,7 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
                       <p className="text-sm text-muted-foreground">
                         {client.full_name && `${client.full_name} • `}
                         {client.company && `${client.company} • `}
-                        Joined {new Date(client.created_at).toLocaleDateString()}
+                        {t.joined} {new Date(client.created_at).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US')}
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -138,7 +180,7 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
                   {/* Usage */}
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Hours Used</span>
+                      <span className="text-muted-foreground">{t.hoursUsed}</span>
                       <span className="font-medium">
                         {client.hours_used}h / {client.hours_included}h
                       </span>
@@ -149,17 +191,17 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
-                      <p className="text-muted-foreground">Requests</p>
+                      <p className="text-muted-foreground">{t.requests}</p>
                       <p className="font-medium">{client.requests_completed}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Churn Risk</p>
+                      <p className="text-muted-foreground">{t.churn}</p>
                       <p className="font-medium text-red-600">
                         {(client.churn_probability * 100).toFixed(0)}%
                       </p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Expansion</p>
+                      <p className="text-muted-foreground">{t.expansion}</p>
                       <p className="font-medium text-green-600">
                         {(client.expansion_probability * 100).toFixed(0)}%
                       </p>
@@ -170,7 +212,7 @@ export function ClientsManagement({ clients }: ClientsManagementProps) {
             })}
             {filteredClients.length === 0 && (
               <p className="text-center text-muted-foreground py-8">
-                No clients found matching your filters.
+                {t.noClients}
               </p>
             )}
           </div>

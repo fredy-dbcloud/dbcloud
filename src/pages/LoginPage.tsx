@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLang } from '@/hooks/useLang';
 import { useAuth } from '@/hooks/useAuth';
+import { useAdminRole } from '@/hooks/useAdminRole';
 import { toast } from 'sonner';
 import { Mail, Lock, Loader2, ArrowLeft, MailCheck } from 'lucide-react';
 
@@ -16,7 +17,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { signIn, signInWithMagicLink, resetPassword } = useAuth();
+  const { signIn, signInWithMagicLink, resetPassword, isAuthenticated, user } = useAuth();
+  const { isAdmin, isCheckingRole, checkAdminRole } = useAdminRole();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,9 +27,31 @@ export default function LoginPage() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
 
-  // Get the intended destination
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || 
-               getLocalizedPath('/portal');
+  // Get the intended destination from state (if any)
+  const stateFrom = (location.state as { from?: { pathname: string } })?.from?.pathname;
+
+  // Handle redirect after auth state changes
+  useEffect(() => {
+    if (!isAuthenticated || isCheckingRole) return;
+
+    // Determine redirect destination based on role
+    const handleRedirect = async () => {
+      // If user came from a specific page, respect that
+      if (stateFrom && !stateFrom.includes('/login')) {
+        navigate(stateFrom, { replace: true });
+        return;
+      }
+
+      // Role-based redirect
+      if (isAdmin) {
+        navigate(getLocalizedPath('/internal'), { replace: true });
+      } else {
+        navigate(getLocalizedPath('/portal'), { replace: true });
+      }
+    };
+
+    handleRedirect();
+  }, [isAuthenticated, isCheckingRole, isAdmin, stateFrom, navigate, getLocalizedPath]);
 
   const content = {
     en: {
@@ -89,9 +113,22 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await signIn(email, password);
+      const { user: signedInUser } = await signIn(email, password);
       toast.success(lang === 'es' ? '¡Bienvenido!' : 'Welcome back!');
-      navigate(from, { replace: true });
+      
+      // Check admin status for the newly logged in user
+      if (signedInUser) {
+        const adminStatus = await checkAdminRole(signedInUser.id);
+        
+        // Redirect based on role (unless coming from a specific page)
+        if (stateFrom && !stateFrom.includes('/login')) {
+          navigate(stateFrom, { replace: true });
+        } else if (adminStatus) {
+          navigate(getLocalizedPath('/internal'), { replace: true });
+        } else {
+          navigate(getLocalizedPath('/portal'), { replace: true });
+        }
+      }
     } catch (error: any) {
       console.error('Login error:', error);
       toast.error(error.message?.includes('Invalid') ? c.errorInvalidCredentials : c.errorGeneric);

@@ -11,21 +11,55 @@ interface RevenueData {
 
 interface RevenueOverviewProps {
   data: RevenueData | null;
+  lang?: 'en' | 'es';
 }
 
-export function RevenueOverview({ data }: RevenueOverviewProps) {
+export function RevenueOverview({ data, lang = 'en' }: RevenueOverviewProps) {
+  const labels = {
+    en: {
+      loading: 'Loading revenue data...',
+      title: 'Revenue Overview',
+      description: 'Monthly recurring revenue and plan distribution',
+      mrr: 'Monthly Recurring Revenue',
+      fromClients: 'from {count} active clients',
+      planDistribution: 'Plan Distribution',
+      upgradeSignals: 'Upgrade Signals',
+      upgradeSignalsDesc: 'Clients showing upgrade behavior',
+      potentialUpgrades: 'potential upgrades',
+      revenueBreakdown: 'Revenue Breakdown',
+      totalMrr: 'Total MRR',
+      projectedArr: 'Projected ARR',
+    },
+    es: {
+      loading: 'Cargando datos de ingresos...',
+      title: 'Resumen de Ingresos',
+      description: 'Ingresos recurrentes mensuales y distribución de planes',
+      mrr: 'Ingresos Recurrentes Mensuales',
+      fromClients: 'de {count} clientes activos',
+      planDistribution: 'Distribución de Planes',
+      upgradeSignals: 'Señales de Upgrade',
+      upgradeSignalsDesc: 'Clientes mostrando comportamiento de upgrade',
+      potentialUpgrades: 'upgrades potenciales',
+      revenueBreakdown: 'Desglose de Ingresos',
+      totalMrr: 'MRR Total',
+      projectedArr: 'ARR Proyectado',
+    },
+  };
+
+  const t = labels[lang];
+
   if (!data) {
     return (
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
-          Loading revenue data...
+          {t.loading}
         </CardContent>
       </Card>
     );
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(lang === 'es' ? 'es-ES' : 'en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
@@ -65,19 +99,19 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <DollarSign className="h-5 w-5" />
-          Revenue Overview
+          {t.title}
         </CardTitle>
         <CardDescription>
-          Monthly recurring revenue and plan distribution
+          {t.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* MRR Card */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
-          <p className="text-sm text-muted-foreground mb-1">Monthly Recurring Revenue</p>
+          <p className="text-sm text-muted-foreground mb-1">{t.mrr}</p>
           <p className="text-4xl font-bold text-primary">{formatCurrency(data.mrr)}</p>
           <p className="text-sm text-muted-foreground mt-2">
-            from {data.total_clients} active clients
+            {t.fromClients.replace('{count}', String(data.total_clients))}
           </p>
         </div>
 
@@ -85,7 +119,7 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
         <div className="space-y-4">
           <h4 className="font-medium flex items-center gap-2">
             <Users className="h-4 w-4" />
-            Plan Distribution
+            {t.planDistribution}
           </h4>
           
           {/* Visual Bar */}
@@ -112,10 +146,10 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
                 </Badge>
                 <p className="text-2xl font-bold">{plan.count}</p>
                 <p className="text-sm text-muted-foreground">
-                  {formatCurrency(plan.price)}/mo
+                  {formatCurrency(plan.price)}/{lang === 'es' ? 'mes' : 'mo'}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  = {formatCurrency(plan.count * plan.price)}/mo
+                  = {formatCurrency(plan.count * plan.price)}/{lang === 'es' ? 'mes' : 'mo'}
                 </p>
               </div>
             ))}
@@ -128,15 +162,15 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
             <div className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-green-600" />
               <div>
-                <p className="font-medium">Upgrade Signals</p>
+                <p className="font-medium">{t.upgradeSignals}</p>
                 <p className="text-sm text-muted-foreground">
-                  Clients showing upgrade behavior
+                  {t.upgradeSignalsDesc}
                 </p>
               </div>
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold text-green-600">{data.upgrade_signals}</p>
-              <p className="text-xs text-muted-foreground">potential upgrades</p>
+              <p className="text-xs text-muted-foreground">{t.potentialUpgrades}</p>
             </div>
           </div>
         </div>
@@ -145,7 +179,7 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
         <div className="border rounded-lg p-4">
           <div className="flex items-center gap-2 mb-3">
             <CreditCard className="h-4 w-4" />
-            <h4 className="font-medium">Revenue Breakdown</h4>
+            <h4 className="font-medium">{t.revenueBreakdown}</h4>
           </div>
           <div className="space-y-2 text-sm">
             {planDetails.map((plan) => (
@@ -155,11 +189,11 @@ export function RevenueOverview({ data }: RevenueOverviewProps) {
               </div>
             ))}
             <div className="border-t pt-2 flex justify-between font-medium">
-              <span>Total MRR</span>
+              <span>{t.totalMrr}</span>
               <span className="text-primary">{formatCurrency(data.mrr)}</span>
             </div>
             <div className="flex justify-between text-muted-foreground">
-              <span>Projected ARR</span>
+              <span>{t.projectedArr}</span>
               <span>{formatCurrency(data.mrr * 12)}</span>
             </div>
           </div>

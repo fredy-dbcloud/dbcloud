@@ -24,14 +24,70 @@ interface ClientRequest {
 
 interface RequestsManagementProps {
   requests: ClientRequest[];
+  lang?: 'en' | 'es';
 }
 
-export function RequestsManagement({ requests }: RequestsManagementProps) {
+export function RequestsManagement({ requests, lang = 'en' }: RequestsManagementProps) {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [planFilter, setPlanFilter] = useState<string>('all');
   const [classificationFilter, setClassificationFilter] = useState<string>('all');
   const [riskFilter, setRiskFilter] = useState<string>('all');
+
+  const labels = {
+    en: {
+      title: 'Requests Management',
+      description: 'View and filter all client requests by status, plan, and risk flags',
+      searchPlaceholder: 'Search by email or description...',
+      allStatus: 'All Status',
+      pending: 'Pending',
+      inProgress: 'In Progress',
+      completed: 'Completed',
+      cancelled: 'Cancelled',
+      allPlans: 'All Plans',
+      allTypes: 'All Types',
+      advisory: 'Advisory',
+      execution: 'Execution',
+      incident: 'Incident',
+      outOfScope: 'Out of Scope',
+      allFlags: 'All Flags',
+      scopeCreep: 'Scope Creep',
+      churnRisk: 'Churn Risk',
+      upgradeSignal: 'Upgrade Signal',
+      marginRisk: 'Margin Risk',
+      priority: 'priority',
+      effort: 'effort',
+      submitted: 'Submitted',
+      noRequests: 'No requests found matching your filters.',
+    },
+    es: {
+      title: 'Gestión de Solicitudes',
+      description: 'Ver y filtrar todas las solicitudes por estado, plan y banderas de riesgo',
+      searchPlaceholder: 'Buscar por email o descripción...',
+      allStatus: 'Todos los Estados',
+      pending: 'Pendiente',
+      inProgress: 'En Progreso',
+      completed: 'Completado',
+      cancelled: 'Cancelado',
+      allPlans: 'Todos los Planes',
+      allTypes: 'Todos los Tipos',
+      advisory: 'Asesoría',
+      execution: 'Ejecución',
+      incident: 'Incidente',
+      outOfScope: 'Fuera de Alcance',
+      allFlags: 'Todas las Banderas',
+      scopeCreep: 'Scope Creep',
+      churnRisk: 'Riesgo Abandono',
+      upgradeSignal: 'Señal Upgrade',
+      marginRisk: 'Riesgo Margen',
+      priority: 'prioridad',
+      effort: 'esfuerzo',
+      submitted: 'Enviado',
+      noRequests: 'No se encontraron solicitudes con los filtros aplicados.',
+    },
+  };
+
+  const t = labels[lang];
 
   const filteredRequests = requests.filter(req => {
     const matchesSearch = 
@@ -81,10 +137,10 @@ export function RequestsManagement({ requests }: RequestsManagementProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <FileText className="h-5 w-5" />
-          Requests Management
+          {t.title}
         </CardTitle>
         <CardDescription>
-          View and filter all client requests by status, plan, and risk flags
+          {t.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -93,57 +149,57 @@ export function RequestsManagement({ requests }: RequestsManagementProps) {
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by email or description..."
+              placeholder={t.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
             />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[130px]">
+            <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="in_progress">In Progress</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
+              <SelectItem value="all">{t.allStatus}</SelectItem>
+              <SelectItem value="pending">{t.pending}</SelectItem>
+              <SelectItem value="in_progress">{t.inProgress}</SelectItem>
+              <SelectItem value="completed">{t.completed}</SelectItem>
+              <SelectItem value="cancelled">{t.cancelled}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={planFilter} onValueChange={setPlanFilter}>
-            <SelectTrigger className="w-[130px]">
+            <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Plan" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Plans</SelectItem>
+              <SelectItem value="all">{t.allPlans}</SelectItem>
               <SelectItem value="starter">Starter</SelectItem>
               <SelectItem value="growth">Growth</SelectItem>
               <SelectItem value="enterprise">Enterprise</SelectItem>
             </SelectContent>
           </Select>
           <Select value={classificationFilter} onValueChange={setClassificationFilter}>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Classification" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="advisory">Advisory</SelectItem>
-              <SelectItem value="execution">Execution</SelectItem>
-              <SelectItem value="incident">Incident</SelectItem>
-              <SelectItem value="out_of_scope">Out of Scope</SelectItem>
+              <SelectItem value="all">{t.allTypes}</SelectItem>
+              <SelectItem value="advisory">{t.advisory}</SelectItem>
+              <SelectItem value="execution">{t.execution}</SelectItem>
+              <SelectItem value="incident">{t.incident}</SelectItem>
+              <SelectItem value="out_of_scope">{t.outOfScope}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={riskFilter} onValueChange={setRiskFilter}>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Risk Flag" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Flags</SelectItem>
-              <SelectItem value="scope_creep">Scope Creep</SelectItem>
-              <SelectItem value="potential_churn">Churn Risk</SelectItem>
-              <SelectItem value="upgrade_signal">Upgrade Signal</SelectItem>
-              <SelectItem value="margin_risk">Margin Risk</SelectItem>
+              <SelectItem value="all">{t.allFlags}</SelectItem>
+              <SelectItem value="scope_creep">{t.scopeCreep}</SelectItem>
+              <SelectItem value="potential_churn">{t.churnRisk}</SelectItem>
+              <SelectItem value="upgrade_signal">{t.upgradeSignal}</SelectItem>
+              <SelectItem value="margin_risk">{t.marginRisk}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -157,7 +213,7 @@ export function RequestsManagement({ requests }: RequestsManagementProps) {
                   <div>
                     <p className="font-medium">{req.email}</p>
                     <p className="text-sm text-muted-foreground">
-                      {req.plan} • {req.request_type} • {req.priority} priority
+                      {req.plan} • {req.request_type} • {req.priority} {t.priority}
                     </p>
                   </div>
                   <div className="flex gap-2 flex-wrap justify-end">
@@ -171,7 +227,7 @@ export function RequestsManagement({ requests }: RequestsManagementProps) {
                     )}
                     {req.ai_effort_level && (
                       <Badge variant="outline">
-                        {req.ai_effort_level} effort
+                        {req.ai_effort_level} {t.effort}
                       </Badge>
                     )}
                     {req.ai_estimated_hours && (
@@ -202,13 +258,13 @@ export function RequestsManagement({ requests }: RequestsManagementProps) {
                 )}
                 
                 <p className="text-xs text-muted-foreground">
-                  Submitted: {new Date(req.created_at).toLocaleString()}
+                  {t.submitted}: {new Date(req.created_at).toLocaleString(lang === 'es' ? 'es-ES' : 'en-US')}
                 </p>
               </div>
             ))}
             {filteredRequests.length === 0 && (
               <p className="text-center text-muted-foreground py-8">
-                No requests found matching your filters.
+                {t.noRequests}
               </p>
             )}
           </div>
