@@ -30,9 +30,47 @@ interface RiskSummary {
 interface AIInsightsPanelProps {
   healthPredictions: HealthPrediction[];
   riskSummary: RiskSummary | null;
+  lang?: 'en' | 'es';
 }
 
-export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPanelProps) {
+export function AIInsightsPanel({ healthPredictions, riskSummary, lang = 'en' }: AIInsightsPanelProps) {
+  const labels = {
+    en: {
+      title: 'AI Insights',
+      description: 'AI-driven client health predictions and actionable insights',
+      riskFlagDistribution: 'Risk Flag Distribution',
+      topChurnRisks: 'Top Churn Risks',
+      risk: 'risk',
+      noChurnRisk: 'No clients at churn risk',
+      noReasoning: 'No reasoning available',
+      topExpansion: 'Top Expansion Opportunities',
+      ready: 'ready',
+      highUsageSignal: 'High usage and engagement signals',
+      noExpansion: 'No expansion opportunities detected',
+      marginRisks: 'Margin Risks',
+      highEffort: 'High effort requests exceeding plan value',
+      noMarginRisk: 'No margin risks detected',
+    },
+    es: {
+      title: 'Insights de IA',
+      description: 'Predicciones de salud de clientes impulsadas por IA e insights accionables',
+      riskFlagDistribution: 'Distribución de Banderas de Riesgo',
+      topChurnRisks: 'Principales Riesgos de Abandono',
+      risk: 'riesgo',
+      noChurnRisk: 'No hay clientes en riesgo de abandono',
+      noReasoning: 'Sin razonamiento disponible',
+      topExpansion: 'Principales Oportunidades de Expansión',
+      ready: 'listo',
+      highUsageSignal: 'Señales de alto uso y engagement',
+      noExpansion: 'No se detectaron oportunidades de expansión',
+      marginRisks: 'Riesgos de Margen',
+      highEffort: 'Solicitudes de alto esfuerzo que exceden el valor del plan',
+      noMarginRisk: 'No se detectaron riesgos de margen',
+    },
+  };
+
+  const t = labels[lang];
+
   const churnRisks = healthPredictions
     .filter(h => h.health_status === 'churn_risk' || h.health_status === 'at_risk')
     .sort((a, b) => b.churn_probability - a.churn_probability)
@@ -53,10 +91,10 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5" />
-          AI Insights
+          {t.title}
         </CardTitle>
         <CardDescription>
-          AI-driven client health predictions and actionable insights
+          {t.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -65,7 +103,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
           <div className="border rounded-lg p-4">
             <h4 className="font-medium mb-3 flex items-center gap-2">
               <AlertCircle className="h-4 w-4" />
-              Risk Flag Distribution
+              {t.riskFlagDistribution}
             </h4>
             <div className="flex flex-wrap gap-2">
               {Object.entries(riskSummary.risk_flag_distribution).map(([flag, count]) => (
@@ -82,7 +120,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
         <div className="border border-red-500/20 rounded-lg p-4 bg-red-500/5">
           <h4 className="font-medium mb-3 flex items-center gap-2 text-red-700 dark:text-red-400">
             <AlertTriangle className="h-4 w-4" />
-            Top Churn Risks
+            {t.topChurnRisks}
           </h4>
           <ScrollArea className="h-[200px]">
             {churnRisks.length > 0 ? (
@@ -93,11 +131,11 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
                       <div>
                         <p className="font-medium text-sm">{client.email}</p>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {client.ai_reasoning || 'No reasoning available'}
+                          {client.ai_reasoning || t.noReasoning}
                         </p>
                       </div>
                       <Badge className="bg-red-500/10 text-red-700 border-red-500/20">
-                        {(client.churn_probability * 100).toFixed(0)}% risk
+                        {(client.churn_probability * 100).toFixed(0)}% {t.risk}
                       </Badge>
                     </div>
                   </div>
@@ -105,7 +143,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-4">
-                No clients at churn risk
+                {t.noChurnRisk}
               </p>
             )}
           </ScrollArea>
@@ -115,7 +153,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
         <div className="border border-green-500/20 rounded-lg p-4 bg-green-500/5">
           <h4 className="font-medium mb-3 flex items-center gap-2 text-green-700 dark:text-green-400">
             <TrendingUp className="h-4 w-4" />
-            Top Expansion Opportunities
+            {t.topExpansion}
           </h4>
           <ScrollArea className="h-[200px]">
             {expansionOpportunities.length > 0 ? (
@@ -126,11 +164,11 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
                       <div>
                         <p className="font-medium text-sm">{client.email}</p>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {client.ai_reasoning || 'High usage and engagement signals'}
+                          {client.ai_reasoning || t.highUsageSignal}
                         </p>
                       </div>
                       <Badge className="bg-green-500/10 text-green-700 border-green-500/20">
-                        {(client.expansion_probability * 100).toFixed(0)}% ready
+                        {(client.expansion_probability * 100).toFixed(0)}% {t.ready}
                       </Badge>
                     </div>
                   </div>
@@ -138,7 +176,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-4">
-                No expansion opportunities detected
+                {t.noExpansion}
               </p>
             )}
           </ScrollArea>
@@ -148,7 +186,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
         <div className="border border-orange-500/20 rounded-lg p-4 bg-orange-500/5">
           <h4 className="font-medium mb-3 flex items-center gap-2 text-orange-700 dark:text-orange-400">
             <DollarSign className="h-4 w-4" />
-            Margin Risks
+            {t.marginRisks}
           </h4>
           <ScrollArea className="h-[200px]">
             {marginRisks.length > 0 ? (
@@ -159,11 +197,11 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
                       <div>
                         <p className="font-medium text-sm">{client.email}</p>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {client.ai_reasoning || 'High effort requests exceeding plan value'}
+                          {client.ai_reasoning || t.highEffort}
                         </p>
                       </div>
                       <Badge className="bg-orange-500/10 text-orange-700 border-orange-500/20">
-                        {(client.margin_risk_score * 100).toFixed(0)}% risk
+                        {(client.margin_risk_score * 100).toFixed(0)}% {t.risk}
                       </Badge>
                     </div>
                   </div>
@@ -171,7 +209,7 @@ export function AIInsightsPanel({ healthPredictions, riskSummary }: AIInsightsPa
               </div>
             ) : (
               <p className="text-center text-muted-foreground py-4">
-                No margin risks detected
+                {t.noMarginRisk}
               </p>
             )}
           </ScrollArea>

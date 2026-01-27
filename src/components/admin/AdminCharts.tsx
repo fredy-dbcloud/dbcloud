@@ -17,7 +17,6 @@ import {
   Cell,
   LineChart,
   Line,
-  ResponsiveContainer,
 } from 'recharts';
 import { BarChart3, PieChart as PieChartIcon, TrendingUp, Clock } from 'lucide-react';
 
@@ -34,6 +33,7 @@ interface ChartsData {
 
 interface AdminChartsProps {
   data: ChartsData | null;
+  lang?: 'en' | 'es';
 }
 
 const PLAN_COLORS = {
@@ -42,13 +42,42 @@ const PLAN_COLORS = {
   enterprise: 'hsl(var(--chart-3))',
 };
 
-export function AdminCharts({ data }: AdminChartsProps) {
+export function AdminCharts({ data, lang = 'en' }: AdminChartsProps) {
+  const labels = {
+    en: {
+      loading: 'Loading charts...',
+      monthlySignups: 'Monthly Client Signups',
+      newClients: 'New clients per month',
+      requestsByPlan: 'Requests by Plan',
+      requestsDistribution: 'Distribution of requests across plans',
+      hoursConsumed: 'Hours Consumed vs Included',
+      hoursDescription: 'Monthly hours utilization across all clients',
+      hoursUsed: 'Hours Used',
+      hoursIncluded: 'Hours Included',
+      clients: 'Clients',
+    },
+    es: {
+      loading: 'Cargando gráficos...',
+      monthlySignups: 'Registros Mensuales de Clientes',
+      newClients: 'Nuevos clientes por mes',
+      requestsByPlan: 'Solicitudes por Plan',
+      requestsDistribution: 'Distribución de solicitudes entre planes',
+      hoursConsumed: 'Horas Consumidas vs Incluidas',
+      hoursDescription: 'Utilización mensual de horas entre todos los clientes',
+      hoursUsed: 'Horas Usadas',
+      hoursIncluded: 'Horas Incluidas',
+      clients: 'Clientes',
+    },
+  };
+
+  const t = labels[lang];
+
   if (!data) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardContent className="py-8 text-center text-muted-foreground">
-            Loading charts...
+            {t.loading}
           </CardContent>
         </Card>
       </div>
@@ -86,9 +115,9 @@ export function AdminCharts({ data }: AdminChartsProps) {
     .slice(-6);
 
   const chartConfig = {
-    clients: { label: 'Clients', color: 'hsl(var(--chart-1))' },
-    hours_used: { label: 'Hours Used', color: 'hsl(var(--chart-2))' },
-    hours_included: { label: 'Hours Included', color: 'hsl(var(--chart-3))' },
+    clients: { label: t.clients, color: 'hsl(var(--chart-1))' },
+    hours_used: { label: t.hoursUsed, color: 'hsl(var(--chart-2))' },
+    hours_included: { label: t.hoursIncluded, color: 'hsl(var(--chart-3))' },
     starter: { label: 'Starter', color: 'hsl(var(--chart-1))' },
     growth: { label: 'Growth', color: 'hsl(var(--chart-2))' },
     enterprise: { label: 'Enterprise', color: 'hsl(var(--chart-3))' },
@@ -101,9 +130,9 @@ export function AdminCharts({ data }: AdminChartsProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <TrendingUp className="h-4 w-4" />
-            Monthly Client Signups
+            {t.monthlySignups}
           </CardTitle>
-          <CardDescription>New clients per month</CardDescription>
+          <CardDescription>{t.newClients}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[250px]">
@@ -127,9 +156,9 @@ export function AdminCharts({ data }: AdminChartsProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <PieChartIcon className="h-4 w-4" />
-            Requests by Plan
+            {t.requestsByPlan}
           </CardTitle>
-          <CardDescription>Distribution of requests across plans</CardDescription>
+          <CardDescription>{t.requestsDistribution}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[250px]">
@@ -160,9 +189,9 @@ export function AdminCharts({ data }: AdminChartsProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Clock className="h-4 w-4" />
-            Hours Consumed vs Included
+            {t.hoursConsumed}
           </CardTitle>
-          <CardDescription>Monthly hours utilization across all clients</CardDescription>
+          <CardDescription>{t.hoursDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[250px]">
@@ -178,7 +207,7 @@ export function AdminCharts({ data }: AdminChartsProps) {
                 stroke="hsl(var(--chart-2))" 
                 strokeWidth={2}
                 dot={{ r: 4 }}
-                name="Hours Used"
+                name={t.hoursUsed}
               />
               <Line 
                 type="monotone" 
@@ -187,7 +216,7 @@ export function AdminCharts({ data }: AdminChartsProps) {
                 strokeWidth={2}
                 strokeDasharray="5 5"
                 dot={{ r: 4 }}
-                name="Hours Included"
+                name={t.hoursIncluded}
               />
             </LineChart>
           </ChartContainer>

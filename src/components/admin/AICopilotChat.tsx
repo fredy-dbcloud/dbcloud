@@ -13,10 +13,43 @@ interface CopilotMessage {
   timestamp: Date;
 }
 
-export function AICopilotChat() {
+interface AICopilotChatProps {
+  lang?: 'en' | 'es';
+}
+
+export function AICopilotChat({ lang = 'en' }: AICopilotChatProps) {
   const [messages, setMessages] = useState<CopilotMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const labels = {
+    en: {
+      title: 'AI Operations Copilot',
+      description: 'Ask about client risks, upgrade opportunities, margins, and operational priorities',
+      askCopilot: 'Ask the AI Copilot',
+      tryQuestions: 'Try questions like:',
+      question1: '"Which clients are at risk this week?"',
+      question2: '"Who should we contact for upgrades?"',
+      question3: '"Which requests threaten our margins?"',
+      question4: '"What should the team focus on today?"',
+      placeholder: 'Ask about client risks, upgrades, margins...',
+      failed: 'Failed to get response from AI copilot.',
+    },
+    es: {
+      title: 'Copiloto de Operaciones IA',
+      description: 'Pregunta sobre riesgos de clientes, oportunidades de upgrade, márgenes y prioridades operativas',
+      askCopilot: 'Pregunta al Copiloto IA',
+      tryQuestions: 'Prueba preguntas como:',
+      question1: '"¿Qué clientes están en riesgo esta semana?"',
+      question2: '"¿A quién deberíamos contactar para upgrades?"',
+      question3: '"¿Qué solicitudes amenazan nuestros márgenes?"',
+      question4: '"¿En qué debería enfocarse el equipo hoy?"',
+      placeholder: 'Pregunta sobre riesgos, upgrades, márgenes...',
+      failed: 'No se pudo obtener respuesta del copiloto IA.',
+    },
+  };
+
+  const t = labels[lang];
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -44,7 +77,7 @@ export function AICopilotChat() {
     } catch (err) {
       const errorMessage: CopilotMessage = {
         role: 'assistant',
-        content: 'Failed to get response from AI copilot.',
+        content: t.failed,
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -57,10 +90,10 @@ export function AICopilotChat() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-5 w-5 text-primary" />
-          AI Operations Copilot
+          {t.title}
         </CardTitle>
         <CardDescription>
-          Ask about client risks, upgrade opportunities, margins, and operational priorities
+          {t.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -68,13 +101,13 @@ export function AICopilotChat() {
           {messages.length === 0 ? (
             <div className="text-center text-muted-foreground py-8">
               <Bot className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="font-medium">Ask the AI Copilot</p>
-              <p className="text-sm mt-2">Try questions like:</p>
+              <p className="font-medium">{t.askCopilot}</p>
+              <p className="text-sm mt-2">{t.tryQuestions}</p>
               <ul className="text-sm mt-2 space-y-1">
-                <li>"Which clients are at risk this week?"</li>
-                <li>"Who should we contact for upgrades?"</li>
-                <li>"Which requests threaten our margins?"</li>
-                <li>"What should the team focus on today?"</li>
+                <li>{t.question1}</li>
+                <li>{t.question2}</li>
+                <li>{t.question3}</li>
+                <li>{t.question4}</li>
               </ul>
             </div>
           ) : (
@@ -94,7 +127,7 @@ export function AICopilotChat() {
                       <p className="text-sm">{msg.content}</p>
                     )}
                     <p className="text-xs opacity-70 mt-2">
-                      {msg.timestamp.toLocaleTimeString()}
+                      {msg.timestamp.toLocaleTimeString(lang === 'es' ? 'es-ES' : 'en-US')}
                     </p>
                   </div>
                 </div>
@@ -115,7 +148,7 @@ export function AICopilotChat() {
         </ScrollArea>
         <div className="flex gap-2">
           <Textarea
-            placeholder="Ask about client risks, upgrades, margins..."
+            placeholder={t.placeholder}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {

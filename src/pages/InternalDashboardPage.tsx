@@ -300,17 +300,17 @@ export default function InternalDashboardPage() {
 
           {/* Clients Management */}
           <TabsContent value="clients">
-            <ClientsManagement clients={clients} />
+            <ClientsManagement clients={clients} lang={lang} />
           </TabsContent>
 
           {/* Requests Management */}
           <TabsContent value="requests">
-            <RequestsManagement requests={allRequests} />
+            <RequestsManagement requests={allRequests} lang={lang} />
           </TabsContent>
 
           {/* Revenue Overview */}
           <TabsContent value="revenue">
-            <RevenueOverview data={revenueData} />
+            <RevenueOverview data={revenueData} lang={lang} />
           </TabsContent>
 
           {/* AI Insights */}
@@ -318,17 +318,18 @@ export default function InternalDashboardPage() {
             <AIInsightsPanel 
               healthPredictions={healthPredictions} 
               riskSummary={riskSummary}
+              lang={lang}
             />
           </TabsContent>
 
           {/* Charts */}
           <TabsContent value="charts">
-            <AdminCharts data={chartsData} />
+            <AdminCharts data={chartsData} lang={lang} />
           </TabsContent>
 
           {/* AI Copilot */}
           <TabsContent value="copilot">
-            <AICopilotChat />
+            <AICopilotChat lang={lang} />
           </TabsContent>
 
           {/* Pending Requests */}
