@@ -118,34 +118,6 @@ export function Header() {
             </Link>
           ))}
           
-          {/* Demo Dropdown - Secondary */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              {dc.viewDemo}
-              <ChevronDown className="h-3 w-3" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-56 bg-background border border-border shadow-lg">
-              <div className="px-3 py-2 text-xs text-muted-foreground border-b border-border">
-                {dc.microcopy}
-              </div>
-              <DropdownMenuItem asChild>
-                <Link to={getLocalizedPath('/demo/starter')} className="cursor-pointer">
-                  {dc.starter}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to={getLocalizedPath('/demo/growth')} className="cursor-pointer">
-                  {dc.growth}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to={getLocalizedPath('/demo/enterprise')} className="cursor-pointer">
-                  {dc.enterprise}
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
           {/* Academy Link - Secondary */}
           <a
             href={siteConfig.ACADEMY_URL}
