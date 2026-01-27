@@ -72,6 +72,18 @@ export function useChatSession() {
       if (lowerMessage.includes('certif') || lowerMessage.includes('train') || lowerMessage.includes('capacit') || lowerMessage.includes('curso')) {
         response = t.chat.certRedirect;
         newStep = 'certification';
+      } else if (lowerMessage.includes('starter') || lowerMessage.includes('advisory') || lowerMessage.includes('asesoría') || lowerMessage.includes('planificación')) {
+        setLeadInfo(prev => ({ ...prev, interest: 'starter_consulting' }));
+        response = t.chat.askEmail;
+        newStep = 'collect_info';
+      } else if (lowerMessage.includes('growth') || lowerMessage.includes('execution') || lowerMessage.includes('ejecución')) {
+        setLeadInfo(prev => ({ ...prev, interest: 'growth_consulting' }));
+        response = t.chat.askEmail;
+        newStep = 'collect_info';
+      } else if (lowerMessage.includes('enterprise') || lowerMessage.includes('managed') || lowerMessage.includes('gestionado')) {
+        setLeadInfo(prev => ({ ...prev, interest: 'enterprise' }));
+        response = t.chat.askEmail;
+        newStep = 'collect_info';
       } else if (lowerMessage.includes('cloud') || lowerMessage.includes('database') || lowerMessage.includes('base') || lowerMessage.includes('ai') || lowerMessage.includes('ia')) {
         const interest = lowerMessage.includes('cloud') ? 'cloud' : lowerMessage.includes('ai') || lowerMessage.includes('ia') ? 'ai' : 'databases';
         setLeadInfo(prev => ({ ...prev, interest }));
