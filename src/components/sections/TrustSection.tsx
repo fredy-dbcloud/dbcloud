@@ -22,12 +22,12 @@ export function TrustSection() {
   };
 
   const features = lang === 'es' ? [
-    { icon: Award, title: 'Expertos Certificados', description: 'Equipo con certificaciones AWS, Azure y GCP' },
+    { icon: Award, title: 'Expertos Certificados', description: 'Equipo con certificaciones AWS, Azure, GCP y Oracle' },
     { icon: Shield, title: 'Listo para Cumplimiento', description: 'Arquitectura alineada con SOC 2, HIPAA y GDPR' },
     { icon: Clock, title: 'Respuesta Rápida', description: 'SLAs claros y tiempos de respuesta definidos' },
     { icon: Headphones, title: 'Soporte Dedicado', description: 'Equipo experto disponible cuando lo necesitas' },
   ] : [
-    { icon: Award, title: 'Certified Experts', description: 'Team with AWS, Azure, and GCP certifications' },
+    { icon: Award, title: 'Certified Experts', description: 'Team with AWS, Azure, GCP, and Oracle certifications' },
     { icon: Shield, title: 'Compliance-Ready', description: 'Architecture aligned with SOC 2, HIPAA, GDPR' },
     { icon: Clock, title: 'Fast Response', description: 'Clear SLAs and defined response times' },
     { icon: Headphones, title: 'Dedicated Support', description: 'Expert team available when you need us' },
