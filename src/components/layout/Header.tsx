@@ -1,16 +1,26 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, LogOut, LayoutDashboard, FileText, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
+import { useAuth } from '@/hooks/useAuth';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export function Header() {
   const { lang, t, getLocalizedPath, switchLang } = useLang();
+  const { user, signOut, isAuthenticated } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { href: getLocalizedPath('/'), label: t.nav.home },
@@ -22,6 +32,32 @@ export function Header() {
   ];
 
   const isActive = (href: string) => location.pathname === href;
+
+  const portalContent = {
+    en: {
+      portal: 'Client Portal',
+      portalShort: 'Portal',
+      dashboard: 'Dashboard',
+      requests: 'Requests',
+      summary: 'Summary',
+      logout: 'Log out',
+    },
+    es: {
+      portal: 'Portal de clientes',
+      portalShort: 'Portal',
+      dashboard: 'Panel',
+      requests: 'Solicitudes',
+      summary: 'Resumen',
+      logout: 'Cerrar sesión',
+    },
+  };
+
+  const pc = portalContent[lang];
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate(getLocalizedPath('/'));
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
@@ -76,6 +112,48 @@ export function Header() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-3">
+          {/* Client Portal - Secondary link or Dropdown */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                {pc.portalShort}
+                <ChevronDown className="h-3 w-3" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg">
+                <DropdownMenuItem asChild>
+                  <Link to={getLocalizedPath('/portal')} className="flex items-center gap-2 cursor-pointer">
+                    <LayoutDashboard className="h-4 w-4" />
+                    {pc.dashboard}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={getLocalizedPath('/portal/requests')} className="flex items-center gap-2 cursor-pointer">
+                    <FileText className="h-4 w-4" />
+                    {pc.requests}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={getLocalizedPath('/portal/summary')} className="flex items-center gap-2 cursor-pointer">
+                    <BarChart3 className="h-4 w-4" />
+                    {pc.summary}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  {pc.logout}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              to={getLocalizedPath('/login')}
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {pc.portal}
+            </Link>
+          )}
+
           {/* Language Switcher */}
           <div className="flex items-center gap-1 text-sm">
             <Globe className="h-4 w-4 text-muted-foreground" />
@@ -154,6 +232,55 @@ export function Header() {
               >
                 {t.nav.academy}
               </a>
+
+              {/* Mobile Portal Section */}
+              <div className="pt-4 border-t border-border/50">
+                {isAuthenticated ? (
+                  <div className="space-y-2">
+                    <p className="px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      {pc.portalShort}
+                    </p>
+                    <Link
+                      to={getLocalizedPath('/portal')}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {pc.dashboard}
+                    </Link>
+                    <Link
+                      to={getLocalizedPath('/portal/requests')}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {pc.requests}
+                    </Link>
+                    <Link
+                      to={getLocalizedPath('/portal/summary')}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {pc.summary}
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-destructive hover:bg-destructive/10 transition-colors"
+                    >
+                      {pc.logout}
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to={getLocalizedPath('/login')}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {pc.portal}
+                  </Link>
+                )}
+              </div>
 
               <div className="pt-4 border-t border-border/50 flex items-center gap-3">
                 <Link

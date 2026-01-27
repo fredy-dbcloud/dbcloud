@@ -29,8 +29,8 @@ export default function LoginPage() {
 
   const content = {
     en: {
-      title: 'Client Portal Login',
-      subtitle: 'Access your dashboard, requests, and monthly summaries',
+      title: 'Client Portal Access',
+      subtitle: 'Secure access for existing DBCloud clients to manage requests, track progress, and view monthly summaries.',
       emailLabel: 'Email Address',
       passwordLabel: 'Password',
       signIn: 'Sign In',
@@ -40,15 +40,15 @@ export default function LoginPage() {
       sendMagicLink: 'Send Magic Link',
       sendingLink: 'Sending...',
       magicLinkSent: 'Check your email for the login link!',
-      noAccount: "Don't have an account?",
-      signUp: 'Sign Up',
+      noAccount: 'Need access?',
+      signUp: 'Contact us',
       orContinueWith: 'or continue with',
       errorInvalidCredentials: 'Invalid email or password',
       errorGeneric: 'An error occurred. Please try again.',
     },
     es: {
-      title: 'Acceso al Portal',
-      subtitle: 'Accede a tu panel, solicitudes y resúmenes mensuales',
+      title: 'Acceso al portal de clientes',
+      subtitle: 'Acceso seguro para clientes de DBCloud para gestionar solicitudes, revisar avances y consultar resúmenes mensuales.',
       emailLabel: 'Correo Electrónico',
       passwordLabel: 'Contraseña',
       signIn: 'Iniciar Sesión',
@@ -58,8 +58,8 @@ export default function LoginPage() {
       sendMagicLink: 'Enviar Link Mágico',
       sendingLink: 'Enviando...',
       magicLinkSent: '¡Revisa tu correo para el enlace de acceso!',
-      noAccount: '¿No tienes cuenta?',
-      signUp: 'Regístrate',
+      noAccount: '¿Necesitas acceso?',
+      signUp: 'Contáctanos',
       orContinueWith: 'o continúa con',
       errorInvalidCredentials: 'Email o contraseña inválidos',
       errorGeneric: 'Ocurrió un error. Por favor intenta de nuevo.',
@@ -205,7 +205,7 @@ export default function LoginPage() {
               <p className="text-sm text-muted-foreground">
                 {c.noAccount}{' '}
                 <Link 
-                  to={getLocalizedPath('/signup')} 
+                  to={getLocalizedPath('/contact')} 
                   className="text-accent hover:underline font-medium"
                 >
                   {c.signUp}
