@@ -16,12 +16,12 @@ const technologyCategories = {
     {
       icon: Database,
       title: "Databases We Manage",
-      items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB", "Redis"],
+      items: ["PostgreSQL", "MySQL", "SQL Server", "Oracle Database", "Redis"],
     },
     {
       icon: Server,
       title: "Infrastructure",
-      items: ["Linux", "Docker", "Kubernetes", "Terraform"],
+      items: ["Linux", "Docker", "VMware", "Terraform"],
     },
     {
       icon: Zap,
@@ -48,12 +48,12 @@ const technologyCategories = {
     {
       icon: Database,
       title: "Bases de Datos que Administramos",
-      items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB", "Redis"],
+      items: ["PostgreSQL", "MySQL", "SQL Server", "Oracle Database", "Redis"],
     },
     {
       icon: Server,
       title: "Infraestructura",
-      items: ["Linux", "Docker", "Kubernetes", "Terraform"],
+      items: ["Linux", "Docker", "VMware", "Terraform"],
     },
     {
       icon: Zap,
@@ -75,12 +75,12 @@ const technologyCategories = {
 
 const sectionContent = {
   en: {
-    title: "Technologies We Work With",
-    subtitle: "The same platforms your business already trusts",
+    title: "Technologies We Work With for Growing SMBs",
+    subtitle: "The same platforms your business already trusts — no enterprise complexity",
   },
   es: {
-    title: "Tecnologías con las que Trabajamos",
-    subtitle: "Las mismas plataformas en las que tu negocio ya confía",
+    title: "Tecnologías con las que Trabajamos para PYMEs en Crecimiento",
+    subtitle: "Las mismas plataformas que tu negocio ya usa — sin complejidad empresarial",
   },
 };
 
