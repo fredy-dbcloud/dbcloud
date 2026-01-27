@@ -6,11 +6,27 @@ import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 import { CheckoutModal } from '@/components/pricing/CheckoutModal';
+import { QualificationModal } from '@/components/pricing/QualificationModal';
 import { TierKey } from '@/config/stripe';
 
 export default function PricingPage() {
   const { t, getLocalizedPath, lang } = useLang();
   const [isYearly, setIsYearly] = useState(false);
+  
+  // Qualification modal state
+  const [qualificationModal, setQualificationModal] = useState<{
+    isOpen: boolean;
+    tier: TierKey;
+    tierName: string;
+    price: string;
+  }>({
+    isOpen: false,
+    tier: 'starter',
+    tierName: '',
+    price: '',
+  });
+
+  // Checkout modal state
   const [checkoutModal, setCheckoutModal] = useState<{
     isOpen: boolean;
     tier: TierKey;
@@ -96,13 +112,25 @@ export default function PricingPage() {
     if (plan.key === 'enterprise') {
       window.location.href = getLocalizedPath('/contact');
     } else {
-      setCheckoutModal({
+      // Open qualification modal first for Starter and Growth
+      setQualificationModal({
         isOpen: true,
         tier: plan.key,
         tierName: plan.name,
         price: plan.price,
       });
     }
+  };
+
+  const handleQualified = () => {
+    // Close qualification modal and open checkout modal
+    setQualificationModal(prev => ({ ...prev, isOpen: false }));
+    setCheckoutModal({
+      isOpen: true,
+      tier: qualificationModal.tier,
+      tierName: qualificationModal.tierName,
+      price: qualificationModal.price,
+    });
   };
 
   return (
@@ -262,6 +290,14 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      {/* Qualification Modal */}
+      <QualificationModal
+        isOpen={qualificationModal.isOpen}
+        onClose={() => setQualificationModal(prev => ({ ...prev, isOpen: false }))}
+        onQualified={handleQualified}
+        tierName={qualificationModal.tierName}
+      />
 
       {/* Checkout Modal */}
       <CheckoutModal
