@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Linkedin, Facebook, Instagram, ExternalLink } from
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 import { BillingPortalButton } from '@/components/billing/BillingPortalButton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function Footer() {
   const { lang, t, getLocalizedPath } = useLang();
@@ -121,17 +122,26 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link to={getLocalizedPath('/login')} className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  {lang === 'en' ? 'Client Portal' : 'Portal de clientes'}
+                  {lang === 'en' ? 'Client Portal' : 'Portal de Clientes'}
                 </Link>
               </li>
               <li>
-                <Link to={getLocalizedPath('/portal/requests')} className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  {lang === 'en' ? 'Support & Requests' : 'Soporte y solicitudes'}
-                </Link>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link to={getLocalizedPath('/portal/requests')} className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1">
+                      {lang === 'en' ? 'Support Requests (via Portal)' : 'Solicitudes y Soporte (vía Portal)'}
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs text-center">
+                    {lang === 'en' 
+                      ? 'All operational requests are handled exclusively through the Client Portal to ensure traceability and compliance.'
+                      : 'Todas las solicitudes operativas se gestionan exclusivamente a través del Portal de Clientes para garantizar trazabilidad y cumplimiento.'}
+                  </TooltipContent>
+                </Tooltip>
               </li>
               <li>
                 <BillingPortalButton>
-                  {lang === 'en' ? 'Billing & Subscriptions' : 'Facturación y suscripciones'}
+                  {lang === 'en' ? 'Billing & Subscriptions' : 'Facturación y Suscripciones'}
                 </BillingPortalButton>
               </li>
             </ul>
