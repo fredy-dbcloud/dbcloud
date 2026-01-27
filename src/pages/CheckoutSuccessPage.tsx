@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -7,16 +7,41 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import { useAuth } from '@/hooks/useAuth';
+import { useTransactionalEmail } from '@/hooks/useTransactionalEmail';
 
 export default function CheckoutSuccessPage() {
   const { getLocalizedPath, lang } = useLang();
+  const { user } = useAuth();
+  const { sendPurchaseConfirmation } = useTransactionalEmail();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  const [emailSent, setEmailSent] = useState(false);
 
   // Get plan from URL params if available (passed from checkout)
   const planParam = searchParams.get('plan') as 'starter' | 'growth' | null;
   const plan = planParam || 'starter';
+
+  // Send purchase confirmation email on load (only once)
+  useEffect(() => {
+    if (user?.email && !emailSent && sessionId) {
+      const planNames = {
+        starter: lang === 'es' ? 'Starter Consulting' : 'Starter Consulting',
+        growth: lang === 'es' ? 'Growth Consulting' : 'Growth Consulting',
+      };
+      const billingCycle = lang === 'es' ? 'Mensual' : 'Monthly';
+      const portalUrl = `${window.location.origin}/${lang}/portal`;
+
+      sendPurchaseConfirmation(
+        user.email,
+        lang as 'en' | 'es',
+        planNames[plan] || planNames.starter,
+        billingCycle,
+        portalUrl
+      ).then(() => setEmailSent(true)).catch(console.error);
+    }
+  }, [user?.email, emailSent, sessionId, plan, lang, sendPurchaseConfirmation]);
 
   const welcomeContent = {
     en: {

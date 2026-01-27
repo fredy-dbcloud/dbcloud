@@ -30,6 +30,7 @@ import { AddonTriggerModal } from '@/components/addons/AddonTriggerModal';
 import { useAddonTrigger } from '@/hooks/useAddonTrigger';
 import { PostSubmissionUpgrade } from '@/components/dashboard/PostSubmissionUpgrade';
 import { useUpgradeSignals } from '@/hooks/useUpgradeSignals';
+import { useTransactionalEmail } from '@/hooks/useTransactionalEmail';
 import type { UpgradeAnalysis, PlanType } from '@/hooks/useUpgradeSignals';
 
 interface ClientRequest {
@@ -74,6 +75,8 @@ export function ClientRequestForm({
   const [pendingData, setPendingData] = useState<RequestFormData | null>(null);
   const [capturedEmail, setCapturedEmail] = useState<string>('');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  
+  const { sendRequestSubmitted } = useTransactionalEmail();
   
   const { 
     triggerState, 
@@ -204,8 +207,31 @@ export function ClientRequestForm({
 
       if (error) throw error;
 
-      // Trigger AI triage in background (non-blocking)
+      // Send confirmation email (non-blocking)
       if (insertedData?.id) {
+        const responseTime = plan === 'starter' 
+          ? (lang === 'es' ? '1-2 días hábiles' : '1-2 business days')
+          : (lang === 'es' ? 'Mismo día / siguiente día hábil' : 'Same day / next business day');
+        
+        const requestTypeLabels: Record<string, { en: string; es: string }> = {
+          advisory: { en: 'Advisory Consultation', es: 'Consulta de Asesoría' },
+          optimization: { en: 'Optimization', es: 'Optimización' },
+          change_request: { en: 'Change Request', es: 'Solicitud de Cambio' },
+        };
+        
+        const requestTypeLabel = requestTypeLabels[pendingData.requestType]?.[lang] || pendingData.requestType;
+        const portalUrl = `${window.location.origin}/${lang}/portal/requests`;
+
+        sendRequestSubmitted(
+          pendingData.email,
+          lang as 'en' | 'es',
+          insertedData.id,
+          requestTypeLabel,
+          responseTime,
+          portalUrl
+        ).catch(console.error);
+
+        // Trigger AI triage in background (non-blocking)
         triggerAITriage(insertedData.id, pendingData);
       }
 
