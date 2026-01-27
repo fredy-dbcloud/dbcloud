@@ -11,43 +11,43 @@ export default function ServicesPage() {
   const services = [
     {
       icon: Cloud,
-      title: lang === 'es' ? 'Infraestructura Cloud' : 'Cloud Infrastructure',
+      title: lang === 'es' ? 'Infraestructura Cloud Multi-Nube' : 'Multi-Cloud Infrastructure',
       description: lang === 'es' 
-        ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure y GCP.'
-        : 'Design, implementation, and management of cloud architectures on AWS, Azure, and GCP.',
+        ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure y GCP con seguridad de nivel empresarial, optimización de costos y cumplimiento regulatorio.'
+        : 'Design, implementation, and management of cloud architectures on AWS, Azure, and GCP with enterprise-grade security, cost optimization, and regulatory compliance.',
       features: lang === 'es' 
-        ? ['Arquitectura multi-nube', 'Optimización de costos', 'Seguridad empresarial', 'Cumplimiento normativo']
-        : ['Multi-cloud architecture', 'Cost optimization', 'Enterprise security', 'Compliance management'],
+        ? ['AWS, Azure, GCP', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Seguridad Zero Trust', 'Cumplimiento SOC 2/HIPAA']
+        : ['AWS, Azure, GCP', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Zero Trust Security', 'SOC 2/HIPAA Compliance'],
     },
     {
       icon: Database,
-      title: lang === 'es' ? 'Bases de Datos Administradas' : 'Managed Databases',
+      title: lang === 'es' ? 'Bases de Datos Administradas 24/7' : '24/7 Managed Databases',
       description: lang === 'es'
-        ? 'Administración completa 24/7 de PostgreSQL, MySQL, MongoDB, Redis y más.'
-        : 'Complete 24/7 administration of PostgreSQL, MySQL, MongoDB, Redis, and more.',
+        ? 'Administración completa de PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis y más. Monitoreo proactivo, respaldos automatizados y optimización de rendimiento.'
+        : 'Complete administration of PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, and more. Proactive monitoring, automated backups, and performance optimization.',
       features: lang === 'es'
-        ? ['Monitoreo proactivo', 'Respaldos automatizados', 'Optimización de rendimiento', 'Alta disponibilidad']
-        : ['Proactive monitoring', 'Automated backups', 'Performance optimization', 'High availability'],
+        ? ['PostgreSQL & MySQL', 'Oracle & SQL Server', 'MongoDB & Redis', 'Amazon Aurora', 'Azure SQL & Cloud SQL', 'Alta disponibilidad & DR']
+        : ['PostgreSQL & MySQL', 'Oracle & SQL Server', 'MongoDB & Redis', 'Amazon Aurora', 'Azure SQL & Cloud SQL', 'High Availability & DR'],
     },
     {
       icon: Zap,
-      title: lang === 'es' ? 'Migración a la Nube' : 'Cloud Migration',
+      title: lang === 'es' ? 'Migración Cloud Sin Inactividad' : 'Zero-Downtime Cloud Migration',
       description: lang === 'es'
-        ? 'Migraciones sin tiempo de inactividad con planificación completa y soporte.'
-        : 'Zero-downtime migrations with comprehensive planning and support.',
+        ? 'Migraciones desde on-premises a AWS, Azure o GCP sin tiempo de inactividad. Evaluación completa, planificación detallada, ejecución y soporte post-migración.'
+        : 'Migrations from on-premises to AWS, Azure, or GCP with zero downtime. Complete assessment, detailed planning, execution, and post-migration support.',
       features: lang === 'es'
-        ? ['Evaluación de infraestructura', 'Plan de migración detallado', 'Ejecución sin interrupciones', 'Validación post-migración']
-        : ['Infrastructure assessment', 'Detailed migration plan', 'Seamless execution', 'Post-migration validation'],
+        ? ['Migración on-prem a cloud', 'Replicación lógica & CDC', 'Despliegues blue-green', 'Optimización de costos', 'Validación post-migración', 'Runbooks completos']
+        : ['On-prem to cloud migration', 'Logical replication & CDC', 'Blue-green deployments', 'Cost optimization', 'Post-migration validation', 'Comprehensive runbooks'],
     },
     {
       icon: Shield,
       title: lang === 'es' ? 'DR & Alta Disponibilidad' : 'DR & High Availability',
       description: lang === 'es'
-        ? 'Soluciones de recuperación ante desastres y arquitecturas de alta disponibilidad.'
-        : 'Disaster recovery solutions and high availability architectures.',
+        ? 'Soluciones de recuperación ante desastres y alta disponibilidad con failover automático, respaldos geo-redundantes y SLAs personalizados hasta 99.99%.'
+        : 'Disaster recovery and high availability solutions with automatic failover, geo-redundant backups, and custom SLAs up to 99.99%.',
       features: lang === 'es'
-        ? ['Failover automático', 'Respaldos geo-redundantes', 'Recuperación punto en el tiempo', 'Runbooks completos']
-        : ['Automatic failover', 'Geo-redundant backups', 'Point-in-time recovery', 'Comprehensive runbooks'],
+        ? ['Failover automático', 'Respaldos geo-redundantes', 'Recuperación punto en tiempo', 'Réplicas de lectura', 'SLAs hasta 99.99%', 'Runbooks documentados']
+        : ['Automatic failover', 'Geo-redundant backups', 'Point-in-time recovery', 'Read replicas', 'SLAs up to 99.99%', 'Documented runbooks'],
     },
   ];
 
