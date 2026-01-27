@@ -13,13 +13,13 @@ export function DemoBanner({ plan }: DemoBannerProps) {
 
   const labels = {
     en: {
-      title: 'Interactive Demo Environment',
-      description: 'This is a demo with sample data. Ready to get started for real?',
+      title: 'Demo Environment – Sample Data Only',
+      description: 'This is an interactive preview. No real data is being created or modified.',
       cta: 'View Pricing',
     },
     es: {
-      title: 'Entorno de Demostración Interactiva',
-      description: 'Esta es una demo con datos de muestra. ¿Listo para comenzar de verdad?',
+      title: 'Entorno de Demostración – Solo Datos de Muestra',
+      description: 'Esta es una vista previa interactiva. No se crean ni modifican datos reales.',
       cta: 'Ver Precios',
     },
   };

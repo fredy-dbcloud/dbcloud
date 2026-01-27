@@ -25,6 +25,7 @@ import PortalPage from "./pages/PortalPage";
 import PortalRequestsPage from "./pages/PortalRequestsPage";
 import PortalSummaryPage from "./pages/PortalSummaryPage";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+import { AdminRoute } from "./components/auth/AdminRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -112,8 +113,10 @@ const App = () => (
           {/* Demo routes - keep public */}
           <Route path="/demo/:plan" element={<DemoPage />} />
           
-          {/* Internal routes (not public) */}
-          <Route path="/internal" element={<InternalDashboardPage />} />
+          {/* Internal/Admin routes - protected by role */}
+          <Route path="/internal" element={<AdminRoute><InternalDashboardPage /></AdminRoute>} />
+          <Route path="/en/internal" element={<AdminRoute><InternalDashboardPage /></AdminRoute>} />
+          <Route path="/es/internal" element={<AdminRoute><InternalDashboardPage /></AdminRoute>} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

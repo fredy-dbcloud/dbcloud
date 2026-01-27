@@ -35,16 +35,16 @@ export function Header() {
 
   const portalContent = {
     en: {
-      portal: 'Client Portal',
-      portalShort: 'Portal',
+      clientLogin: 'Client Login',
+      portal: 'Portal',
       dashboard: 'Dashboard',
       requests: 'Requests',
       summary: 'Summary',
       logout: 'Log out',
     },
     es: {
-      portal: 'Portal de clientes',
-      portalShort: 'Portal',
+      clientLogin: 'Acceso clientes',
+      portal: 'Portal',
       dashboard: 'Panel',
       requests: 'Solicitudes',
       summary: 'Resumen',
@@ -116,7 +116,7 @@ export function Header() {
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                {pc.portalShort}
+                {pc.portal}
                 <ChevronDown className="h-3 w-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg">
@@ -150,7 +150,7 @@ export function Header() {
               to={getLocalizedPath('/login')}
               className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
-              {pc.portal}
+              {pc.clientLogin}
             </Link>
           )}
 
@@ -236,9 +236,9 @@ export function Header() {
               {/* Mobile Portal Section */}
               <div className="pt-4 border-t border-border/50">
                 {isAuthenticated ? (
-                  <div className="space-y-2">
+                <div className="space-y-2">
                     <p className="px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                      {pc.portalShort}
+                      {pc.portal}
                     </p>
                     <Link
                       to={getLocalizedPath('/portal')}
@@ -277,7 +277,7 @@ export function Header() {
                     onClick={() => setMobileOpen(false)}
                     className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {pc.portal}
+                    {pc.clientLogin}
                   </Link>
                 )}
               </div>
