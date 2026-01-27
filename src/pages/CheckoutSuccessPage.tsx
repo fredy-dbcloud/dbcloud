@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock, LayoutDashboard } from 'lucide-react';
+import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
@@ -224,15 +224,15 @@ export default function CheckoutSuccessPage() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link to={getLocalizedPath(`/onboarding/${plan}`)}>
-                  <ArrowRight className="mr-2 h-4 w-4" />
-                  {c.viewOnboarding}
+                <Link to={`${getLocalizedPath('/signup')}?plan=${plan}`}>
+                  <User className="mr-2 h-4 w-4" />
+                  {lang === 'es' ? 'Crear Cuenta de Portal' : 'Create Portal Account'}
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link to={`${getLocalizedPath('/dashboard')}?email=`}>
-                  <LayoutDashboard className="mr-2 h-4 w-4" />
-                  {c.viewDashboard}
+                <Link to={getLocalizedPath(`/onboarding/${plan}`)}>
+                  <ArrowRight className="mr-2 h-4 w-4" />
+                  {c.viewOnboarding}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">

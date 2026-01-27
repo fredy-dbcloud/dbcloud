@@ -129,6 +129,7 @@ export type Database = {
           request_type: string
           status: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           ai_classification?:
@@ -153,6 +154,7 @@ export type Database = {
           request_type: string
           status?: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           ai_classification?:
@@ -177,6 +179,7 @@ export type Database = {
           request_type?: string
           status?: string
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -194,6 +197,7 @@ export type Database = {
           recommendations: string[] | null
           requests_completed: number
           updated_at: string
+          user_id: string | null
           year: number
         }
         Insert: {
@@ -209,6 +213,7 @@ export type Database = {
           recommendations?: string[] | null
           requests_completed?: number
           updated_at?: string
+          user_id?: string | null
           year: number
         }
         Update: {
@@ -224,6 +229,7 @@ export type Database = {
           recommendations?: string[] | null
           requests_completed?: number
           updated_at?: string
+          user_id?: string | null
           year?: number
         }
         Relationships: []
@@ -264,6 +270,33 @@ export type Database = {
           name?: string | null
           phone?: string | null
           source?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          company: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          plan: string | null
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          plan?: string | null
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          plan?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
