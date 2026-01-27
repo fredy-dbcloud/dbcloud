@@ -59,7 +59,7 @@ serve(async (req) => {
       );
     }
 
-    const { action } = await req.json();
+    const { action, email } = await req.json();
 
     if (action === "pending_requests") {
       // Get requests pending AI classification
@@ -95,6 +95,21 @@ serve(async (req) => {
       );
     }
 
+    if (action === "all_requests") {
+      // Get all requests for filtering
+      const { data, error } = await supabase
+        .from("client_requests")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      return new Response(
+        JSON.stringify({ success: true, data }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     if (action === "health_predictions") {
       const { data, error } = await supabase
         .from("client_health_predictions")
@@ -105,6 +120,106 @@ serve(async (req) => {
 
       return new Response(
         JSON.stringify({ success: true, data }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (action === "all_clients") {
+      // Get all profiles with their summaries for client management
+      const { data: profiles, error: profilesError } = await supabase
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (profilesError) throw profilesError;
+
+      // Get all summaries for hours tracking
+      const { data: summaries, error: summariesError } = await supabase
+        .from("client_summaries")
+        .select("*")
+        .order("year", { ascending: false })
+        .order("month", { ascending: false });
+
+      if (summariesError) throw summariesError;
+
+      // Get all health predictions
+      const { data: health, error: healthError } = await supabase
+        .from("client_health_predictions")
+        .select("*");
+
+      if (healthError) throw healthError;
+
+      // Get user emails from auth (service role can access)
+      const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
+
+      // Merge data
+      const clients = profiles?.map(profile => {
+        const authUser = authUsers?.users?.find(u => u.id === profile.id);
+        const clientSummaries = summaries?.filter(s => s.user_id === profile.id) || [];
+        const latestSummary = clientSummaries[0];
+        const clientHealth = health?.find(h => h.email === authUser?.email);
+        
+        return {
+          id: profile.id,
+          email: authUser?.email || 'Unknown',
+          full_name: profile.full_name,
+          company: profile.company,
+          plan: profile.plan,
+          created_at: profile.created_at,
+          updated_at: profile.updated_at,
+          hours_used: latestSummary?.hours_used || 0,
+          hours_included: latestSummary?.hours_included || (profile.plan === 'starter' ? 4 : profile.plan === 'growth' ? 10 : 20),
+          requests_completed: latestSummary?.requests_completed || 0,
+          health_status: clientHealth?.health_status || 'healthy',
+          churn_probability: clientHealth?.churn_probability || 0,
+          expansion_probability: clientHealth?.expansion_probability || 0,
+        };
+      }) || [];
+
+      return new Response(
+        JSON.stringify({ success: true, data: clients }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (action === "revenue_overview") {
+      // Get plan distribution
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("plan");
+
+      const planCounts = profiles?.reduce((acc: Record<string, number>, p) => {
+        const plan = p.plan || 'unknown';
+        acc[plan] = (acc[plan] || 0) + 1;
+        return acc;
+      }, {}) || {};
+
+      // Get requests with upgrade signals
+      const { data: requests } = await supabase
+        .from("client_requests")
+        .select("ai_risk_flags, plan")
+        .not("ai_risk_flags", "is", null);
+
+      const upgradeSignals = requests?.filter(r => 
+        r.ai_risk_flags?.includes('upgrade_signal')
+      ).length || 0;
+
+      // Calculate MRR (simplified)
+      const pricing = { starter: 499, growth: 1499, enterprise: 2999 };
+      const mrr = Object.entries(planCounts).reduce((total, [plan, count]) => {
+        return total + ((pricing[plan as keyof typeof pricing] || 0) * count);
+      }, 0);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            plan_distribution: planCounts,
+            upgrade_signals: upgradeSignals,
+            total_clients: profiles?.length || 0,
+            mrr,
+          },
+        }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -149,9 +264,56 @@ serve(async (req) => {
       );
     }
 
+    if (action === "charts_data") {
+      // Get data for charts
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("plan, created_at");
+
+      const { data: requests } = await supabase
+        .from("client_requests")
+        .select("plan, created_at, ai_estimated_hours, status");
+
+      const { data: summaries } = await supabase
+        .from("client_summaries")
+        .select("plan, month, year, hours_used, hours_included, requests_completed");
+
+      // Monthly active clients (by signup month)
+      const monthlySignups: Record<string, number> = {};
+      profiles?.forEach(p => {
+        const date = new Date(p.created_at);
+        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        monthlySignups[key] = (monthlySignups[key] || 0) + 1;
+      });
+
+      // Requests per plan
+      const requestsByPlan: Record<string, number> = {};
+      requests?.forEach(r => {
+        requestsByPlan[r.plan] = (requestsByPlan[r.plan] || 0) + 1;
+      });
+
+      // Hours consumed vs included (from summaries)
+      const hoursData = summaries?.map(s => ({
+        month: `${s.year}-${String(s.month).padStart(2, '0')}`,
+        plan: s.plan,
+        hours_used: s.hours_used,
+        hours_included: s.hours_included,
+      })) || [];
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            monthly_signups: monthlySignups,
+            requests_by_plan: requestsByPlan,
+            hours_data: hoursData,
+          },
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     if (action === "client_details") {
-      const { email } = await req.json();
-      
       const { data: requests } = await supabase
         .from("client_requests")
         .select("*")

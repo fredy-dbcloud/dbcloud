@@ -1,27 +1,30 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Textarea } from '@/components/ui/textarea';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
-  AlertTriangle, 
-  TrendingUp, 
-  TrendingDown, 
-  Users, 
-  Clock, 
-  Send,
-  Bot,
   Shield,
-  Activity,
-  DollarSign,
   RefreshCw,
+  Users,
+  FileText,
+  DollarSign,
+  Brain,
+  BarChart3,
+  Bot,
+  Clock,
   CheckCircle,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
+import { AdminSummaryCards } from '@/components/admin/AdminSummaryCards';
+import { ClientsManagement } from '@/components/admin/ClientsManagement';
+import { RequestsManagement } from '@/components/admin/RequestsManagement';
+import { RevenueOverview } from '@/components/admin/RevenueOverview';
+import { AIInsightsPanel } from '@/components/admin/AIInsightsPanel';
+import { AdminCharts } from '@/components/admin/AdminCharts';
+import { AICopilotChat } from '@/components/admin/AICopilotChat';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
 
 interface RiskSummary {
   total_classified_requests: number;
@@ -35,21 +38,37 @@ interface RiskSummary {
   margin_risk_emails: string[];
 }
 
-interface ClassifiedRequest {
+interface RevenueData {
+  plan_distribution: Record<string, number>;
+  upgrade_signals: number;
+  total_clients: number;
+  mrr: number;
+}
+
+interface ChartsData {
+  monthly_signups: Record<string, number>;
+  requests_by_plan: Record<string, number>;
+  hours_data: Array<{
+    month: string;
+    plan: string;
+    hours_used: number;
+    hours_included: number;
+  }>;
+}
+
+interface Client {
   id: string;
   email: string;
+  full_name: string | null;
+  company: string | null;
   plan: string;
-  request_type: string;
-  description: string;
-  priority: string;
-  status: string;
-  ai_classification: string;
-  ai_effort_level: string;
-  ai_estimated_hours: number;
-  ai_risk_flags: string[];
-  ai_reasoning: string;
-  ai_classified_at: string;
   created_at: string;
+  hours_used: number;
+  hours_included: number;
+  requests_completed: number;
+  health_status: string;
+  churn_probability: number;
+  expansion_probability: number;
 }
 
 interface HealthPrediction {
@@ -60,29 +79,20 @@ interface HealthPrediction {
   expansion_probability: number;
   margin_risk_score: number;
   signals: any;
-  ai_reasoning: string;
+  ai_reasoning: string | null;
   updated_at: string;
-}
-
-interface CopilotMessage {
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
 }
 
 export default function InternalDashboardPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [riskSummary, setRiskSummary] = useState<RiskSummary | null>(null);
-  const [classifiedRequests, setClassifiedRequests] = useState<ClassifiedRequest[]>([]);
+  const [revenueData, setRevenueData] = useState<RevenueData | null>(null);
+  const [chartsData, setChartsData] = useState<ChartsData | null>(null);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [allRequests, setAllRequests] = useState<any[]>([]);
   const [healthPredictions, setHealthPredictions] = useState<HealthPrediction[]>([]);
   const [pendingRequests, setPendingRequests] = useState<any[]>([]);
-  
-  // Copilot state
-  const [copilotMessages, setCopilotMessages] = useState<CopilotMessage[]>([]);
-  const [copilotInput, setCopilotInput] = useState('');
-  const [isCopilotLoading, setIsCopilotLoading] = useState(false);
 
-  // Load data on mount (AdminRoute already ensures auth)
   useEffect(() => {
     loadAllData();
   }, []);
@@ -92,7 +102,10 @@ export default function InternalDashboardPage() {
     try {
       await Promise.all([
         loadRiskSummary(),
-        loadClassifiedRequests(),
+        loadRevenueData(),
+        loadChartsData(),
+        loadClients(),
+        loadAllRequests(),
         loadHealthPredictions(),
         loadPendingRequests(),
       ]);
@@ -110,11 +123,32 @@ export default function InternalDashboardPage() {
     if (!error && data?.success) setRiskSummary(data.data);
   };
 
-  const loadClassifiedRequests = async () => {
+  const loadRevenueData = async () => {
     const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
-      body: { action: 'classified_requests' },
+      body: { action: 'revenue_overview' },
     });
-    if (!error && data?.success) setClassifiedRequests(data.data);
+    if (!error && data?.success) setRevenueData(data.data);
+  };
+
+  const loadChartsData = async () => {
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'charts_data' },
+    });
+    if (!error && data?.success) setChartsData(data.data);
+  };
+
+  const loadClients = async () => {
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'all_clients' },
+    });
+    if (!error && data?.success) setClients(data.data);
+  };
+
+  const loadAllRequests = async () => {
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'all_requests' },
+    });
+    if (!error && data?.success) setAllRequests(data.data);
   };
 
   const loadHealthPredictions = async () => {
@@ -158,73 +192,6 @@ export default function InternalDashboardPage() {
     }
   };
 
-  const sendCopilotMessage = async () => {
-    if (!copilotInput.trim()) return;
-
-    const userMessage: CopilotMessage = {
-      role: 'user',
-      content: copilotInput,
-      timestamp: new Date(),
-    };
-    setCopilotMessages(prev => [...prev, userMessage]);
-    setCopilotInput('');
-    setIsCopilotLoading(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('ai-copilot', {
-        body: { query: copilotInput },
-      });
-      
-      const assistantMessage: CopilotMessage = {
-        role: 'assistant',
-        content: !error && data?.success ? data.answer : `Error: ${data?.error || error?.message || 'Unknown error'}`,
-        timestamp: new Date(),
-      };
-      setCopilotMessages(prev => [...prev, assistantMessage]);
-    } catch (error) {
-      const errorMessage: CopilotMessage = {
-        role: 'assistant',
-        content: 'Failed to get response from AI copilot.',
-        timestamp: new Date(),
-      };
-      setCopilotMessages(prev => [...prev, errorMessage]);
-    }
-    setIsCopilotLoading(false);
-  };
-
-  const getHealthStatusColor = (status: string) => {
-    switch (status) {
-      case 'healthy': return 'bg-green-500/10 text-green-700 border-green-500/20';
-      case 'at_risk': return 'bg-yellow-500/10 text-yellow-700 border-yellow-500/20';
-      case 'churn_risk': return 'bg-red-500/10 text-red-700 border-red-500/20';
-      case 'expansion_ready': return 'bg-blue-500/10 text-blue-700 border-blue-500/20';
-      case 'margin_risk': return 'bg-orange-500/10 text-orange-700 border-orange-500/20';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
-
-  const getClassificationColor = (classification: string) => {
-    switch (classification) {
-      case 'advisory': return 'bg-blue-500/10 text-blue-700';
-      case 'execution': return 'bg-purple-500/10 text-purple-700';
-      case 'incident': return 'bg-red-500/10 text-red-700';
-      case 'out_of_scope': return 'bg-orange-500/10 text-orange-700';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
-
-  const getRiskFlagColor = (flag: string) => {
-    switch (flag) {
-      case 'scope_creep': return 'bg-yellow-500/10 text-yellow-700';
-      case 'potential_churn': return 'bg-red-500/10 text-red-700';
-      case 'upgrade_signal': return 'bg-green-500/10 text-green-700';
-      case 'margin_risk': return 'bg-orange-500/10 text-orange-700';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
-
-  // AdminRoute handles authentication and role check
-
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card sticky top-0 z-10">
@@ -232,8 +199,8 @@ export default function InternalDashboardPage() {
           <div className="flex items-center gap-3">
             <Shield className="h-6 w-6 text-primary" />
             <div>
-              <h1 className="text-lg font-semibold">Internal Operations Dashboard</h1>
-              <p className="text-xs text-muted-foreground">AI-Powered Decision Support</p>
+              <h1 className="text-lg font-semibold">Admin Operations Dashboard</h1>
+              <p className="text-xs text-muted-foreground">Enterprise Client Management & AI Insights</p>
             </div>
           </div>
           <Button variant="outline" size="sm" onClick={loadAllData} disabled={isLoading}>
@@ -244,70 +211,35 @@ export default function InternalDashboardPage() {
       </header>
 
       <main className="container py-6 space-y-6">
-        {/* Risk Summary Cards */}
-        {riskSummary && (
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <Card>
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                  <Activity className="h-4 w-4" />
-                  Tracked Clients
-                </div>
-                <p className="text-2xl font-bold mt-1">{riskSummary.total_clients_tracked}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                  <Clock className="h-4 w-4" />
-                  Classified Requests
-                </div>
-                <p className="text-2xl font-bold mt-1">{riskSummary.total_classified_requests}</p>
-              </CardContent>
-            </Card>
-            <Card className="border-red-500/20 bg-red-500/5">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 text-red-700 text-sm">
-                  <TrendingDown className="h-4 w-4" />
-                  At Risk / Churn
-                </div>
-                <p className="text-2xl font-bold mt-1 text-red-700">{riskSummary.at_risk_clients}</p>
-              </CardContent>
-            </Card>
-            <Card className="border-green-500/20 bg-green-500/5">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 text-green-700 text-sm">
-                  <TrendingUp className="h-4 w-4" />
-                  Expansion Ready
-                </div>
-                <p className="text-2xl font-bold mt-1 text-green-700">{riskSummary.expansion_ready_clients}</p>
-              </CardContent>
-            </Card>
-            <Card className="border-orange-500/20 bg-orange-500/5">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 text-orange-700 text-sm">
-                  <DollarSign className="h-4 w-4" />
-                  Margin Risk
-                </div>
-                <p className="text-2xl font-bold mt-1 text-orange-700">{riskSummary.margin_risk_clients}</p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        {/* Summary Cards */}
+        <AdminSummaryCards riskSummary={riskSummary} revenueOverview={revenueData} />
 
-        <Tabs defaultValue="copilot" className="space-y-4">
-          <TabsList>
+        {/* Main Tabs */}
+        <Tabs defaultValue="clients" className="space-y-4">
+          <TabsList className="flex-wrap h-auto gap-1">
+            <TabsTrigger value="clients" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Clients
+            </TabsTrigger>
+            <TabsTrigger value="requests" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Requests
+            </TabsTrigger>
+            <TabsTrigger value="revenue" className="flex items-center gap-2">
+              <DollarSign className="h-4 w-4" />
+              Revenue
+            </TabsTrigger>
+            <TabsTrigger value="insights" className="flex items-center gap-2">
+              <Brain className="h-4 w-4" />
+              AI Insights
+            </TabsTrigger>
+            <TabsTrigger value="charts" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Charts
+            </TabsTrigger>
             <TabsTrigger value="copilot" className="flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              AI Copilot
-            </TabsTrigger>
-            <TabsTrigger value="triage" className="flex items-center gap-2">
-              <Activity className="h-4 w-4" />
-              Request Triage
-            </TabsTrigger>
-            <TabsTrigger value="health" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Client Health
+              Copilot
             </TabsTrigger>
             <TabsTrigger value="pending" className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
@@ -315,220 +247,47 @@ export default function InternalDashboardPage() {
             </TabsTrigger>
           </TabsList>
 
-          {/* AI Copilot Tab */}
+          {/* Clients Management */}
+          <TabsContent value="clients">
+            <ClientsManagement clients={clients} />
+          </TabsContent>
+
+          {/* Requests Management */}
+          <TabsContent value="requests">
+            <RequestsManagement requests={allRequests} />
+          </TabsContent>
+
+          {/* Revenue Overview */}
+          <TabsContent value="revenue">
+            <RevenueOverview data={revenueData} />
+          </TabsContent>
+
+          {/* AI Insights */}
+          <TabsContent value="insights">
+            <AIInsightsPanel 
+              healthPredictions={healthPredictions} 
+              riskSummary={riskSummary}
+            />
+          </TabsContent>
+
+          {/* Charts */}
+          <TabsContent value="charts">
+            <AdminCharts data={chartsData} />
+          </TabsContent>
+
+          {/* AI Copilot */}
           <TabsContent value="copilot">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bot className="h-5 w-5 text-primary" />
-                  Internal AI Copilot
-                </CardTitle>
-                <CardDescription>
-                  Ask questions about clients at risk, upgrade opportunities, margin threats, and where to focus attention.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ScrollArea className="h-[400px] border rounded-lg p-4 bg-muted/30">
-                  {copilotMessages.length === 0 ? (
-                    <div className="text-center text-muted-foreground py-8">
-                      <Bot className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p className="font-medium">Ask the AI Copilot</p>
-                      <p className="text-sm mt-2">Try questions like:</p>
-                      <ul className="text-sm mt-2 space-y-1">
-                        <li>"Which clients are at risk this week?"</li>
-                        <li>"Which clients should upgrade?"</li>
-                        <li>"Which requests threaten margins?"</li>
-                        <li>"Where should attention be focused?"</li>
-                      </ul>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {copilotMessages.map((msg, i) => (
-                        <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                          <div className={`max-w-[80%] rounded-lg p-3 ${
-                            msg.role === 'user' 
-                              ? 'bg-primary text-primary-foreground' 
-                              : 'bg-card border'
-                          }`}>
-                            {msg.role === 'assistant' ? (
-                              <div className="prose prose-sm dark:prose-invert max-w-none">
-                                <ReactMarkdown>{msg.content}</ReactMarkdown>
-                              </div>
-                            ) : (
-                              <p className="text-sm">{msg.content}</p>
-                            )}
-                            <p className="text-xs opacity-70 mt-2">
-                              {msg.timestamp.toLocaleTimeString()}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                      {isCopilotLoading && (
-                        <div className="flex justify-start">
-                          <div className="bg-card border rounded-lg p-3">
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <div className="animate-pulse">●</div>
-                              <div className="animate-pulse delay-100">●</div>
-                              <div className="animate-pulse delay-200">●</div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </ScrollArea>
-                <div className="flex gap-2">
-                  <Textarea
-                    placeholder="Ask about client risks, upgrades, margins..."
-                    value={copilotInput}
-                    onChange={(e) => setCopilotInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        sendCopilotMessage();
-                      }
-                    }}
-                    rows={2}
-                    className="resize-none"
-                  />
-                  <Button 
-                    onClick={sendCopilotMessage} 
-                    disabled={isCopilotLoading || !copilotInput.trim()}
-                    size="icon"
-                    className="shrink-0"
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <AICopilotChat />
           </TabsContent>
 
-          {/* Request Triage Tab */}
-          <TabsContent value="triage">
-            <Card>
-              <CardHeader>
-                <CardTitle>AI-Classified Requests</CardTitle>
-                <CardDescription>View AI triage results for client requests</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[500px]">
-                  <div className="space-y-3">
-                    {classifiedRequests.map((req) => (
-                      <div key={req.id} className="border rounded-lg p-4 space-y-3">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <p className="font-medium">{req.email}</p>
-                            <p className="text-sm text-muted-foreground">{req.plan} plan</p>
-                          </div>
-                          <div className="flex gap-2">
-                            <Badge className={getClassificationColor(req.ai_classification)}>
-                              {req.ai_classification}
-                            </Badge>
-                            <Badge variant="outline">
-                              {req.ai_effort_level} effort
-                            </Badge>
-                            <Badge variant="outline">
-                              ~{req.ai_estimated_hours}h
-                            </Badge>
-                          </div>
-                        </div>
-                        <p className="text-sm">{req.description}</p>
-                        {req.ai_risk_flags?.length > 0 && (
-                          <div className="flex gap-2 flex-wrap">
-                            {req.ai_risk_flags.map((flag, i) => (
-                              <Badge key={i} className={getRiskFlagColor(flag)}>
-                                <AlertTriangle className="h-3 w-3 mr-1" />
-                                {flag.replace('_', ' ')}
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
-                        <p className="text-xs text-muted-foreground italic">
-                          AI: {req.ai_reasoning}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Classified: {new Date(req.ai_classified_at).toLocaleString()}
-                        </p>
-                      </div>
-                    ))}
-                    {classifiedRequests.length === 0 && (
-                      <p className="text-center text-muted-foreground py-8">
-                        No classified requests yet.
-                      </p>
-                    )}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Client Health Tab */}
-          <TabsContent value="health">
-            <Card>
-              <CardHeader>
-                <CardTitle>Client Health Predictions</CardTitle>
-                <CardDescription>AI-driven health scores and predictions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[500px]">
-                  <div className="space-y-3">
-                    {healthPredictions.map((pred) => (
-                      <div key={pred.id} className="border rounded-lg p-4 space-y-3">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <p className="font-medium">{pred.email}</p>
-                            <p className="text-xs text-muted-foreground">
-                              Updated: {new Date(pred.updated_at).toLocaleString()}
-                            </p>
-                          </div>
-                          <Badge className={getHealthStatusColor(pred.health_status)}>
-                            {pred.health_status.replace('_', ' ')}
-                          </Badge>
-                        </div>
-                        <div className="grid grid-cols-3 gap-4 text-sm">
-                          <div>
-                            <p className="text-muted-foreground">Churn Risk</p>
-                            <p className="font-medium text-red-600">
-                              {(pred.churn_probability * 100).toFixed(0)}%
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-muted-foreground">Expansion Ready</p>
-                            <p className="font-medium text-green-600">
-                              {(pred.expansion_probability * 100).toFixed(0)}%
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-muted-foreground">Margin Risk</p>
-                            <p className="font-medium text-orange-600">
-                              {(pred.margin_risk_score * 100).toFixed(0)}%
-                            </p>
-                          </div>
-                        </div>
-                        {pred.ai_reasoning && (
-                          <p className="text-xs text-muted-foreground italic">
-                            {pred.ai_reasoning}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                    {healthPredictions.length === 0 && (
-                      <p className="text-center text-muted-foreground py-8">
-                        No health predictions yet. Submit and classify requests to generate predictions.
-                      </p>
-                    )}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Pending Requests Tab */}
+          {/* Pending Requests */}
           <TabsContent value="pending">
             <Card>
               <CardHeader>
-                <CardTitle>Pending AI Classification</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="h-5 w-5" />
+                  Pending AI Classification
+                </CardTitle>
                 <CardDescription>Requests awaiting AI triage</CardDescription>
               </CardHeader>
               <CardContent>
