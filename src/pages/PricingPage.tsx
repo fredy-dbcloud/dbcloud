@@ -8,6 +8,7 @@ import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 import { CheckoutModal } from '@/components/pricing/CheckoutModal';
 import { QualificationModal } from '@/components/pricing/QualificationModal';
+import { EvaluationRequestModal } from '@/components/pricing/EvaluationRequestModal';
 import { ClientPortalNotice, EmergencyExclusionNotice } from '@/components/pricing/DeliveryModelSection';
 import { TierKey } from '@/config/stripe';
 
@@ -15,7 +16,7 @@ export default function PricingPage() {
   const { t, getLocalizedPath, lang } = useLang();
   const [isYearly, setIsYearly] = useState(false);
   
-  // Qualification modal state
+  // Qualification modal state (for Starter only)
   const [qualificationModal, setQualificationModal] = useState<{
     isOpen: boolean;
     tier: TierKey;
@@ -28,7 +29,7 @@ export default function PricingPage() {
     price: '',
   });
 
-  // Checkout modal state
+  // Checkout modal state (for Starter only)
   const [checkoutModal, setCheckoutModal] = useState<{
     isOpen: boolean;
     tier: TierKey;
@@ -41,6 +42,17 @@ export default function PricingPage() {
     price: '',
   });
 
+  // Evaluation request modal state (for Growth)
+  const [evaluationModal, setEvaluationModal] = useState<{
+    isOpen: boolean;
+    tierName: string;
+    price: string;
+  }>({
+    isOpen: false,
+    tierName: '',
+    price: '',
+  });
+
   const labels = {
     en: {
       mostPopular: 'Most Popular',
@@ -48,6 +60,7 @@ export default function PricingPage() {
       limitations: 'Limitations',
       scopeLimitations: 'Scope Limitations',
       bestFor: 'Best for',
+      requestEvaluation: 'Request Scope Review',
     },
     es: {
       mostPopular: 'Más Popular',
@@ -55,6 +68,7 @@ export default function PricingPage() {
       limitations: 'Limitaciones',
       scopeLimitations: 'Alcance',
       bestFor: 'Ideal para',
+      requestEvaluation: 'Solicitar Evaluación',
     },
   };
 
@@ -121,8 +135,15 @@ export default function PricingPage() {
   const handleGetStarted = (plan: typeof plans[0]) => {
     if (plan.key === 'enterprise') {
       window.location.href = getLocalizedPath('/contact');
+    } else if (plan.key === 'growth') {
+      // Growth uses evaluation request flow (no direct checkout)
+      setEvaluationModal({
+        isOpen: true,
+        tierName: plan.name,
+        price: plan.price,
+      });
     } else {
-      // Open qualification modal first for Starter and Growth
+      // Starter uses qualification → checkout flow
       setQualificationModal({
         isOpen: true,
         tier: plan.key,
@@ -133,7 +154,7 @@ export default function PricingPage() {
   };
 
   const handleQualified = () => {
-    // Close qualification modal and open checkout modal
+    // Close qualification modal and open checkout modal (Starter only)
     setQualificationModal(prev => ({ ...prev, isOpen: false }));
     setCheckoutModal({
       isOpen: true,
@@ -314,7 +335,11 @@ export default function PricingPage() {
                         : "bg-primary hover:bg-primary/90"
                     )}
                   >
-                    {plan.key === 'enterprise' ? l.contactSales : t.cta.getStarted}
+                    {plan.key === 'enterprise' 
+                      ? l.contactSales 
+                      : plan.key === 'growth' 
+                        ? l.requestEvaluation 
+                        : t.cta.getStarted}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button
@@ -339,7 +364,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Qualification Modal */}
+      {/* Qualification Modal (Starter only) */}
       <QualificationModal
         isOpen={qualificationModal.isOpen}
         onClose={() => setQualificationModal(prev => ({ ...prev, isOpen: false }))}
@@ -347,7 +372,7 @@ export default function PricingPage() {
         tierName={qualificationModal.tierName}
       />
 
-      {/* Checkout Modal */}
+      {/* Checkout Modal (Starter only - after qualification) */}
       <CheckoutModal
         isOpen={checkoutModal.isOpen}
         onClose={() => setCheckoutModal(prev => ({ ...prev, isOpen: false }))}
@@ -355,6 +380,14 @@ export default function PricingPage() {
         tierName={checkoutModal.tierName}
         price={checkoutModal.price}
         isYearly={isYearly}
+      />
+
+      {/* Evaluation Request Modal (Growth only - no direct checkout) */}
+      <EvaluationRequestModal
+        isOpen={evaluationModal.isOpen}
+        onClose={() => setEvaluationModal(prev => ({ ...prev, isOpen: false }))}
+        tierName={evaluationModal.tierName}
+        price={evaluationModal.price}
       />
     </Layout>
   );
