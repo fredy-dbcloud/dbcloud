@@ -23,8 +23,10 @@ export default function ContactPage() {
     },
     {
       icon: MapPin,
-      title: lang === 'es' ? 'Dirección' : 'Address',
-      value: `${siteConfig.address.city}, ${siteConfig.address.state}`,
+      title: lang === 'es' ? 'Ubicación' : 'Location',
+      value: lang === 'es' 
+        ? 'Empresa registrada en EE.UU. — Operando remotamente'
+        : 'US-Registered — Operating Remotely Nationwide',
     },
     {
       icon: Clock,

@@ -1,58 +1,57 @@
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, Shield, Brain, LayoutDashboard, Globe } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 
 /**
  * Testimonials Section
- * Enterprise B2B best practice: Show customer testimonials with names, titles, and companies.
- * Companies like Snowflake, HashiCorp use detailed case study quotes.
+ * Enterprise B2B best practice: Show capability-based trust signals.
+ * Using process-driven credibility instead of unverifiable metrics.
  */
 export function TestimonialsSection() {
   const { lang } = useLang();
 
-  const testimonials = lang === 'es' ? [
+  // Value propositions (what clients will experience) - no fake testimonials
+  const valueProps = lang === 'es' ? [
     {
-      quote: "DBCloud redujo nuestros tiempos de respuesta de base de datos en un 60% y nos ahorró más de $200K anuales en costos operativos.",
-      author: "Carlos Méndez",
-      title: "CTO",
-      company: "Empresa de Tecnología Fortune 500",
-      rating: 5,
+      icon: Shield,
+      title: 'Operaciones Listas para Seguridad',
+      description: 'Infraestructura preparada para cumplimiento SOC 2, HIPAA y GDPR disponible para clientes Enterprise.',
     },
     {
-      quote: "La migración a la nube fue perfecta. Cero tiempo de inactividad y el equipo de soporte estuvo disponible 24/7 durante todo el proceso.",
-      author: "María González",
-      title: "VP de Ingeniería",
-      company: "Fintech Líder en LATAM",
-      rating: 5,
+      icon: Brain,
+      title: 'Triage Impulsado por IA',
+      description: 'Clasificación automática de solicitudes, detección de riesgos y priorización inteligente.',
     },
     {
-      quote: "Sus soluciones de IA nos ayudaron a automatizar el 80% de nuestros procesos de análisis de datos. Increíble ROI en solo 6 meses.",
-      author: "Roberto Silva",
-      title: "Director de Datos",
-      company: "Empresa de Retail Internacional",
-      rating: 5,
+      icon: LayoutDashboard,
+      title: 'Dashboards Transparentes',
+      description: 'Visibilidad en tiempo real de horas usadas, estado de solicitudes y resúmenes mensuales.',
+    },
+    {
+      icon: Globe,
+      title: 'Operaciones Remotas en EE.UU.',
+      description: 'Empresa registrada en Estados Unidos con operaciones remotas a nivel nacional.',
     },
   ] : [
     {
-      quote: "DBCloud reduced our database response times by 60% and saved us over $200K annually in operational costs.",
-      author: "Carlos Méndez",
-      title: "CTO",
-      company: "Fortune 500 Tech Company",
-      rating: 5,
+      icon: Shield,
+      title: 'Security-Ready Operations',
+      description: 'SOC 2, HIPAA, and GDPR compliant infrastructure available for Enterprise clients.',
     },
     {
-      quote: "The cloud migration was seamless. Zero downtime and the support team was available 24/7 throughout the entire process.",
-      author: "María González",
-      title: "VP of Engineering",
-      company: "Leading LATAM Fintech",
-      rating: 5,
+      icon: Brain,
+      title: 'AI-Powered Triage',
+      description: 'Automatic request classification, risk detection, and intelligent prioritization.',
     },
     {
-      quote: "Their AI solutions helped us automate 80% of our data analysis processes. Incredible ROI in just 6 months.",
-      author: "Roberto Silva",
-      title: "Chief Data Officer",
-      company: "International Retail Enterprise",
-      rating: 5,
+      icon: LayoutDashboard,
+      title: 'Transparent Dashboards',
+      description: 'Real-time visibility into hours used, request status, and monthly summaries.',
+    },
+    {
+      icon: Globe,
+      title: 'US-Based Remote Operations',
+      description: 'US-registered company with remote-first operations across the nation.',
     },
   ];
 
@@ -66,67 +65,46 @@ export function TestimonialsSection() {
           className="text-center mb-16"
         >
           <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            {lang === 'es' ? 'Lo que dicen nuestros clientes' : 'What Our Clients Say'}
+            {lang === 'es' ? 'Por qué las empresas nos eligen' : 'Why Enterprises Choose Us'}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {lang === 'es'
-              ? 'Empresas de todo el mundo confían en DBCloud para su infraestructura crítica'
-              : 'Enterprises worldwide trust DBCloud for their mission-critical infrastructure'}
+              ? 'Construido sobre principios de transparencia, procesos estructurados y excelencia operativa'
+              : 'Built on principles of transparency, structured processes, and operational excellence'}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {valueProps.map((prop, index) => (
             <motion.div
-              key={testimonial.author}
+              key={prop.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative p-8 rounded-2xl bg-card border border-border shadow-card"
+              className="p-6 rounded-2xl bg-card border border-border shadow-card text-center"
             >
-              <Quote className="absolute top-6 right-6 h-8 w-8 text-accent/20" />
-              
-              {/* Rating Stars */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-accent text-accent" />
-                ))}
+              <div className="inline-flex items-center justify-center p-3 rounded-xl bg-accent/10 mb-4">
+                <prop.icon className="h-6 w-6 text-accent" />
               </div>
-              
-              <blockquote className="text-foreground mb-6 leading-relaxed">
-                "{testimonial.quote}"
-              </blockquote>
-              
-              <div className="border-t border-border pt-4">
-                <p className="font-semibold text-foreground">{testimonial.author}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                <p className="text-sm text-accent font-medium">{testimonial.company}</p>
-              </div>
+              <h3 className="font-semibold mb-2">{prop.title}</h3>
+              <p className="text-sm text-muted-foreground">{prop.description}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* Stats below testimonials */}
+        {/* Credibility statement */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 p-8 rounded-2xl bg-muted/30 border border-border"
+          className="mt-16 p-8 rounded-2xl bg-muted/30 border border-border text-center"
         >
-          {[
-            { value: '99.99%', label: lang === 'es' ? 'Uptime SLA' : 'Uptime SLA' },
-            { value: '500+', label: lang === 'es' ? 'Clientes Enterprise' : 'Enterprise Clients' },
-            { value: '10K+', label: lang === 'es' ? 'Bases de Datos' : 'Databases Managed' },
-            { value: '24/7', label: lang === 'es' ? 'Soporte Experto' : 'Expert Support' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-display text-3xl sm:text-4xl font-bold text-accent mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            {lang === 'es'
+              ? '"Diseñado utilizando los mismos principios operativos de confianza de consultorías empresariales de alto crecimiento."'
+              : '"Designed using the same operational principles trusted by high-growth enterprise consultancies."'}
+          </p>
         </motion.div>
       </div>
     </section>

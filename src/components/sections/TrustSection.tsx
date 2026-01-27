@@ -6,15 +6,15 @@ export function TrustSection() {
   const { lang } = useLang();
 
   const features = lang === 'es' ? [
-    { icon: Shield, title: 'Seguridad Empresarial', description: 'Cumplimiento SOC 2, HIPAA y GDPR' },
-    { icon: Award, title: 'Certificaciones', description: 'Expertos certificados en AWS, Azure, GCP' },
-    { icon: Clock, title: 'SLA Garantizado', description: 'Hasta 99.99% de tiempo de actividad' },
-    { icon: Headphones, title: 'Soporte 24/7', description: 'Equipo de expertos disponible siempre' },
+    { icon: Shield, title: 'Listo para Seguridad', description: 'Infraestructura preparada para SOC 2, HIPAA y GDPR' },
+    { icon: Award, title: 'Expertos Certificados', description: 'Equipo certificado en AWS, Azure, GCP' },
+    { icon: Clock, title: 'Flujos Basados en SLA', description: 'Tiempos de respuesta definidos y entrega estructurada' },
+    { icon: Headphones, title: 'Soporte Dedicado', description: 'Equipo de expertos disponible para clientes' },
   ] : [
-    { icon: Shield, title: 'Enterprise Security', description: 'SOC 2, HIPAA, and GDPR compliant' },
+    { icon: Shield, title: 'Security-Ready', description: 'SOC 2, HIPAA, and GDPR ready infrastructure' },
     { icon: Award, title: 'Certified Experts', description: 'AWS, Azure, GCP certified team' },
-    { icon: Clock, title: 'Guaranteed SLA', description: 'Up to 99.99% uptime guarantee' },
-    { icon: Headphones, title: '24/7 Support', description: 'Expert team always available' },
+    { icon: Clock, title: 'SLA-Based Workflows', description: 'Defined response times and structured delivery' },
+    { icon: Headphones, title: 'Dedicated Support', description: 'Expert team available for clients' },
   ];
 
   const logos = [
