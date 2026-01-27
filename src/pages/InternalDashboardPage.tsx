@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   AlertTriangle, 
@@ -19,10 +18,10 @@ import {
   DollarSign,
   RefreshCw,
   CheckCircle,
-  XCircle,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
+import { supabase } from '@/integrations/supabase/client';
 
 interface RiskSummary {
   total_classified_requests: number;
@@ -71,12 +70,7 @@ interface CopilotMessage {
   timestamp: Date;
 }
 
-const INTERNAL_KEY = 'dbcloud-internal-2026';
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-
 export default function InternalDashboardPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authKey, setAuthKey] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [riskSummary, setRiskSummary] = useState<RiskSummary | null>(null);
   const [classifiedRequests, setClassifiedRequests] = useState<ClassifiedRequest[]>([]);
@@ -88,14 +82,10 @@ export default function InternalDashboardPage() {
   const [copilotInput, setCopilotInput] = useState('');
   const [isCopilotLoading, setIsCopilotLoading] = useState(false);
 
-  const handleAuth = () => {
-    if (authKey === INTERNAL_KEY) {
-      setIsAuthenticated(true);
-      loadAllData();
-    } else {
-      toast.error('Invalid internal key');
-    }
-  };
+  // Load data on mount (AdminRoute already ensures auth)
+  useEffect(() => {
+    loadAllData();
+  }, []);
 
   const loadAllData = async () => {
     setIsLoading(true);
@@ -114,52 +104,38 @@ export default function InternalDashboardPage() {
   };
 
   const loadRiskSummary = async () => {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/internal-dashboard-data`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ internal_key: INTERNAL_KEY, action: 'risk_summary' }),
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'risk_summary' },
     });
-    const data = await response.json();
-    if (data.success) setRiskSummary(data.data);
+    if (!error && data?.success) setRiskSummary(data.data);
   };
 
   const loadClassifiedRequests = async () => {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/internal-dashboard-data`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ internal_key: INTERNAL_KEY, action: 'classified_requests' }),
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'classified_requests' },
     });
-    const data = await response.json();
-    if (data.success) setClassifiedRequests(data.data);
+    if (!error && data?.success) setClassifiedRequests(data.data);
   };
 
   const loadHealthPredictions = async () => {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/internal-dashboard-data`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ internal_key: INTERNAL_KEY, action: 'health_predictions' }),
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'health_predictions' },
     });
-    const data = await response.json();
-    if (data.success) setHealthPredictions(data.data);
+    if (!error && data?.success) setHealthPredictions(data.data);
   };
 
   const loadPendingRequests = async () => {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/internal-dashboard-data`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ internal_key: INTERNAL_KEY, action: 'pending_requests' }),
+    const { data, error } = await supabase.functions.invoke('internal-dashboard-data', {
+      body: { action: 'pending_requests' },
     });
-    const data = await response.json();
-    if (data.success) setPendingRequests(data.data);
+    if (!error && data?.success) setPendingRequests(data.data);
   };
 
   const triggerAITriage = async (request: any) => {
     try {
       toast.loading('Running AI triage...');
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-triage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const { data, error } = await supabase.functions.invoke('ai-triage', {
+        body: {
           request_id: request.id,
           request_type: request.request_type,
           description: request.description,
@@ -167,17 +143,16 @@ export default function InternalDashboardPage() {
           priority: request.priority,
           plan: request.plan,
           email: request.email,
-        }),
+        },
       });
-      const data = await response.json();
       toast.dismiss();
-      if (data.success) {
+      if (!error && data?.success) {
         toast.success('Request classified successfully');
         loadAllData();
       } else {
-        toast.error(data.error || 'Classification failed');
+        toast.error(data?.error || 'Classification failed');
       }
-    } catch (error) {
+    } catch (err) {
       toast.dismiss();
       toast.error('Failed to run AI triage');
     }
@@ -196,19 +171,13 @@ export default function InternalDashboardPage() {
     setIsCopilotLoading(true);
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-copilot`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          internal_key: INTERNAL_KEY, 
-          query: copilotInput,
-        }),
+      const { data, error } = await supabase.functions.invoke('ai-copilot', {
+        body: { query: copilotInput },
       });
-      const data = await response.json();
       
       const assistantMessage: CopilotMessage = {
         role: 'assistant',
-        content: data.success ? data.answer : `Error: ${data.error}`,
+        content: !error && data?.success ? data.answer : `Error: ${data?.error || error?.message || 'Unknown error'}`,
         timestamp: new Date(),
       };
       setCopilotMessages(prev => [...prev, assistantMessage]);
@@ -254,33 +223,7 @@ export default function InternalDashboardPage() {
     }
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5" />
-              Internal Operations Dashboard
-            </CardTitle>
-            <CardDescription>Enter internal access key to continue</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              type="password"
-              placeholder="Internal access key"
-              value={authKey}
-              onChange={(e) => setAuthKey(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleAuth()}
-            />
-            <Button onClick={handleAuth} className="w-full">
-              Access Dashboard
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // AdminRoute handles authentication and role check
 
   return (
     <div className="min-h-screen bg-background">

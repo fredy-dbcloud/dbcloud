@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Facebook, Instagram, ExternalLink } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import { BillingPortalButton } from '@/components/billing/BillingPortalButton';
 
 export function Footer() {
   const { lang, t, getLocalizedPath } = useLang();
@@ -129,15 +130,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a 
-                  href="https://billing.stripe.com/p/login/test" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1"
-                >
+                <BillingPortalButton>
                   {lang === 'en' ? 'Billing & Subscriptions' : 'Facturación y suscripciones'}
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                </BillingPortalButton>
               </li>
             </ul>
           </div>
