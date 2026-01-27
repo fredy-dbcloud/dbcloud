@@ -121,6 +121,8 @@ export const translations = {
         subtitle: "Cloud & AI advisory for small businesses getting started",
         price: "$499",
         description: "This plan provides expert guidance and direction, not hands-on operations. Designed for small teams that need advisory support without a full internal cloud team.",
+        hours: "4 hours/month",
+        responseTime: "1–2 business days",
         features: [
           "Up to 4 hours/month of Cloud & AI consulting",
           "High-level infrastructure & database review (1 environment)",
@@ -135,6 +137,23 @@ export const translations = {
           "No SLA guarantees",
           "No direct changes without approval",
         ],
+        includedWork: [
+          "Architecture review & recommendations",
+          "Cost optimization analysis",
+          "Security posture assessment",
+          "Monthly planning sessions",
+        ],
+        advisoryOnly: [
+          "Implementation guidance (you execute)",
+          "Vendor selection advice",
+          "Team training recommendations",
+        ],
+        outOfScope: [
+          "Hands-on implementation",
+          "Production incident response",
+          "Emergency support",
+          "Direct infrastructure changes",
+        ],
         bestFor: "Small businesses starting with cloud or AI and needing expert direction without hiring full-time staff.",
       },
       growth: {
@@ -142,6 +161,8 @@ export const translations = {
         subtitle: "Hands-on Cloud & AI support for growing businesses",
         price: "$1,499",
         description: "For companies that need execution, not just advice — without hiring full-time engineers.",
+        hours: "10 hours/month",
+        responseTime: "Same or next business day",
         features: [
           "Up to 10 hours/month of Cloud & AI consulting & execution",
           "Assisted management of 1 database environment (limited scope, non-SLA)",
@@ -162,6 +183,23 @@ export const translations = {
           "No guaranteed uptime SLAs",
           "No compliance certifications (SOC2, HIPAA handled in Enterprise)",
         ],
+        includedWork: [
+          "Hands-on configuration & optimization",
+          "Database tuning & maintenance",
+          "Monitoring setup & alerting",
+          "Scheduled maintenance tasks",
+        ],
+        advisoryOnly: [
+          "Compliance strategy guidance",
+          "Disaster recovery planning",
+          "Multi-region architecture design",
+        ],
+        outOfScope: [
+          "24/7 incident response",
+          "Production emergencies",
+          "SLA-bound commitments",
+          "Multi-environment management",
+        ],
         bestFor: "Growing businesses with live workloads that need ongoing improvements and execution.",
       },
       enterprise: {
@@ -178,6 +216,19 @@ export const translations = {
           "Compliance certifications (SOC2, HIPAA, PCI)",
           "On-premise deployment option",
         ],
+      },
+      // Delivery model labels
+      deliveryModel: {
+        title: "How We Work Together",
+        hoursLabel: "Monthly Hours",
+        responseLabel: "Response Time",
+        noRollover: "Unused hours do not roll over to the next month.",
+        requestNotice: "All work requests must be submitted through the client portal. Requests via email, WhatsApp, or chat are not tracked.",
+        includedWork: "Included Work",
+        advisoryOnly: "Advisory Only",
+        outOfScope: "Out of Scope",
+        outOfScopeNote: "Production incidents and emergency response are not included in Starter or Growth.",
+        requiresQuote: "Requires separate quote",
       },
     },
     // FAQ
@@ -308,6 +359,8 @@ export const translations = {
         subtitle: "Asesoría Cloud & AI para pequeñas empresas que comienzan",
         price: "$499",
         description: "Este plan proporciona orientación y dirección experta, no operaciones prácticas. Diseñado para equipos pequeños que necesitan soporte de asesoría sin un equipo interno de cloud.",
+        hours: "4 horas/mes",
+        responseTime: "1–2 días hábiles",
         features: [
           "Hasta 4 horas/mes de consultoría Cloud & AI",
           "Revisión de alto nivel de infraestructura y bases de datos (1 ambiente)",
@@ -322,6 +375,23 @@ export const translations = {
           "Sin garantías de SLA",
           "Sin cambios directos sin aprobación",
         ],
+        includedWork: [
+          "Revisión de arquitectura y recomendaciones",
+          "Análisis de optimización de costos",
+          "Evaluación de postura de seguridad",
+          "Sesiones de planificación mensual",
+        ],
+        advisoryOnly: [
+          "Guía de implementación (tú ejecutas)",
+          "Asesoría en selección de proveedores",
+          "Recomendaciones de capacitación",
+        ],
+        outOfScope: [
+          "Implementación práctica",
+          "Respuesta a incidentes de producción",
+          "Soporte de emergencia",
+          "Cambios directos de infraestructura",
+        ],
         bestFor: "Pequeñas empresas que inician con cloud o AI y necesitan dirección experta sin contratar personal de tiempo completo.",
       },
       growth: {
@@ -329,6 +399,8 @@ export const translations = {
         subtitle: "Soporte práctico Cloud & AI para empresas en crecimiento",
         price: "$1,499",
         description: "Para empresas que necesitan ejecución, no solo asesoría — sin contratar ingenieros de tiempo completo.",
+        hours: "10 horas/mes",
+        responseTime: "Mismo día o siguiente día hábil",
         features: [
           "Hasta 10 horas/mes de consultoría y ejecución Cloud & AI",
           "Gestión asistida de 1 ambiente de base de datos (alcance limitado, sin SLA)",
@@ -349,6 +421,23 @@ export const translations = {
           "Sin SLAs de tiempo de actividad garantizado",
           "Sin certificaciones de cumplimiento (SOC2, HIPAA en Enterprise)",
         ],
+        includedWork: [
+          "Configuración y optimización práctica",
+          "Ajuste y mantenimiento de bases de datos",
+          "Configuración de monitoreo y alertas",
+          "Tareas de mantenimiento programado",
+        ],
+        advisoryOnly: [
+          "Guía de estrategia de cumplimiento",
+          "Planificación de recuperación ante desastres",
+          "Diseño de arquitectura multi-región",
+        ],
+        outOfScope: [
+          "Respuesta a incidentes 24/7",
+          "Emergencias de producción",
+          "Compromisos con SLA",
+          "Gestión multi-ambiente",
+        ],
         bestFor: "Empresas en crecimiento con cargas de trabajo activas que necesitan mejoras continuas y ejecución.",
       },
       enterprise: {
@@ -365,6 +454,19 @@ export const translations = {
           "Certificaciones de cumplimiento (SOC2, HIPAA, PCI)",
           "Opción de despliegue on-premise",
         ],
+      },
+      // Delivery model labels
+      deliveryModel: {
+        title: "Cómo Trabajamos Juntos",
+        hoursLabel: "Horas Mensuales",
+        responseLabel: "Tiempo de Respuesta",
+        noRollover: "Las horas no utilizadas no se acumulan para el siguiente mes.",
+        requestNotice: "Todas las solicitudes de trabajo deben enviarse a través del portal de cliente. Las solicitudes por email, WhatsApp o chat no se rastrean.",
+        includedWork: "Trabajo Incluido",
+        advisoryOnly: "Solo Asesoría",
+        outOfScope: "Fuera de Alcance",
+        outOfScopeNote: "Incidentes de producción y respuesta de emergencia no están incluidos en Starter o Growth.",
+        requiresQuote: "Requiere cotización separada",
       },
     },
     // FAQ

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { Check, X, ArrowRight, Sparkles, Info } from 'lucide-react';
+import { Check, X, ArrowRight, Sparkles, Info, Clock, Timer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 import { CheckoutModal } from '@/components/pricing/CheckoutModal';
 import { QualificationModal } from '@/components/pricing/QualificationModal';
+import { ClientPortalNotice, EmergencyExclusionNotice } from '@/components/pricing/DeliveryModelSection';
 import { TierKey } from '@/config/stripe';
 
 export default function PricingPage() {
@@ -58,6 +59,8 @@ export default function PricingPage() {
 
   const l = labels[lang];
 
+  const dm = (t.pricing as any).deliveryModel;
+
   const plans: Array<{
     key: TierKey;
     name: string;
@@ -69,6 +72,8 @@ export default function PricingPage() {
     scopeLimitations?: string[];
     limitations?: string[];
     bestFor?: string;
+    hours?: string;
+    responseTime?: string;
     popular: boolean;
   }> = [
     {
@@ -81,6 +86,8 @@ export default function PricingPage() {
       features: t.pricing.starter.features as unknown as string[],
       limitations: (t.pricing.starter as any).limitations as string[] | undefined,
       bestFor: (t.pricing.starter as any).bestFor as string | undefined,
+      hours: (t.pricing.starter as any).hours as string | undefined,
+      responseTime: (t.pricing.starter as any).responseTime as string | undefined,
       popular: false,
     },
     {
@@ -94,6 +101,8 @@ export default function PricingPage() {
       scopeLimitations: (t.pricing.growth as any).scopeLimitations as string[] | undefined,
       limitations: (t.pricing.growth as any).limitations as string[] | undefined,
       bestFor: (t.pricing.growth as any).bestFor as string | undefined,
+      hours: (t.pricing.growth as any).hours as string | undefined,
+      responseTime: (t.pricing.growth as any).responseTime as string | undefined,
       popular: true,
     },
     {
@@ -209,7 +218,30 @@ export default function PricingPage() {
                     <span className="text-muted-foreground text-sm">{plan.period}</span>
                   </div>
                   <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
+
+                  {/* Hours and Response Time for Starter/Growth */}
+                  {plan.hours && plan.responseTime && (
+                    <div className="grid grid-cols-2 gap-2 mt-4">
+                      <div className="bg-accent/10 rounded-lg p-2 text-center">
+                        <Clock className="h-4 w-4 mx-auto mb-1 text-accent" />
+                        <p className="text-[10px] text-muted-foreground">{dm.hoursLabel}</p>
+                        <p className="font-semibold text-xs">{plan.hours}</p>
+                      </div>
+                      <div className="bg-accent/10 rounded-lg p-2 text-center">
+                        <Timer className="h-4 w-4 mx-auto mb-1 text-accent" />
+                        <p className="text-[10px] text-muted-foreground">{dm.responseLabel}</p>
+                        <p className="font-semibold text-xs">{plan.responseTime}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
+
+                {/* No Rollover Notice */}
+                {plan.hours && (
+                  <p className="text-[10px] text-muted-foreground text-center italic mb-4 -mt-2">
+                    {dm.noRollover}
+                  </p>
+                )}
 
                 {/* Features */}
                 <ul className="space-y-2.5 mb-6">
@@ -287,6 +319,12 @@ export default function PricingPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Important Notices */}
+          <div className="max-w-3xl mx-auto mt-12 space-y-4">
+            <ClientPortalNotice />
+            <EmergencyExclusionNotice />
           </div>
         </div>
       </section>
