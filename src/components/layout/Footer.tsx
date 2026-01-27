@@ -112,6 +112,36 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Clients Section - NEW */}
+          <div>
+            <h4 className="font-display font-semibold mb-4">
+              {lang === 'en' ? 'Clients' : 'Clientes'}
+            </h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to={getLocalizedPath('/login')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  {lang === 'en' ? 'Client Portal' : 'Portal de clientes'}
+                </Link>
+              </li>
+              <li>
+                <Link to={getLocalizedPath('/portal/requests')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  {lang === 'en' ? 'Support & Requests' : 'Soporte y solicitudes'}
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href="https://billing.stripe.com/p/login/test" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1"
+                >
+                  {lang === 'en' ? 'Billing & Subscriptions' : 'Facturación y suscripciones'}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Resources */}
           <div>
             <h4 className="font-display font-semibold mb-4">{t.footer.resources}</h4>
