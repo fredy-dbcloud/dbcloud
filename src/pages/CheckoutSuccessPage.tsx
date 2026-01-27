@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock } from 'lucide-react';
+import { CheckCircle, ArrowRight, Calendar, X, Check, AlertCircle, FileText, Clock, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
@@ -30,6 +30,7 @@ export default function CheckoutSuccessPage() {
       cta: 'Return to Homepage',
       scheduleCall: 'Schedule Your Kickoff Call',
       viewOnboarding: 'View Onboarding Guide',
+      viewDashboard: 'Go to Dashboard',
       contactUs: 'Contact Support',
       // Expectation setting
       includesTitle: 'What this plan includes',
@@ -67,6 +68,7 @@ export default function CheckoutSuccessPage() {
       cta: 'Volver al Inicio',
       scheduleCall: 'Agenda tu Llamada de Inicio',
       viewOnboarding: 'Ver Guía de Onboarding',
+      viewDashboard: 'Ir al Panel',
       contactUs: 'Contactar Soporte',
       // Expectation setting
       includesTitle: 'Qué incluye este plan',
@@ -220,11 +222,17 @@ export default function CheckoutSuccessPage() {
             </motion.div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Link to={getLocalizedPath(`/onboarding/${plan}`)}>
                   <ArrowRight className="mr-2 h-4 w-4" />
                   {c.viewOnboarding}
+                </Link>
+              </Button>
+              <Button asChild variant="secondary" size="lg">
+                <Link to={`${getLocalizedPath('/dashboard')}?email=`}>
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  {c.viewDashboard}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">

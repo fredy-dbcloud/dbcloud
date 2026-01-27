@@ -399,6 +399,23 @@ export const translations = {
       },
       submitCta: 'Submit Your First Request',
     },
+    // Dashboard
+    dashboard: {
+      title: 'Client Dashboard',
+      subtitle: 'Track your plan usage and requests',
+      currentPlan: 'Current Plan',
+      monthlyStatus: 'Monthly Status',
+      recentRequests: 'Recent Requests',
+      lastSummary: 'Last Monthly Summary',
+      noRequests: 'No requests submitted yet',
+      noSummary: 'No summary available yet',
+      viewOnboarding: 'View Onboarding Guide',
+      submitRequest: 'Submit Request',
+      planSuggestion: 'Plan Suggestion',
+      viewPlans: 'View Plans',
+      talkToSales: 'Talk to Sales',
+      scheduleCall: 'Schedule Call',
+    },
     // FAQ
     faq: {
       title: "Frequently Asked Questions",
@@ -804,6 +821,23 @@ export const translations = {
         scheduleCall: "Agendar Llamada de Inicio",
         contactUs: "Contáctanos",
       },
+    },
+    // Dashboard
+    dashboard: {
+      title: 'Panel de Cliente',
+      subtitle: 'Rastrea el uso de tu plan y solicitudes',
+      currentPlan: 'Plan Actual',
+      monthlyStatus: 'Estado Mensual',
+      recentRequests: 'Solicitudes Recientes',
+      lastSummary: 'Último Resumen Mensual',
+      noRequests: 'Aún no hay solicitudes',
+      noSummary: 'Aún no hay resumen disponible',
+      viewOnboarding: 'Ver Guía de Inicio',
+      submitRequest: 'Enviar Solicitud',
+      planSuggestion: 'Sugerencia de Plan',
+      viewPlans: 'Ver Planes',
+      talkToSales: 'Hablar con Ventas',
+      scheduleCall: 'Agendar Llamada',
     },
     // FAQ
     faq: {

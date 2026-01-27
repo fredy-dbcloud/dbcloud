@@ -89,6 +89,54 @@ export type Database = {
         }
         Relationships: []
       }
+      client_summaries: {
+        Row: {
+          created_at: string
+          email: string
+          health_status: string
+          hours_included: number
+          hours_used: number
+          id: string
+          key_findings: string[] | null
+          month: number
+          plan: string
+          recommendations: string[] | null
+          requests_completed: number
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          health_status?: string
+          hours_included: number
+          hours_used?: number
+          id?: string
+          key_findings?: string[] | null
+          month: number
+          plan: string
+          recommendations?: string[] | null
+          requests_completed?: number
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          health_status?: string
+          hours_included?: number
+          hours_used?: number
+          id?: string
+          key_findings?: string[] | null
+          month?: number
+          plan?: string
+          recommendations?: string[] | null
+          requests_completed?: number
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           company: string | null

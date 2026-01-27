@@ -14,7 +14,9 @@ import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
+import ClientDashboardPage from "./pages/ClientDashboardPage";
 import NotFound from "./pages/NotFound";
+
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,7 @@ const App = () => (
           <Route path="/en/terms" element={<TermsPage />} />
           <Route path="/en/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/en/onboarding/:plan" element={<OnboardingPage />} />
+          <Route path="/en/dashboard" element={<ClientDashboardPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -53,6 +56,7 @@ const App = () => (
           <Route path="/es/terms" element={<TermsPage />} />
           <Route path="/es/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/es/onboarding/:plan" element={<OnboardingPage />} />
+          <Route path="/es/dashboard" element={<ClientDashboardPage />} />
           
           {/* Language-agnostic routes for Stripe redirects */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
