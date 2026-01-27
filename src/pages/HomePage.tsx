@@ -2,6 +2,7 @@ import { Layout } from '@/components/layout/Layout';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { EnterpriseStandardsSection } from '@/components/sections/EnterpriseStandardsSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
+import { TechnologyStackSection } from '@/components/sections/TechnologyStackSection';
 import { TrustSection } from '@/components/sections/TrustSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
@@ -12,9 +13,10 @@ import { CTASection } from '@/components/sections/CTASection';
  * 1. Hero with clear value proposition + primary CTA
  * 2. Enterprise standards (credibility-driven trust signals)
  * 3. Services overview
- * 4. Trust signals (certifications, SLAs)
- * 5. Testimonials with stats
- * 6. Final CTA
+ * 4. Technology stack (SEO + credibility)
+ * 5. Trust signals (certifications, SLAs)
+ * 6. Testimonials with stats
+ * 7. Final CTA
  */
 export default function HomePage() {
   return (
@@ -22,6 +24,7 @@ export default function HomePage() {
       <HeroSection />
       <EnterpriseStandardsSection />
       <ServicesSection />
+      <TechnologyStackSection />
       <TrustSection />
       <TestimonialsSection />
       <CTASection />
