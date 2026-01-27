@@ -15,6 +15,10 @@ export function ChatWidget() {
   const { messages, step, isLoading, sendMessage } = useChatSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const preSalesNotice = lang === 'en' 
+    ? 'For active clients, all support requests are handled exclusively through the Client Portal.'
+    : 'Para clientes activos, todas las solicitudes se gestionan exclusivamente vía Portal de Clientes.';
+
   const openExternal = (url: string) => {
     // Prefer opening a new tab; fall back to same-tab navigation if blocked.
     const w = window.open(url, '_blank', 'noopener,noreferrer');
@@ -78,6 +82,11 @@ export function ChatWidget() {
 
           {/* Messages */}
           <div className="h-80 overflow-y-auto p-4 space-y-4">
+            {/* Pre-sales notice */}
+            <div className="bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 text-xs text-muted-foreground">
+              {preSalesNotice}
+            </div>
+            
             {messages.map((message) => (
               <div
                 key={message.id}

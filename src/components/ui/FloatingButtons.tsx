@@ -1,6 +1,8 @@
+import { useLocation } from 'react-router-dom';
 import { siteConfig } from '@/config/site';
 import { ChatWidget } from '@/components/chat/ChatWidget';
 import { useLang } from '@/hooks/useLang';
+import { useAuth } from '@/hooks/useAuth';
 import {
   Tooltip,
   TooltipContent,
@@ -8,10 +10,42 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
+// Pre-sales only pages where widgets should be visible
+const PRE_SALES_ROUTES = [
+  '/',
+  '/en',
+  '/es',
+  '/en/services',
+  '/es/services',
+  '/en/pricing',
+  '/es/pricing',
+  '/en/contact',
+  '/es/contact',
+  '/en/faq',
+  '/es/faq',
+  '/en/ai',
+  '/es/ai',
+  '/en/demo',
+  '/es/demo',
+];
+
 export function FloatingButtons() {
   const { lang } = useLang();
+  const { user } = useAuth();
+  const location = useLocation();
   
   const whatsappConfig = siteConfig.WHATSAPP[lang] || siteConfig.WHATSAPP.en;
+
+  // Hide widgets for authenticated users or on portal/internal routes
+  const isPortalRoute = location.pathname.includes('/portal') || location.pathname.includes('/internal');
+  const isPreSalesRoute = PRE_SALES_ROUTES.some(route => 
+    location.pathname === route || location.pathname.startsWith(route + '/')
+  ) || location.pathname.includes('/demo');
+  
+  // Don't show widgets if user is logged in or on non-pre-sales pages
+  if (user || isPortalRoute || !isPreSalesRoute) {
+    return null;
+  }
 
   return (
     <TooltipProvider>
