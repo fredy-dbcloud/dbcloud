@@ -82,8 +82,8 @@ export default function AddonSuccessPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
-                <Link to={getLocalizedPath('/dashboard')}>
-                  {lang === 'es' ? 'Ir al Panel' : 'Go to Dashboard'}
+                <Link to={getLocalizedPath('/portal')}>
+                  {lang === 'es' ? 'Ir al Portal' : 'Go to Portal'}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

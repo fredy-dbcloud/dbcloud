@@ -230,9 +230,9 @@ export default function CheckoutSuccessPage() {
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link to={getLocalizedPath(`/onboarding/${plan}`)}>
+                <Link to={getLocalizedPath('/portal')}>
                   <ArrowRight className="mr-2 h-4 w-4" />
-                  {c.viewOnboarding}
+                  {lang === 'es' ? 'Ir al Portal' : 'Go to Portal'}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
