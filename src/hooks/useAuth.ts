@@ -138,6 +138,22 @@ export function useAuth() {
     if (error) throw error;
   };
 
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+
+    if (error) throw error;
+  };
+
+  const updatePassword = async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) throw error;
+  };
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
@@ -169,6 +185,8 @@ export function useAuth() {
     signIn,
     signInWithMagicLink,
     resendVerificationEmail,
+    resetPassword,
+    updatePassword,
     signOut,
     updateProfile,
   };
