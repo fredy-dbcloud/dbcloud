@@ -121,7 +121,7 @@ When data is no longer needed, we securely delete or anonymize it.`
 **${siteConfig.name}**
 Email: ${siteConfig.email}
 Phone: ${siteConfig.phone}
-Address: ${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}`
+Operating remotely across the United States`
       }
     ]
   },
@@ -242,7 +242,7 @@ Cuando los datos ya no son necesarios, los eliminamos o anonimizamos de forma se
 **${siteConfig.name}**
 Email: ${siteConfig.email}
 Teléfono: ${siteConfig.phone}
-Dirección: ${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}`
+Operando remotamente en Estados Unidos`
       }
     ]
   }

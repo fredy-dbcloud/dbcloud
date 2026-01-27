@@ -20,11 +20,7 @@ export function SchemaOrg() {
     "telephone": siteConfig.phone,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": siteConfig.address.street,
-      "addressLocality": siteConfig.address.city,
-      "addressRegion": siteConfig.address.state,
-      "postalCode": siteConfig.address.zip,
-      "addressCountry": siteConfig.address.country
+      "addressCountry": "US"
     },
     "sameAs": [
       siteConfig.linkedin,

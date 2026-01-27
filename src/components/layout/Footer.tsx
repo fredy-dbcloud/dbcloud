@@ -204,8 +204,8 @@ export function Footer() {
                 <MapPin className="h-4 w-4 mt-0.5 text-accent" />
                 <span className="text-primary-foreground/70">
                   {lang === 'es' 
-                    ? 'Empresa registrada en EE.UU. — Operando remotamente en todo el país'
-                    : 'US-Registered Company — Operating Remotely Across the United States'}
+                    ? 'Empresa registrada y en cumplimiento para operar en EE.UU.'
+                    : 'Registered and compliant to operate in the US'}
                 </span>
               </li>
             </ul>
