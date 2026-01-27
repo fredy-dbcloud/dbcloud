@@ -120,11 +120,11 @@ export const translations = {
         name: "Starter Consulting",
         subtitle: "Cloud & AI advisory for small businesses getting started",
         price: "$499",
-        description: "Designed for small teams that need expert guidance, not a full internal cloud team.",
+        description: "This plan provides expert guidance and direction, not hands-on operations. Designed for small teams that need advisory support without a full internal cloud team.",
         features: [
           "Up to 4 hours/month of Cloud & AI consulting",
-          "Infrastructure & database review (1 environment)",
-          "Monitoring & cost optimization recommendations",
+          "High-level infrastructure & database review (1 environment)",
+          "Monitoring & cost optimization recommendations (no implementation)",
           "Monthly action plan with prioritized improvements",
           "Email support (business hours)",
         ],
@@ -144,7 +144,7 @@ export const translations = {
         description: "For companies that need execution, not just advice — without hiring full-time engineers.",
         features: [
           "Up to 10 hours/month of Cloud & AI consulting & execution",
-          "Management of 1 database environment (limited scope)",
+          "Assisted management of 1 database environment (limited scope, non-SLA)",
           "Performance & cost optimization actions",
           "Advanced monitoring configuration",
           "Priority support (business hours)",
@@ -154,6 +154,7 @@ export const translations = {
           "Management applies to one environment / one region",
           "All work performed within included monthly hours",
           "Additional work scoped separately if needed",
+          "No guarantee of uptime or recovery times",
         ],
         limitations: [
           "No 24/7 on-call support",
@@ -169,7 +170,7 @@ export const translations = {
         price: "Custom",
         description: "Custom scope, SLAs, compliance requirements, and dedicated support.",
         features: [
-          "Unlimited consulting & execution hours",
+          "Custom consulting & execution hours",
           "Multi-environment & multi-region management",
           "Dedicated support team",
           "Custom SLAs up to 99.99%",
@@ -306,11 +307,11 @@ export const translations = {
         name: "Starter Consulting",
         subtitle: "Asesoría Cloud & AI para pequeñas empresas que comienzan",
         price: "$499",
-        description: "Diseñado para equipos pequeños que necesitan orientación experta, no un equipo interno de cloud.",
+        description: "Este plan proporciona orientación y dirección experta, no operaciones prácticas. Diseñado para equipos pequeños que necesitan soporte de asesoría sin un equipo interno de cloud.",
         features: [
           "Hasta 4 horas/mes de consultoría Cloud & AI",
-          "Revisión de infraestructura y bases de datos (1 ambiente)",
-          "Recomendaciones de monitoreo y optimización de costos",
+          "Revisión de alto nivel de infraestructura y bases de datos (1 ambiente)",
+          "Recomendaciones de monitoreo y optimización de costos (sin implementación)",
           "Plan de acción mensual con mejoras priorizadas",
           "Soporte por email (horario laboral)",
         ],
@@ -330,7 +331,7 @@ export const translations = {
         description: "Para empresas que necesitan ejecución, no solo asesoría — sin contratar ingenieros de tiempo completo.",
         features: [
           "Hasta 10 horas/mes de consultoría y ejecución Cloud & AI",
-          "Gestión de 1 ambiente de base de datos (alcance limitado)",
+          "Gestión asistida de 1 ambiente de base de datos (alcance limitado, sin SLA)",
           "Acciones de optimización de rendimiento y costos",
           "Configuración avanzada de monitoreo",
           "Soporte prioritario (horario laboral)",
@@ -340,6 +341,7 @@ export const translations = {
           "La gestión aplica a un ambiente / una región",
           "Todo el trabajo realizado dentro de las horas mensuales incluidas",
           "Trabajo adicional se cotiza por separado",
+          "Sin garantía de tiempo de actividad o tiempos de recuperación",
         ],
         limitations: [
           "Sin soporte 24/7 de guardia",
@@ -355,7 +357,7 @@ export const translations = {
         price: "Personalizado",
         description: "Alcance personalizado, SLAs, requisitos de cumplimiento y soporte dedicado.",
         features: [
-          "Horas ilimitadas de consultoría y ejecución",
+          "Horas personalizadas de consultoría y ejecución",
           "Gestión multi-ambiente y multi-región",
           "Equipo de soporte dedicado",
           "SLAs personalizados hasta 99.99%",
