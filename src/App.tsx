@@ -20,6 +20,7 @@ import InternalDashboardPage from "./pages/InternalDashboardPage";
 import DemoPage from "./pages/DemoPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import PortalPage from "./pages/PortalPage";
 import PortalRequestsPage from "./pages/PortalRequestsPage";
 import PortalSummaryPage from "./pages/PortalSummaryPage";
@@ -103,6 +104,7 @@ const App = () => (
           {/* Auth redirects */}
           <Route path="/login" element={<Navigate to="/en/login" replace />} />
           <Route path="/signup" element={<Navigate to="/en/signup" replace />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/portal" element={<Navigate to="/en/portal" replace />} />
           <Route path="/portal/requests" element={<Navigate to="/en/portal/requests" replace />} />
           <Route path="/portal/summary" element={<Navigate to="/en/portal/summary" replace />} />
