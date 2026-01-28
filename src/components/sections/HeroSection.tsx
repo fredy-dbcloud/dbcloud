@@ -8,15 +8,13 @@ import logoHorizontalLight from '@/assets/logos/logo-dbcloud-horizontal-light.pn
 export function HeroSection() {
   const { t, lang } = useLang();
 
-  // SMB trust signals - practical, not enterprise-heavy
+  // Trust signals - certification focus (not repeating hero scope)
   const trustSignals = lang === 'es' 
-    ? ['Empresa registrada en EE.UU.', 'Certificados AWS, Azure, GCP, Oracle', 'Sin contratos largos']
-    : ['US-registered company', 'AWS, Azure, GCP, Oracle certified', 'No long-term contracts'];
+    ? ['Certificados AWS, Azure, GCP, Oracle', 'Empresa registrada en EE.UU.', 'Sin contratos largos']
+    : ['AWS, Azure, GCP, Oracle certified', 'US-registered company', 'No long-term contracts'];
 
-  // Benefit bullets from translations (SMB practical outcomes)
-  const benefitBullets = t.hero.benefits || (lang === 'es' 
-    ? ['Inicia en 48 horas, no meses', 'Cuesta menos que un junior', 'No requiere departamento de TI']
-    : ['Start in 48 hours, not months', 'Costs less than one junior hire', 'No IT department required']);
+  // Benefit bullets - short, punchy
+  const benefitBullets = t.hero.benefits;
 
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">

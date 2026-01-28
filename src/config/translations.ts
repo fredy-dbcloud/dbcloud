@@ -11,37 +11,42 @@ export const translations = {
       academy: "Academy",
       schedule: "Schedule a Call",
     },
-    // Hero Section - SMB high-intent, outcome-focused
+    // Hero Section - SMB high-intent, pain-relief focused
+    // HERO OPTIONS CONSIDERED:
+    // A: "Your cloud, database, and AI team — on call, on budget."
+    // B: "Stop juggling cloud, databases, and IT. We handle it." ← SELECTED
+    // C: "Fractional cloud experts for growing US businesses."
+    // Selection rationale: Option B provides clearest pain relief, immediate comprehension in <5 seconds
     hero: {
-      title: "Cloud, databases, and AI — handled. So you can focus on growth.",
-      subtitle: "Fractional cloud infrastructure, database support, and AI solutions for US small businesses. Senior engineers, affordable monthly plans, no long-term contracts.",
+      title: "Stop juggling cloud, databases, and IT. We handle it.",
+      subtitle: "Senior cloud engineers supporting your AWS, Azure, GCP, or Oracle infrastructure — plus databases and AI. Affordable monthly plans, no long-term contracts.",
       cta: "Schedule a Free Call",
       ctaSecondary: "View Demo",
       benefits: [
-        "Start in 48 hours, not months",
-        "Costs less than one junior hire",
-        "No IT department required",
+        "Start in 48 hours",
+        "Costs less than one hire",
+        "No IT team required",
       ],
     },
-    // Services
+    // Services - Focuses on HOW, not restating WHAT
     services: {
-      title: "Cloud, Databases & AI Services",
-      subtitle: "End-to-end solutions for small businesses ready to scale",
+      title: "How We Support You",
+      subtitle: "Hands-on expertise across your entire cloud stack",
       cloud: {
         title: "Cloud Infrastructure",
-        description: "Multi-cloud solutions on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security and performance.",
+        description: "AWS, Azure, GCP, Oracle Cloud — security, performance, and cost optimization included.",
       },
       databases: {
         title: "Managed Databases",
-        description: "24/7 database administration, optimization, and support for PostgreSQL, MySQL, Oracle Database, SQL Server, and more.",
+        description: "PostgreSQL, MySQL, Oracle, SQL Server — administration, tuning, and 24/7 monitoring.",
       },
       ai: {
-        title: "AI & Analytics",
-        description: "Private AI agents, ML pipelines, and business intelligence solutions tailored to your needs.",
+        title: "AI & Automation",
+        description: "Private AI agents, automated workflows, and business intelligence dashboards.",
       },
       migration: {
         title: "Cloud Migration",
-        description: "Zero-downtime migrations with comprehensive planning, execution, and post-migration support.",
+        description: "Zero-downtime migrations with planning, execution, and post-migration validation.",
       },
     },
     // CTA - Low friction, outcome-oriented
@@ -443,37 +448,37 @@ export const translations = {
       academy: "Academia",
       schedule: "Agendar Llamada",
     },
-    // Hero Section - SMB high-intent, outcome-focused
+    // Hero Section - SMB high-intent, pain-relief focused
     hero: {
-      title: "Cloud, bases de datos e IA — resueltos. Para que puedas enfocarte en crecer.",
-      subtitle: "Infraestructura cloud, soporte de bases de datos y soluciones de IA fraccionales para PyMEs en EE.UU. Ingenieros senior, planes mensuales accesibles, sin contratos largos.",
+      title: "Deja de hacer malabares con cloud, bases de datos y TI. Nosotros lo manejamos.",
+      subtitle: "Ingenieros cloud senior para tu infraestructura AWS, Azure, GCP u Oracle — más bases de datos e IA. Planes mensuales accesibles, sin contratos largos.",
       cta: "Agendar Llamada Gratis",
       ctaSecondary: "Ver Demo",
       benefits: [
-        "Inicia en 48 horas, no meses",
-        "Cuesta menos que un junior",
+        "Inicia en 48 horas",
+        "Cuesta menos que una contratación",
         "No requiere departamento de TI",
       ],
     },
-    // Services
+    // Services - Focuses on HOW, not restating WHAT
     services: {
-      title: "Servicios Cloud, Bases de Datos e IA",
-      subtitle: "Soluciones completas para pequeñas empresas listas para escalar",
+      title: "Cómo Te Apoyamos",
+      subtitle: "Experiencia práctica en todo tu stack cloud",
       cloud: {
         title: "Infraestructura Cloud",
-        description: "Soluciones multi-nube en AWS, Azure, GCP y Oracle Cloud con seguridad y rendimiento de nivel empresarial.",
+        description: "AWS, Azure, GCP, Oracle Cloud — seguridad, rendimiento y optimización de costos incluidos.",
       },
       databases: {
         title: "Bases de Datos Administradas",
-        description: "Administración, optimización y soporte 24/7 para PostgreSQL, MySQL, Oracle Database, SQL Server y más.",
+        description: "PostgreSQL, MySQL, Oracle, SQL Server — administración, tuning y monitoreo 24/7.",
       },
       ai: {
-        title: "IA y Analítica",
-        description: "Agentes de IA privados, pipelines de ML y soluciones de inteligencia de negocios adaptadas a tus necesidades.",
+        title: "IA y Automatización",
+        description: "Agentes de IA privados, flujos automatizados y dashboards de inteligencia de negocios.",
       },
       migration: {
         title: "Migración a la Nube",
-        description: "Migraciones sin tiempo de inactividad con planificación integral, ejecución y soporte post-migración.",
+        description: "Migraciones sin tiempo de inactividad con planificación, ejecución y validación post-migración.",
       },
     },
     // CTA - Low friction, outcome-oriented

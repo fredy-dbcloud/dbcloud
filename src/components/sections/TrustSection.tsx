@@ -10,14 +10,15 @@ import { useLang } from '@/hooks/useLang';
 export function TrustSection() {
   const { lang } = useLang();
 
+  // Subtitle focuses on HOW we work, not WHAT we do (already covered in hero)
   const content = {
     en: {
       title: "Why SMBs Trust Us",
-      subtitle: "Cloud, databases, and AI expertise — without the enterprise overhead.",
+      subtitle: "Transparent process, clear SLAs, and senior engineers who actually respond.",
     },
     es: {
       title: "Por Qué las PYMEs Confían en Nosotros",
-      subtitle: "Experiencia en cloud, bases de datos e IA — sin complejidad empresarial.",
+      subtitle: "Proceso transparente, SLAs claros, e ingenieros senior que realmente responden.",
     },
   };
 

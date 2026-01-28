@@ -28,11 +28,15 @@ export function CTASection() {
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            {t.hero.title}
+            {lang === 'es' 
+              ? '¿Listo para simplificar tu operación cloud?'
+              : 'Ready to simplify your cloud operations?'}
           </h2>
 
-          <p className="text-lg text-white/80 mb-10 max-w-xl mx-auto">
-            {t.hero.subtitle}
+          <p className="text-lg text-white/85 mb-10 max-w-xl mx-auto">
+            {lang === 'es'
+              ? 'Agenda una llamada de 30 minutos. Sin compromiso, sin presión.'
+              : 'Book a 30-minute call. No commitment, no pressure.'}
           </p>
 
           {/* Single Primary CTA - End of page natural pause point */}
