@@ -9,6 +9,14 @@ export function HeaderActions() {
 
   return (
     <div className="hidden lg:flex items-center gap-3">
+      {/* Client Login - Low emphasis utility link */}
+      <Link 
+        to={getLocalizedPath('/login')}
+        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {lang === 'es' ? 'Iniciar Sesión' : 'Client Login'}
+      </Link>
+
       {/* Secondary CTA - Contact Us */}
       <Button asChild variant="outline" size="sm" className="border-primary/30 hover:border-primary">
         <Link to={getLocalizedPath('/contact')}>
