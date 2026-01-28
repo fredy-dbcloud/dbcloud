@@ -1,61 +1,91 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Bot, CheckCircle, ArrowRight, Lock, MessageSquare, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
 export default function AIAssistantsPage() {
-  const { lang, t, getLocalizedPath } = useLang();
+  const { lang } = useLang();
+
+  // Unified CTA across all AI pages
+  const unifiedCTA = lang === 'es' ? 'Hablar con un Especialista' : 'Talk to a Specialist';
 
   const content = {
     en: {
       badge: 'AI Assistants for Teams',
       headline: 'Your company knowledge, instantly accessible.',
       subheadline: 'Private AI assistants that answer questions from your SOPs, documents, and internal data—securely.',
-      cta: 'Build My AI Assistant',
-      ctaSecondary: 'View Pricing',
+      whoFor: 'Built for US small businesses with documentation, SOPs, and internal processes that need to be searchable.',
       benefits: [
         { icon: MessageSquare, title: 'Instant answers', desc: 'Ask questions, get answers from your internal knowledge base.' },
         { icon: Lock, title: '100% private', desc: 'Your data never leaves your environment. No training on your data.' },
         { icon: FileText, title: 'Works with your docs', desc: 'Connect SOPs, policies, and internal wikis.' },
       ],
-      features: [
+      painPoints: [
+        'Team keeps asking the same questions repeatedly',
+        'Important knowledge locked in documents nobody reads',
+        'New hires take too long to get up to speed',
+        'Worried about putting company data in public AI tools',
+      ],
+      howItWorks: [
+        { step: '1', title: 'We connect your docs', desc: 'SOPs, wikis, policies—whatever your team uses.' },
+        { step: '2', title: 'We build your assistant', desc: 'Custom AI trained only on your internal knowledge.' },
+        { step: '3', title: 'Your team gets answers', desc: 'Instant responses without bothering colleagues.' },
+      ],
+      included: [
         'Chat with your internal documents',
         'Smart search across all company knowledge',
         'Automated responses to common questions',
         'Secure, private deployment',
       ],
-      bestFor: 'Best for: Teams tired of answering the same questions repeatedly.',
+      notIncluded: [
+        'Custom voice assistants',
+        'Multi-language translation',
+        'External customer-facing chatbots',
+      ],
       pricing: {
         title: 'Simple Pricing',
-        starter: 'From $499/mo',
-        desc: 'Setup included. No AI expertise required.',
+        price: 'From $499/mo',
+        desc: 'Setup included. No AI expertise required. Start in 48 hours.',
       },
     },
     es: {
       badge: 'Asistentes IA para Equipos',
       headline: 'El conocimiento de tu empresa, al instante.',
       subheadline: 'Asistentes de IA privados que responden preguntas desde tus SOPs, documentos y datos internos—de forma segura.',
-      cta: 'Crear Mi Asistente IA',
-      ctaSecondary: 'Ver Precios',
+      whoFor: 'Diseñado para PyMEs en EE.UU. con documentación, SOPs y procesos internos que necesitan ser buscables.',
       benefits: [
         { icon: MessageSquare, title: 'Respuestas instantáneas', desc: 'Haz preguntas, obtén respuestas de tu base de conocimiento.' },
         { icon: Lock, title: '100% privado', desc: 'Tus datos nunca salen de tu ambiente. Sin entrenar con tus datos.' },
         { icon: FileText, title: 'Funciona con tus docs', desc: 'Conecta SOPs, políticas y wikis internos.' },
       ],
-      features: [
+      painPoints: [
+        'El equipo sigue haciendo las mismas preguntas',
+        'Conocimiento importante atrapado en documentos que nadie lee',
+        'Nuevos empleados tardan demasiado en adaptarse',
+        'Preocupación por poner datos en herramientas IA públicas',
+      ],
+      howItWorks: [
+        { step: '1', title: 'Conectamos tus docs', desc: 'SOPs, wikis, políticas—lo que use tu equipo.' },
+        { step: '2', title: 'Construimos tu asistente', desc: 'IA personalizada entrenada solo con tu conocimiento interno.' },
+        { step: '3', title: 'Tu equipo obtiene respuestas', desc: 'Respuestas instantáneas sin molestar a colegas.' },
+      ],
+      included: [
         'Chatea con tus documentos internos',
         'Búsqueda inteligente en todo el conocimiento de la empresa',
         'Respuestas automatizadas a preguntas frecuentes',
         'Despliegue seguro y privado',
       ],
-      bestFor: 'Ideal para: Equipos cansados de responder las mismas preguntas una y otra vez.',
+      notIncluded: [
+        'Asistentes de voz personalizados',
+        'Traducción multi-idioma',
+        'Chatbots externos para clientes',
+      ],
       pricing: {
         title: 'Precios Simples',
-        starter: 'Desde $499/mes',
-        desc: 'Setup incluido. No requiere expertos en IA.',
+        price: 'Desde $499/mes',
+        desc: 'Setup incluido. No requiere expertos en IA. Inicia en 48 horas.',
       },
     },
   };
@@ -64,7 +94,7 @@ export default function AIAssistantsPage() {
 
   return (
     <Layout>
-      {/* Hero */}
+      {/* Hero - Problem → Outcome */}
       <section className="pt-32 pb-16 bg-hero-gradient">
         <div className="container">
           <motion.div
@@ -76,16 +106,19 @@ export default function AIAssistantsPage() {
               <Bot className="h-4 w-4 text-accent" />
               <span>{c.badge}</span>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
               {c.headline}
             </h1>
-            <p className="text-lg text-white/80 mb-8">
+            <p className="text-base sm:text-lg text-white/85 mb-4">
               {c.subheadline}
             </p>
-            {/* Single Primary CTA */}
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+            <p className="text-sm text-white/70 mb-8">
+              {c.whoFor}
+            </p>
+            {/* ONE Primary CTA */}
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10">
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                {c.cta}
+                {unifiedCTA}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
@@ -117,7 +150,7 @@ export default function AIAssistantsPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Pain Points */}
       <section className="py-12 bg-muted/30 border-y border-border">
         <div className="container max-w-3xl">
           <motion.div
@@ -126,36 +159,105 @@ export default function AIAssistantsPage() {
             viewport={{ once: true }}
             className="text-center"
           >
+            <h2 className="font-display text-xl font-bold mb-6">
+              {lang === 'es' ? '¿Te suena familiar?' : 'Sound familiar?'}
+            </h2>
             <ul className="grid sm:grid-cols-2 gap-4 text-left">
-              {c.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
-                  <span className="text-sm">{feature}</span>
+              {c.painPoints.map((point) => (
+                <li key={point} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{point}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm text-muted-foreground italic">{c.bestFor}</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Pricing Preview - Single CTA at natural end */}
+      {/* How It Works */}
+      <section className="py-16 bg-background">
+        <div className="container max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="font-display text-xl font-bold mb-8">
+              {lang === 'es' ? 'Cómo Funciona' : 'How It Works'}
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {c.howItWorks.map((step) => (
+                <div key={step.step} className="text-center">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent font-bold mb-3">
+                    {step.step}
+                  </div>
+                  <h3 className="font-display text-base font-bold mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What's Included / Not Included */}
+      <section className="py-12 bg-muted/30 border-y border-border">
+        <div className="container max-w-4xl">
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-display text-lg font-bold mb-4 text-foreground">
+                {lang === 'es' ? '✓ Incluido' : '✓ Included'}
+              </h3>
+              <ul className="space-y-3">
+                {c.included.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <CheckCircle className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <h3 className="font-display text-lg font-bold mb-4 text-muted-foreground">
+                {lang === 'es' ? '○ No Incluido' : '○ Not Included'}
+              </h3>
+              <ul className="space-y-3">
+                {c.notIncluded.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="h-4 w-4 flex-shrink-0 mt-0.5">○</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing - ONE CTA */}
       <section className="py-16 bg-background">
         <div className="container max-w-2xl text-center">
           <h2 className="font-display text-2xl font-bold mb-2">{c.pricing.title}</h2>
-          <p className="text-3xl font-bold text-accent mb-2">{c.pricing.starter}</p>
-          <p className="text-sm text-muted-foreground mb-6">{c.pricing.desc}</p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+          <p className="text-3xl font-bold text-accent mb-2">{c.pricing.price}</p>
+          <p className="text-sm text-muted-foreground mb-8">{c.pricing.desc}</p>
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10">
             <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-              {c.cta}
+              {unifiedCTA}
               <ArrowRight className="ml-2 h-5 w-5" />
             </a>
           </Button>
-          {/* Secondary as text link */}
-          <p className="mt-4 text-sm text-muted-foreground">
-            <Link to={getLocalizedPath('/pricing')} className="text-accent hover:underline">
-              {c.ctaSecondary}
-            </Link>
+          <p className="mt-4 text-xs text-muted-foreground">
+            {lang === 'es' ? '30 min gratis · Sin compromiso' : '30 min free · No commitment'}
           </p>
         </div>
       </section>
