@@ -13,11 +13,11 @@ export default function ServicesPage() {
       icon: Cloud,
       title: lang === 'es' ? 'Infraestructura Cloud Multi-Nube' : 'Multi-Cloud Infrastructure',
       description: lang === 'es' 
-        ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure y GCP con seguridad de nivel empresarial, optimización de costos y cumplimiento regulatorio.'
-        : 'Design, implementation, and management of cloud architectures on AWS, Azure, and GCP with enterprise-grade security, cost optimization, and regulatory compliance.',
+        ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure, GCP y Oracle Cloud con seguridad de nivel empresarial, optimización de costos y cumplimiento regulatorio.'
+        : 'Design, implementation, and management of cloud architectures on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security, cost optimization, and regulatory compliance.',
       features: lang === 'es' 
-        ? ['AWS, Azure, GCP', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Seguridad Zero Trust', 'Cumplimiento SOC 2/HIPAA']
-        : ['AWS, Azure, GCP', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Zero Trust Security', 'SOC 2/HIPAA Compliance'],
+        ? ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Seguridad Zero Trust', 'Cumplimiento SOC 2/HIPAA']
+        : ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Zero Trust Security', 'SOC 2/HIPAA Compliance'],
     },
     {
       icon: Database,
@@ -33,8 +33,8 @@ export default function ServicesPage() {
       icon: Zap,
       title: lang === 'es' ? 'Migración Cloud Sin Inactividad' : 'Zero-Downtime Cloud Migration',
       description: lang === 'es'
-        ? 'Migraciones desde on-premises a AWS, Azure o GCP sin tiempo de inactividad. Evaluación completa, planificación detallada, ejecución y soporte post-migración.'
-        : 'Migrations from on-premises to AWS, Azure, or GCP with zero downtime. Complete assessment, detailed planning, execution, and post-migration support.',
+        ? 'Migraciones desde on-premises a AWS, Azure, GCP u Oracle Cloud sin tiempo de inactividad. Evaluación completa, planificación detallada, ejecución y soporte post-migración.'
+        : 'Migrations from on-premises to AWS, Azure, GCP, or Oracle Cloud with zero downtime. Complete assessment, detailed planning, execution, and post-migration support.',
       features: lang === 'es'
         ? ['Migración on-prem a cloud', 'Replicación lógica & CDC', 'Despliegues blue-green', 'Optimización de costos', 'Validación post-migración', 'Runbooks completos']
         : ['On-prem to cloud migration', 'Logical replication & CDC', 'Blue-green deployments', 'Cost optimization', 'Post-migration validation', 'Comprehensive runbooks'],

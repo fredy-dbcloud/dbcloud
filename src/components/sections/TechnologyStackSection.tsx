@@ -11,7 +11,7 @@ const technologyCategories = {
     {
       icon: Cloud,
       title: "Cloud Platforms",
-      items: ["AWS", "Microsoft Azure", "Google Cloud"],
+      items: ["AWS", "Microsoft Azure", "Google Cloud", "Oracle Cloud"],
     },
     {
       icon: Database,
@@ -43,7 +43,7 @@ const technologyCategories = {
     {
       icon: Cloud,
       title: "Plataformas Cloud",
-      items: ["AWS", "Microsoft Azure", "Google Cloud"],
+      items: ["AWS", "Microsoft Azure", "Google Cloud", "Oracle Cloud"],
     },
     {
       icon: Database,
