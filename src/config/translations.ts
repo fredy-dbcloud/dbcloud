@@ -13,8 +13,8 @@ export const translations = {
     },
     // Hero Section - SMB high-intent, outcome-focused
     hero: {
-      title: "Stop worrying about your database. Start growing your business.",
-      subtitle: "Fractional cloud & database support for US small businesses. Senior engineers, affordable monthly plans, no long-term contracts.",
+      title: "Cloud, databases, and AI — handled. So you can focus on growth.",
+      subtitle: "Fractional cloud infrastructure, database support, and AI solutions for US small businesses. Senior engineers, affordable monthly plans, no long-term contracts.",
       cta: "Schedule a Free Call",
       ctaSecondary: "View Demo",
       benefits: [
@@ -25,8 +25,8 @@ export const translations = {
     },
     // Services
     services: {
-      title: "Our Services",
-      subtitle: "Comprehensive solutions for modern enterprises",
+      title: "Cloud, Databases & AI Services",
+      subtitle: "End-to-end solutions for small businesses ready to scale",
       cloud: {
         title: "Cloud Infrastructure",
         description: "Multi-cloud solutions on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security and performance.",
@@ -72,7 +72,7 @@ export const translations = {
     // Contact Form
     contact: {
       title: "Get in Touch",
-      subtitle: "Let's discuss how we can help transform your data infrastructure",
+      subtitle: "Let's discuss how we can support your cloud, database, and AI needs",
       name: "Full Name",
       email: "Email Address",
       phone: "Phone Number",
@@ -445,8 +445,8 @@ export const translations = {
     },
     // Hero Section - SMB high-intent, outcome-focused
     hero: {
-      title: "Deja de preocuparte por tu base de datos. Enfócate en crecer.",
-      subtitle: "Soporte cloud y bases de datos fraccional para PyMEs en EE.UU. Ingenieros senior, planes mensuales accesibles, sin contratos largos.",
+      title: "Cloud, bases de datos e IA — resueltos. Para que puedas enfocarte en crecer.",
+      subtitle: "Infraestructura cloud, soporte de bases de datos y soluciones de IA fraccionales para PyMEs en EE.UU. Ingenieros senior, planes mensuales accesibles, sin contratos largos.",
       cta: "Agendar Llamada Gratis",
       ctaSecondary: "Ver Demo",
       benefits: [
@@ -457,8 +457,8 @@ export const translations = {
     },
     // Services
     services: {
-      title: "Nuestros Servicios",
-      subtitle: "Soluciones integrales para empresas modernas",
+      title: "Servicios Cloud, Bases de Datos e IA",
+      subtitle: "Soluciones completas para pequeñas empresas listas para escalar",
       cloud: {
         title: "Infraestructura Cloud",
         description: "Soluciones multi-nube en AWS, Azure, GCP y Oracle Cloud con seguridad y rendimiento de nivel empresarial.",
@@ -504,7 +504,7 @@ export const translations = {
     // Contact Form
     contact: {
       title: "Contáctanos",
-      subtitle: "Hablemos de cómo podemos ayudarte a transformar tu infraestructura de datos",
+      subtitle: "Hablemos de cómo podemos apoyar tus necesidades de cloud, bases de datos e IA",
       name: "Nombre Completo",
       email: "Correo Electrónico",
       phone: "Teléfono",

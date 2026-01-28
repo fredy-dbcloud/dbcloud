@@ -24,12 +24,12 @@ const technologies = [
 
 const sectionContent = {
   en: {
-    title: 'Technologies trusted by growing US small & mid-sized businesses',
-    disclaimer: 'Logos represent the technologies we support and work with.',
+    title: 'Cloud platforms, databases, and tools we work with every day',
+    disclaimer: 'We provide infrastructure, database, and AI support across these technologies.',
   },
   es: {
-    title: 'Tecnologías de confianza para pequeñas y medianas empresas en EE.UU.',
-    disclaimer: 'Los logos representan las tecnologías que soportamos y con las que trabajamos.',
+    title: 'Plataformas cloud, bases de datos y herramientas con las que trabajamos',
+    disclaimer: 'Proveemos soporte de infraestructura, bases de datos e IA en estas tecnologías.',
   },
 };
 

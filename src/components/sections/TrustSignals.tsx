@@ -1,4 +1,4 @@
-import { Shield, Users, MapPin } from 'lucide-react';
+import { Shield, Users, MapPin, Cloud } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { cn } from '@/lib/utils';
 
@@ -16,11 +16,13 @@ export function TrustSignals({ variant = 'light' }: TrustSignalsProps) {
   const signals = lang === 'es' 
     ? [
         { icon: MapPin, text: 'Empresa registrada en EE.UU.' },
+        { icon: Cloud, text: 'Cloud, bases de datos e IA' },
         { icon: Users, text: 'Ingenieros senior con +10 años' },
         { icon: Shield, text: 'Especialistas en PyMEs' },
       ]
     : [
         { icon: MapPin, text: 'US-registered company' },
+        { icon: Cloud, text: 'Cloud, databases & AI' },
         { icon: Users, text: 'Senior engineers, 10+ years' },
         { icon: Shield, text: 'SMB specialists' },
       ];
