@@ -10,6 +10,8 @@ import { CheckoutModal } from '@/components/pricing/CheckoutModal';
 import { QualificationModal } from '@/components/pricing/QualificationModal';
 import { EvaluationRequestModal } from '@/components/pricing/EvaluationRequestModal';
 import { ClientPortalNotice, EmergencyExclusionNotice } from '@/components/pricing/DeliveryModelSection';
+import { ComparisonSection } from '@/components/pricing/ComparisonSection';
+import { ROICalculator } from '@/components/pricing/ROICalculator';
 import { TierKey } from '@/config/stripe';
 
 export default function PricingPage() {
@@ -366,6 +368,12 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      {/* Comparison Section */}
+      <ComparisonSection />
+
+      {/* ROI Calculator */}
+      <ROICalculator />
 
       {/* Qualification Modal (Starter only) */}
       <QualificationModal
