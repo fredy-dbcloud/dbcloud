@@ -34,11 +34,15 @@ export function Header() {
           isScrolled ? "h-14" : "h-16"
         )}
       >
-        {/* Logo - Top Left (icon only) */}
-        <HeaderLogo isScrolled={isScrolled} />
+        {/* Logo - Top Left (icon + name) */}
+        <div className="flex-shrink-0">
+          <HeaderLogo isScrolled={isScrolled} />
+        </div>
 
-        {/* Navigation - Center Left */}
-        <HeaderNav />
+        {/* Navigation - Center with proper spacing */}
+        <div className="hidden lg:flex flex-1 justify-center ml-8">
+          <HeaderNav />
+        </div>
 
         {/* Right Side - Conversion Zone */}
         <div className="flex items-center gap-2">
