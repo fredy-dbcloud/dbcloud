@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 interface RequestClassification {
@@ -20,12 +20,66 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate the request
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - missing auth token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    
+    // Create client with user's auth context
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } },
+    });
+
+    // Verify the user is authenticated
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabaseAuth.auth.getClaims(token);
+    
+    if (claimsError || !claimsData?.claims?.sub) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - invalid token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
     const { request_id, request_type, description, environment, priority, plan, email } = await req.json();
 
     if (!request_id || !description) {
       return new Response(
         JSON.stringify({ error: "request_id and description are required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Verify the request belongs to the authenticated user using service role
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+    
+    const { data: requestData, error: requestError } = await supabaseService
+      .from("client_requests")
+      .select("user_id, email")
+      .eq("id", request_id)
+      .single();
+
+    if (requestError || !requestData) {
+      return new Response(
+        JSON.stringify({ error: "Request not found" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Verify ownership - user_id must match the authenticated user
+    if (requestData.user_id !== userId) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - request does not belong to user" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -141,12 +195,8 @@ Respond using the classify_request function.`;
 
     const classification: RequestClassification = JSON.parse(toolCall.function.arguments);
 
-    // Update the request with AI classification using service role
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    const { error: updateError } = await supabase
+    // Update the request with AI classification using service role (already created above)
+    const { error: updateError } = await supabaseService
       .from("client_requests")
       .update({
         ai_classification: classification.classification,
@@ -163,8 +213,8 @@ Respond using the classify_request function.`;
       throw new Error("Failed to save classification");
     }
 
-    // Also update client health prediction based on this request
-    await updateClientHealth(supabase, email, classification);
+    // Also update client health prediction based on this request (use service client)
+    await updateClientHealth(supabaseService, requestData.email, classification);
 
     return new Response(
       JSON.stringify({ 
