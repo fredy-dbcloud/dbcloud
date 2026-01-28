@@ -67,7 +67,7 @@ export function CTASection() {
             </div>
           </div>
           {/* Subtle trust reinforcement */}
-          <TrustSignals />
+          <TrustSignals variant="dark" />
         </motion.div>
       </div>
     </section>
