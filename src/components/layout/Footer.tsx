@@ -147,6 +147,30 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Industries Section */}
+          <div>
+            <h4 className="font-display font-semibold mb-4">
+              {lang === 'en' ? 'Industries' : 'Industrias'}
+            </h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to={getLocalizedPath('/industries/retail')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Retail SMB
+                </Link>
+              </li>
+              <li>
+                <Link to={getLocalizedPath('/industries/healthcare')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Healthcare SMB
+                </Link>
+              </li>
+              <li>
+                <Link to={getLocalizedPath('/industries/saas')} className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  SaaS SMB
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Demos Section */}
           <div>
             <h4 className="font-display font-semibold mb-4">
