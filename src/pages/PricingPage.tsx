@@ -327,11 +327,12 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                <div className="mt-auto space-y-2">
+                {/* Single Primary CTA per card */}
+                <div className="mt-auto">
                   <Button
                     onClick={() => handleGetStarted(plan)}
                     className={cn(
-                      "w-full",
+                      "w-full shadow-md hover:shadow-lg transition-all",
                       plan.popular 
                         ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
                         : "bg-primary hover:bg-primary/90"
@@ -344,15 +345,15 @@ export default function PricingPage() {
                         : l.startSecurely}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    asChild
-                  >
-                    <Link to={getLocalizedPath(`/demo/${plan.key}`)}>
-                      {lang === 'es' ? 'Ver Demo' : 'View Demo'}
+                  {/* Secondary as text link - reduced visual weight */}
+                  <p className="mt-3 text-center">
+                    <Link 
+                      to={getLocalizedPath(`/demo/${plan.key}`)}
+                      className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {lang === 'es' ? 'Ver Demo →' : 'View Demo →'}
                     </Link>
-                  </Button>
+                  </p>
                 </div>
               </motion.div>
             ))}

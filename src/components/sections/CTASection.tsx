@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
@@ -34,41 +34,38 @@ export function CTASection() {
             {t.hero.subtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          {/* Single Primary CTA - End of page natural pause point */}
+          <div className="flex flex-col items-center gap-4 mb-8">
             <Button
               asChild
               size="lg"
-              className="bg-accent text-accent-foreground px-10 shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
+              className="bg-accent text-accent-foreground px-12 shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.cta.schedule}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-2 border-white/40 text-white hover:bg-white/15 hover:border-white/60 px-10"
-            >
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            {/* Secondary options as text links - reduced visual weight */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
+              <a 
+                href={whatsappUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
+              >
                 {t.cta.whatsapp}
               </a>
-            </Button>
-          </div>
-
-          {/* Academy Link */}
-          <div className="pt-8 border-t border-white/10">
-            <p className="text-white/70 mb-2">{t.footer.academy.title}</p>
-            <a
-              href={siteConfig.ACADEMY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent hover:underline font-medium"
-            >
-              {t.footer.academy.link}
-              <ExternalLink className="h-4 w-4" />
-            </a>
+              <span className="text-white/40">•</span>
+              <a 
+                href={siteConfig.ACADEMY_URL} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
+              >
+                {t.footer.academy.link}
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

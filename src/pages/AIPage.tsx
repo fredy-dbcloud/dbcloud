@@ -174,19 +174,13 @@ export default function AIPage() {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                  {c.cta.primary}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                <Link to={getLocalizedPath('/pricing')}>
-                  {lang === 'es' ? 'Ver Planes' : 'View Plans'}
-                </Link>
-              </Button>
-            </div>
+            {/* Single Primary CTA */}
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
+                {c.cta.primary}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -285,29 +279,29 @@ export default function AIPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA - Single action, natural end point */}
       <section className="py-16 bg-background">
-        <div className="container text-center">
+        <div className="container text-center max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl font-bold mb-4">{c.cta.title}</h2>
-            <p className="text-muted-foreground mb-8">{c.cta.desc}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                  {c.cta.primary}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to={getLocalizedPath('/contact')}>
-                  {c.cta.secondary}
-                </Link>
-              </Button>
-            </div>
+            <h2 className="font-display text-2xl font-bold mb-3">{c.cta.title}</h2>
+            <p className="text-muted-foreground mb-6">{c.cta.desc}</p>
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
+                {c.cta.primary}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+            {/* Secondary as text link */}
+            <p className="mt-4 text-sm text-muted-foreground">
+              {lang === 'es' ? '¿Prefieres escribirnos?' : 'Prefer to write?'}{' '}
+              <Link to={getLocalizedPath('/contact')} className="text-accent hover:underline">
+                {c.cta.secondary}
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>
