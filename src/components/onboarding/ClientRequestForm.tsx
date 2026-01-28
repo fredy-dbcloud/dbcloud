@@ -195,6 +195,9 @@ export function ClientRequestForm({
     setShowConfirmation(false);
 
     try {
+      // Get the current user session
+      const { data: { session } } = await supabase.auth.getSession();
+      
       const { data: insertedData, error } = await supabase.from('client_requests').insert({
         email: pendingData.email,
         plan,
@@ -203,6 +206,7 @@ export function ClientRequestForm({
         environment: pendingData.environment,
         priority: pendingData.priority,
         lang,
+        user_id: session?.user?.id,
       }).select().single();
 
       if (error) throw error;
@@ -222,6 +226,9 @@ export function ClientRequestForm({
         const requestTypeLabel = requestTypeLabels[pendingData.requestType]?.[lang] || pendingData.requestType;
         const portalUrl = `${window.location.origin}/${lang}/portal/requests`;
 
+        // Get session for AI triage auth
+        const triageSession = session;
+        
         sendRequestSubmitted(
           pendingData.email,
           lang as 'en' | 'es',
@@ -231,8 +238,10 @@ export function ClientRequestForm({
           portalUrl
         ).catch(console.error);
 
-        // Trigger AI triage in background (non-blocking)
-        triggerAITriage(insertedData.id, pendingData);
+        // Trigger AI triage in background (non-blocking) - only if authenticated
+        if (triageSession?.access_token) {
+          triggerAITriage(insertedData.id, pendingData, triageSession.access_token);
+        }
       }
 
       setIsSuccess(true);
@@ -244,11 +253,14 @@ export function ClientRequestForm({
     }
   };
 
-  const triggerAITriage = async (requestId: string, data: RequestFormData) => {
+  const triggerAITriage = async (requestId: string, data: RequestFormData, accessToken: string) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-triage`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
         body: JSON.stringify({
           request_id: requestId,
           request_type: data.requestType,
