@@ -65,21 +65,21 @@ export function ServicesSection() {
             >
               <Link
                 to={service.link}
-                className="group block h-full p-6 rounded-2xl bg-card border border-border hover:border-accent/50 shadow-card hover:shadow-lg transition-all duration-300"
+                className="group block h-full p-6 rounded-2xl bg-card border border-border hover:border-accent/60 shadow-md hover:shadow-lg transition-all duration-300"
               >
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${service.color} mb-4`}>
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${service.color} mb-4 shadow-md`}>
                   <service.icon className="h-6 w-6 text-white" />
                 </div>
                 
-                <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
+                <h3 className="font-display text-xl font-semibold mb-2 text-foreground group-hover:text-accent transition-colors">
                   {service.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-sm mb-4">
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
                   {service.description}
                 </p>
                 
-                <span className="inline-flex items-center text-sm font-medium text-accent">
+                <span className="inline-flex items-center text-sm font-semibold text-accent">
                   {t.cta.learnMore}
                   <ArrowUpRight className="ml-1 h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>

@@ -109,7 +109,7 @@ export function HeroSection() {
             <Button
               asChild
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground text-base px-8 shadow-glow"
+              className="bg-accent text-accent-foreground text-base px-10 shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.hero.cta}
@@ -120,7 +120,7 @@ export function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 text-base px-8"
+              className="border-2 border-white/40 text-white hover:bg-white/15 hover:border-white/60 text-base px-10"
             >
               <a href={`tel:${siteConfig.phoneRaw}`}>
                 {siteConfig.phone}
