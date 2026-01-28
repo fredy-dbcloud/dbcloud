@@ -239,8 +239,8 @@ export default function PricingPage() {
                   {plan.subtitle && (
                     <p className="text-sm text-accent font-medium mb-3">{plan.subtitle}</p>
                   )}
-                  <div className="flex items-baseline justify-center gap-1">
-                    <span className="font-display text-4xl font-bold">{plan.price}</span>
+                  <div className="flex items-baseline justify-center gap-1 pt-2">
+                    <span className="font-display text-4xl font-bold leading-tight">{plan.price}</span>
                     <span className="text-muted-foreground text-sm">{plan.period}</span>
                   </div>
                   <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
