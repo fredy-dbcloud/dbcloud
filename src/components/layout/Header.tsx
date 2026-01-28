@@ -39,8 +39,8 @@ export function Header() {
           <HeaderLogo isScrolled={isScrolled} />
         </div>
 
-        {/* Navigation - Center with proper spacing */}
-        <div className="hidden lg:flex flex-1 justify-center ml-8">
+        {/* Navigation - Center aligned with balanced spacing */}
+        <div className="hidden lg:flex flex-1 justify-center px-6">
           <HeaderNav />
         </div>
 
