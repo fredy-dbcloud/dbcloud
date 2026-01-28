@@ -49,12 +49,13 @@ export function useStripeCheckout() {
     }
   };
 
-  const openCustomerPortal = async (email: string) => {
+  const openCustomerPortal = async () => {
     setIsLoading(true);
 
     try {
+      // Auth token is automatically included by Supabase client
       const { data, error } = await supabase.functions.invoke('customer-portal', {
-        body: { email },
+        body: {},
       });
 
       if (error) throw error;
