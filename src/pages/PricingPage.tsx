@@ -212,8 +212,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-24 bg-background -mt-12">
+      {/* Pricing Cards - Adequate spacing to avoid header overlap */}
+      <section className="py-16 bg-background">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
