@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import { TrustSignals } from './TrustSignals';
 
 export function CTASection() {
   const { lang, t, getLocalizedPath } = useLang();
@@ -35,19 +36,26 @@ export function CTASection() {
           </p>
 
           {/* Single Primary CTA - End of page natural pause point */}
-          <div className="flex flex-col items-center gap-4 mb-8">
+          <div className="flex flex-col items-center gap-5 mb-8">
             <Button
               asChild
               size="lg"
-              className="bg-accent text-accent-foreground px-12 shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
+              className="bg-accent text-accent-foreground px-10 py-6 text-base shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {t.cta.schedule}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
-            {/* Secondary options as text links - reduced visual weight */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
+            {/* Secondary text links - reduced visual weight */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/60">
+              <Link 
+                to={getLocalizedPath('/contact')}
+                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
+              >
+                {t.cta.contact}
+              </Link>
+              <span className="text-white/30">•</span>
               <a 
                 href={whatsappUrl} 
                 target="_blank" 
@@ -56,17 +64,10 @@ export function CTASection() {
               >
                 {t.cta.whatsapp}
               </a>
-              <span className="text-white/40">•</span>
-              <a 
-                href={siteConfig.ACADEMY_URL} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
-              >
-                {t.footer.academy.link}
-              </a>
             </div>
           </div>
+          {/* Subtle trust reinforcement */}
+          <TrustSignals />
         </motion.div>
       </div>
     </section>

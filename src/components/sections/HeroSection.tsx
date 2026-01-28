@@ -111,16 +111,16 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Trust Signals - Below fold but visible */}
+        {/* Trust Signals - Below fold, minimal */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 flex flex-wrap items-center justify-center gap-6 text-white/70 text-sm"
+          className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-white/65 text-xs"
         >
           {trustSignals.map((signal) => (
-            <div key={signal} className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-accent/80" />
+            <div key={signal} className="flex items-center gap-1.5">
+              <CheckCircle className="h-3.5 w-3.5 text-accent/70" />
               <span>{signal}</span>
             </div>
           ))}
