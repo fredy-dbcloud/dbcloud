@@ -100,7 +100,7 @@ export function Header() {
           <img 
             src={logoHorizontalDark} 
             alt={`${siteConfig.name} - Faster Higher Stronger`}
-            className="h-10 w-auto"
+            className="h-8 w-auto"
           />
         </Link>
 
