@@ -13,11 +13,11 @@ export function TrustSection() {
   const content = {
     en: {
       title: "Why SMBs Trust Us",
-      subtitle: "Senior engineers. Proven process. No enterprise overhead.",
+      subtitle: "Cloud, databases, and AI expertise — without the enterprise overhead.",
     },
     es: {
       title: "Por Qué las PYMEs Confían en Nosotros",
-      subtitle: "Ingenieros senior. Proceso probado. Sin complejidad empresarial.",
+      subtitle: "Experiencia en cloud, bases de datos e IA — sin complejidad empresarial.",
     },
   };
 

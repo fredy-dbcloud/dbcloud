@@ -42,14 +42,14 @@ export const siteConfig = {
   // Meta descriptions by language - SEO optimized with technology keywords
   meta: {
     en: {
-      title: "DBCloud | Managed Database & Cloud Services | AWS, Azure, GCP, Oracle",
-      description: "US-based managed database services for PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Cloud migration to AWS, Azure, GCP, Oracle Cloud. Private AI solutions with SOC 2, HIPAA compliance.",
-      keywords: "managed database services USA, PostgreSQL DBA, MySQL administration, Oracle database management, SQL Server support, MongoDB managed, cloud migration AWS Azure GCP Oracle, enterprise AI solutions, database consulting, 24/7 database support, SOC 2 HIPAA compliant, Oracle Cloud, private AI agents, RAG architecture"
+      title: "DBCloud | Cloud Infrastructure, Managed Databases & AI Solutions | AWS, Azure, GCP, Oracle",
+      description: "US-based cloud infrastructure, managed database services, and AI solutions for small businesses. AWS, Azure, GCP, Oracle Cloud. PostgreSQL, MySQL, SQL Server support. Private AI, automation, and reporting. SOC 2, HIPAA ready.",
+      keywords: "cloud infrastructure SMB, managed database services USA, PostgreSQL DBA, MySQL administration, Oracle database management, SQL Server support, cloud migration AWS Azure GCP Oracle, AI solutions for small business, DevOps support, database consulting, SOC 2 HIPAA compliant, Oracle Cloud, private AI agents, business automation"
     },
     es: {
-      title: "DBCloud | Servicios de Bases de Datos y Cloud Administrados | AWS, Azure, GCP, Oracle",
-      description: "Servicios de bases de datos administradas en EE.UU. para PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Migración cloud a AWS, Azure, GCP, Oracle Cloud. Soluciones de IA privadas con cumplimiento SOC 2, HIPAA.",
-      keywords: "servicios bases de datos administradas, DBA PostgreSQL, administración MySQL, gestión Oracle, soporte SQL Server, MongoDB administrado, migración cloud AWS Azure GCP Oracle, soluciones IA empresarial, consultoría bases de datos, soporte 24/7, SOC 2 HIPAA, Oracle Cloud, agentes IA privados"
+      title: "DBCloud | Infraestructura Cloud, Bases de Datos Administradas y Soluciones IA | AWS, Azure, GCP, Oracle",
+      description: "Infraestructura cloud, bases de datos administradas y soluciones de IA para pequeñas empresas en EE.UU. AWS, Azure, GCP, Oracle Cloud. PostgreSQL, MySQL, SQL Server. IA privada, automatización y reportes. SOC 2, HIPAA ready.",
+      keywords: "infraestructura cloud PyMEs, servicios bases de datos administradas, DBA PostgreSQL, administración MySQL, gestión Oracle, soporte SQL Server, migración cloud AWS Azure GCP Oracle, soluciones IA pequeñas empresas, soporte DevOps, consultoría bases de datos, SOC 2 HIPAA, Oracle Cloud, agentes IA privados"
     }
   }
 } as const;
