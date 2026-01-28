@@ -49,14 +49,74 @@ serve(async (req) => {
     }
 
     const userId = claimsData.claims.sub;
-    const { request_id, request_type, description, environment, priority, plan, email } = await req.json();
+    const body = await req.json();
+    const { request_id, request_type, description, environment, priority, plan, email } = body;
 
-    if (!request_id || !description) {
+    // Server-side input validation
+    if (!request_id || typeof request_id !== "string") {
       return new Response(
-        JSON.stringify({ error: "request_id and description are required" }),
+        JSON.stringify({ error: "request_id is required and must be a string" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    if (!description || typeof description !== "string") {
+      return new Response(
+        JSON.stringify({ error: "description is required and must be a string" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate description length to prevent token exhaustion (max 2000 chars for AI processing)
+    const MAX_DESCRIPTION_LENGTH = 2000;
+    if (description.length > MAX_DESCRIPTION_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `description must not exceed ${MAX_DESCRIPTION_LENGTH} characters` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate request_type against allowed enum values
+    const VALID_REQUEST_TYPES = ["advisory", "optimization", "change_request"];
+    if (request_type && !VALID_REQUEST_TYPES.includes(request_type)) {
+      return new Response(
+        JSON.stringify({ error: `request_type must be one of: ${VALID_REQUEST_TYPES.join(", ")}` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate plan against allowed values
+    const VALID_PLANS = ["starter", "growth", "enterprise"];
+    if (plan && !VALID_PLANS.includes(plan)) {
+      return new Response(
+        JSON.stringify({ error: `plan must be one of: ${VALID_PLANS.join(", ")}` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate priority
+    const VALID_PRIORITIES = ["low", "medium", "high", "critical"];
+    if (priority && !VALID_PRIORITIES.includes(priority)) {
+      return new Response(
+        JSON.stringify({ error: `priority must be one of: ${VALID_PRIORITIES.join(", ")}` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate environment
+    const VALID_ENVIRONMENTS = ["development", "staging", "production"];
+    if (environment && !VALID_ENVIRONMENTS.includes(environment)) {
+      return new Response(
+        JSON.stringify({ error: `environment must be one of: ${VALID_ENVIRONMENTS.join(", ")}` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Sanitize description for AI processing - remove potential prompt injection patterns
+    const sanitizedDescription = description
+      .replace(/```/g, "'''")  // Replace code blocks that might confuse AI
+      .replace(/\n{3,}/g, "\n\n")  // Limit consecutive newlines
+      .trim();
 
     // Verify the request belongs to the authenticated user using service role
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -118,7 +178,7 @@ Plan: ${plan}
 Request Type: ${request_type}
 Environment: ${environment}
 Priority: ${priority}
-Description: ${description}
+Description: ${sanitizedDescription}
 
 Respond using the classify_request function.`;
 
