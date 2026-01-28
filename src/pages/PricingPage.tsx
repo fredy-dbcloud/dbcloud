@@ -181,7 +181,7 @@ export default function PricingPage() {
             <h1 className="font-display text-4xl sm:text-5xl font-bold mb-6">
               {t.pricing.title}
             </h1>
-            <p className="text-lg text-white/80 mb-8">
+            <p className="text-lg text-white/85 mb-8">
               {t.pricing.subtitle}
             </p>
 

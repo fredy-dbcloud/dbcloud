@@ -160,14 +160,14 @@ export default function AIPage() {
             <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
               {c.headline}
             </h1>
-            <p className="text-lg text-white/80 mb-8">
+            <p className="text-lg text-white/85 mb-8">
               {c.subheadline}
             </p>
             
             {/* Value props */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               {c.valueProps.map((prop) => (
-                <div key={prop} className="flex items-center gap-2 text-sm text-white/70">
+                <div key={prop} className="flex items-center gap-2 text-sm text-white/80">
                   <CheckCircle className="h-4 w-4 text-accent" />
                   <span>{prop}</span>
                 </div>
