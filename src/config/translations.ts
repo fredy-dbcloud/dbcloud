@@ -11,12 +11,17 @@ export const translations = {
       academy: "Academy",
       schedule: "Schedule a Call",
     },
-    // Hero Section
+    // Hero Section - SMB high-intent, outcome-focused
     hero: {
-      title: "Enterprise Cloud & Database Excellence",
-      subtitle: "Transform your data infrastructure with managed database services, seamless cloud migrations, and cutting-edge AI solutions.",
-      cta: "Schedule a Call",
+      title: "Stop worrying about your database. Start growing your business.",
+      subtitle: "Fractional cloud & database support for US small businesses. Senior engineers, affordable monthly plans, no long-term contracts.",
+      cta: "Schedule a Free Call",
       ctaSecondary: "View Demo",
+      benefits: [
+        "Start in 48 hours, not months",
+        "Costs less than one junior hire",
+        "No IT department required",
+      ],
     },
     // Services
     services: {
@@ -438,12 +443,17 @@ export const translations = {
       academy: "Academia",
       schedule: "Agendar Llamada",
     },
-    // Hero Section
+    // Hero Section - SMB high-intent, outcome-focused
     hero: {
-      title: "Excelencia en Cloud y Bases de Datos Empresariales",
-      subtitle: "Transforma tu infraestructura de datos con servicios de bases de datos administradas, migraciones a la nube sin interrupciones y soluciones de IA de vanguardia.",
-      cta: "Agendar Llamada",
+      title: "Deja de preocuparte por tu base de datos. Enfócate en crecer.",
+      subtitle: "Soporte cloud y bases de datos fraccional para PyMEs en EE.UU. Ingenieros senior, planes mensuales accesibles, sin contratos largos.",
+      cta: "Agendar Llamada Gratis",
       ctaSecondary: "Ver Demo",
+      benefits: [
+        "Inicia en 48 horas, no meses",
+        "Cuesta menos que un junior",
+        "No requiere departamento de TI",
+      ],
     },
     // Services
     services: {
