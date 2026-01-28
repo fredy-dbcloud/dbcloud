@@ -39,9 +39,9 @@ export function DemoBanner({ plan }: DemoBannerProps) {
             </div>
           </div>
           <div>
-            <p className="font-semibold text-foreground">{t.title}</p>
-            <p className="text-sm text-muted-foreground">{t.description}</p>
-            <p className="text-xs text-muted-foreground mt-1 italic">{t.microcopy}</p>
+            <p className="font-semibold text-foreground text-base">{t.title}</p>
+            <p className="text-base text-muted-foreground">{t.description}</p>
+            <p className="text-sm text-muted-foreground mt-1 italic">{t.microcopy}</p>
           </div>
         </div>
         <Button asChild size="sm" className="flex-shrink-0">

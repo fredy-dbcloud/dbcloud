@@ -74,22 +74,22 @@ export function DemoMonthlySummaries({ summaries }: DemoMonthlySummariesProps) {
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="p-3 bg-background rounded-lg">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-                      <Clock className="h-3.5 w-3.5" />
+                  <div className="p-4 bg-background rounded-lg">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                      <Clock className="h-4 w-4" />
                       {t.hoursUsed}
                     </div>
-                    <p className="font-bold">
-                      {summary.hoursUsed}h <span className="text-sm font-normal text-muted-foreground">/ {summary.hoursIncluded}h</span>
+                    <p className="font-bold text-lg">
+                      {summary.hoursUsed}h <span className="text-base font-normal text-muted-foreground">/ {summary.hoursIncluded}h</span>
                     </p>
-                    <Progress value={usagePercentage} className="h-1.5 mt-2" />
+                    <Progress value={usagePercentage} className="h-2 mt-2" />
                   </div>
-                  <div className="p-3 bg-background rounded-lg">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                  <div className="p-4 bg-background rounded-lg">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                      <CheckCircle2 className="h-4 w-4" />
                       {t.requestsCompleted}
                     </div>
-                    <p className="font-bold text-lg">{summary.requestsCompleted}</p>
+                    <p className="font-bold text-xl">{summary.requestsCompleted}</p>
                   </div>
                 </div>
 
@@ -97,13 +97,13 @@ export function DemoMonthlySummaries({ summaries }: DemoMonthlySummariesProps) {
                 <div className="grid md:grid-cols-2 gap-4">
                   {/* Key Findings */}
                   <div>
-                    <div className="flex items-center gap-2 text-sm font-medium mb-2">
-                      <Lightbulb className="h-4 w-4 text-amber-500" />
+                    <div className="flex items-center gap-2 text-base font-medium mb-3">
+                      <Lightbulb className="h-5 w-5 text-amber-500" />
                       {t.keyFindings}
                     </div>
-                    <ul className="space-y-1">
+                    <ul className="space-y-2">
                       {summary.keyFindings.slice(0, 2).map((finding, fIndex) => (
-                        <li key={fIndex} className="text-xs text-muted-foreground flex items-start gap-2">
+                        <li key={fIndex} className="text-sm text-muted-foreground flex items-start gap-2">
                           <span className="text-amber-500 mt-0.5">•</span>
                           <span className="line-clamp-2">{finding}</span>
                         </li>
@@ -113,13 +113,13 @@ export function DemoMonthlySummaries({ summaries }: DemoMonthlySummariesProps) {
 
                   {/* Recommendations */}
                   <div>
-                    <div className="flex items-center gap-2 text-sm font-medium mb-2">
-                      <Target className="h-4 w-4 text-primary" />
+                    <div className="flex items-center gap-2 text-base font-medium mb-3">
+                      <Target className="h-5 w-5 text-primary" />
                       {t.recommendations}
                     </div>
-                    <ul className="space-y-1">
+                    <ul className="space-y-2">
                       {summary.recommendations.slice(0, 2).map((rec, rIndex) => (
-                        <li key={rIndex} className="text-xs text-muted-foreground flex items-start gap-2">
+                        <li key={rIndex} className="text-sm text-muted-foreground flex items-start gap-2">
                           <span className="text-primary mt-0.5">→</span>
                           <span className="line-clamp-2">{rec}</span>
                         </li>

@@ -69,13 +69,13 @@ export function DemoPlanLimitations({ plan, limitations }: DemoPlanLimitationsPr
         <div className="grid md:grid-cols-2 gap-6">
           {/* Included */}
           <div>
-            <h4 className="text-sm font-semibold mb-3 text-green-700 dark:text-green-400">
+            <h4 className="text-base font-semibold mb-4 text-green-700 dark:text-green-400">
               {t.included}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {limitations.map((item, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm">
-                  <Check className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                <li key={index} className="flex items-start gap-3 text-base">
+                  <Check className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -84,13 +84,13 @@ export function DemoPlanLimitations({ plan, limitations }: DemoPlanLimitationsPr
 
           {/* Available Upgrades */}
           <div>
-            <h4 className="text-sm font-semibold mb-3 text-primary">
+            <h4 className="text-base font-semibold mb-4 text-primary">
               {t.available}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {availableUpgrades[plan].map((item, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <ArrowRight className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <li key={index} className="flex items-start gap-3 text-base text-muted-foreground">
+                  <ArrowRight className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}

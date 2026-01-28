@@ -34,8 +34,8 @@ export const faqData = {
     },
     // HIGH PURCHASE INTENT - Fit & Compatibility
     {
-      question: "Can you work with our existing cloud provider (AWS, Azure, or GCP)?",
-      answer: "Yes. We're cloud-agnostic and work with AWS, Microsoft Azure, and Google Cloud. We integrate with your existing infrastructure—no need to change providers or migrate away from what's working.",
+      question: "Can you work with our existing cloud provider (AWS, Azure, GCP, or Oracle Cloud)?",
+      answer: "Yes. We're cloud-agnostic and work with AWS, Microsoft Azure, Google Cloud, and Oracle Cloud. We integrate with your existing infrastructure—no need to change providers or migrate away from what's working.",
       link: "/en/services",
     },
     {
@@ -83,7 +83,7 @@ export const faqData = {
     // MODERATE PURCHASE INTENT - Specific capabilities
     {
       question: "Can you help us migrate from on-premises to the cloud?",
-      answer: "Yes. We handle full migrations from on-prem to AWS, Azure, or GCP. This includes assessment, planning, zero-downtime migration execution, and post-migration optimization. Most migrations complete in 2-4 weeks.",
+      answer: "Yes. We handle full migrations from on-prem to AWS, Azure, GCP, or Oracle Cloud. This includes assessment, planning, zero-downtime migration execution, and post-migration optimization. Most migrations complete in 2-4 weeks.",
       link: "/en/services",
     },
     {
@@ -143,8 +143,8 @@ export const faqData = {
     },
     // ALTA INTENCIÓN DE COMPRA - Ajuste y Compatibilidad
     {
-      question: "¿Pueden trabajar con nuestro proveedor cloud existente (AWS, Azure o GCP)?",
-      answer: "Sí. Somos cloud-agnostic y trabajamos con AWS, Microsoft Azure y Google Cloud. Nos integramos con tu infraestructura existente—no necesitas cambiar de proveedor ni migrar de lo que funciona.",
+      question: "¿Pueden trabajar con nuestro proveedor cloud existente (AWS, Azure, GCP u Oracle Cloud)?",
+      answer: "Sí. Somos cloud-agnostic y trabajamos con AWS, Microsoft Azure, Google Cloud y Oracle Cloud. Nos integramos con tu infraestructura existente—no necesitas cambiar de proveedor ni migrar de lo que funciona.",
       link: "/es/services",
     },
     {
@@ -192,7 +192,7 @@ export const faqData = {
     // INTENCIÓN MODERADA - Capacidades específicas
     {
       question: "¿Pueden ayudarnos a migrar de on-premises a la nube?",
-      answer: "Sí. Manejamos migraciones completas de on-prem a AWS, Azure o GCP. Esto incluye evaluación, planificación, ejecución de migración sin tiempo de inactividad y optimización post-migración. La mayoría de las migraciones se completan en 2-4 semanas.",
+      answer: "Sí. Manejamos migraciones completas de on-prem a AWS, Azure, GCP u Oracle Cloud. Esto incluye evaluación, planificación, ejecución de migración sin tiempo de inactividad y optimización post-migración. La mayoría de las migraciones se completan en 2-4 semanas.",
       link: "/es/services",
     },
     {

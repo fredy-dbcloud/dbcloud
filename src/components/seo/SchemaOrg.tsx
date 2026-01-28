@@ -33,8 +33,9 @@ function getOrganizationSchema(lang: 'en' | 'es') {
       "Managed Database Services",
       "Cloud Migration for Small Business",
       "Database Support",
-      "AWS", "Microsoft Azure", "Google Cloud",
-      "PostgreSQL", "MySQL", "SQL Server", "Oracle",
+      "Oracle Cloud Infrastructure",
+      "AWS", "Microsoft Azure", "Google Cloud", "Oracle Cloud",
+      "PostgreSQL", "MySQL", "SQL Server", "Oracle Database",
       "AI Automation for SMBs"
     ],
     "sameAs": [
@@ -167,10 +168,10 @@ function getServiceSchemas(lang: 'en' | 'es') {
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": lang === 'es' ? "Soporte Cloud Fraccional" : "Fractional Cloud Support",
-      "name": lang === 'es' ? "Equipo Cloud para Equipos Pequeños" : "Cloud Team for Small Teams",
+      "name": lang === 'es' ? "Equipo Cloud para PyMEs" : "Cloud Team for Small Teams",
       "description": lang === 'es'
-        ? "Tu equipo cloud externo para empresas sin departamento de TI. AWS, Azure, GCP. Sin contratos largos, inicia en 48 horas."
-        : "Your external cloud team for businesses without IT department. AWS, Azure, GCP. No long contracts, start in 48 hours.",
+        ? "Tu equipo cloud externo para empresas sin departamento de TI. AWS, Azure, GCP, Oracle Cloud. Sin contratos largos, inicia en 48 horas."
+        : "Your external cloud team for businesses without IT department. AWS, Azure, GCP, Oracle Cloud. No long contracts, start in 48 hours.",
       "provider": { "@id": `${siteConfig.url}/#organization` },
       "areaServed": "United States"
     },
@@ -180,8 +181,8 @@ function getServiceSchemas(lang: 'en' | 'es') {
       "serviceType": lang === 'es' ? "Migración Cloud" : "Cloud Migration",
       "name": lang === 'es' ? "Migración de On-Prem a Cloud" : "On-Prem to Cloud Migration",
       "description": lang === 'es'
-        ? "Migración desde servidores locales a AWS, Azure o GCP. Sin tiempo de inactividad, 2-4 semanas para la mayoría de proyectos."
-        : "Migration from on-premises servers to AWS, Azure, or GCP. Zero downtime, 2-4 weeks for most projects.",
+        ? "Migración desde servidores locales a AWS, Azure, GCP u Oracle Cloud. Sin tiempo de inactividad, 2-4 semanas para la mayoría de proyectos."
+        : "Migration from on-premises servers to AWS, Azure, GCP, or Oracle Cloud. Zero downtime, 2-4 weeks for most projects.",
       "provider": { "@id": `${siteConfig.url}/#organization` },
       "areaServed": "United States"
     },

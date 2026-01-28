@@ -97,24 +97,24 @@ export function DemoAIInsights({ insights }: DemoAIInsightsProps) {
       <CardContent className="space-y-6">
         {/* Metrics Grid */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="p-3 bg-muted/50 rounded-lg text-center">
-            <p className="text-xs text-muted-foreground mb-2">{t.upgradeReadiness}</p>
-            <Badge className={cn('gap-1', readiness.className)}>
-              <readiness.icon className="h-3 w-3" />
+          <div className="p-4 bg-muted/50 rounded-lg text-center">
+            <p className="text-sm text-muted-foreground mb-2">{t.upgradeReadiness}</p>
+            <Badge className={cn('gap-1 text-sm px-3 py-1', readiness.className)}>
+              <readiness.icon className="h-4 w-4" />
               {readiness.label}
             </Badge>
           </div>
-          <div className="p-3 bg-muted/50 rounded-lg text-center">
-            <p className="text-xs text-muted-foreground mb-2">{t.churnRisk}</p>
-            <Badge className={cn('gap-1', risk.className)}>
-              <risk.icon className="h-3 w-3" />
+          <div className="p-4 bg-muted/50 rounded-lg text-center">
+            <p className="text-sm text-muted-foreground mb-2">{t.churnRisk}</p>
+            <Badge className={cn('gap-1 text-sm px-3 py-1', risk.className)}>
+              <risk.icon className="h-4 w-4" />
               {risk.label}
             </Badge>
           </div>
-          <div className="p-3 bg-muted/50 rounded-lg text-center">
-            <p className="text-xs text-muted-foreground mb-2">{t.usageTrend}</p>
-            <Badge className={cn('gap-1', trend.className)}>
-              <trend.icon className="h-3 w-3" />
+          <div className="p-4 bg-muted/50 rounded-lg text-center">
+            <p className="text-sm text-muted-foreground mb-2">{t.usageTrend}</p>
+            <Badge className={cn('gap-1 text-sm px-3 py-1', trend.className)}>
+              <trend.icon className="h-4 w-4" />
               {trend.label}
             </Badge>
           </div>
@@ -122,11 +122,11 @@ export function DemoAIInsights({ insights }: DemoAIInsightsProps) {
 
         {/* Key Signals */}
         <div>
-          <p className="text-sm font-medium mb-3">{t.signals}</p>
-          <ul className="space-y-2">
+          <p className="text-base font-medium mb-3">{t.signals}</p>
+          <ul className="space-y-3">
             {insights.signals.map((signal, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Bot className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+              <li key={index} className="flex items-start gap-2 text-base text-muted-foreground">
+                <Bot className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 {signal}
               </li>
             ))}
@@ -134,7 +134,7 @@ export function DemoAIInsights({ insights }: DemoAIInsightsProps) {
         </div>
 
         {/* Demo Note */}
-        <p className="text-xs text-muted-foreground italic pt-2 border-t border-border">
+        <p className="text-sm text-muted-foreground italic pt-3 border-t border-border">
           {t.demoNote}
         </p>
       </CardContent>
