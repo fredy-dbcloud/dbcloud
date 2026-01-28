@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import logoHorizontalLight from '@/assets/logos/logo-dbcloud-horizontal-light.png';
 
 export function HeroSection() {
   const { t, lang } = useLang();
@@ -25,11 +26,25 @@ export function HeroSection() {
 
       <div className="container relative z-10 py-16 lg:py-20">
         <div className="max-w-3xl mx-auto text-center text-white">
-          {/* Trust badge - simple, not hype */}
+          {/* Subtle Logo */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            className="mb-6"
+          >
+            <img 
+              src={logoHorizontalLight} 
+              alt={`${siteConfig.name} - Faster Higher Stronger`}
+              className="h-12 w-auto mx-auto opacity-90"
+            />
+          </motion.div>
+          
+          {/* Trust badge - simple, not hype */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-6 border border-white/20">
               {lang === 'es' ? '🇺🇸 Soporte Cloud para PyMEs' : '🇺🇸 Cloud Support for SMBs'}

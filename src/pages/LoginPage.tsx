@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useAdminRole } from '@/hooks/useAdminRole';
 import { toast } from 'sonner';
 import { Mail, Lock, Loader2, ArrowLeft, MailCheck } from 'lucide-react';
+import logoVerticalDark from '@/assets/logos/logo-dbcloud-vertical-dark.png';
 
 export default function LoginPage() {
   const { lang, getLocalizedPath } = useLang();
@@ -254,6 +255,13 @@ export default function LoginPage() {
         <div className="container max-w-md">
           <Card>
             <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <img 
+                  src={logoVerticalDark} 
+                  alt="DBCloud - Faster Higher Stronger"
+                  className="h-24 w-auto"
+                />
+              </div>
               <CardTitle className="text-2xl font-display">{c.title}</CardTitle>
               <CardDescription>{c.subtitle}</CardDescription>
             </CardHeader>
