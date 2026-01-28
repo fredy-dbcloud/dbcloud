@@ -29,11 +29,11 @@ export const translations = {
       subtitle: "Comprehensive solutions for modern enterprises",
       cloud: {
         title: "Cloud Infrastructure",
-        description: "Multi-cloud solutions on AWS, Azure, and GCP with enterprise-grade security and performance.",
+        description: "Multi-cloud solutions on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security and performance.",
       },
       databases: {
         title: "Managed Databases",
-        description: "24/7 database administration, optimization, and support for PostgreSQL, MySQL, MongoDB, and more.",
+        description: "24/7 database administration, optimization, and support for PostgreSQL, MySQL, Oracle Database, SQL Server, and more.",
       },
       ai: {
         title: "AI & Analytics",
@@ -461,11 +461,11 @@ export const translations = {
       subtitle: "Soluciones integrales para empresas modernas",
       cloud: {
         title: "Infraestructura Cloud",
-        description: "Soluciones multi-nube en AWS, Azure y GCP con seguridad y rendimiento de nivel empresarial.",
+        description: "Soluciones multi-nube en AWS, Azure, GCP y Oracle Cloud con seguridad y rendimiento de nivel empresarial.",
       },
       databases: {
         title: "Bases de Datos Administradas",
-        description: "Administración, optimización y soporte 24/7 para PostgreSQL, MySQL, MongoDB y más.",
+        description: "Administración, optimización y soporte 24/7 para PostgreSQL, MySQL, Oracle Database, SQL Server y más.",
       },
       ai: {
         title: "IA y Analítica",

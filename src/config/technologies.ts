@@ -5,6 +5,7 @@ export const technologies = {
     { name: "Amazon Web Services (AWS)", shortName: "AWS", category: "cloud" },
     { name: "Microsoft Azure", shortName: "Azure", category: "cloud" },
     { name: "Google Cloud Platform", shortName: "GCP", category: "cloud" },
+    { name: "Oracle Cloud Infrastructure", shortName: "OCI", category: "cloud" },
   ],
   
   // Enterprise Databases
@@ -92,6 +93,6 @@ export const technologyGroups = {
 
 // SEO-focused technology keywords
 export const technologyKeywords = {
-  en: "AWS, Azure, GCP, PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, Kubernetes, Docker, Terraform, VMware, OpenShift, Azure OpenAI, AWS Bedrock, Vertex AI, LangChain, pgvector, Pinecone, SOC 2, HIPAA, GDPR",
-  es: "AWS, Azure, GCP, PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, Kubernetes, Docker, Terraform, VMware, OpenShift, Azure OpenAI, AWS Bedrock, Vertex AI, LangChain, pgvector, Pinecone, SOC 2, HIPAA, GDPR",
+  en: "AWS, Azure, GCP, Oracle Cloud, PostgreSQL, MySQL, Oracle Database, SQL Server, MongoDB, Redis, Docker, Terraform, VMware, OpenShift, Azure OpenAI, AWS Bedrock, Vertex AI, LangChain, pgvector, Pinecone, SOC 2, HIPAA, GDPR",
+  es: "AWS, Azure, GCP, Oracle Cloud, PostgreSQL, MySQL, Oracle Database, SQL Server, MongoDB, Redis, Docker, Terraform, VMware, OpenShift, Azure OpenAI, AWS Bedrock, Vertex AI, LangChain, pgvector, Pinecone, SOC 2, HIPAA, GDPR",
 };

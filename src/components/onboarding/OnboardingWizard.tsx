@@ -23,6 +23,7 @@ const CLOUD_PROVIDERS = [
   { value: 'aws', label: 'Amazon Web Services (AWS)' },
   { value: 'azure', label: 'Microsoft Azure' },
   { value: 'gcp', label: 'Google Cloud Platform (GCP)' },
+  { value: 'oci', label: 'Oracle Cloud Infrastructure (OCI)' },
   { value: 'multi', label: 'Multi-Cloud' },
   { value: 'other', label: 'Other / On-Premise' },
 ];
@@ -31,6 +32,7 @@ const REGIONS = {
   aws: ['us-east-1', 'us-west-2', 'eu-west-1', 'ap-southeast-1'],
   azure: ['East US', 'West Europe', 'Southeast Asia', 'Australia East'],
   gcp: ['us-central1', 'europe-west1', 'asia-east1', 'australia-southeast1'],
+  oci: ['us-ashburn-1', 'us-phoenix-1', 'eu-frankfurt-1', 'ap-tokyo-1'],
   multi: ['Multiple Regions'],
   other: ['N/A'],
 };

@@ -37,8 +37,8 @@ const pageData = {
     included: {
       title: "What's Included",
       items: [
-        "PostgreSQL, MySQL, MongoDB expertise",
-        "AWS, Azure, GCP infrastructure support",
+        "PostgreSQL, MySQL, Oracle Database, SQL Server expertise",
+        "AWS, Azure, GCP, Oracle Cloud infrastructure support",
         "Performance monitoring setup",
         "Priority email support",
       ],
@@ -92,8 +92,8 @@ const pageData = {
     included: {
       title: "Qué Está Incluido",
       items: [
-        "Experiencia en PostgreSQL, MySQL, MongoDB",
-        "Soporte de infraestructura AWS, Azure, GCP",
+        "Experiencia en PostgreSQL, MySQL, Oracle Database, SQL Server",
+        "Soporte de infraestructura AWS, Azure, GCP, Oracle Cloud",
         "Configuración de monitoreo de rendimiento",
         "Soporte prioritario por email",
       ],

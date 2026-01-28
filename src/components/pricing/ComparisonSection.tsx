@@ -29,7 +29,7 @@ const comparisonData = {
       },
       {
         label: "Breadth of Expertise",
-        dbcloud: "Multi-cloud, multi-database team",
+        dbcloud: "Multi-cloud (AWS, Azure, GCP, Oracle), multi-database team",
         inhouse: "Limited to one person's skills",
         dbcloudBetter: true,
       },
@@ -80,7 +80,7 @@ const comparisonData = {
       },
       {
         label: "Amplitud de Experiencia",
-        dbcloud: "Equipo multi-nube, multi-base de datos",
+        dbcloud: "Equipo multi-nube (AWS, Azure, GCP, Oracle), multi-base de datos",
         inhouse: "Limitado a las habilidades de una persona",
         dbcloudBetter: true,
       },
