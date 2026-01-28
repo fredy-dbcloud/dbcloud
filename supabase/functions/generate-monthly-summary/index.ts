@@ -1,33 +1,39 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
 };
 
+/**
+ * Validates the cron secret using constant-time comparison to prevent timing attacks.
+ * Uses uniform error handling to prevent enumeration attacks.
+ */
 const validateCronSecret = (req: Request): boolean => {
   const cronSecret = req.headers.get("x-cron-secret");
   const expectedSecret = Deno.env.get("CRON_SECRET");
   
-  if (!expectedSecret) {
-    console.error("[CRON-AUTH] CRON_SECRET not configured in environment");
+  // Don't reveal which value is missing - uniform rejection
+  if (!expectedSecret || !cronSecret) {
     return false;
   }
   
-  if (!cronSecret) {
-    console.warn("[CRON-AUTH] Missing X-Cron-Secret header");
+  try {
+    // Use constant-time comparison to prevent timing attacks
+    const secretBuffer = new TextEncoder().encode(cronSecret);
+    const expectedBuffer = new TextEncoder().encode(expectedSecret);
+    
+    // Lengths must match for timingSafeEqual
+    if (secretBuffer.length !== expectedBuffer.length) {
+      return false;
+    }
+    
+    return timingSafeEqual(secretBuffer, expectedBuffer);
+  } catch {
     return false;
   }
-  
-  const isValid = cronSecret === expectedSecret;
-  if (isValid) {
-    console.log("[CRON-AUTH] Cron authentication successful");
-  } else {
-    console.warn("[CRON-AUTH] Invalid X-Cron-Secret provided");
-  }
-  
-  return isValid;
 };
 
 const logStep = (step: string, details?: Record<string, unknown>) => {
@@ -194,8 +200,9 @@ serve(async (req) => {
 
   // Validate cron secret for scheduled invocations
   if (!validateCronSecret(req)) {
+    // Uniform error response - don't reveal auth failure details
     return new Response(
-      JSON.stringify({ error: "Unauthorized cron" }),
+      JSON.stringify({ error: "Unauthorized" }),
       { 
         status: 401, 
         headers: { ...corsHeaders, "Content-Type": "application/json" } 
