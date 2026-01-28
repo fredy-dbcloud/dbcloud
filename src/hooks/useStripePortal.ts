@@ -15,8 +15,9 @@ export function useStripePortal() {
 
     setIsLoading(true);
     try {
+      // Auth token is automatically included by Supabase client
       const { data, error } = await supabase.functions.invoke('customer-portal', {
-        body: { email: user.email },
+        body: {},
       });
 
       if (error) {
