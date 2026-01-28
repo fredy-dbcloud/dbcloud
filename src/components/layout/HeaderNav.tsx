@@ -24,15 +24,15 @@ export function HeaderNav() {
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <nav className="flex items-center gap-1">
+    <nav className="flex items-center gap-0.5">
       {navItems.map((item) => (
         <Link
           key={item.href}
           to={item.href}
           className={cn(
-            "px-3 py-2 text-sm font-normal rounded-md transition-colors whitespace-nowrap",
+            "px-3.5 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap",
             isActive(item.href)
-              ? "text-primary bg-primary/5"
+              ? "text-primary bg-primary/10"
               : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
           )}
         >
