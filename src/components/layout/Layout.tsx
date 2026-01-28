@@ -24,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
       <SchemaOrg />
       <div className="flex min-h-screen flex-col">
         <Header />
-        <main className="flex-1 pt-[88px] lg:pt-[112px]">
+        <main className="flex-1 pt-16 lg:pt-16">
           {children}
         </main>
         <Footer />
