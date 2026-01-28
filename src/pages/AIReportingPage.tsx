@@ -82,19 +82,13 @@ export default function AIReportingPage() {
             <p className="text-lg text-white/80 mb-8">
               {c.subheadline}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                  {c.cta}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                <Link to={getLocalizedPath('/pricing')}>
-                  {c.ctaSecondary}
-                </Link>
-              </Button>
-            </div>
+            {/* Single Primary CTA */}
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+              <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
+                {c.cta}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -145,18 +139,24 @@ export default function AIReportingPage() {
         </div>
       </section>
 
-      {/* Pricing Preview */}
-      <section className="py-12 bg-background">
+      {/* Pricing Preview - Single CTA at natural end */}
+      <section className="py-16 bg-background">
         <div className="container max-w-2xl text-center">
           <h2 className="font-display text-2xl font-bold mb-2">{c.pricing.title}</h2>
           <p className="text-3xl font-bold text-accent mb-2">{c.pricing.starter}</p>
           <p className="text-sm text-muted-foreground mb-6">{c.pricing.desc}</p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
             <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
               {c.cta}
               <ArrowRight className="ml-2 h-5 w-5" />
             </a>
           </Button>
+          {/* Secondary as text link */}
+          <p className="mt-4 text-sm text-muted-foreground">
+            <Link to={getLocalizedPath('/pricing')} className="text-accent hover:underline">
+              {c.ctaSecondary}
+            </Link>
+          </p>
         </div>
       </section>
     </Layout>

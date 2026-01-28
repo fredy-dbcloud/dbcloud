@@ -100,6 +100,7 @@ export function HeroSection() {
             ))}
           </motion.div>
 
+          {/* Single Primary CTA - Clear next step */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -112,20 +113,20 @@ export function HeroSection() {
               className="bg-accent text-accent-foreground text-base px-10 shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                {t.hero.cta}
+                {t.cta.schedule}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-2 border-white/40 text-white hover:bg-white/15 hover:border-white/60 text-base px-10"
-            >
-              <a href={`tel:${siteConfig.phoneRaw}`}>
+            {/* Secondary: Low visual weight, phone for quick contact */}
+            <span className="text-white/70 text-sm">
+              {lang === 'es' ? 'o llámanos:' : 'or call:'}{' '}
+              <a 
+                href={`tel:${siteConfig.phoneRaw}`}
+                className="text-white hover:text-accent transition-colors font-medium underline-offset-4 hover:underline"
+              >
                 {siteConfig.phone}
               </a>
-            </Button>
+            </span>
           </motion.div>
         </div>
 

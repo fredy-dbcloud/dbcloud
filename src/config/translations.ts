@@ -15,8 +15,8 @@ export const translations = {
     hero: {
       title: "Enterprise Cloud & Database Excellence",
       subtitle: "Transform your data infrastructure with managed database services, seamless cloud migrations, and cutting-edge AI solutions.",
-      cta: "Get Started",
-      ctaSecondary: "Schedule a Demo",
+      cta: "Schedule a Call",
+      ctaSecondary: "View Demo",
     },
     // Services
     services: {
@@ -39,16 +39,17 @@ export const translations = {
         description: "Zero-downtime migrations with comprehensive planning, execution, and post-migration support.",
       },
     },
-    // CTA
+    // CTA - Low friction, outcome-oriented
     cta: {
       schedule: "Schedule a Call",
       contact: "Contact Us",
-      startAdvisory: "Start Advisory Plan",
-      requestGrowthEvaluation: "Request Growth Evaluation",
+      startAdvisory: "Start My Advisory Plan",
+      requestGrowthEvaluation: "Request My Evaluation",
       talkToArchitect: "Talk to an Architect",
       whatsapp: "Chat on WhatsApp",
-      getStarted: "Get Started",
+      getStarted: "Schedule a Call",
       learnMore: "Learn More",
+      viewDemo: "View Demo",
     },
     // Footer
     footer: {
@@ -441,8 +442,8 @@ export const translations = {
     hero: {
       title: "Excelencia en Cloud y Bases de Datos Empresariales",
       subtitle: "Transforma tu infraestructura de datos con servicios de bases de datos administradas, migraciones a la nube sin interrupciones y soluciones de IA de vanguardia.",
-      cta: "Comenzar",
-      ctaSecondary: "Agendar Demo",
+      cta: "Agendar Llamada",
+      ctaSecondary: "Ver Demo",
     },
     // Services
     services: {
@@ -465,16 +466,17 @@ export const translations = {
         description: "Migraciones sin tiempo de inactividad con planificación integral, ejecución y soporte post-migración.",
       },
     },
-    // CTA
+    // CTA - Low friction, outcome-oriented
     cta: {
       schedule: "Agendar Llamada",
       contact: "Contáctanos",
       whatsapp: "Chatear por WhatsApp",
-      getStarted: "Comenzar",
+      getStarted: "Agendar Llamada",
       learnMore: "Saber Más",
-      startAdvisory: "Iniciar Plan Asesor",
-      requestGrowthEvaluation: "Solicitar Evaluación Growth",
+      startAdvisory: "Iniciar Mi Plan Asesor",
+      requestGrowthEvaluation: "Solicitar Mi Evaluación",
       talkToArchitect: "Hablar con un Arquitecto",
+      viewDemo: "Ver Demo",
     },
     // Footer
     footer: {
