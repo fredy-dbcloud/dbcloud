@@ -42,14 +42,14 @@ export const siteConfig = {
   // Meta descriptions by language - SEO optimized with technology keywords
   meta: {
     en: {
-      title: "DBCloud | Managed Database & Cloud Services | AWS, Azure, GCP",
-      description: "US-based enterprise managed database services for PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Cloud migration to AWS, Azure, GCP. Private AI solutions with SOC 2, HIPAA compliance.",
-      keywords: "managed database services USA, PostgreSQL DBA, MySQL administration, Oracle database management, SQL Server support, MongoDB managed, cloud migration AWS Azure GCP, enterprise AI solutions, database consulting, 24/7 database support, SOC 2 HIPAA compliant, Kubernetes, Terraform, private AI agents, RAG architecture"
+      title: "DBCloud | Managed Database & Cloud Services | AWS, Azure, GCP, Oracle",
+      description: "US-based managed database services for PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Cloud migration to AWS, Azure, GCP, Oracle Cloud. Private AI solutions with SOC 2, HIPAA compliance.",
+      keywords: "managed database services USA, PostgreSQL DBA, MySQL administration, Oracle database management, SQL Server support, MongoDB managed, cloud migration AWS Azure GCP Oracle, enterprise AI solutions, database consulting, 24/7 database support, SOC 2 HIPAA compliant, Oracle Cloud, private AI agents, RAG architecture"
     },
     es: {
-      title: "DBCloud | Servicios de Bases de Datos y Cloud Administrados | AWS, Azure, GCP",
-      description: "Servicios de bases de datos administradas en EE.UU. para PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Migración cloud a AWS, Azure, GCP. Soluciones de IA privadas con cumplimiento SOC 2, HIPAA.",
-      keywords: "servicios bases de datos administradas, DBA PostgreSQL, administración MySQL, gestión Oracle, soporte SQL Server, MongoDB administrado, migración cloud AWS Azure GCP, soluciones IA empresarial, consultoría bases de datos, soporte 24/7, SOC 2 HIPAA, Kubernetes, Terraform, agentes IA privados"
+      title: "DBCloud | Servicios de Bases de Datos y Cloud Administrados | AWS, Azure, GCP, Oracle",
+      description: "Servicios de bases de datos administradas en EE.UU. para PostgreSQL, MySQL, Oracle, SQL Server, MongoDB. Migración cloud a AWS, Azure, GCP, Oracle Cloud. Soluciones de IA privadas con cumplimiento SOC 2, HIPAA.",
+      keywords: "servicios bases de datos administradas, DBA PostgreSQL, administración MySQL, gestión Oracle, soporte SQL Server, MongoDB administrado, migración cloud AWS Azure GCP Oracle, soluciones IA empresarial, consultoría bases de datos, soporte 24/7, SOC 2 HIPAA, Oracle Cloud, agentes IA privados"
     }
   }
 } as const;

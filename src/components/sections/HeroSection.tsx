@@ -9,8 +9,8 @@ export function HeroSection() {
 
   // SMB trust signals - practical, not enterprise-heavy
   const trustSignals = lang === 'es' 
-    ? ['Empresa registrada en EE.UU.', 'Certificados AWS, Azure, GCP', 'Sin contratos largos']
-    : ['US-registered company', 'AWS, Azure, GCP certified', 'No long-term contracts'];
+    ? ['Empresa registrada en EE.UU.', 'Certificados AWS, Azure, GCP, Oracle', 'Sin contratos largos']
+    : ['US-registered company', 'AWS, Azure, GCP, Oracle certified', 'No long-term contracts'];
 
   // Benefit bullets from translations (SMB practical outcomes)
   const benefitBullets = t.hero.benefits || (lang === 'es' 

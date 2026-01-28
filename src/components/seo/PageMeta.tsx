@@ -26,11 +26,11 @@ export function PageMeta() {
         case '/services':
           return {
             title: lang === 'es' 
-              ? 'Servicios | DBCloud - Cloud y Bases de Datos'
-              : 'Services | DBCloud - Cloud & Database Solutions',
+              ? 'Servicios | DBCloud - Cloud y Bases de Datos | AWS, Azure, GCP, Oracle'
+              : 'Services | DBCloud - Cloud & Database Solutions | AWS, Azure, GCP, Oracle',
             description: lang === 'es'
-              ? 'Servicios empresariales de infraestructura cloud, bases de datos administradas y migración.'
-              : 'Enterprise cloud infrastructure, managed database services, and migration solutions.',
+              ? 'Servicios de infraestructura cloud, bases de datos administradas y migración para PyMEs en AWS, Azure, GCP y Oracle Cloud.'
+              : 'Cloud infrastructure, managed database services, and migration solutions for SMBs on AWS, Azure, GCP, and Oracle Cloud.',
           };
         case '/ai':
           return {

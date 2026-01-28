@@ -16,10 +16,10 @@ These Terms constitute a legally binding agreement between you and ${siteConfig.
       },
       {
         title: "2. Description of Services",
-        content: `${siteConfig.name} provides enterprise-grade managed database services, cloud infrastructure solutions, AI/ML services, and related consulting and support services. Our Services include:
+        content: `${siteConfig.name} provides managed database services, cloud infrastructure solutions, AI/ML services, and related consulting and support services for small and mid-sized businesses. Our Services include:
 
-• **Managed Database Services:** Administration, monitoring, optimization, and support for database systems
-• **Cloud Infrastructure:** Multi-cloud solutions across AWS, Azure, and Google Cloud Platform
+• **Managed Database Services:** Administration, monitoring, optimization, and support for database systems including PostgreSQL, MySQL, Oracle Database, SQL Server
+• **Cloud Infrastructure:** Multi-cloud solutions across AWS, Azure, Google Cloud Platform, and Oracle Cloud
 • **AI & Analytics:** Private AI agents, ML pipelines, and business intelligence solutions
 • **Migration Services:** Database and application migration to cloud environments
 • **Professional Services:** Consulting, training, and implementation support
@@ -194,10 +194,10 @@ Estos Términos constituyen un acuerdo legalmente vinculante entre usted y ${sit
       },
       {
         title: "2. Descripción de Servicios",
-        content: `${siteConfig.name} proporciona servicios de bases de datos administradas de nivel empresarial, soluciones de infraestructura en la nube, servicios de IA/ML, y servicios relacionados de consultoría y soporte. Nuestros Servicios incluyen:
+        content: `${siteConfig.name} proporciona servicios de bases de datos administradas, soluciones de infraestructura en la nube, servicios de IA/ML, y servicios relacionados de consultoría y soporte para pequeñas y medianas empresas. Nuestros Servicios incluyen:
 
-• **Servicios de Bases de Datos Administradas:** Administración, monitoreo, optimización y soporte para sistemas de bases de datos
-• **Infraestructura Cloud:** Soluciones multi-nube en AWS, Azure y Google Cloud Platform
+• **Servicios de Bases de Datos Administradas:** Administración, monitoreo, optimización y soporte para sistemas de bases de datos incluyendo PostgreSQL, MySQL, Oracle Database, SQL Server
+• **Infraestructura Cloud:** Soluciones multi-nube en AWS, Azure, Google Cloud Platform y Oracle Cloud
 • **IA y Analítica:** Agentes de IA privados, pipelines de ML y soluciones de inteligencia de negocios
 • **Servicios de Migración:** Migración de bases de datos y aplicaciones a entornos en la nube
 • **Servicios Profesionales:** Consultoría, capacitación y soporte de implementación
