@@ -108,12 +108,44 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* Industries We Support - Simple Text Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mt-16 text-center"
+          >
+            <h3 className="font-display text-lg font-semibold text-muted-foreground mb-4">
+              {lang === 'es' ? 'Industrias que apoyamos frecuentemente' : 'Industries we commonly support'}
+            </h3>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              <Link 
+                to={getLocalizedPath('/industries/retail')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                {lang === 'es' ? 'Retail SMB' : 'Retail SMB'}
+              </Link>
+              <Link 
+                to={getLocalizedPath('/industries/healthcare')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                {lang === 'es' ? 'Healthcare SMB' : 'Healthcare SMB'}
+              </Link>
+              <Link 
+                to={getLocalizedPath('/industries/saas')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                {lang === 'es' ? 'SaaS SMB' : 'SaaS SMB'}
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 text-center"
           >
             <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link to={getLocalizedPath('/contact')}>

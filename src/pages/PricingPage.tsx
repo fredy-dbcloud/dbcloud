@@ -375,6 +375,39 @@ export default function PricingPage() {
       {/* ROI Calculator */}
       <ROICalculator />
 
+      {/* Industry Links - Post-Decision Support */}
+      <section className="py-12 bg-muted/30">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-muted-foreground mb-4">
+              {lang === 'es' 
+                ? 'Vea cómo empresas como la suya usan DBCloud' 
+                : 'See how businesses like yours use DBCloud'}
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              <Link 
+                to={getLocalizedPath('/industries/retail')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                Retail SMB
+              </Link>
+              <Link 
+                to={getLocalizedPath('/industries/healthcare')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                Healthcare SMB
+              </Link>
+              <Link 
+                to={getLocalizedPath('/industries/saas')} 
+                className="text-foreground hover:text-accent transition-colors"
+              >
+                SaaS SMB
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Qualification Modal (Starter only) */}
       <QualificationModal
         isOpen={qualificationModal.isOpen}
