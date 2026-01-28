@@ -17,6 +17,7 @@ const contactSchema = z.object({
   company: z.string().max(200).optional(),
   interest: z.string(),
   message: z.string().min(10).max(2000),
+  website: z.string().max(0).optional(), // Honeypot field - should be empty
 });
 
 export function ContactForm() {
@@ -30,10 +31,18 @@ export function ContactForm() {
     company: '',
     interest: '',
     message: '',
+    website: '', // Honeypot field - bots will fill this
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Honeypot check - if filled, silently reject (bots fill hidden fields)
+    if (formData.website) {
+      // Simulate success to not alert bots
+      setIsSuccess(true);
+      return;
+    }
     
     const validation = contactSchema.safeParse(formData);
     if (!validation.success) {
@@ -152,6 +161,20 @@ export function ContactForm() {
           required
           rows={5}
           className="resize-none"
+        />
+      </div>
+
+      {/* Honeypot field - hidden from humans, visible to bots */}
+      <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          value={formData.website}
+          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 

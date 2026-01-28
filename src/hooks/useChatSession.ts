@@ -22,7 +22,13 @@ export function useChatSession() {
   useEffect(() => {
     let stored = localStorage.getItem('dbcloud_chat_session');
     if (!stored) {
-      stored = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+      // Generate cryptographically secure session ID with better entropy
+      const randomBytes = new Uint8Array(16);
+      crypto.getRandomValues(randomBytes);
+      const secureId = Array.from(randomBytes)
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+      stored = `session_${Date.now()}_${secureId}`;
       localStorage.setItem('dbcloud_chat_session', stored);
     }
     setSessionId(stored);

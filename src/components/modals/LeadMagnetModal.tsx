@@ -16,11 +16,19 @@ export function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProps) {
   const { lang, t } = useLang();
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
+  const [website, setWebsite] = useState(''); // Honeypot field
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    
+    // Honeypot check - if filled, silently reject (bots fill hidden fields)
+    if (website) {
+      toast.success(t.leadMagnet.success);
+      onClose();
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -108,6 +116,17 @@ export function LeadMagnetModal({ isOpen, onClose }: LeadMagnetModalProps) {
                 placeholder={t.leadMagnet.company}
                 className="h-12"
               />
+              {/* Honeypot field - hidden from humans, visible to bots */}
+              <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
+                <Input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  placeholder="Website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
