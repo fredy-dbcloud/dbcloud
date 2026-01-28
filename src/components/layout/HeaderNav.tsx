@@ -17,7 +17,6 @@ export function HeaderNav() {
     { href: getLocalizedPath('/services'), label: t.nav.services },
     { href: getLocalizedPath('/ai'), label: t.nav.ai },
     { href: getLocalizedPath('/pricing'), label: t.nav.pricing },
-    { href: getLocalizedPath('/demo/growth'), label: lang === 'es' ? 'Ver Demo' : 'View Demo' },
     { href: getLocalizedPath('/faq'), label: t.nav.faq },
     { href: getLocalizedPath('/contact'), label: t.nav.contact },
   ];
