@@ -141,13 +141,13 @@ export default function IndustryRetailPage() {
             className="max-w-3xl mx-auto text-center text-white"
           >
             <div className="inline-flex items-center gap-2 mb-4">
-              <ShoppingCart className="h-6 w-6" />
-              <span className="text-sm font-medium uppercase tracking-wide text-white/80">Retail</span>
+              <ShoppingCart className="h-6 w-6 text-white" />
+              <span className="text-sm font-medium uppercase tracking-wide text-white/90">Retail</span>
             </div>
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               {data.hero.title}
             </h1>
-            <p className="text-lg text-white/80 mb-8">
+            <p className="text-lg text-white/85 mb-8">
               {data.hero.subtitle}
             </p>
             <Button

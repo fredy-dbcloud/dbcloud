@@ -64,7 +64,7 @@ export default function ServicesPage() {
             <h1 className="font-display text-4xl sm:text-5xl font-bold mb-6">
               {t.services.title}
             </h1>
-            <p className="text-lg text-white/80">
+            <p className="text-lg text-white/85">
               {t.services.subtitle}
             </p>
           </motion.div>
