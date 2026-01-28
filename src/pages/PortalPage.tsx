@@ -11,6 +11,7 @@ import {
   LogOut,
   User
 } from 'lucide-react';
+import logoVerticalDark from '@/assets/logos/logo-dbcloud-vertical-dark.png';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -287,9 +288,16 @@ export default function PortalPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
           >
-            <div>
-              <h1 className="font-display text-3xl font-bold mb-2">{dashboard.title}</h1>
-              <p className="text-muted-foreground">{dashboard.subtitle}</p>
+            <div className="flex items-center gap-4">
+              <img 
+                src={logoVerticalDark} 
+                alt="DBCloud"
+                className="h-14 w-auto hidden sm:block"
+              />
+              <div>
+                <h1 className="font-display text-3xl font-bold mb-2">{dashboard.title}</h1>
+                <p className="text-muted-foreground">{dashboard.subtitle}</p>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="text-sm text-muted-foreground flex items-center gap-2">

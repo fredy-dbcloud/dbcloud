@@ -4,6 +4,7 @@ import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 import { BillingPortalButton } from '@/components/billing/BillingPortalButton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import logoHorizontalLight from '@/assets/logos/logo-dbcloud-horizontal-light.png';
 
 export function Footer() {
   const { lang, t, getLocalizedPath } = useLang();
@@ -36,11 +37,12 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to={getLocalizedPath('/')} className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
-                <span className="font-display text-lg font-bold text-accent-foreground">DB</span>
-              </div>
-              <span className="font-display text-xl font-bold">{siteConfig.name}</span>
+            <Link to={getLocalizedPath('/')} className="inline-block mb-4">
+              <img 
+                src={logoHorizontalLight} 
+                alt={`${siteConfig.name} - Faster Higher Stronger`}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-primary-foreground/70 text-sm mb-6">
               {siteConfig.meta[lang].description.slice(0, 120)}...

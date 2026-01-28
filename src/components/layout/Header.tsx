@@ -7,6 +7,7 @@ import { useLang } from '@/hooks/useLang';
 import { useAuth } from '@/hooks/useAuth';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+import logoHorizontalDark from '@/assets/logos/logo-dbcloud-horizontal-dark.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -95,11 +96,12 @@ export function Header() {
       
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to={getLocalizedPath('/')} className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="font-display text-lg font-bold text-primary-foreground">DB</span>
-          </div>
-          <span className="font-display text-xl font-bold text-foreground">{siteConfig.name}</span>
+        <Link to={getLocalizedPath('/')} className="flex items-center">
+          <img 
+            src={logoHorizontalDark} 
+            alt={`${siteConfig.name} - Faster Higher Stronger`}
+            className="h-10 w-auto"
+          />
         </Link>
 
         {/* Desktop Navigation */}
