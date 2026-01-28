@@ -27,6 +27,9 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import PortalPage from "./pages/PortalPage";
 import PortalRequestsPage from "./pages/PortalRequestsPage";
 import PortalSummaryPage from "./pages/PortalSummaryPage";
+import IndustryRetailPage from "./pages/IndustryRetailPage";
+import IndustryHealthcarePage from "./pages/IndustryHealthcarePage";
+import IndustrySaaSPage from "./pages/IndustrySaaSPage";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AdminRoute } from "./components/auth/AdminRoute";
 import NotFound from "./pages/NotFound";
@@ -66,6 +69,10 @@ const App = () => (
           <Route path="/en/portal" element={<ProtectedRoute><PortalPage /></ProtectedRoute>} />
           <Route path="/en/portal/requests" element={<ProtectedRoute><PortalRequestsPage /></ProtectedRoute>} />
           <Route path="/en/portal/summary" element={<ProtectedRoute><PortalSummaryPage /></ProtectedRoute>} />
+          {/* Industry Landing Pages - English */}
+          <Route path="/en/industries/retail" element={<IndustryRetailPage />} />
+          <Route path="/en/industries/healthcare" element={<IndustryHealthcarePage />} />
+          <Route path="/en/industries/saas" element={<IndustrySaaSPage />} />
           
           {/* Spanish Routes */}
           <Route path="/es" element={<HomePage />} />
@@ -90,6 +97,10 @@ const App = () => (
           <Route path="/es/portal" element={<ProtectedRoute><PortalPage /></ProtectedRoute>} />
           <Route path="/es/portal/requests" element={<ProtectedRoute><PortalRequestsPage /></ProtectedRoute>} />
           <Route path="/es/portal/summary" element={<ProtectedRoute><PortalSummaryPage /></ProtectedRoute>} />
+          {/* Industry Landing Pages - Spanish */}
+          <Route path="/es/industries/retail" element={<IndustryRetailPage />} />
+          <Route path="/es/industries/healthcare" element={<IndustryHealthcarePage />} />
+          <Route path="/es/industries/saas" element={<IndustrySaaSPage />} />
           
           {/* Language-agnostic routes - redirect to English portal equivalents */}
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
