@@ -15,6 +15,7 @@ import ContactPage from "./pages/ContactPage";
 import SchedulePage from "./pages/SchedulePage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
+import CookiePolicyPage from "./pages/CookiePolicyPage";
 import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
@@ -59,6 +60,7 @@ const App = () => (
           <Route path="/en/schedule" element={<SchedulePage />} />
           <Route path="/en/privacy" element={<PrivacyPage />} />
           <Route path="/en/terms" element={<TermsPage />} />
+          <Route path="/en/cookies" element={<CookiePolicyPage />} />
           <Route path="/en/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/en/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/en/addon-success" element={<AddonSuccessPage />} />
@@ -87,6 +89,7 @@ const App = () => (
           <Route path="/es/schedule" element={<SchedulePage />} />
           <Route path="/es/privacy" element={<PrivacyPage />} />
           <Route path="/es/terms" element={<TermsPage />} />
+          <Route path="/es/cookies" element={<CookiePolicyPage />} />
           <Route path="/es/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/es/onboarding/:plan" element={<OnboardingPage />} />
           <Route path="/es/addon-success" element={<AddonSuccessPage />} />
