@@ -153,10 +153,11 @@ function getServiceSchemas(lang: 'en' | 'es') {
       "offers": {
         "@type": "Offer",
         "priceSpecification": {
-          "@type": "PriceSpecification",
+          "@type": "UnitPriceSpecification",
           "price": "499",
           "priceCurrency": "USD",
-          "unitText": "per month"
+          "billingDuration": 1,
+          "billingDurationUnit": "MON"
         }
       },
       "availableChannel": {
