@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -13,36 +13,90 @@ import { useLang } from '@/hooks/useLang';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
-const contactSchema = z.object({
-  name: z.string()
-    .min(2, { message: 'Name must be at least 2 characters' })
-    .max(100, { message: 'Name must be less than 100 characters' }),
-  email: z.string()
-    .email({ message: 'Please enter a valid email address' })
-    .max(255, { message: 'Email must be less than 255 characters' }),
-  phone: z.string()
-    .max(50, { message: 'Phone must be less than 50 characters' })
-    .optional()
-    .or(z.literal('')),
-  company: z.string()
-    .max(200, { message: 'Company must be less than 200 characters' })
-    .optional()
-    .or(z.literal('')),
-  interest: z.string()
-    .min(1, { message: 'Please select an area of interest' }),
-  message: z.string()
-    .min(10, { message: 'Message must be at least 10 characters' })
-    .max(2000, { message: 'Message must be less than 2000 characters' }),
-  website: z.string().max(0).optional(), // Honeypot field - should be empty
-});
+// Language-aware validation messages
+const getContactSchema = (lang: 'en' | 'es') => {
+  const messages = {
+    en: {
+      nameMin: 'Name must be at least 2 characters',
+      nameMax: 'Name must be less than 100 characters',
+      emailInvalid: 'Please enter a valid email address',
+      emailMax: 'Email must be less than 255 characters',
+      phoneMax: 'Phone must be less than 50 characters',
+      companyMax: 'Company must be less than 200 characters',
+      interestRequired: 'Please select an area of interest',
+      messageMin: 'Message must be at least 10 characters',
+      messageMax: 'Message must be less than 2000 characters',
+    },
+    es: {
+      nameMin: 'El nombre debe tener al menos 2 caracteres',
+      nameMax: 'El nombre debe tener menos de 100 caracteres',
+      emailInvalid: 'Por favor ingresa un correo electrónico válido',
+      emailMax: 'El correo debe tener menos de 255 caracteres',
+      phoneMax: 'El teléfono debe tener menos de 50 caracteres',
+      companyMax: 'La empresa debe tener menos de 200 caracteres',
+      interestRequired: 'Por favor selecciona un área de interés',
+      messageMin: 'El mensaje debe tener al menos 10 caracteres',
+      messageMax: 'El mensaje debe tener menos de 2000 caracteres',
+    },
+  };
 
-type ContactFormData = z.infer<typeof contactSchema>;
+  const m = messages[lang];
+
+  return z.object({
+    name: z.string()
+      .min(2, { message: m.nameMin })
+      .max(100, { message: m.nameMax }),
+    email: z.string()
+      .email({ message: m.emailInvalid })
+      .max(255, { message: m.emailMax }),
+    phone: z.string()
+      .max(50, { message: m.phoneMax })
+      .optional()
+      .or(z.literal('')),
+    company: z.string()
+      .max(200, { message: m.companyMax })
+      .optional()
+      .or(z.literal('')),
+    interest: z.string()
+      .min(1, { message: m.interestRequired }),
+    message: z.string()
+      .min(10, { message: m.messageMin })
+      .max(2000, { message: m.messageMax }),
+    website: z.string().max(0).optional(), // Honeypot field - should be empty
+  });
+};
+
+type ContactFormData = z.infer<ReturnType<typeof getContactSchema>>;
+
+// Placeholders by language
+const placeholders = {
+  en: {
+    name: 'Your full name',
+    email: 'you@email.com',
+    phone: '+1 (555) 123-4567',
+    company: 'Your company name',
+    interest: 'Select an option',
+    message: 'Tell us about your project or needs...',
+  },
+  es: {
+    name: 'Tu nombre completo',
+    email: 'tu@correo.com',
+    phone: '+1 (555) 123-4567',
+    company: 'Nombre de tu empresa',
+    interest: 'Selecciona una opción',
+    message: 'Cuéntanos brevemente tu necesidad...',
+  },
+};
 
 export function ContactForm() {
   const { lang, t } = useLang();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [honeypot, setHoneypot] = useState('');
+
+  // Memoize schema based on language
+  const contactSchema = useMemo(() => getContactSchema(lang), [lang]);
+  const ph = placeholders[lang];
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -132,7 +186,7 @@ export function ContactForm() {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder={lang === 'es' ? 'Tu nombre completo' : 'Your full name'}
+                    placeholder={ph.name}
                     className="h-12"
                     disabled={isSubmitting}
                   />
@@ -151,7 +205,7 @@ export function ContactForm() {
                   <Input
                     {...field}
                     type="email"
-                    placeholder={lang === 'es' ? 'tu@email.com' : 'you@email.com'}
+                    placeholder={ph.email}
                     className="h-12"
                     disabled={isSubmitting}
                   />
@@ -173,7 +227,7 @@ export function ContactForm() {
                   <Input
                     {...field}
                     type="tel"
-                    placeholder={lang === 'es' ? '+1 (555) 123-4567' : '+1 (555) 123-4567'}
+                    placeholder={ph.phone}
                     className="h-12"
                     disabled={isSubmitting}
                   />
@@ -191,7 +245,7 @@ export function ContactForm() {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder={lang === 'es' ? 'Nombre de tu empresa' : 'Your company name'}
+                    placeholder={ph.company}
                     className="h-12"
                     disabled={isSubmitting}
                   />
@@ -215,7 +269,7 @@ export function ContactForm() {
               >
                 <FormControl>
                   <SelectTrigger className="h-12">
-                    <SelectValue placeholder={lang === 'es' ? 'Selecciona una opción' : 'Select an option'} />
+                    <SelectValue placeholder={ph.interest} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -240,9 +294,7 @@ export function ContactForm() {
               <FormControl>
                 <Textarea
                   {...field}
-                  placeholder={lang === 'es' 
-                    ? 'Cuéntanos sobre tu proyecto o necesidades...'
-                    : 'Tell us about your project or needs...'}
+                  placeholder={ph.message}
                   rows={5}
                   className="resize-none"
                   disabled={isSubmitting}
