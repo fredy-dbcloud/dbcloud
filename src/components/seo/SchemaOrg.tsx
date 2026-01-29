@@ -156,8 +156,11 @@ function getServiceSchemas(lang: 'en' | 'es') {
           "@type": "UnitPriceSpecification",
           "price": "499",
           "priceCurrency": "USD",
-          "billingDuration": 1,
-          "billingDurationUnit": "MON"
+          "referenceQuantity": {
+            "@type": "QuantitativeValue",
+            "value": 1,
+            "unitCode": "MON"
+          }
         }
       },
       "availableChannel": {
