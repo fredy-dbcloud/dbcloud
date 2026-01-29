@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.internal-dashboard-data]
 verify_jwt = false
+
+[functions.process-contact-lead]
+verify_jwt = false
