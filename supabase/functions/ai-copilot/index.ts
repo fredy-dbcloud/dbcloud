@@ -6,6 +6,29 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Create anonymized identifier from email (consistent hash for same email)
+function anonymizeEmail(email: string): string {
+  // Create a simple hash-like identifier that's consistent but not reversible
+  let hash = 0;
+  for (let i = 0; i < email.length; i++) {
+    const char = email.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  const positiveHash = Math.abs(hash);
+  return `Client_${positiveHash.toString(36).toUpperCase().slice(0, 6)}`;
+}
+
+// Build email-to-alias mapping for internal reference (stays in this function only)
+function buildAliasMap(emails: string[]): Map<string, string> {
+  const uniqueEmails = [...new Set(emails)];
+  const aliasMap = new Map<string, string>();
+  uniqueEmails.forEach((email) => {
+    aliasMap.set(email, anonymizeEmail(email));
+  });
+  return aliasMap;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -94,15 +117,57 @@ serve(async (req) => {
       .order("created_at", { ascending: false })
       .limit(20);
 
+    // Collect all emails and build alias map
+    const allEmails: string[] = [
+      ...(requests || []).map(r => r.email),
+      ...(healthPredictions || []).map(h => h.email),
+      ...(summaries || []).map(s => s.email),
+    ];
+    const aliasMap = buildAliasMap(allEmails);
+
+    // Prepare anonymized data for AI - NO PII sent to external service
+    const anonymizedRequests = (requests || []).map(r => ({
+      client_id: aliasMap.get(r.email) || "Unknown",
+      plan: r.plan,
+      type: r.request_type,
+      priority: r.priority,
+      ai_classification: r.ai_classification,
+      ai_effort_level: r.ai_effort_level,
+      ai_estimated_hours: r.ai_estimated_hours,
+      ai_risk_flags: r.ai_risk_flags,
+      status: r.status,
+      days_ago: Math.floor((Date.now() - new Date(r.created_at).getTime()) / (1000 * 60 * 60 * 24)),
+    }));
+
+    const anonymizedHealth = (healthPredictions || []).map(h => ({
+      client_id: aliasMap.get(h.email) || "Unknown",
+      health_status: h.health_status,
+      churn_probability: h.churn_probability,
+      expansion_probability: h.expansion_probability,
+      margin_risk_score: h.margin_risk_score,
+    }));
+
+    const anonymizedSummaries = (summaries || []).map(s => ({
+      client_id: aliasMap.get(s.email) || "Unknown",
+      plan: s.plan,
+      month: s.month,
+      year: s.year,
+      hours_used: s.hours_used,
+      hours_included: s.hours_included,
+      health_status: s.health_status,
+    }));
+
     const contextData = {
-      requests: requests || [],
-      healthPredictions: healthPredictions || [],
-      summaries: summaries || [],
+      requests: anonymizedRequests,
+      healthPredictions: anonymizedHealth,
+      summaries: anonymizedSummaries,
     };
 
     const systemPrompt = `You are an internal AI operations copilot for a consulting SaaS business. Your role is to provide decision support for internal operations.
 
 IMPORTANT: This is INTERNAL use only. Be direct, analytical, and focused on actionable insights. No marketing language.
+
+NOTE: Client data is anonymized using consistent identifiers (e.g., Client_ABC123). The same client will have the same identifier across all data sets.
 
 Current data context (as of now):
 - ${contextData.requests.length} recent client requests
@@ -126,47 +191,22 @@ Health Statuses:
 - expansion_ready: Upgrade opportunity
 - margin_risk: Unprofitable engagement
 
-Provide analysis based on the data. Be specific with client emails and actionable recommendations.`;
+Provide analysis based on the data. Reference clients by their anonymized ID (e.g., Client_ABC123) and provide actionable recommendations.`;
 
-    const userPrompt = `Current business data:
+    const userPrompt = `Current business data (anonymized):
 
-REQUESTS (recent 50):
-${JSON.stringify(contextData.requests.map(r => ({
-  email: r.email,
-  plan: r.plan,
-  type: r.request_type,
-  priority: r.priority,
-  ai_classification: r.ai_classification,
-  ai_effort_level: r.ai_effort_level,
-  ai_estimated_hours: r.ai_estimated_hours,
-  ai_risk_flags: r.ai_risk_flags,
-  status: r.status,
-  created_at: r.created_at,
-})), null, 2)}
+REQUESTS (recent ${contextData.requests.length}):
+${JSON.stringify(contextData.requests, null, 2)}
 
 HEALTH PREDICTIONS:
-${JSON.stringify(contextData.healthPredictions.map(h => ({
-  email: h.email,
-  health_status: h.health_status,
-  churn_probability: h.churn_probability,
-  expansion_probability: h.expansion_probability,
-  margin_risk_score: h.margin_risk_score,
-})), null, 2)}
+${JSON.stringify(contextData.healthPredictions, null, 2)}
 
 MONTHLY SUMMARIES:
-${JSON.stringify(contextData.summaries.map(s => ({
-  email: s.email,
-  plan: s.plan,
-  month: s.month,
-  year: s.year,
-  hours_used: s.hours_used,
-  hours_included: s.hours_included,
-  health_status: s.health_status,
-})), null, 2)}
+${JSON.stringify(contextData.summaries, null, 2)}
 
 USER QUERY: ${query}
 
-Provide a direct, analytical response focused on decision support.`;
+Provide a direct, analytical response focused on decision support. Reference clients by their anonymized ID.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -200,9 +240,15 @@ Provide a direct, analytical response focused on decision support.`;
     }
 
     const aiResponse = await response.json();
-    const answer = aiResponse.choices?.[0]?.message?.content || "No response generated";
+    let answer = aiResponse.choices?.[0]?.message?.content || "No response generated";
 
-    // Log the conversation
+    // Replace anonymized IDs with real emails in the response for admin display
+    // This keeps PII local and never sent to external AI
+    aliasMap.forEach((alias, email) => {
+      answer = answer.replaceAll(alias, email);
+    });
+
+    // Log the conversation (with real data since it stays in our DB)
     await supabase
       .from("ai_copilot_logs")
       .insert({
