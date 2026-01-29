@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useLang } from '@/hooks/useLang';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -68,23 +68,25 @@ const getContactSchema = (lang: 'en' | 'es') => {
 
 type ContactFormData = z.infer<ReturnType<typeof getContactSchema>>;
 
-// Placeholders by language
+// Placeholders and helper text by language
 const placeholders = {
   en: {
-    name: 'Your full name',
-    email: 'you@email.com',
-    phone: '+1 (555) 123-4567',
-    company: 'Your company name',
+    name: 'John Doe',
+    email: 'john.doe@company.com',
+    phone: '+1 929 733 8260',
+    company: 'Acme Inc.',
     interest: 'Select an option',
-    message: 'Tell us about your project or needs...',
+    message: 'Briefly describe your needs (e.g. migrate Oracle to cloud)',
+    phoneHelper: 'Include country code if possible',
   },
   es: {
-    name: 'Tu nombre completo',
-    email: 'tu@correo.com',
-    phone: '+1 (555) 123-4567',
-    company: 'Nombre de tu empresa',
+    name: 'Juan Pérez',
+    email: 'juan.perez@empresa.com',
+    phone: '+1 929 733 8260',
+    company: 'Empresa S.A.',
     interest: 'Selecciona una opción',
-    message: 'Cuéntanos brevemente tu necesidad...',
+    message: 'Describe brevemente tu necesidad (ej. migrar Oracle a la nube)',
+    phoneHelper: 'Incluye el código del país si es posible',
   },
 };
 
@@ -232,6 +234,9 @@ export function ContactForm() {
                     disabled={isSubmitting}
                   />
                 </FormControl>
+                <FormDescription className="text-xs text-muted-foreground">
+                  {ph.phoneHelper}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
