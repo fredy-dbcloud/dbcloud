@@ -39,7 +39,7 @@ export function CheckoutModal({ isOpen, onClose, tier, tierName, price, isYearly
       }
     }
 
-    await createCheckout({ tier, isYearly, email });
+    await createCheckout({ tier, isYearly });
   };
 
   const labels = {

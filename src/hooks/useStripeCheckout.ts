@@ -6,13 +6,12 @@ import { toast } from 'sonner';
 interface CheckoutOptions {
   tier: TierKey;
   isYearly: boolean;
-  email: string;
 }
 
 export function useStripeCheckout() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const createCheckout = async ({ tier, isYearly, email }: CheckoutOptions) => {
+  const createCheckout = async ({ tier, isYearly }: CheckoutOptions) => {
     if (tier === 'enterprise') {
       // Redirect to contact page for enterprise
       window.location.href = '/contact';
@@ -30,8 +29,10 @@ export function useStripeCheckout() {
     setIsLoading(true);
 
     try {
+      // Auth token is automatically included by Supabase client
+      // Email is derived from authenticated user on server side
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { priceId, email, isYearly },
+        body: { priceId, isYearly },
       });
 
       if (error) throw error;

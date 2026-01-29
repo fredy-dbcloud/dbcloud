@@ -93,7 +93,6 @@ export function UpgradeRecommendation({
     await createCheckout({
       tier: 'growth',
       isYearly: false, // Default to monthly, could be enhanced to detect current billing
-      email
     });
     setShowConfirmModal(false);
   };
