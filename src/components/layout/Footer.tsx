@@ -262,6 +262,9 @@ export function Footer() {
             <Link to={getLocalizedPath('/terms')} className="text-primary-foreground/60 hover:text-accent transition-colors">
               {t.footer.terms}
             </Link>
+            <Link to={getLocalizedPath('/cookies')} className="text-primary-foreground/60 hover:text-accent transition-colors">
+              {lang === 'en' ? 'Cookie Policy' : 'Política de Cookies'}
+            </Link>
           </div>
         </div>
       </div>
