@@ -171,30 +171,142 @@ const handler = async (req: Request): Promise<Response> => {
       notificationSuccess = false;
     }
 
-    // Send user confirmation email (language-aware)
+    // Send user confirmation email (language-aware, professionally styled)
     try {
       const isSpanish = lang === "es";
+      const emailHtml = isSpanish
+        ? `
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5; line-height: 1.6;">
+            <table role="presentation" style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 40px 20px;">
+                  <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                      <td style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); padding: 32px 40px; text-align: center;">
+                        <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">DBCloud</h1>
+                        <p style="margin: 8px 0 0; color: #94a3b8; font-size: 14px;">Cloud & Database Experts</p>
+                      </td>
+                    </tr>
+                    <!-- Content -->
+                    <tr>
+                      <td style="padding: 40px;">
+                        <h2 style="margin: 0 0 24px; color: #1e3a5f; font-size: 24px; font-weight: 600;">Hola ${safeName},</h2>
+                        <p style="margin: 0 0 16px; color: #374151; font-size: 16px;">Gracias por contactar a DBCloud. Hemos recibido tu mensaje y queremos confirmarte que está en buenas manos.</p>
+                        
+                        <!-- What happens next -->
+                        <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 20px; margin: 24px 0; border-radius: 0 8px 8px 0;">
+                          <h3 style="margin: 0 0 12px; color: #0369a1; font-size: 16px; font-weight: 600;">📋 ¿Qué sigue?</h3>
+                          <ul style="margin: 0; padding-left: 20px; color: #374151; font-size: 15px;">
+                            <li style="margin-bottom: 8px;">Nuestro equipo revisará tu solicitud <strong>dentro de las próximas 24-48 horas hábiles</strong></li>
+                            <li style="margin-bottom: 8px;">Te contactaremos al correo que proporcionaste</li>
+                            <li>Si es urgente, puedes agendar una llamada directamente</li>
+                          </ul>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div style="text-align: center; margin: 32px 0;">
+                          <a href="https://dbcloud.us/es/schedule" style="display: inline-block; background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);">Agendar una Llamada</a>
+                        </div>
+
+                        <p style="margin: 24px 0 0; color: #6b7280; font-size: 15px;">Mientras tanto, puedes explorar nuestros servicios en <a href="https://dbcloud.us/es" style="color: #0ea5e9; text-decoration: none; font-weight: 500;">dbcloud.us</a></p>
+                      </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                      <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0;">
+                        <p style="margin: 0 0 8px; color: #1e3a5f; font-size: 14px; font-weight: 600;">El equipo de DBCloud</p>
+                        <p style="margin: 0; color: #64748b; font-size: 13px;">Cloud Infrastructure • Managed Databases • AI Solutions</p>
+                        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;" />
+                        <p style="margin: 0; color: #94a3b8; font-size: 12px; text-align: center;">
+                          Este email fue enviado porque solicitaste información a través de nuestro formulario de contacto.
+                          <br />© ${new Date().getFullYear()} DBCloud. Todos los derechos reservados.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </body>
+          </html>
+        `
+        : `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5; line-height: 1.6;">
+            <table role="presentation" style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 40px 20px;">
+                  <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                      <td style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); padding: 32px 40px; text-align: center;">
+                        <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">DBCloud</h1>
+                        <p style="margin: 8px 0 0; color: #94a3b8; font-size: 14px;">Cloud & Database Experts</p>
+                      </td>
+                    </tr>
+                    <!-- Content -->
+                    <tr>
+                      <td style="padding: 40px;">
+                        <h2 style="margin: 0 0 24px; color: #1e3a5f; font-size: 24px; font-weight: 600;">Hi ${safeName},</h2>
+                        <p style="margin: 0 0 16px; color: #374151; font-size: 16px;">Thank you for reaching out to DBCloud. We've received your message and want to confirm it's in good hands.</p>
+                        
+                        <!-- What happens next -->
+                        <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 20px; margin: 24px 0; border-radius: 0 8px 8px 0;">
+                          <h3 style="margin: 0 0 12px; color: #0369a1; font-size: 16px; font-weight: 600;">📋 What happens next?</h3>
+                          <ul style="margin: 0; padding-left: 20px; color: #374151; font-size: 15px;">
+                            <li style="margin-bottom: 8px;">Our team will review your request <strong>within 24-48 business hours</strong></li>
+                            <li style="margin-bottom: 8px;">We'll contact you at the email you provided</li>
+                            <li>If it's urgent, you can schedule a call directly</li>
+                          </ul>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div style="text-align: center; margin: 32px 0;">
+                          <a href="https://dbcloud.us/en/schedule" style="display: inline-block; background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);">Schedule a Call</a>
+                        </div>
+
+                        <p style="margin: 24px 0 0; color: #6b7280; font-size: 15px;">In the meantime, feel free to explore our services at <a href="https://dbcloud.us/en" style="color: #0ea5e9; text-decoration: none; font-weight: 500;">dbcloud.us</a></p>
+                      </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                      <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0;">
+                        <p style="margin: 0 0 8px; color: #1e3a5f; font-size: 14px; font-weight: 600;">The DBCloud Team</p>
+                        <p style="margin: 0; color: #64748b; font-size: 13px;">Cloud Infrastructure • Managed Databases • AI Solutions</p>
+                        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;" />
+                        <p style="margin: 0; color: #94a3b8; font-size: 12px; text-align: center;">
+                          This email was sent because you submitted a request through our contact form.
+                          <br />© ${new Date().getFullYear()} DBCloud. All rights reserved.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </body>
+          </html>
+        `;
+
       await sendEmail(RESEND_API_KEY, {
         from: "DBCloud <support@dbcloud.us>",
         to: [email],
         subject: isSpanish
           ? "Hemos recibido tu solicitud – DBCloud"
           : "We received your request – DBCloud",
-        html: isSpanish
-          ? `
-            <h2>Hola ${safeName},</h2>
-            <p>Gracias por contactar a DBCloud.</p>
-            <p>Hemos recibido tu mensaje y nuestro equipo se comunicará contigo pronto.</p>
-            <br />
-            <p>Saludos,<br />El equipo de DBCloud</p>
-          `
-          : `
-            <h2>Hi ${safeName},</h2>
-            <p>Thanks for contacting DBCloud.</p>
-            <p>We've received your message and our team will get back to you shortly.</p>
-            <br />
-            <p>Best regards,<br />The DBCloud Team</p>
-          `,
+        html: emailHtml,
       });
       console.log("User confirmation email sent");
     } catch (emailError) {
