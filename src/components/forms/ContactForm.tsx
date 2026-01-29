@@ -1,73 +1,99 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle } from 'lucide-react';
+import { Send, CheckCircle, Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useLang } from '@/hooks/useLang';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 const contactSchema = z.object({
-  name: z.string().min(2).max(100),
-  email: z.string().email().max(255),
-  phone: z.string().max(50).optional(),
-  company: z.string().max(200).optional(),
-  interest: z.string(),
-  message: z.string().min(10).max(2000),
+  name: z.string()
+    .min(2, { message: 'Name must be at least 2 characters' })
+    .max(100, { message: 'Name must be less than 100 characters' }),
+  email: z.string()
+    .email({ message: 'Please enter a valid email address' })
+    .max(255, { message: 'Email must be less than 255 characters' }),
+  phone: z.string()
+    .max(50, { message: 'Phone must be less than 50 characters' })
+    .optional()
+    .or(z.literal('')),
+  company: z.string()
+    .max(200, { message: 'Company must be less than 200 characters' })
+    .optional()
+    .or(z.literal('')),
+  interest: z.string()
+    .min(1, { message: 'Please select an area of interest' }),
+  message: z.string()
+    .min(10, { message: 'Message must be at least 10 characters' })
+    .max(2000, { message: 'Message must be less than 2000 characters' }),
   website: z.string().max(0).optional(), // Honeypot field - should be empty
 });
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
   const { lang, t } = useLang();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    interest: '',
-    message: '',
-    website: '', // Honeypot field - bots will fill this
+  const [honeypot, setHoneypot] = useState('');
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      interest: '',
+      message: '',
+      website: '',
+    },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const onSubmit = async (data: ContactFormData) => {
     // Honeypot check - if filled, silently reject (bots fill hidden fields)
-    if (formData.website) {
-      // Simulate success to not alert bots
+    if (honeypot) {
       setIsSuccess(true);
-      return;
-    }
-    
-    const validation = contactSchema.safeParse(formData);
-    if (!validation.success) {
-      toast.error('Please fill in all required fields correctly.');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      await supabase.from('leads').insert([{
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || null,
-        company: formData.company || null,
-        interest: formData.interest,
-        message: formData.message,
-        source: 'contact_form',
-        lang,
-      }]);
-      
+      // Call the edge function for full pipeline processing
+      const { data: response, error } = await supabase.functions.invoke('process-contact-lead', {
+        body: {
+          name: data.name.trim(),
+          email: data.email.trim().toLowerCase(),
+          phone: data.phone?.trim() || undefined,
+          company: data.company?.trim() || undefined,
+          interest: data.interest,
+          message: data.message.trim(),
+          lang,
+        },
+      });
+
+      if (error) {
+        console.error('Error submitting contact form:', error);
+        toast.error(lang === 'es' 
+          ? 'Algo salió mal. Por favor, intenta de nuevo.' 
+          : 'Something went wrong. Please try again.');
+        return;
+      }
+
       setIsSuccess(true);
       toast.success(t.contact.success);
     } catch (error) {
       console.error('Failed to submit form:', error);
-      toast.error('Something went wrong. Please try again.');
+      toast.error(lang === 'es'
+        ? 'Algo salió mal. Por favor, intenta de nuevo.'
+        : 'Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -84,109 +110,182 @@ export function ContactForm() {
           <CheckCircle className="h-12 w-12 text-success" />
         </div>
         <h3 className="font-display text-2xl font-bold mb-2">{t.contact.success}</h3>
-        <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
+        <p className="text-muted-foreground">
+          {lang === 'es' 
+            ? 'Nos pondremos en contacto dentro de las próximas 24 horas.'
+            : "We'll get back to you within 24 hours."}
+        </p>
       </motion.div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">{t.contact.name} *</label>
-          <Input
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-            className="h-12"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.contact.name} *</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder={lang === 'es' ? 'Tu nombre completo' : 'Your full name'}
+                    className="h-12"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.contact.email} *</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder={lang === 'es' ? 'tu@email.com' : 'you@email.com'}
+                    className="h-12"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium">{t.contact.email} *</label>
-          <Input
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            required
-            className="h-12"
-          />
-        </div>
-      </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">{t.contact.phone}</label>
-          <Input
-            type="tel"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="h-12"
+        <div className="grid sm:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.contact.phone}</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="tel"
+                    placeholder={lang === 'es' ? '+1 (555) 123-4567' : '+1 (555) 123-4567'}
+                    className="h-12"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="company"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.contact.company}</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder={lang === 'es' ? 'Nombre de tu empresa' : 'Your company name'}
+                    className="h-12"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium">{t.contact.company}</label>
-          <Input
-            value={formData.company}
-            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            className="h-12"
-          />
-        </div>
-      </div>
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium">{t.contact.interest} *</label>
-        <Select
-          value={formData.interest}
-          onValueChange={(value) => setFormData({ ...formData, interest: value })}
-          required
+        <FormField
+          control={form.control}
+          name="interest"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t.contact.interest} *</FormLabel>
+              <Select 
+                onValueChange={field.onChange} 
+                value={field.value}
+                disabled={isSubmitting}
+              >
+                <FormControl>
+                  <SelectTrigger className="h-12">
+                    <SelectValue placeholder={lang === 'es' ? 'Selecciona una opción' : 'Select an option'} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="cloud">{t.contact.interests.cloud}</SelectItem>
+                  <SelectItem value="databases">{t.contact.interests.databases}</SelectItem>
+                  <SelectItem value="ai">{t.contact.interests.ai}</SelectItem>
+                  <SelectItem value="migration">{t.contact.interests.migration}</SelectItem>
+                  <SelectItem value="other">{t.contact.interests.other}</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t.contact.message} *</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder={lang === 'es' 
+                    ? 'Cuéntanos sobre tu proyecto o necesidades...'
+                    : 'Tell us about your project or needs...'}
+                  rows={5}
+                  className="resize-none"
+                  disabled={isSubmitting}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Honeypot field - hidden from humans, visible to bots */}
+        <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          size="lg"
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
         >
-          <SelectTrigger className="h-12">
-            <SelectValue placeholder="Select an option" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="cloud">{t.contact.interests.cloud}</SelectItem>
-            <SelectItem value="databases">{t.contact.interests.databases}</SelectItem>
-            <SelectItem value="ai">{t.contact.interests.ai}</SelectItem>
-            <SelectItem value="migration">{t.contact.interests.migration}</SelectItem>
-            <SelectItem value="other">{t.contact.interests.other}</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="space-y-2">
-        <label className="text-sm font-medium">{t.contact.message} *</label>
-        <Textarea
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          required
-          rows={5}
-          className="resize-none"
-        />
-      </div>
-
-      {/* Honeypot field - hidden from humans, visible to bots */}
-      <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
-        <label htmlFor="website">Website</label>
-        <input
-          type="text"
-          id="website"
-          name="website"
-          value={formData.website}
-          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </div>
-
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        size="lg"
-        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-      >
-        {isSubmitting ? 'Submitting...' : t.contact.submit}
-        <Send className="ml-2 h-5 w-5" />
-      </Button>
-    </form>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              {lang === 'es' ? 'Enviando...' : 'Submitting...'}
+            </>
+          ) : (
+            <>
+              {t.contact.submit}
+              <Send className="ml-2 h-5 w-5" />
+            </>
+          )}
+        </Button>
+      </form>
+    </Form>
   );
 }
