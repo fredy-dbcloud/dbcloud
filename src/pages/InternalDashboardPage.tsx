@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
   Shield,
   RefreshCw,
@@ -12,7 +21,12 @@ import {
   Bot,
   Clock,
   CheckCircle,
+  LogOut,
+  Home,
+  User,
+  ChevronDown,
 } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { AdminSummaryCards } from '@/components/admin/AdminSummaryCards';
@@ -93,6 +107,9 @@ export default function InternalDashboardPage() {
   const [healthPredictions, setHealthPredictions] = useState<HealthPrediction[]>([]);
   const [pendingRequests, setPendingRequests] = useState<any[]>([]);
 
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
   // Detect language from URL
   const pathname = window.location.pathname;
   const lang = pathname.startsWith('/es') ? 'es' : 'en';
@@ -118,6 +135,10 @@ export default function InternalDashboardPage() {
       classificationFailed: 'Classification failed',
       triageFailed: 'Failed to run AI triage',
       loadFailed: 'Failed to load dashboard data',
+      signOut: 'Sign Out',
+      goToSite: 'Go to Site',
+      myAccount: 'My Account',
+      admin: 'Administrator',
     },
     es: {
       title: 'Panel de Operaciones Admin',
@@ -139,6 +160,10 @@ export default function InternalDashboardPage() {
       classificationFailed: 'Falló la clasificación',
       triageFailed: 'Falló el triage de IA',
       loadFailed: 'Falló la carga de datos del panel',
+      signOut: 'Cerrar Sesión',
+      goToSite: 'Ir al Sitio',
+      myAccount: 'Mi Cuenta',
+      admin: 'Administrador',
     },
   };
 
@@ -243,21 +268,87 @@ export default function InternalDashboardPage() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate(lang === 'es' ? '/es' : '/');
+      toast.success(lang === 'es' ? 'Sesión cerrada' : 'Signed out successfully');
+    } catch (error) {
+      toast.error(lang === 'es' ? 'Error al cerrar sesión' : 'Failed to sign out');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="container py-4 flex items-center justify-between">
+          {/* Left: Logo and Title */}
           <div className="flex items-center gap-3">
-            <Shield className="h-6 w-6 text-primary" />
+            <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10">
+              <Shield className="h-5 w-5 text-primary" />
+            </div>
             <div>
               <h1 className="text-lg font-semibold">{t.title}</h1>
               <p className="text-xs text-muted-foreground">{t.subtitle}</p>
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={loadAllData} disabled={isLoading}>
-            <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
-            {t.refresh}
-          </Button>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-3">
+            {/* Go to Site */}
+            <Button variant="ghost" size="sm" asChild>
+              <Link to={lang === 'es' ? '/es' : '/'}>
+                <Home className="h-4 w-4 mr-2" />
+                {t.goToSite}
+              </Link>
+            </Button>
+
+            {/* Refresh */}
+            <Button variant="outline" size="sm" onClick={loadAllData} disabled={isLoading}>
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              {t.refresh}
+            </Button>
+
+            {/* User Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-primary/10">
+                    <User className="h-3.5 w-3.5 text-primary" />
+                  </div>
+                  <span className="hidden sm:inline max-w-[150px] truncate">
+                    {user?.email || t.admin}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium">{t.admin}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {user?.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to={lang === 'es' ? '/es' : '/'} className="cursor-pointer">
+                    <Home className="h-4 w-4 mr-2" />
+                    {t.goToSite}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={handleSignOut}
+                  className="cursor-pointer text-destructive focus:text-destructive"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  {t.signOut}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </header>
 
