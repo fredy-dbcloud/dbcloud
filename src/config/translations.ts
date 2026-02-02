@@ -18,9 +18,11 @@ export const translations = {
     // C: "Fractional cloud experts for growing US businesses."
     // Selection rationale: Option B provides clearest pain relief, immediate comprehension in <5 seconds
     hero: {
-      title: "Stop juggling cloud, databases, and IT. We handle it.",
-      subtitle: "Senior cloud engineers supporting your AWS, Azure, GCP, or Oracle infrastructure — plus databases and AI. Affordable monthly plans, no long-term contracts.",
-      cta: "Schedule a Free Call",
+      title: "Stop juggling cloud, databases, and IT.",
+      titleHighlight: "Get senior cloud engineers for less than one hire.",
+      subtitle: "Cut cloud costs, improve reliability, and stay compliant — without hiring an IT team.",
+      cta: "Free Cloud Check",
+      ctaTime: "2 min",
       ctaSecondary: "View Demo",
       benefits: [
         "Start in 48 hours",
@@ -450,9 +452,11 @@ export const translations = {
     },
     // Hero Section - SMB high-intent, pain-relief focused
     hero: {
-      title: "Deja de hacer malabares con cloud, bases de datos y TI. Nosotros lo manejamos.",
-      subtitle: "Ingenieros cloud senior para tu infraestructura AWS, Azure, GCP u Oracle — más bases de datos e IA. Planes mensuales accesibles, sin contratos largos.",
-      cta: "Agendar Llamada Gratis",
+      title: "Deja de hacer malabares con cloud, bases de datos y TI.",
+      titleHighlight: "Obtén ingenieros cloud senior por menos que una contratación.",
+      subtitle: "Reduce costos cloud, mejora la confiabilidad y mantén el cumplimiento — sin contratar un equipo de TI.",
+      cta: "Revisión Cloud Gratis",
+      ctaTime: "2 min",
       ctaSecondary: "Ver Demo",
       benefits: [
         "Inicia en 48 horas",
