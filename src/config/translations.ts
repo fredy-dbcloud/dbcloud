@@ -22,7 +22,7 @@ export const translations = {
       titleHighlight: "Get senior cloud engineers for less than one hire.",
       subtitle: "Cut cloud costs, improve reliability, and stay compliant — without hiring an IT team.",
       cta: "Free Cloud Check",
-      ctaTime: "2 min",
+      ctaTime: "1 min",
       ctaSecondary: "View Demo",
       benefits: [
         "Start in 48 hours",
@@ -456,7 +456,7 @@ export const translations = {
       titleHighlight: "Obtén ingenieros cloud senior por menos que una contratación.",
       subtitle: "Reduce costos cloud, mejora la confiabilidad y mantén el cumplimiento — sin contratar un equipo de TI.",
       cta: "Revisión Cloud Gratis",
-      ctaTime: "2 min",
+      ctaTime: "1 min",
       ctaSecondary: "Ver Demo",
       benefits: [
         "Inicia en 48 horas",
