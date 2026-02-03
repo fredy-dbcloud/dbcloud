@@ -147,11 +147,7 @@ export const translations = {
           "Email support (business hours)",
         ],
         limitations: [
-          "No 24/7 support",
-          "No on-call or incident response",
-          "No production ownership",
-          "No SLA guarantees",
-          "No direct changes without approval",
+          "Starter does not include production ownership, SLAs, 24/7 support, or on-call incident response.",
         ],
         includedWork: [
           "Architecture review & recommendations",
@@ -194,10 +190,10 @@ export const translations = {
           "No guarantee of uptime or recovery times",
         ],
         limitations: [
-          "No 24/7 on-call support",
-          "No unlimited incident handling",
-          "No guaranteed uptime SLAs",
-          "No compliance certifications (SOC2, HIPAA handled in Enterprise)",
+          "24/7 on-call support available via Enterprise",
+          "Unlimited incident handling available via Enterprise",
+          "Uptime SLAs available via Enterprise plans",
+          "Compliance certifications (SOC2, HIPAA) available via Enterprise",
         ],
         includedWork: [
           "Hands-on configuration & optimization",
@@ -581,11 +577,7 @@ export const translations = {
           "Soporte por email (horario laboral)",
         ],
         limitations: [
-          "Sin soporte 24/7",
-          "Sin respuesta a incidentes o guardia",
-          "Sin propiedad de producción",
-          "Sin garantías de SLA",
-          "Sin cambios directos sin aprobación",
+          "Starter no incluye propiedad de producción, SLAs, soporte 24/7, ni respuesta a incidentes de guardia.",
         ],
         includedWork: [
           "Revisión de arquitectura y recomendaciones",
@@ -628,10 +620,10 @@ export const translations = {
           "Sin garantía de tiempo de actividad o tiempos de recuperación",
         ],
         limitations: [
-          "Sin soporte 24/7 de guardia",
-          "Sin manejo ilimitado de incidentes",
-          "Sin SLAs de tiempo de actividad garantizado",
-          "Sin certificaciones de cumplimiento (SOC2, HIPAA en Enterprise)",
+          "Soporte 24/7 de guardia disponible vía Enterprise",
+          "Manejo ilimitado de incidentes disponible vía Enterprise",
+          "SLAs de tiempo de actividad disponibles vía planes Enterprise",
+          "Certificaciones de cumplimiento (SOC2, HIPAA) disponibles vía Enterprise",
         ],
         includedWork: [
           "Configuración y optimización práctica",
