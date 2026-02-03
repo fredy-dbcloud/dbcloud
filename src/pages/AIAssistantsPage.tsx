@@ -95,28 +95,28 @@ export default function AIAssistantsPage() {
   return (
     <Layout>
       {/* Hero - Problem → Outcome */}
-      <section className="pt-32 pb-16 bg-hero-gradient">
+      <section className="pt-32 pb-20 bg-hero-gradient">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center text-white"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm mb-6 text-sm">
-              <Bot className="h-4 w-4 text-accent" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm mb-6 text-base font-medium">
+              <Bot className="h-5 w-5 text-accent" />
               <span>{c.badge}</span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {c.headline}
             </h1>
-            <p className="text-base sm:text-lg text-white/85 mb-4">
+            <p className="text-lg sm:text-xl text-white/90 mb-5 leading-relaxed">
               {c.subheadline}
             </p>
-            <p className="text-sm text-white/70 mb-8">
+            <p className="text-base text-white/75 mb-10">
               {c.whoFor}
             </p>
             {/* ONE Primary CTA */}
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10 py-6 text-base">
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {unifiedCTA}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -127,9 +127,9 @@ export default function AIAssistantsPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {c.benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
@@ -137,13 +137,13 @@ export default function AIAssistantsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center p-6"
+                className="text-center p-8"
               >
-                <div className="inline-flex p-3 rounded-xl bg-accent/10 mb-4">
-                  <benefit.icon className="h-6 w-6 text-accent" />
+                <div className="inline-flex p-4 rounded-xl bg-accent/10 mb-5">
+                  <benefit.icon className="h-7 w-7 text-accent" />
                 </div>
-                <h3 className="font-display text-lg font-bold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.desc}</p>
+                <h3 className="font-display text-xl font-bold mb-3">{benefit.title}</h3>
+                <p className="text-base text-muted-foreground leading-relaxed">{benefit.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -151,7 +151,7 @@ export default function AIAssistantsPage() {
       </section>
 
       {/* Pain Points */}
-      <section className="py-12 bg-muted/30 border-y border-border">
+      <section className="py-16 bg-muted/30 border-y border-border">
         <div className="container max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -159,14 +159,14 @@ export default function AIAssistantsPage() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="font-display text-xl font-bold mb-6">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold mb-8">
               {lang === 'es' ? '¿Te suena familiar?' : 'Sound familiar?'}
             </h2>
-            <ul className="grid sm:grid-cols-2 gap-4 text-left">
+            <ul className="grid sm:grid-cols-2 gap-5 text-left">
               {c.painPoints.map((point) => (
                 <li key={point} className="flex items-start gap-3">
-                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">{point}</span>
+                  <CheckCircle className="h-6 w-6 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-base leading-relaxed">{point}</span>
                 </li>
               ))}
             </ul>
@@ -175,25 +175,25 @@ export default function AIAssistantsPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 bg-background">
-        <div className="container max-w-3xl">
+      <section className="py-20 bg-background">
+        <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="font-display text-xl font-bold mb-8">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold mb-10">
               {lang === 'es' ? 'Cómo Funciona' : 'How It Works'}
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8">
               {c.howItWorks.map((step) => (
                 <div key={step.step} className="text-center">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent font-bold mb-3">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 text-accent font-bold text-lg mb-4">
                     {step.step}
                   </div>
-                  <h3 className="font-display text-base font-bold mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                  <h3 className="font-display text-lg font-bold mb-3">{step.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -202,21 +202,21 @@ export default function AIAssistantsPage() {
       </section>
 
       {/* What's Included / Not Included */}
-      <section className="py-12 bg-muted/30 border-y border-border">
+      <section className="py-16 bg-muted/30 border-y border-border">
         <div className="container max-w-4xl">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h3 className="font-display text-lg font-bold mb-4 text-foreground">
+              <h3 className="font-display text-xl font-bold mb-5 text-foreground">
                 {lang === 'es' ? '✓ Incluido' : '✓ Included'}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {c.included.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <CheckCircle className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                  <li key={item} className="flex items-start gap-3 text-base">
+                    <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -228,13 +228,13 @@ export default function AIAssistantsPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <h3 className="font-display text-lg font-bold mb-4 text-muted-foreground">
+              <h3 className="font-display text-xl font-bold mb-5 text-muted-foreground">
                 {lang === 'es' ? '○ No Incluido' : '○ Not Included'}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {c.notIncluded.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <span className="h-4 w-4 flex-shrink-0 mt-0.5">○</span>
+                  <li key={item} className="flex items-start gap-3 text-base text-muted-foreground">
+                    <span className="h-5 w-5 flex-shrink-0 mt-0.5">○</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -245,18 +245,18 @@ export default function AIAssistantsPage() {
       </section>
 
       {/* Pricing - ONE CTA */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container max-w-2xl text-center">
-          <h2 className="font-display text-2xl font-bold mb-2">{c.pricing.title}</h2>
-          <p className="text-3xl font-bold text-accent mb-2">{c.pricing.price}</p>
-          <p className="text-sm text-muted-foreground mb-8">{c.pricing.desc}</p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10">
+          <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3">{c.pricing.title}</h2>
+          <p className="text-4xl font-bold text-accent mb-3">{c.pricing.price}</p>
+          <p className="text-base text-muted-foreground mb-10">{c.pricing.desc}</p>
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10 py-6 text-base">
             <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
               {unifiedCTA}
               <ArrowRight className="ml-2 h-5 w-5" />
             </a>
           </Button>
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-5 text-sm text-muted-foreground">
             {lang === 'es' ? '30 min gratis · Sin compromiso' : '30 min free · No commitment'}
           </p>
         </div>

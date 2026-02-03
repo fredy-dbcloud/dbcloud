@@ -36,10 +36,10 @@ export default function FAQPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center text-white"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-6">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {t.faq.title}
             </h1>
-            <p className="text-lg text-white/80">
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
               {t.faq.subtitle}
             </p>
           </motion.div>
