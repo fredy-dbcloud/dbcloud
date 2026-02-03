@@ -58,21 +58,23 @@ export default function PricingPage() {
   const labels = {
     en: {
       mostPopular: 'Most Popular',
-      contactSales: 'Talk to a Cloud Architect',
+      contactSales: 'Talk to a Cloud Architect (Free)',
       limitations: 'Scope',
       scopeLimitations: 'Scope',
       bestFor: 'Best for',
-      requestEvaluation: 'Request Free Growth Evaluation',
-      startSecurely: 'Start with a Free Advisory Review',
+      requestEvaluation: 'Free Growth Readiness Review',
+      startSecurely: 'Free Advisory Evaluation',
+      socialProof: 'Most SMB clients recover the cost of this plan within the first 30–60 days.',
     },
     es: {
       mostPopular: 'Más Popular',
-      contactSales: 'Hablar con un Arquitecto Cloud',
+      contactSales: 'Hablar con Arquitecto Cloud (Gratis)',
       limitations: 'Alcance',
       scopeLimitations: 'Alcance',
       bestFor: 'Ideal para',
-      requestEvaluation: 'Solicitar Evaluación Growth Gratis',
-      startSecurely: 'Iniciar con Revisión Asesoría Gratis',
+      requestEvaluation: 'Revisión Gratuita de Preparación Growth',
+      startSecurely: 'Evaluación Asesoría Gratuita',
+      socialProof: 'La mayoría de clientes PyME recuperan el costo de este plan en los primeros 30–60 días.',
     },
   };
 
@@ -329,6 +331,15 @@ export default function PricingPage() {
                   </div>
                 )}
 
+                {/* Social Proof - Growth only */}
+                {plan.key === 'growth' && (
+                  <div className="mb-6 p-3 rounded-lg bg-accent/10 border border-accent/20">
+                    <p className="text-xs text-accent font-medium text-center">
+                      {l.socialProof}
+                    </p>
+                  </div>
+                )}
+
                 {/* Single Primary CTA per card */}
                 <div className="mt-auto">
                   <Button
@@ -369,10 +380,10 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Comparison Section */}
+      {/* Comparison Section - Moved BEFORE calculator for objection handling */}
       <ComparisonSection />
 
-      {/* ROI Calculator */}
+      {/* ROI Calculator - After comparison justifies value */}
       <ROICalculator />
 
       {/* Industry Links - Post-Decision Support */}

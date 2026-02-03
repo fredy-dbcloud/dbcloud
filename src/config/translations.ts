@@ -136,7 +136,7 @@ export const translations = {
         name: "Starter Consulting",
         subtitle: "Cloud & AI advisory for small businesses getting started",
         price: "$499",
-        description: "Strategic guidance and clear execution plans — changes implemented only with your approval. Designed for small teams that need advisory support without a full internal cloud team.",
+        description: "Strategic guidance with clear execution plans. Changes implemented only with your approval.",
         hours: "4 hours/month",
         responseTime: "1–2 business days",
         features: [
@@ -174,9 +174,9 @@ export const translations = {
       },
       growth: {
         name: "Growth Consulting",
-        subtitle: "Hands-on Cloud & AI support for growing businesses",
+        subtitle: "For companies that need execution — not just advice",
         price: "$1,499",
-        description: "For companies that need execution, not just advice — without hiring full-time engineers.",
+        description: "Hands-on support for companies moving faster. Includes execution, not just advice.",
         hours: "10 hours/month",
         responseTime: "Same or next business day",
         features: [
@@ -570,7 +570,7 @@ export const translations = {
         name: "Starter Consulting",
         subtitle: "Asesoría Cloud & AI para pequeñas empresas que comienzan",
         price: "$499",
-        description: "Orientación estratégica y planes de ejecución claros — cambios implementados solo con tu aprobación. Diseñado para equipos pequeños que necesitan soporte de asesoría sin un equipo interno de cloud.",
+        description: "Orientación estratégica con planes de ejecución claros. Cambios implementados solo con tu aprobación.",
         hours: "4 horas/mes",
         responseTime: "1–2 días hábiles",
         features: [
@@ -608,9 +608,9 @@ export const translations = {
       },
       growth: {
         name: "Growth Consulting",
-        subtitle: "Soporte práctico Cloud & AI para empresas en crecimiento",
+        subtitle: "Para empresas que necesitan ejecución — no solo consejos",
         price: "$1,499",
-        description: "Para empresas que necesitan ejecución, no solo asesoría — sin contratar ingenieros de tiempo completo.",
+        description: "Soporte práctico para empresas que se mueven más rápido. Incluye ejecución, no solo consejos.",
         hours: "10 horas/mes",
         responseTime: "Mismo día o siguiente día hábil",
         features: [

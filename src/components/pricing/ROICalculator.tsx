@@ -8,9 +8,9 @@ import { Card } from '@/components/ui/card';
 
 const calculatorData = {
   en: {
-    title: "Estimate Your Savings",
-    subtitle: "See how DBCloud can reduce your IT overhead",
-    disclaimer: "These are estimates based on typical SMB scenarios. Actual results may vary.",
+    title: "Estimate Your Impact",
+    subtitle: "See the productivity and operational impact of professional cloud support",
+    disclaimer: "Estimates based on typical SMB scenarios. Does not include downtime risk, security incidents, or opportunity cost.",
     inputs: {
       employees: "Number of employees",
       hoursLost: "Hours lost to IT issues per month",
@@ -18,7 +18,7 @@ const calculatorData = {
     },
     outputs: {
       currentCost: "Estimated monthly IT inefficiency",
-      savings: "Potential monthly savings",
+      savings: "Estimated monthly productivity & operational impact",
       nonMonetary: "Plus: Focus, speed, peace of mind",
     },
     defaults: {
@@ -28,9 +28,9 @@ const calculatorData = {
     typical: "Typical for SMBs",
   },
   es: {
-    title: "Estima Tu Ahorro",
-    subtitle: "Mira cómo DBCloud puede reducir tu carga de TI",
-    disclaimer: "Estas son estimaciones basadas en escenarios típicos de PyMEs. Los resultados reales pueden variar.",
+    title: "Estima Tu Impacto",
+    subtitle: "Mira el impacto en productividad y operaciones del soporte cloud profesional",
+    disclaimer: "Estimaciones basadas en escenarios típicos de PyMEs. No incluye riesgo de caídas, incidentes de seguridad, o costo de oportunidad.",
     inputs: {
       employees: "Número de empleados",
       hoursLost: "Horas perdidas por problemas de TI al mes",
@@ -38,7 +38,7 @@ const calculatorData = {
     },
     outputs: {
       currentCost: "Ineficiencia de TI mensual estimada",
-      savings: "Ahorro mensual potencial",
+      savings: "Impacto mensual estimado en productividad y operaciones",
       nonMonetary: "Además: Enfoque, velocidad, tranquilidad",
     },
     defaults: {
