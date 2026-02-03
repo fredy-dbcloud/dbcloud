@@ -33,7 +33,7 @@ export function CTASection() {
               : 'Ready to simplify your cloud operations?'}
           </h2>
 
-          <p className="text-lg text-white/85 mb-10 max-w-xl mx-auto">
+          <p className="text-xl text-white/90 mb-12 max-w-xl mx-auto">
             {lang === 'es'
               ? 'Agenda una llamada de 30 minutos. Sin compromiso, sin presión.'
               : 'Book a 30-minute call. No commitment, no pressure.'}
@@ -52,7 +52,7 @@ export function CTASection() {
               </a>
             </Button>
             {/* Secondary text links - reduced visual weight */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/60">
+            <div className="flex flex-wrap items-center justify-center gap-5 text-base text-white/70">
               <Link 
                 to={getLocalizedPath('/contact')}
                 className="hover:text-accent transition-colors underline-offset-4 hover:underline"

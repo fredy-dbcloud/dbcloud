@@ -103,10 +103,10 @@ export function EnterpriseStandardsSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-2xl md:text-3xl font-display font-bold mb-3">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
             {c.title}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {c.subtitle}
           </p>
         </motion.div>
@@ -119,14 +119,14 @@ export function EnterpriseStandardsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-primary/20 transition-colors"
+              className="flex items-start gap-4 p-6 rounded-xl bg-card border border-border hover:border-primary/20 transition-colors"
             >
-              <div className="flex-shrink-0 p-2.5 rounded-lg bg-primary/10">
-                <feature.icon className="h-5 w-5 text-primary" />
+              <div className="flex-shrink-0 p-3 rounded-lg bg-primary/10">
+                <feature.icon className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="font-semibold text-lg mb-1.5">{feature.title}</h3>
+                <p className="text-base text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
             </motion.div>
           ))}

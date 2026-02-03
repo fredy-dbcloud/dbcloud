@@ -129,14 +129,14 @@ export function WhyDBCloudSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            <Zap className="h-4 w-4" />
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-base font-medium mb-5">
+            <Zap className="h-5 w-5" />
             {t.badge}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
             {t.title}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
             {t.subtitle}
           </p>
         </motion.div>
@@ -155,17 +155,17 @@ export function WhyDBCloudSection() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-muted/50 border-b">
-                    <th className="text-left p-4 font-semibold text-sm">{t.columns.feature}</th>
-                    <th className="text-center p-4 font-medium text-sm text-muted-foreground">{t.columns.freelancer}</th>
-                    <th className="text-center p-4 font-medium text-sm text-muted-foreground">{t.columns.inhouse}</th>
-                    <th className="text-center p-4 font-medium text-sm text-muted-foreground">{t.columns.msp}</th>
-                    <th className="text-center p-4 font-semibold text-sm text-primary bg-primary/5">{t.columns.dbcloud}</th>
+                    <th className="text-left p-4 font-semibold text-base">{t.columns.feature}</th>
+                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.freelancer}</th>
+                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.inhouse}</th>
+                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.msp}</th>
+                    <th className="text-center p-4 font-semibold text-base text-primary bg-primary/5">{t.columns.dbcloud}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {t.rows.map((row, idx) => (
                     <tr key={idx} className={idx !== t.rows.length - 1 ? 'border-b' : ''}>
-                      <td className="p-4 text-sm font-medium">{row.feature}</td>
+                      <td className="p-4 text-base font-medium">{row.feature}</td>
                       <td className="p-4 text-center"><CellIcon value={row.freelancer} /></td>
                       <td className="p-4 text-center"><CellIcon value={row.inhouse} /></td>
                       <td className="p-4 text-center"><CellIcon value={row.msp} /></td>
@@ -179,22 +179,22 @@ export function WhyDBCloudSection() {
             {/* Mobile Cards */}
             <div className="md:hidden divide-y">
               {t.rows.map((row, idx) => (
-                <div key={idx} className="p-4">
-                  <p className="font-medium text-sm mb-3">{row.feature}</p>
-                  <div className="grid grid-cols-4 gap-2 text-xs">
-                    <div className="flex flex-col items-center gap-1">
+                <div key={idx} className="p-5">
+                  <p className="font-medium text-base mb-4">{row.feature}</p>
+                  <div className="grid grid-cols-4 gap-3 text-sm">
+                    <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.freelancer} />
                       <span className="text-muted-foreground">{t.columns.freelancer}</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1">
+                    <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.inhouse} />
                       <span className="text-muted-foreground">{t.columns.inhouse}</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1">
+                    <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.msp} />
                       <span className="text-muted-foreground">{t.columns.msp}</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1 bg-primary/5 rounded-lg py-1">
+                    <div className="flex flex-col items-center gap-1.5 bg-primary/5 rounded-lg py-2">
                       <CellIcon value={row.dbcloud} />
                       <span className="text-primary font-medium">{t.columns.dbcloud}</span>
                     </div>
@@ -212,18 +212,18 @@ export function WhyDBCloudSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-xl border p-6"
+            className="bg-card rounded-xl border p-8"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 rounded-lg bg-accent/10">
-                <Shield className="h-5 w-5 text-accent" />
+            <div className="flex items-center gap-3 mb-5">
+              <div className="p-3 rounded-lg bg-accent/10">
+                <Shield className="h-6 w-6 text-accent" />
               </div>
-              <h3 className="font-display text-xl font-bold">{t.differenceTitle}</h3>
+              <h3 className="font-display text-2xl font-bold">{t.differenceTitle}</h3>
             </div>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {t.differences.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-sm">
-                  <Check className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-3 text-base">
+                  <Check className="h-6 w-6 text-accent flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -235,19 +235,19 @@ export function WhyDBCloudSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-xl border p-6"
+            className="bg-card rounded-xl border p-8"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <Users className="h-5 w-5 text-primary" />
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-3 rounded-lg bg-primary/10">
+                <Users className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-display text-xl font-bold">{t.fitTitle}</h3>
+              <h3 className="font-display text-2xl font-bold">{t.fitTitle}</h3>
             </div>
-            <p className="text-muted-foreground text-sm mb-4">{t.fitSubtitle}</p>
-            <ul className="space-y-3">
+            <p className="text-muted-foreground text-base mb-5">{t.fitSubtitle}</p>
+            <ul className="space-y-4">
               {t.fitItems.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-sm">
-                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-3 text-base">
+                  <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -262,8 +262,8 @@ export function WhyDBCloudSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h3 className="font-display text-2xl font-bold mb-2">{t.ctaTitle}</h3>
-          <p className="text-muted-foreground mb-6">{t.ctaSubtitle}</p>
+          <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">{t.ctaTitle}</h3>
+          <p className="text-lg text-muted-foreground mb-8">{t.ctaSubtitle}</p>
           <Button
             size="lg"
             asChild
