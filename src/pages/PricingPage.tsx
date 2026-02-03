@@ -58,21 +58,21 @@ export default function PricingPage() {
   const labels = {
     en: {
       mostPopular: 'Most Popular',
-      contactSales: 'Talk to an Architect',
+      contactSales: 'Talk to a Cloud Architect',
       limitations: 'Scope',
       scopeLimitations: 'Scope',
       bestFor: 'Best for',
-      requestEvaluation: 'Request Growth Evaluation',
-      startSecurely: 'Start Advisory Plan',
+      requestEvaluation: 'Request Free Growth Evaluation',
+      startSecurely: 'Start with a Free Advisory Review',
     },
     es: {
       mostPopular: 'Más Popular',
-      contactSales: 'Hablar con un Arquitecto',
+      contactSales: 'Hablar con un Arquitecto Cloud',
       limitations: 'Alcance',
       scopeLimitations: 'Alcance',
       bestFor: 'Ideal para',
-      requestEvaluation: 'Solicitar Evaluación Growth',
-      startSecurely: 'Iniciar Plan Asesor',
+      requestEvaluation: 'Solicitar Evaluación Growth Gratis',
+      startSecurely: 'Iniciar con Revisión Asesoría Gratis',
     },
   };
 
