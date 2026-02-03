@@ -19,8 +19,8 @@ export default function ServicesPage() {
         ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure, GCP y Oracle Cloud con seguridad de nivel empresarial, optimización de costos y cumplimiento regulatorio.'
         : 'Design, implementation, and management of cloud architectures on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security, cost optimization, and regulatory compliance.',
       features: lang === 'es' 
-        ? ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Seguridad Zero Trust', 'Cumplimiento SOC 2/HIPAA']
-        : ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'VMware & OpenShift', 'Zero Trust Security', 'SOC 2/HIPAA Compliance'],
+        ? ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'Seguridad & cumplimiento']
+        : ['AWS, Azure, GCP, Oracle Cloud', 'Kubernetes & Docker', 'Terraform IaC', 'Security & compliance'],
     },
     {
       icon: Database,
@@ -30,8 +30,8 @@ export default function ServicesPage() {
         ? 'Administración completa de PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis y más. Monitoreo proactivo, respaldos automatizados y optimización de rendimiento.'
         : 'Complete administration of PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, and more. Proactive monitoring, automated backups, and performance optimization.',
       features: lang === 'es'
-        ? ['PostgreSQL & MySQL', 'Oracle & SQL Server', 'MongoDB & Redis', 'Amazon Aurora', 'Azure SQL & Cloud SQL', 'Alta disponibilidad & DR']
-        : ['PostgreSQL & MySQL', 'Oracle & SQL Server', 'MongoDB & Redis', 'Amazon Aurora', 'Azure SQL & Cloud SQL', 'High Availability & DR'],
+        ? ['PostgreSQL, MySQL, Oracle, SQL Server', 'MongoDB & Redis', 'Amazon Aurora & Azure SQL', 'Alta disponibilidad & DR']
+        : ['PostgreSQL, MySQL, Oracle, SQL Server', 'MongoDB & Redis', 'Amazon Aurora & Azure SQL', 'High Availability & DR'],
     },
     {
       icon: Zap,
@@ -41,8 +41,8 @@ export default function ServicesPage() {
         ? 'Migraciones desde on-premises a AWS, Azure, GCP u Oracle Cloud sin tiempo de inactividad. Evaluación completa, planificación detallada, ejecución y soporte post-migración.'
         : 'Migrations from on-premises to AWS, Azure, GCP, or Oracle Cloud with zero downtime. Complete assessment, detailed planning, execution, and post-migration support.',
       features: lang === 'es'
-        ? ['Migración on-prem a cloud', 'Replicación lógica & CDC', 'Despliegues blue-green', 'Optimización de costos', 'Validación post-migración', 'Runbooks completos']
-        : ['On-prem to cloud migration', 'Logical replication & CDC', 'Blue-green deployments', 'Cost optimization', 'Post-migration validation', 'Comprehensive runbooks'],
+        ? ['Migración on-prem a cloud', 'Despliegues blue-green', 'Optimización de costos', 'Validación post-migración']
+        : ['On-prem to cloud migration', 'Blue-green deployments', 'Cost optimization', 'Post-migration validation'],
     },
     {
       icon: Shield,
@@ -54,8 +54,8 @@ export default function ServicesPage() {
         ? 'Soluciones de recuperación ante desastres y alta disponibilidad con failover automático, respaldos geo-redundantes y SLAs personalizados hasta 99.99%.'
         : 'Disaster recovery and high availability solutions with automatic failover, geo-redundant backups, and custom SLAs up to 99.99%.',
       features: lang === 'es'
-        ? ['Failover automático', 'Respaldos geo-redundantes', 'Recuperación punto en tiempo', 'Réplicas de lectura', 'SLAs hasta 99.99%', 'Runbooks documentados']
-        : ['Automatic failover', 'Geo-redundant backups', 'Point-in-time recovery', 'Read replicas', 'SLAs up to 99.99%', 'Documented runbooks'],
+        ? ['Failover automático', 'Respaldos geo-redundantes', 'SLAs hasta 99.99%', 'Runbooks documentados']
+        : ['Automatic failover', 'Geo-redundant backups', 'SLAs up to 99.99%', 'Documented runbooks'],
     },
   ];
 
@@ -188,6 +188,18 @@ export default function ServicesPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
+            {/* Micro-bridge to pricing */}
+            <p className="mt-4 text-sm text-muted-foreground">
+              {lang === 'es' 
+                ? '¿No sabes qué nivel de soporte necesitas? ' 
+                : 'Not sure what level of support you need? '}
+              <Link 
+                to={getLocalizedPath('/pricing')} 
+                className="text-accent hover:underline"
+              >
+                {lang === 'es' ? 'Ver planes para PYMEs →' : 'See our pricing plans for SMBs →'}
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>
