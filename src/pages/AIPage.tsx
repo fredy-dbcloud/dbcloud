@@ -20,9 +20,27 @@ export default function AIPage() {
         'Predictable pricing',
         'Senior engineer support',
       ],
+      deliverables: {
+        title: 'What You Get',
+        subtitle: 'Clear deliverables, no guesswork',
+        items: [
+          { week: 'Week 1', desc: 'Process audit + quick-win opportunities identified' },
+          { week: 'Weeks 2–3', desc: 'Working MVP: automation, dashboard, or AI assistant' },
+          { week: 'Week 4+', desc: 'Training, documentation, and measurable improvements' },
+        ],
+      },
+      outcomes: {
+        title: 'Typical Outcomes',
+        subtitle: 'Based on real SMB implementations',
+        items: [
+          'Save 10–20 hours/week on repetitive workflows',
+          'Reduce manual errors and rework by 40–60%',
+          'Get reports in minutes instead of days',
+        ],
+      },
       bundles: {
         title: 'AI Bundles for Your Business',
-        subtitle: 'Choose the solution that fits your needs',
+        subtitle: 'Plans from $499/month (starter bundles). Most teams launch an MVP in 2–3 weeks.',
         operations: {
           icon: Zap,
           title: 'AI for Operations',
@@ -54,6 +72,7 @@ export default function AIPage() {
       whySection: {
         title: 'Is AI right for my business?',
         desc: 'If your team spends hours on repetitive tasks, searches for information across systems, or needs faster answers—AI can help.',
+        notIdeal: 'Not ideal if: you need a full custom ML research project or have no clear use case yet.',
         ideal: {
           title: '✓ Ideal for',
           items: ['Teams of 10-200 people', 'Repetitive manual processes', 'Need for fast reports'],
@@ -70,7 +89,7 @@ export default function AIPage() {
       cta: {
         title: 'Ready to get started?',
         desc: 'Schedule a 30-minute call to evaluate how AI can help your business.',
-        primary: 'Schedule a Call',
+        primary: 'Get a Free AI Fit Check',
         secondary: 'Contact Us',
       },
     },
@@ -84,9 +103,27 @@ export default function AIPage() {
         'Precios predecibles',
         'Soporte de ingenieros senior',
       ],
+      deliverables: {
+        title: 'Qué Recibes',
+        subtitle: 'Entregables claros, sin incertidumbre',
+        items: [
+          { week: 'Semana 1', desc: 'Auditoría de procesos + quick wins identificados' },
+          { week: 'Semanas 2–3', desc: 'MVP funcional: automatización, dashboard o asistente IA' },
+          { week: 'Semana 4+', desc: 'Capacitación, documentación y mejoras medibles' },
+        ],
+      },
+      outcomes: {
+        title: 'Resultados Típicos',
+        subtitle: 'Basado en implementaciones reales en PyMEs',
+        items: [
+          'Ahorra 10–20 horas/semana en tareas repetitivas',
+          'Reduce errores manuales y retrabajo en 40–60%',
+          'Obtén reportes en minutos en lugar de días',
+        ],
+      },
       bundles: {
         title: 'Paquetes de IA para tu Negocio',
-        subtitle: 'Elige la solución que se adapta a tus necesidades',
+        subtitle: 'Planes desde $499/mes (paquetes iniciales). La mayoría de equipos lanzan un MVP en 2–3 semanas.',
         operations: {
           icon: Zap,
           title: 'IA para Operaciones',
@@ -118,6 +155,7 @@ export default function AIPage() {
       whySection: {
         title: '¿Es la IA adecuada para mi empresa?',
         desc: 'Si tu equipo pasa horas en tareas repetitivas, busca información en múltiples sistemas, o necesita respuestas más rápidas—la IA puede ayudar.',
+        notIdeal: 'No es ideal si: necesitas un proyecto de ML de investigación a medida o no tienes un caso de uso claro aún.',
         ideal: {
           title: '✓ Ideal para',
           items: ['Equipos de 10-200 personas', 'Procesos manuales repetitivos', 'Necesidad de reportes rápidos'],
@@ -134,7 +172,7 @@ export default function AIPage() {
       cta: {
         title: '¿Listo para empezar?',
         desc: 'Agenda una llamada de 30 minutos para evaluar cómo la IA puede ayudar a tu negocio.',
-        primary: 'Agendar Llamada',
+        primary: 'Evaluación IA Gratis (30 min)',
         secondary: 'Contáctanos',
       },
     },
@@ -185,8 +223,69 @@ export default function AIPage() {
         </div>
       </section>
 
+      {/* What You Get - Deliverables */}
+      <section className="py-16 bg-muted/30 border-y border-border">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="font-display text-2xl font-bold mb-2">{c.deliverables.title}</h2>
+            <p className="text-muted-foreground">{c.deliverables.subtitle}</p>
+          </motion.div>
+          
+          <div className="grid sm:grid-cols-3 gap-6">
+            {c.deliverables.items.map((item, index) => (
+              <motion.div
+                key={item.week}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-5 rounded-xl bg-card border border-border text-center"
+              >
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent font-bold text-sm mb-3">
+                  {index + 1}
+                </div>
+                <h4 className="font-semibold text-accent mb-2">{item.week}</h4>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Typical Outcomes */}
+      <section className="py-16 bg-background">
+        <div className="container max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="font-display text-2xl font-bold mb-2">{c.outcomes.title}</h2>
+            <p className="text-muted-foreground mb-8">{c.outcomes.subtitle}</p>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              {c.outcomes.items.map((outcome) => (
+                <div 
+                  key={outcome} 
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-sm font-medium"
+                >
+                  <CheckCircle className="h-4 w-4 text-accent" />
+                  {outcome}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* AI Bundles */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted/30 border-y border-border">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -195,7 +294,7 @@ export default function AIPage() {
             className="text-center mb-12"
           >
             <h2 className="font-display text-3xl font-bold mb-2">{c.bundles.title}</h2>
-            <p className="text-muted-foreground">{c.bundles.subtitle}</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">{c.bundles.subtitle}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -238,7 +337,7 @@ export default function AIPage() {
       </section>
 
       {/* Is AI Right For My Business */}
-      <section className="py-16 bg-muted/30 border-y border-border">
+      <section className="py-16 bg-background">
         <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -247,7 +346,8 @@ export default function AIPage() {
             className="text-center"
           >
             <h2 className="font-display text-2xl font-bold mb-4">{c.whySection.title}</h2>
-            <p className="text-muted-foreground mb-8">{c.whySection.desc}</p>
+            <p className="text-muted-foreground mb-4">{c.whySection.desc}</p>
+            <p className="text-sm text-muted-foreground/80 italic mb-8">{c.whySection.notIdeal}</p>
             
             <div className="grid sm:grid-cols-3 gap-6 text-left">
               <div className="p-4 rounded-lg bg-card border border-border">
