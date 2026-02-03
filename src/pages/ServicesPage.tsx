@@ -69,10 +69,10 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center text-white"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-6">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {t.services.title}
             </h1>
-            <p className="text-lg text-white/85">
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
               {t.services.subtitle}
             </p>
           </motion.div>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-24 bg-background">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
@@ -92,26 +92,26 @@ export default function ServicesPage() {
                 transition={{ delay: index * 0.1 }}
                 className="p-8 rounded-2xl bg-card border border-border shadow-card"
               >
-                <div className="inline-flex p-3 rounded-xl bg-accent/10 mb-4">
+                <div className="inline-flex p-4 rounded-xl bg-accent/10 mb-5">
                   <service.icon className="h-8 w-8 text-accent" />
                 </div>
                 
-                <h2 className="font-display text-2xl font-bold mb-2">
+                <h2 className="font-display text-2xl font-bold mb-3">
                   {service.title}
                 </h2>
                 
                 {/* Benefit headline - the key selling point */}
-                <p className="text-accent font-medium text-sm mb-4">
+                <p className="text-accent font-medium text-base mb-5">
                   {service.benefit}
                 </p>
                 
-                <p className="text-muted-foreground mb-6">
+                <p className="text-base text-muted-foreground mb-6 leading-relaxed">
                   {service.description}
                 </p>
                 
                 <ul className="space-y-3 mb-6">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm">
+                    <li key={feature} className="flex items-center gap-3 text-base">
                       <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                       {feature}
                     </li>
@@ -129,14 +129,14 @@ export default function ServicesPage() {
             className="mt-16 max-w-3xl mx-auto"
           >
             <div className="p-8 rounded-2xl bg-muted/50 border border-border">
-              <h3 className="font-display text-2xl font-bold text-center mb-6">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-center mb-8">
                 {servicesData.whoFor.title}
               </h3>
-              <ul className="grid sm:grid-cols-2 gap-4">
+              <ul className="grid sm:grid-cols-2 gap-5">
                 {servicesData.whoFor.items.map((item: string) => (
                   <li key={item} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground">{item}</span>
+                    <CheckCircle className="h-6 w-6 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-base text-foreground">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -150,10 +150,10 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             className="mt-12 text-center"
           >
-            <h3 className="font-display text-lg font-semibold text-muted-foreground mb-4">
+            <h3 className="font-display text-lg font-semibold text-muted-foreground mb-5">
               {lang === 'es' ? 'Industrias que apoyamos frecuentemente' : 'Industries we commonly support'}
             </h3>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-base">
               <Link 
                 to={getLocalizedPath('/industries/retail')} 
                 className="text-foreground hover:text-accent transition-colors"
@@ -180,16 +180,16 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 text-center"
+            className="mt-16 text-center"
           >
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-base">
               <Link to={getLocalizedPath('/contact')}>
                 {servicesData.cta}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             {/* Micro-bridge to pricing */}
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-5 text-base text-muted-foreground">
               {lang === 'es' 
                 ? '¿No sabes qué nivel de soporte necesitas? ' 
                 : 'Not sure what level of support you need? '}

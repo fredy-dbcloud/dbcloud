@@ -180,19 +180,19 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center text-white"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-6">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {t.pricing.title}
             </h1>
-            <p className="text-lg text-white/85 mb-8">
+            <p className="text-lg sm:text-xl text-white/90 mb-10 leading-relaxed">
               {t.pricing.subtitle}
             </p>
 
             {/* Billing Toggle */}
-            <div className="inline-flex items-center gap-4 p-1 rounded-full bg-white/10 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-4 p-1.5 rounded-full bg-white/10 backdrop-blur-sm">
               <button
                 onClick={() => setIsYearly(false)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                  "px-5 py-2.5 rounded-full text-base font-medium transition-colors",
                   !isYearly ? "bg-white text-primary" : "text-white/70 hover:text-white"
                 )}
               >
@@ -201,13 +201,13 @@ export default function PricingPage() {
               <button
                 onClick={() => setIsYearly(true)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-1",
+                  "px-5 py-2.5 rounded-full text-base font-medium transition-colors flex items-center gap-1.5",
                   isYearly ? "bg-white text-primary" : "text-white/70 hover:text-white"
                 )}
               >
                 {t.pricing.yearly} 
                 <span className="text-accent font-semibold">-20%</span>
-                {isYearly && <Sparkles className="h-3 w-3 text-accent" />}
+                {isYearly && <Sparkles className="h-4 w-4 text-accent" />}
               </button>
             </div>
           </motion.div>
@@ -215,7 +215,7 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards - Adequate spacing to avoid header overlap */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
@@ -231,34 +231,34 @@ export default function PricingPage() {
                 )}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-sm font-medium">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium">
                     {l.mostPopular}
                   </div>
                 )}
 
                 <div className="text-center mb-6">
-                  <h3 className="font-display text-xl font-bold mb-1">{plan.name}</h3>
+                  <h3 className="font-display text-2xl font-bold mb-1">{plan.name}</h3>
                   {plan.subtitle && (
-                    <p className="text-sm text-accent font-medium mb-3">{plan.subtitle}</p>
+                    <p className="text-sm text-accent font-medium mb-4">{plan.subtitle}</p>
                   )}
                   <div className="flex items-baseline justify-center gap-1 pt-2">
-                    <span className="font-display text-4xl font-bold leading-tight">{plan.price}</span>
-                    <span className="text-muted-foreground text-sm">{plan.period}</span>
+                    <span className="font-display text-4xl sm:text-5xl font-bold leading-tight">{plan.price}</span>
+                    <span className="text-muted-foreground text-base">{plan.period}</span>
                   </div>
-                  <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
+                  <p className="text-muted-foreground text-base mt-3">{plan.description}</p>
 
                   {/* Hours and Response Time for Starter/Growth */}
                   {plan.hours && plan.responseTime && (
-                    <div className="grid grid-cols-2 gap-2 mt-4">
-                      <div className="bg-accent/10 rounded-lg p-2 text-center">
-                        <Clock className="h-4 w-4 mx-auto mb-1 text-accent" />
-                        <p className="text-[10px] text-muted-foreground">{dm.hoursLabel}</p>
-                        <p className="font-semibold text-xs">{plan.hours}</p>
+                    <div className="grid grid-cols-2 gap-3 mt-5">
+                      <div className="bg-accent/10 rounded-lg p-3 text-center">
+                        <Clock className="h-5 w-5 mx-auto mb-1.5 text-accent" />
+                        <p className="text-xs text-muted-foreground">{dm.hoursLabel}</p>
+                        <p className="font-semibold text-sm">{plan.hours}</p>
                       </div>
-                      <div className="bg-accent/10 rounded-lg p-2 text-center">
-                        <Timer className="h-4 w-4 mx-auto mb-1 text-accent" />
-                        <p className="text-[10px] text-muted-foreground">{dm.responseLabel}</p>
-                        <p className="font-semibold text-xs">{plan.responseTime}</p>
+                      <div className="bg-accent/10 rounded-lg p-3 text-center">
+                        <Timer className="h-5 w-5 mx-auto mb-1.5 text-accent" />
+                        <p className="text-xs text-muted-foreground">{dm.responseLabel}</p>
+                        <p className="font-semibold text-sm">{plan.responseTime}</p>
                       </div>
                     </div>
                   )}
@@ -266,15 +266,15 @@ export default function PricingPage() {
 
                 {/* No Rollover Notice */}
                 {plan.hours && (
-                  <p className="text-[10px] text-muted-foreground text-center italic mb-4 -mt-2">
+                  <p className="text-xs text-muted-foreground text-center italic mb-5 -mt-2">
                     {dm.noRollover}
                   </p>
                 )}
 
                 {/* Features */}
-                <ul className="space-y-2.5 mb-6">
+                <ul className="space-y-3 mb-6">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-sm">
+                    <li key={feature} className="flex items-start gap-3 text-base">
                       <Check className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                       {feature}
                     </li>
@@ -283,16 +283,16 @@ export default function PricingPage() {
 
                 {/* Scope Limitations (Growth only) */}
                 {plan.scopeLimitations && plan.scopeLimitations.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-1.5 mb-2">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-1.5 mb-3">
                       <Info className="h-4 w-4 text-muted-foreground" />
                       <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         {l.scopeLimitations}
                       </span>
                     </div>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {plan.scopeLimitations.map((limitation) => (
-                        <li key={limitation} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <li key={limitation} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <span className="text-muted-foreground/60">•</span>
                           {limitation}
                         </li>
@@ -303,16 +303,16 @@ export default function PricingPage() {
 
                 {/* Limitations */}
                 {plan.limitations && plan.limitations.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-1.5 mb-2">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-1.5 mb-3">
                       <X className="h-4 w-4 text-muted-foreground" />
                       <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         {l.limitations}
                       </span>
                     </div>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {plan.limitations.map((limitation) => (
-                        <li key={limitation} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <li key={limitation} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <span className="text-destructive">×</span>
                           {limitation}
                         </li>
@@ -323,18 +323,18 @@ export default function PricingPage() {
 
                 {/* Best For */}
                 {plan.bestFor && (
-                  <div className="mb-6 p-3 rounded-lg bg-muted/50">
+                  <div className="mb-6 p-4 rounded-lg bg-muted/50">
                     <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                       {l.bestFor}:
                     </span>
-                    <p className="text-xs text-foreground mt-1">{plan.bestFor}</p>
+                    <p className="text-sm text-foreground mt-1.5">{plan.bestFor}</p>
                   </div>
                 )}
 
                 {/* Social Proof - Growth only */}
                 {plan.key === 'growth' && (
-                  <div className="mb-6 p-3 rounded-lg bg-accent/10 border border-accent/20">
-                    <p className="text-xs text-accent font-medium text-center">
+                  <div className="mb-6 p-4 rounded-lg bg-accent/10 border border-accent/20">
+                    <p className="text-sm text-accent font-medium text-center">
                       {l.socialProof}
                     </p>
                   </div>
@@ -345,7 +345,7 @@ export default function PricingPage() {
                   <Button
                     onClick={() => handleGetStarted(plan)}
                     className={cn(
-                      "w-full shadow-md hover:shadow-lg transition-all",
+                      "w-full shadow-md hover:shadow-lg transition-all text-base py-6",
                       plan.popular 
                         ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
                         : "bg-primary hover:bg-primary/90"
@@ -356,13 +356,13 @@ export default function PricingPage() {
                       : plan.key === 'growth' 
                         ? l.requestEvaluation 
                         : l.startSecurely}
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   {/* Secondary as text link - reduced visual weight */}
-                  <p className="mt-3 text-center">
+                  <p className="mt-4 text-center">
                     <Link 
                       to={getLocalizedPath(`/demo/${plan.key}`)}
-                      className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                      className="text-base text-muted-foreground hover:text-accent transition-colors"
                     >
                       {lang === 'es' ? 'Ver Demo →' : 'View Demo →'}
                     </Link>
@@ -373,7 +373,7 @@ export default function PricingPage() {
           </div>
 
           {/* Important Notices */}
-          <div className="max-w-3xl mx-auto mt-12 space-y-4">
+          <div className="max-w-3xl mx-auto mt-14 space-y-4">
             <ClientPortalNotice />
             <EmergencyExclusionNotice />
           </div>
@@ -387,15 +387,15 @@ export default function PricingPage() {
       <ROICalculator />
 
       {/* Industry Links - Post-Decision Support */}
-      <section className="py-12 bg-muted/30">
+      <section className="py-16 bg-muted/30">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
-            <p className="text-muted-foreground mb-4">
+            <p className="text-lg text-muted-foreground mb-5">
               {lang === 'es' 
                 ? 'Vea cómo empresas como la suya usan DBCloud' 
                 : 'See how businesses like yours use DBCloud'}
             </p>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-base">
               <Link 
                 to={getLocalizedPath('/industries/retail')} 
                 className="text-foreground hover:text-accent transition-colors"

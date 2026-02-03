@@ -184,36 +184,36 @@ export default function AIPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-hero-gradient">
+      <section className="pt-32 pb-20 bg-hero-gradient">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center text-white"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm mb-6 text-sm">
-              <Sparkles className="h-4 w-4 text-accent" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm mb-6 text-base font-medium">
+              <Sparkles className="h-5 w-5 text-accent" />
               <span>{c.badge}</span>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {c.headline}
             </h1>
-            <p className="text-lg text-white/85 mb-8">
+            <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
               {c.subheadline}
             </p>
             
             {/* Value props */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="flex flex-wrap justify-center gap-6 mb-10">
               {c.valueProps.map((prop) => (
-                <div key={prop} className="flex items-center gap-2 text-sm text-white/80">
-                  <CheckCircle className="h-4 w-4 text-accent" />
-                  <span>{prop}</span>
+                <div key={prop} className="flex items-center gap-2 text-base text-white/85">
+                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <span className="font-medium">{prop}</span>
                 </div>
               ))}
             </div>
 
             {/* Single Primary CTA */}
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10 py-6 text-base">
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {c.cta.primary}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -224,19 +224,19 @@ export default function AIPage() {
       </section>
 
       {/* What You Get - Deliverables */}
-      <section className="py-16 bg-muted/30 border-y border-border">
+      <section className="py-20 bg-muted/30 border-y border-border">
         <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-10"
+            className="text-center mb-12"
           >
-            <h2 className="font-display text-2xl font-bold mb-2">{c.deliverables.title}</h2>
-            <p className="text-muted-foreground">{c.deliverables.subtitle}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-3">{c.deliverables.title}</h2>
+            <p className="text-lg text-muted-foreground">{c.deliverables.subtitle}</p>
           </motion.div>
           
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-8">
             {c.deliverables.items.map((item, index) => (
               <motion.div
                 key={item.week}
@@ -244,13 +244,13 @@ export default function AIPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-5 rounded-xl bg-card border border-border text-center"
+                className="p-6 rounded-xl bg-card border border-border text-center"
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent font-bold text-sm mb-3">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 text-accent font-bold text-lg mb-4">
                   {index + 1}
                 </div>
-                <h4 className="font-semibold text-accent mb-2">{item.week}</h4>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+                <h4 className="font-semibold text-accent text-lg mb-2">{item.week}</h4>
+                <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -258,24 +258,24 @@ export default function AIPage() {
       </section>
 
       {/* Typical Outcomes */}
-      <section className="py-16 bg-background">
-        <div className="container max-w-3xl">
+      <section className="py-20 bg-background">
+        <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="font-display text-2xl font-bold mb-2">{c.outcomes.title}</h2>
-            <p className="text-muted-foreground mb-8">{c.outcomes.subtitle}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-3">{c.outcomes.title}</h2>
+            <p className="text-lg text-muted-foreground mb-10">{c.outcomes.subtitle}</p>
             
             <div className="flex flex-wrap justify-center gap-4">
               {c.outcomes.items.map((outcome) => (
                 <div 
                   key={outcome} 
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-sm font-medium"
+                  className="flex items-center gap-3 px-5 py-3 rounded-full bg-accent/10 text-base font-medium"
                 >
-                  <CheckCircle className="h-4 w-4 text-accent" />
+                  <CheckCircle className="h-5 w-5 text-accent" />
                   {outcome}
                 </div>
               ))}
@@ -285,19 +285,19 @@ export default function AIPage() {
       </section>
 
       {/* AI Bundles */}
-      <section className="py-20 bg-muted/30 border-y border-border">
+      <section className="py-24 bg-muted/30 border-y border-border">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-14"
           >
-            <h2 className="font-display text-3xl font-bold mb-2">{c.bundles.title}</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">{c.bundles.subtitle}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-3">{c.bundles.title}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{c.bundles.subtitle}</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {bundles.map((bundle, index) => (
               <motion.div
                 key={bundle.title}
@@ -305,29 +305,29 @@ export default function AIPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-2xl bg-card border border-border shadow-card hover:shadow-lg transition-shadow"
+                className="p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-lg transition-shadow"
               >
-                <div className="inline-flex p-3 rounded-xl bg-accent/10 mb-4">
-                  <bundle.icon className="h-6 w-6 text-accent" />
+                <div className="inline-flex p-4 rounded-xl bg-accent/10 mb-5">
+                  <bundle.icon className="h-7 w-7 text-accent" />
                 </div>
                 
-                <h3 className="font-display text-xl font-bold mb-1">{bundle.title}</h3>
-                <p className="text-xs text-accent font-medium mb-3">{bundle.audience}</p>
-                <p className="text-sm text-muted-foreground mb-4">{bundle.problem}</p>
+                <h3 className="font-display text-2xl font-bold mb-2">{bundle.title}</h3>
+                <p className="text-sm text-accent font-medium mb-4">{bundle.audience}</p>
+                <p className="text-base text-muted-foreground mb-6 leading-relaxed">{bundle.problem}</p>
                 
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-3 mb-8">
                   {bundle.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                    <li key={benefit} className="flex items-center gap-3 text-base">
+                      <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                       {benefit}
                     </li>
                   ))}
                 </ul>
 
-                <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-base py-6">
                   <Link to={getLocalizedPath(bundle.link)}>
                     {bundle.cta}
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </motion.div>
@@ -337,7 +337,7 @@ export default function AIPage() {
       </section>
 
       {/* Is AI Right For My Business */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -345,30 +345,30 @@ export default function AIPage() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="font-display text-2xl font-bold mb-4">{c.whySection.title}</h2>
-            <p className="text-muted-foreground mb-4">{c.whySection.desc}</p>
-            <p className="text-sm text-muted-foreground/80 italic mb-8">{c.whySection.notIdeal}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-5">{c.whySection.title}</h2>
+            <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto">{c.whySection.desc}</p>
+            <p className="text-base text-muted-foreground/80 italic mb-10">{c.whySection.notIdeal}</p>
             
-            <div className="grid sm:grid-cols-3 gap-6 text-left">
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <h4 className="font-semibold mb-2">{c.whySection.ideal.title}</h4>
-                <ul className="text-sm text-muted-foreground space-y-1">
+            <div className="grid sm:grid-cols-3 gap-8 text-left">
+              <div className="p-6 rounded-xl bg-card border border-border">
+                <h4 className="font-semibold text-lg mb-3">{c.whySection.ideal.title}</h4>
+                <ul className="text-base text-muted-foreground space-y-2">
                   {c.whySection.ideal.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <h4 className="font-semibold mb-2">{c.whySection.investment.title}</h4>
-                <ul className="text-sm text-muted-foreground space-y-1">
+              <div className="p-6 rounded-xl bg-card border border-border">
+                <h4 className="font-semibold text-lg mb-3">{c.whySection.investment.title}</h4>
+                <ul className="text-base text-muted-foreground space-y-2">
                   {c.whySection.investment.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
-              <div className="p-4 rounded-lg bg-card border border-border">
-                <h4 className="font-semibold mb-2">{c.whySection.results.title}</h4>
-                <ul className="text-sm text-muted-foreground space-y-1">
+              <div className="p-6 rounded-xl bg-card border border-border">
+                <h4 className="font-semibold text-lg mb-3">{c.whySection.results.title}</h4>
+                <ul className="text-base text-muted-foreground space-y-2">
                   {c.whySection.results.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -380,23 +380,23 @@ export default function AIPage() {
       </section>
 
       {/* CTA - Single action, natural end point */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container text-center max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl font-bold mb-3">{c.cta.title}</h2>
-            <p className="text-muted-foreground mb-6">{c.cta.desc}</p>
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">{c.cta.title}</h2>
+            <p className="text-lg text-muted-foreground mb-8">{c.cta.desc}</p>
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg px-10 py-6 text-base">
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
                 {c.cta.primary}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
             {/* Secondary as text link */}
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-5 text-base text-muted-foreground">
               {lang === 'es' ? '¿Prefieres escribirnos?' : 'Prefer to write?'}{' '}
               <Link to={getLocalizedPath('/contact')} className="text-accent hover:underline">
                 {c.cta.secondary}
