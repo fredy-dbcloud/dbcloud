@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Check, X, AlertCircle, Zap, Shield, Users, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { siteConfig } from '@/config/site';
 
 interface ComparisonRow {
@@ -117,6 +118,7 @@ function CellContent({ icon, text, isDbCloud = false }: { icon: 'yes' | 'no' | '
 export function WhyDBCloudSection() {
   const { lang } = useLang();
   const t = content[lang];
+  const isMobile = useIsMobile();
 
   return (
     <section className="py-20 bg-muted/30">
@@ -148,78 +150,79 @@ export function WhyDBCloudSection() {
           className="max-w-5xl mx-auto mb-16"
         >
           <div className="bg-card rounded-xl border shadow-sm overflow-hidden">
-            {/* Desktop Table */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-muted/50 border-b">
-                    <th className="text-left p-4 font-semibold text-base">{t.columns.feature}</th>
-                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.freelancer}</th>
-                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.inhouse}</th>
-                    <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.msp}</th>
-                    <th className="text-center p-4 font-bold text-base text-accent bg-accent/10 border-l-2 border-accent">{t.columns.dbcloud}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {t.rows.map((row, idx) => (
-                    <tr key={idx} className={idx !== t.rows.length - 1 ? 'border-b' : ''}>
-                      <td className="p-4 text-base font-medium">{row.feature}</td>
-                      <td className="p-4"><CellContent icon={row.freelancer.icon} text={row.freelancer.text} /></td>
-                      <td className="p-4"><CellContent icon={row.inhouse.icon} text={row.inhouse.text} /></td>
-                      <td className="p-4"><CellContent icon={row.msp.icon} text={row.msp.text} /></td>
-                      <td className="p-4 bg-accent/10 border-l-2 border-accent">
-                        <CellContent icon={row.dbcloud.icon} text={row.dbcloud.text} isDbCloud />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Cards */}
-            <div className="md:hidden divide-y">
-              {t.rows.map((row, idx) => (
-                <div key={idx} className="p-4">
-                  <p className="font-semibold text-base mb-3">{row.feature}</p>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
-                      {row.freelancer.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
-                      {row.freelancer.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
-                      {row.freelancer.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">{t.columns.freelancer}</span>
-                        <span className="text-xs">{row.freelancer.text}</span>
+            {/* Render ONLY ONE layout to avoid any duplicated/plain-text fallback below */}
+            {isMobile ? (
+              <div className="divide-y">
+                {t.rows.map((row, idx) => (
+                  <div key={idx} className="p-4">
+                    <p className="font-semibold text-base mb-3">{row.feature}</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                        {row.freelancer.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                        {row.freelancer.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                        {row.freelancer.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                        <div className="flex flex-col">
+                          <span className="text-xs text-muted-foreground">{t.columns.freelancer}</span>
+                          <span className="text-xs">{row.freelancer.text}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
-                      {row.inhouse.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
-                      {row.inhouse.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
-                      {row.inhouse.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">{t.columns.inhouse}</span>
-                        <span className="text-xs">{row.inhouse.text}</span>
+                      <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                        {row.inhouse.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                        {row.inhouse.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                        {row.inhouse.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                        <div className="flex flex-col">
+                          <span className="text-xs text-muted-foreground">{t.columns.inhouse}</span>
+                          <span className="text-xs">{row.inhouse.text}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
-                      {row.msp.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
-                      {row.msp.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
-                      {row.msp.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
-                      <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">{t.columns.msp}</span>
-                        <span className="text-xs">{row.msp.text}</span>
+                      <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                        {row.msp.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                        {row.msp.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                        {row.msp.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                        <div className="flex flex-col">
+                          <span className="text-xs text-muted-foreground">{t.columns.msp}</span>
+                          <span className="text-xs">{row.msp.text}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-accent/10 border border-accent/30">
-                      <Check className="h-4 w-4 text-accent flex-shrink-0" />
-                      <div className="flex flex-col">
-                        <span className="text-xs text-accent font-medium">{t.columns.dbcloud}</span>
-                        <span className="text-xs font-semibold text-accent">{row.dbcloud.text}</span>
+                      <div className="flex items-center gap-2 p-2 rounded bg-accent/10 border border-accent/30">
+                        <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                        <div className="flex flex-col">
+                          <span className="text-xs text-accent font-medium">{t.columns.dbcloud}</span>
+                          <span className="text-xs font-semibold text-accent">{row.dbcloud.text}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-muted/50 border-b">
+                      <th className="text-left p-4 font-semibold text-base">{t.columns.feature}</th>
+                      <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.freelancer}</th>
+                      <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.inhouse}</th>
+                      <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.msp}</th>
+                      <th className="text-center p-4 font-bold text-base text-accent bg-accent/10 border-l-2 border-accent">{t.columns.dbcloud}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {t.rows.map((row, idx) => (
+                      <tr key={idx} className={idx !== t.rows.length - 1 ? 'border-b' : ''}>
+                        <td className="p-4 text-base font-medium">{row.feature}</td>
+                        <td className="p-4"><CellContent icon={row.freelancer.icon} text={row.freelancer.text} /></td>
+                        <td className="p-4"><CellContent icon={row.inhouse.icon} text={row.inhouse.text} /></td>
+                        <td className="p-4"><CellContent icon={row.msp.icon} text={row.msp.text} /></td>
+                        <td className="p-4 bg-accent/10 border-l-2 border-accent">
+                          <CellContent icon={row.dbcloud.icon} text={row.dbcloud.text} isDbCloud />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </motion.div>
 
