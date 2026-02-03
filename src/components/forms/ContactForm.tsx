@@ -342,6 +342,11 @@ export function ContactForm() {
             </>
           )}
         </Button>
+        
+        {/* Response expectation - reduces anxiety */}
+        <p className="text-xs text-muted-foreground text-center mt-3">
+          {(t.contact as any).responseTime}
+        </p>
       </form>
     </Form>
   );
