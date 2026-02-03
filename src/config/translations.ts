@@ -90,18 +90,20 @@ export const translations = {
         link: "Visit DBCloud Academy",
       },
     },
-    // Contact Form
+    // Contact Form - Conversion optimized
     contact: {
-      title: "Get in Touch",
-      subtitle: "Let's discuss how we can support your cloud, database, and AI needs",
+      title: "Talk to a Senior Cloud Engineer",
+      subtitle: "Get a free cloud & database evaluation — no commitment required",
       name: "Full Name",
       email: "Email Address",
       phone: "Phone Number",
       company: "Company Name",
-      interest: "Area of Interest",
+      interest: "What can we help you with?",
       message: "Your Message",
-      submit: "Send Message",
+      submit: "Request Free Evaluation",
       success: "Thank you! We'll be in touch soon.",
+      responseTime: "A senior engineer will review your request and respond within 1 business day.",
+      whatsappHelper: "Fastest way to get a response (business hours)",
       interests: {
         cloud: "Cloud Infrastructure",
         databases: "Managed Databases",
@@ -534,18 +536,20 @@ export const translations = {
         link: "Visita DBCloud Academy",
       },
     },
-    // Contact Form
+    // Contact Form - Conversion optimized
     contact: {
-      title: "Contáctanos",
-      subtitle: "Hablemos de cómo podemos apoyar tus necesidades de cloud, bases de datos e IA",
+      title: "Habla con un Ingeniero Cloud Senior",
+      subtitle: "Obtén una evaluación gratuita de cloud y bases de datos — sin compromiso",
       name: "Nombre Completo",
       email: "Correo Electrónico",
       phone: "Teléfono",
       company: "Nombre de Empresa",
-      interest: "Área de Interés",
+      interest: "¿En qué podemos ayudarte?",
       message: "Tu Mensaje",
-      submit: "Enviar Mensaje",
+      submit: "Solicitar Evaluación Gratuita",
       success: "¡Gracias! Nos pondremos en contacto pronto.",
+      responseTime: "Un ingeniero senior revisará tu solicitud y responderá en 1 día hábil.",
+      whatsappHelper: "La forma más rápida de obtener respuesta (horario laboral)",
       interests: {
         cloud: "Infraestructura Cloud",
         databases: "Bases de Datos Administradas",
