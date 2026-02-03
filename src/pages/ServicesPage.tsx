@@ -8,10 +8,13 @@ import { useLang } from '@/hooks/useLang';
 export default function ServicesPage() {
   const { lang, t, getLocalizedPath } = useLang();
 
+  const servicesData = t.services as any;
+
   const services = [
     {
       icon: Cloud,
       title: lang === 'es' ? 'Infraestructura Cloud Multi-Nube' : 'Multi-Cloud Infrastructure',
+      benefit: servicesData.cloud.benefit,
       description: lang === 'es' 
         ? 'Diseño, implementación y gestión de arquitecturas cloud en AWS, Azure, GCP y Oracle Cloud con seguridad de nivel empresarial, optimización de costos y cumplimiento regulatorio.'
         : 'Design, implementation, and management of cloud architectures on AWS, Azure, GCP, and Oracle Cloud with enterprise-grade security, cost optimization, and regulatory compliance.',
@@ -22,6 +25,7 @@ export default function ServicesPage() {
     {
       icon: Database,
       title: lang === 'es' ? 'Bases de Datos Administradas 24/7' : '24/7 Managed Databases',
+      benefit: servicesData.databases.benefit,
       description: lang === 'es'
         ? 'Administración completa de PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis y más. Monitoreo proactivo, respaldos automatizados y optimización de rendimiento.'
         : 'Complete administration of PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, and more. Proactive monitoring, automated backups, and performance optimization.',
@@ -32,6 +36,7 @@ export default function ServicesPage() {
     {
       icon: Zap,
       title: lang === 'es' ? 'Migración Cloud Sin Inactividad' : 'Zero-Downtime Cloud Migration',
+      benefit: servicesData.migration.benefit,
       description: lang === 'es'
         ? 'Migraciones desde on-premises a AWS, Azure, GCP u Oracle Cloud sin tiempo de inactividad. Evaluación completa, planificación detallada, ejecución y soporte post-migración.'
         : 'Migrations from on-premises to AWS, Azure, GCP, or Oracle Cloud with zero downtime. Complete assessment, detailed planning, execution, and post-migration support.',
@@ -42,6 +47,9 @@ export default function ServicesPage() {
     {
       icon: Shield,
       title: lang === 'es' ? 'DR & Alta Disponibilidad' : 'DR & High Availability',
+      benefit: lang === 'es' 
+        ? 'Cuando algo falla, tu negocio sigue funcionando.'
+        : 'When something breaks, your business keeps running.',
       description: lang === 'es'
         ? 'Soluciones de recuperación ante desastres y alta disponibilidad con failover automático, respaldos geo-redundantes y SLAs personalizados hasta 99.99%.'
         : 'Disaster recovery and high availability solutions with automatic failover, geo-redundant backups, and custom SLAs up to 99.99%.',
@@ -88,9 +96,14 @@ export default function ServicesPage() {
                   <service.icon className="h-8 w-8 text-accent" />
                 </div>
                 
-                <h2 className="font-display text-2xl font-bold mb-3">
+                <h2 className="font-display text-2xl font-bold mb-2">
                   {service.title}
                 </h2>
+                
+                {/* Benefit headline - the key selling point */}
+                <p className="text-accent font-medium text-sm mb-4">
+                  {service.benefit}
+                </p>
                 
                 <p className="text-muted-foreground mb-6">
                   {service.description}
@@ -108,12 +121,34 @@ export default function ServicesPage() {
             ))}
           </div>
 
+          {/* Who These Services Are For - Lead qualification */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 max-w-3xl mx-auto"
+          >
+            <div className="p-8 rounded-2xl bg-muted/50 border border-border">
+              <h3 className="font-display text-2xl font-bold text-center mb-6">
+                {servicesData.whoFor.title}
+              </h3>
+              <ul className="grid sm:grid-cols-2 gap-4">
+                {servicesData.whoFor.items.map((item: string) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
           {/* Industries We Support - Simple Text Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 text-center"
+            className="mt-12 text-center"
           >
             <h3 className="font-display text-lg font-semibold text-muted-foreground mb-4">
               {lang === 'es' ? 'Industrias que apoyamos frecuentemente' : 'Industries we commonly support'}
@@ -140,7 +175,7 @@ export default function ServicesPage() {
             </div>
           </motion.div>
 
-          {/* CTA */}
+          {/* CTA - Evaluation-focused */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -149,7 +184,7 @@ export default function ServicesPage() {
           >
             <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link to={getLocalizedPath('/contact')}>
-                {t.cta.contact}
+                {servicesData.cta}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

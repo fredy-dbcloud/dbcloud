@@ -30,26 +30,40 @@ export const translations = {
         "No IT team required",
       ],
     },
-    // Services - Focuses on HOW, not restating WHAT
+    // Services - SMB-focused with clear economic benefit
     services: {
-      title: "How We Support You",
-      subtitle: "Hands-on expertise across your entire cloud stack",
+      title: "Hands-on Cloud & Database Support for SMBs",
+      subtitle: "We manage, optimize, and protect your cloud — so you don't need an internal IT team.",
       cloud: {
         title: "Cloud Infrastructure",
+        benefit: "Reduce cloud costs, improve security, and scale without re-architecting every year.",
         description: "AWS, Azure, GCP, Oracle Cloud — security, performance, and cost optimization included.",
       },
       databases: {
         title: "Managed Databases",
+        benefit: "We keep your databases fast, secure, and available — even while you sleep.",
         description: "PostgreSQL, MySQL, Oracle, SQL Server — administration, tuning, and 24/7 monitoring.",
       },
       ai: {
         title: "AI & Automation",
+        benefit: "Turn repetitive tasks into automated workflows and get insights without data scientists.",
         description: "Private AI agents, automated workflows, and business intelligence dashboards.",
       },
       migration: {
         title: "Cloud Migration",
+        benefit: "No outages, no data loss, no guesswork.",
         description: "Zero-downtime migrations with planning, execution, and post-migration validation.",
       },
+      whoFor: {
+        title: "Who These Services Are For",
+        items: [
+          "SMBs without internal DevOps or IT teams",
+          "Growing SaaS companies with live production workloads",
+          "Healthcare & Retail businesses needing uptime and compliance",
+          "Teams that want senior-level support without senior-level salaries",
+        ],
+      },
+      cta: "Get a Free Cloud & Database Evaluation",
     },
     // CTA - Low friction, outcome-oriented
     cta: {
@@ -460,26 +474,40 @@ export const translations = {
         "No requiere departamento de TI",
       ],
     },
-    // Services - Focuses on HOW, not restating WHAT
+    // Services - SMB-focused with clear economic benefit
     services: {
-      title: "Cómo Te Apoyamos",
-      subtitle: "Experiencia práctica en todo tu stack cloud",
+      title: "Soporte Cloud y Bases de Datos para PYMEs",
+      subtitle: "Gestionamos, optimizamos y protegemos tu cloud — para que no necesites un equipo de TI interno.",
       cloud: {
         title: "Infraestructura Cloud",
+        benefit: "Reduce costos cloud, mejora la seguridad y escala sin re-arquitectar cada año.",
         description: "AWS, Azure, GCP, Oracle Cloud — seguridad, rendimiento y optimización de costos incluidos.",
       },
       databases: {
         title: "Bases de Datos Administradas",
+        benefit: "Mantenemos tus bases de datos rápidas, seguras y disponibles — incluso mientras duermes.",
         description: "PostgreSQL, MySQL, Oracle, SQL Server — administración, tuning y monitoreo 24/7.",
       },
       ai: {
         title: "IA y Automatización",
+        benefit: "Convierte tareas repetitivas en flujos automatizados y obtén insights sin científicos de datos.",
         description: "Agentes de IA privados, flujos automatizados y dashboards de inteligencia de negocios.",
       },
       migration: {
         title: "Migración a la Nube",
+        benefit: "Sin interrupciones, sin pérdida de datos, sin incertidumbre.",
         description: "Migraciones sin tiempo de inactividad con planificación, ejecución y validación post-migración.",
       },
+      whoFor: {
+        title: "¿Para Quién Son Estos Servicios?",
+        items: [
+          "PYMEs sin equipos internos de DevOps o TI",
+          "Empresas SaaS en crecimiento con cargas de producción activas",
+          "Negocios de Healthcare y Retail que necesitan uptime y cumplimiento",
+          "Equipos que quieren soporte senior sin salarios senior",
+        ],
+      },
+      cta: "Obtén una Evaluación Cloud Gratuita",
     },
     // CTA - Low friction, outcome-oriented
     cta: {
