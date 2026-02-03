@@ -128,15 +128,15 @@ export const translations = {
     },
     // Pricing
     pricing: {
-      title: "Simple, Transparent Pricing",
-      subtitle: "Choose the plan that fits your needs",
+      title: "Simple, Transparent Pricing for SMBs",
+      subtitle: "Enterprise-grade cloud support — without enterprise hiring costs",
       monthly: "Monthly",
       yearly: "Yearly",
       starter: {
         name: "Starter Consulting",
         subtitle: "Cloud & AI advisory for small businesses getting started",
         price: "$499",
-        description: "This plan provides expert guidance and direction, not hands-on operations. Designed for small teams that need advisory support without a full internal cloud team.",
+        description: "Strategic guidance and clear execution plans — changes implemented only with your approval. Designed for small teams that need advisory support without a full internal cloud team.",
         hours: "4 hours/month",
         responseTime: "1–2 business days",
         features: [
@@ -562,15 +562,15 @@ export const translations = {
     },
     // Pricing
     pricing: {
-      title: "Precios Simples y Transparentes",
-      subtitle: "Elige el plan que se adapte a tus necesidades",
+      title: "Precios Simples y Transparentes para PYMEs",
+      subtitle: "Soporte cloud de nivel enterprise — sin costos de contratación enterprise",
       monthly: "Mensual",
       yearly: "Anual",
       starter: {
         name: "Starter Consulting",
         subtitle: "Asesoría Cloud & AI para pequeñas empresas que comienzan",
         price: "$499",
-        description: "Este plan proporciona orientación y dirección experta, no operaciones prácticas. Diseñado para equipos pequeños que necesitan soporte de asesoría sin un equipo interno de cloud.",
+        description: "Orientación estratégica y planes de ejecución claros — cambios implementados solo con tu aprobación. Diseñado para equipos pequeños que necesitan soporte de asesoría sin un equipo interno de cloud.",
         hours: "4 horas/mes",
         responseTime: "1–2 días hábiles",
         features: [
