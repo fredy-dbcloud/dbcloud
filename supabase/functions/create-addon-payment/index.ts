@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -26,15 +27,50 @@ serve(async (req) => {
   try {
     logStep("Function started");
 
+    // Authentication check - require valid JWT
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      logStep("ERROR", { message: "Missing or invalid Authorization header" });
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error("Missing Supabase environment variables");
+    }
+
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } },
+    });
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabaseAuth.auth.getClaims(token);
+
+    if (claimsError || !claimsData?.claims?.email) {
+      logStep("ERROR", { message: "Invalid JWT or missing email claim", error: claimsError?.message });
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Use authenticated email from JWT, not from request body
+    const userEmail = claimsData.claims.email as string;
+    logStep("User authenticated", { email: userEmail });
+
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
     logStep("Stripe key verified");
 
-    const { addonId, email, plan } = await req.json();
-    logStep("Request payload", { addonId, email, plan });
+    const { addonId, plan } = await req.json();
+    logStep("Request payload", { addonId, plan, email: userEmail });
 
-    if (!addonId || !email) {
-      throw new Error("Missing required fields: addonId and email");
+    if (!addonId) {
+      throw new Error("Missing required field: addonId");
     }
 
     const priceId = ADDON_PRICES[addonId];
@@ -46,14 +82,14 @@ serve(async (req) => {
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
     
     // Check if customer already exists
-    const customers = await stripe.customers.list({ email, limit: 1 });
+    const customers = await stripe.customers.list({ email: userEmail, limit: 1 });
     let customerId: string | undefined;
     
     if (customers.data.length > 0) {
       customerId = customers.data[0].id;
       logStep("Found existing customer", { customerId });
     } else {
-      logStep("Creating new customer", { email });
+      logStep("Creating new customer", { email: userEmail });
     }
 
     const origin = req.headers.get("origin") || "https://dbcloud.us";
@@ -61,7 +97,7 @@ serve(async (req) => {
     // Create one-time payment session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      customer_email: customerId ? undefined : email,
+      customer_email: customerId ? undefined : userEmail,
       line_items: [
         {
           price: priceId,
@@ -70,11 +106,11 @@ serve(async (req) => {
       ],
       mode: "payment", // One-time payment, not subscription
       success_url: `${origin}/addon-success?addon=${addonId}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/dashboard?email=${encodeURIComponent(email)}`,
+      cancel_url: `${origin}/dashboard?email=${encodeURIComponent(userEmail)}`,
       allow_promotion_codes: true,
       billing_address_collection: "required",
       metadata: {
-        email,
+        email: userEmail,
         addonId,
         plan: plan || "unknown",
         type: "addon_purchase",
