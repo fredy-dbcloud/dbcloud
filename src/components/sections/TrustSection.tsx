@@ -46,10 +46,10 @@ export function TrustSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
             {text.title}
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             {text.subtitle}
           </p>
         </motion.div>
@@ -65,12 +65,12 @@ export function TrustSection() {
               transition={{ delay: index * 0.1 }}
               className="flex items-start gap-4 p-6 rounded-xl bg-card border border-border"
             >
-              <div className="flex-shrink-0 p-2 rounded-lg bg-accent/10">
-                <feature.icon className="h-6 w-6 text-accent" />
+              <div className="flex-shrink-0 p-3 rounded-lg bg-accent/10">
+                <feature.icon className="h-7 w-7 text-accent" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="font-semibold text-lg mb-1.5">{feature.title}</h3>
+                <p className="text-base text-muted-foreground">{feature.description}</p>
               </div>
             </motion.div>
           ))}

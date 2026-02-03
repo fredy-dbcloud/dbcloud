@@ -46,11 +46,11 @@ export function TrustedTechnologiesSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-sm font-medium text-muted-foreground mb-10 max-w-2xl mx-auto">
+          <p className="text-base font-medium text-muted-foreground mb-12 max-w-2xl mx-auto">
             {content.title}
           </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12 mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-14 mb-10">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.name}
@@ -58,24 +58,24 @@ export function TrustedTechnologiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="flex flex-col items-center justify-center gap-2 group"
+                className="flex flex-col items-center justify-center gap-3 group"
               >
-                <div className="h-10 w-auto flex items-center justify-center grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="h-12 w-auto flex items-center justify-center grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                   <img 
                     src={tech.logo} 
                     alt={`${tech.name} logo`}
-                    className="h-8 w-auto object-contain"
+                    className="h-10 w-auto object-contain"
                     loading="lazy"
                   />
                 </div>
-                <span className="text-xs font-medium text-muted-foreground/60 group-hover:text-foreground transition-colors">
+                <span className="text-sm font-medium text-muted-foreground/70 group-hover:text-foreground transition-colors">
                   {tech.name}
                 </span>
               </motion.div>
             ))}
           </div>
           
-          <p className="text-xs text-muted-foreground/50">
+          <p className="text-sm text-muted-foreground/60">
             {content.disclaimer}
           </p>
         </motion.div>

@@ -58,7 +58,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-2"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-3"
             >
               {t.hero.title}
             </motion.h1>
@@ -68,7 +68,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.12 }}
-              className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-accent mb-4"
+              className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-accent mb-6"
             >
               {t.hero.titleHighlight}
             </motion.p>
@@ -78,7 +78,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="text-base sm:text-lg text-white/85 mb-8 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed"
             >
               {t.hero.subtitle}
             </motion.p>
@@ -88,12 +88,12 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-12"
             >
               {benefitBullets.map((benefit: string) => (
-                <div key={benefit} className="flex items-center gap-2 text-sm text-white/90">
-                  <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
-                  <span>{benefit}</span>
+                <div key={benefit} className="flex items-center gap-2 text-base text-white/90">
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
+                  <span className="font-medium">{benefit}</span>
                 </div>
               ))}
             </motion.div>
@@ -129,11 +129,11 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-white/65 text-xs"
+            className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-white/70 text-sm"
           >
             {trustSignals.map((signal) => (
-              <div key={signal} className="flex items-center gap-1.5">
-                <CheckCircle className="h-3.5 w-3.5 text-accent/70" />
+              <div key={signal} className="flex items-center gap-2">
+                <CheckCircle className="h-4 w-4 text-accent/80" />
                 <span>{signal}</span>
               </div>
             ))}

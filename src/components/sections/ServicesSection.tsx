@@ -71,17 +71,17 @@ export function ServicesSection() {
                   <service.icon className="h-6 w-6 text-white" />
                 </div>
                 
-                <h3 className="font-display text-xl font-semibold mb-2 text-foreground group-hover:text-accent transition-colors">
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
                   {service.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                <p className="text-muted-foreground text-base mb-5 leading-relaxed">
                   {service.description}
                 </p>
                 
-                <span className="inline-flex items-center text-sm font-semibold text-accent">
+                <span className="inline-flex items-center text-base font-semibold text-accent">
                   {t.cta.learnMore}
-                  <ArrowUpRight className="ml-1 h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="ml-1.5 h-5 w-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
               </Link>
             </motion.div>

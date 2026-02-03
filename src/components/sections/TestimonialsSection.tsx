@@ -64,10 +64,10 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
             {lang === 'es' ? 'Por qué las empresas nos eligen' : 'Why Enterprises Choose Us'}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             {lang === 'es'
               ? 'Construido sobre principios de transparencia, procesos estructurados y excelencia operativa'
               : 'Built on principles of transparency, structured processes, and operational excellence'}
@@ -82,13 +82,13 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="p-6 rounded-2xl bg-card border border-border shadow-card text-center"
+              className="p-8 rounded-2xl bg-card border border-border shadow-card text-center"
             >
-              <div className="inline-flex items-center justify-center p-3 rounded-xl bg-accent/10 mb-4">
-                <prop.icon className="h-6 w-6 text-accent" />
+              <div className="inline-flex items-center justify-center p-4 rounded-xl bg-accent/10 mb-5">
+                <prop.icon className="h-8 w-8 text-accent" />
               </div>
-              <h3 className="font-semibold mb-2">{prop.title}</h3>
-              <p className="text-sm text-muted-foreground">{prop.description}</p>
+              <h3 className="font-semibold text-xl mb-3">{prop.title}</h3>
+              <p className="text-base text-muted-foreground leading-relaxed">{prop.description}</p>
             </motion.div>
           ))}
         </div>
@@ -98,9 +98,9 @@ export function TestimonialsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 p-8 rounded-2xl bg-muted/30 border border-border text-center"
+          className="mt-16 p-10 rounded-2xl bg-muted/30 border border-border text-center"
         >
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {lang === 'es'
               ? '"Diseñado utilizando los mismos principios operativos de confianza de consultorías empresariales de alto crecimiento."'
               : '"Designed using the same operational principles trusted by high-growth enterprise consultancies."'}
