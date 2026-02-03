@@ -84,6 +84,9 @@ export default function ContactPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  {contactData.scheduleHelper}
+                </p>
 
                 {/* WhatsApp - Secondary fast option */}
                 <a
@@ -142,6 +145,10 @@ export default function ContactPage() {
               className="lg:col-span-2"
             >
               <div className="p-8 rounded-2xl bg-card border border-border shadow-card">
+                {/* Lead qualifier - filters curious visitors */}
+                <p className="text-sm text-muted-foreground text-center mb-6 pb-4 border-b border-border">
+                  {contactData.formFilter}
+                </p>
                 <ContactForm />
               </div>
             </motion.div>
