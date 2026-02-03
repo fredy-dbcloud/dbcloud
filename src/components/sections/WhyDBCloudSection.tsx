@@ -12,6 +12,7 @@ interface ComparisonRow {
   inhouse: CellValue;
   msp: CellValue;
   dbcloud: CellValue;
+  dbcloudText: string; // Reinforcement text for DBCloud column
 }
 
 const content = {
@@ -27,16 +28,16 @@ const content = {
       dbcloud: "DBCloud",
     },
     rows: [
-      { feature: "Senior-level engineers", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes" },
-      { feature: "AWS, Azure, GCP & Oracle expertise", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes" },
-      { feature: "SLA & response times", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes" },
-      { feature: "Long-term contracts", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes" },
-      { feature: "Cost predictability", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Coverage if someone is unavailable", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Compliance-ready (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes" },
-      { feature: "AI-assisted operations", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes" },
-      { feature: "Transparency & dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Time to get started", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes" },
+      { feature: "Senior-level engineers", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes", dbcloudText: "Always senior engineers" },
+      { feature: "AWS, Azure, GCP & Oracle expertise", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes", dbcloudText: "All major clouds covered" },
+      { feature: "SLA & response times", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes", dbcloudText: "Guaranteed SLAs" },
+      { feature: "Long-term contracts", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "No lock-in, cancel anytime" },
+      { feature: "Cost predictability", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Flat monthly, no surprises" },
+      { feature: "Coverage if someone is unavailable", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Full team backup" },
+      { feature: "Compliance-ready (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes", dbcloudText: "Audit-ready documentation" },
+      { feature: "AI-assisted operations", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "AI-powered monitoring" },
+      { feature: "Transparency & dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Real-time client portal" },
+      { feature: "Time to get started", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "48h onboarding" },
     ] as ComparisonRow[],
     differenceTitle: "The DBCloud Difference",
     differences: [
@@ -69,16 +70,16 @@ const content = {
       dbcloud: "DBCloud",
     },
     rows: [
-      { feature: "Ingenieros nivel senior", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes" },
-      { feature: "Experiencia AWS, Azure, GCP y Oracle", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes" },
-      { feature: "SLA y tiempos de respuesta", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes" },
-      { feature: "Contratos a largo plazo", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes" },
-      { feature: "Costos predecibles", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Cobertura si alguien no está disponible", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Listo para cumplimiento (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes" },
-      { feature: "Operaciones asistidas por IA", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes" },
-      { feature: "Transparencia y dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes" },
-      { feature: "Tiempo para comenzar", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes" },
+      { feature: "Ingenieros nivel senior", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes", dbcloudText: "Siempre ingenieros senior" },
+      { feature: "Experiencia AWS, Azure, GCP y Oracle", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes", dbcloudText: "Todas las nubes cubiertas" },
+      { feature: "SLA y tiempos de respuesta", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes", dbcloudText: "SLAs garantizados" },
+      { feature: "Contratos a largo plazo", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "Sin candados, cancela cuando quieras" },
+      { feature: "Costos predecibles", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Tarifa fija mensual" },
+      { feature: "Cobertura si alguien no está disponible", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Respaldo de equipo completo" },
+      { feature: "Listo para cumplimiento (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes", dbcloudText: "Documentación lista para auditoría" },
+      { feature: "Operaciones asistidas por IA", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "Monitoreo con IA" },
+      { feature: "Transparencia y dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Portal cliente en tiempo real" },
+      { feature: "Tiempo para comenzar", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Onboarding en 48h" },
     ] as ComparisonRow[],
     differenceTitle: "La Diferencia DBCloud",
     differences: [
@@ -159,7 +160,7 @@ export function WhyDBCloudSection() {
                     <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.freelancer}</th>
                     <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.inhouse}</th>
                     <th className="text-center p-4 font-medium text-base text-muted-foreground">{t.columns.msp}</th>
-                    <th className="text-center p-4 font-semibold text-base text-primary bg-primary/5">{t.columns.dbcloud}</th>
+                    <th className="text-center p-4 font-bold text-base text-accent bg-accent/10 border-l-2 border-accent">{t.columns.dbcloud}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -169,7 +170,12 @@ export function WhyDBCloudSection() {
                       <td className="p-4 text-center"><CellIcon value={row.freelancer} /></td>
                       <td className="p-4 text-center"><CellIcon value={row.inhouse} /></td>
                       <td className="p-4 text-center"><CellIcon value={row.msp} /></td>
-                      <td className="p-4 text-center bg-primary/5"><CellIcon value={row.dbcloud} /></td>
+                      <td className="p-4 bg-accent/10 border-l-2 border-accent">
+                        <div className="flex items-center gap-2 justify-center">
+                          <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                          <span className="text-sm font-semibold text-accent">{row.dbcloudText}</span>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -181,22 +187,29 @@ export function WhyDBCloudSection() {
               {t.rows.map((row, idx) => (
                 <div key={idx} className="p-5">
                   <p className="font-medium text-base mb-4">{row.feature}</p>
-                  <div className="grid grid-cols-4 gap-3 text-sm">
+                  <div className="grid grid-cols-4 gap-2 text-sm mb-3">
                     <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.freelancer} />
-                      <span className="text-muted-foreground">{t.columns.freelancer}</span>
+                      <span className="text-muted-foreground text-xs">{t.columns.freelancer}</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.inhouse} />
-                      <span className="text-muted-foreground">{t.columns.inhouse}</span>
+                      <span className="text-muted-foreground text-xs">{t.columns.inhouse}</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5">
                       <CellIcon value={row.msp} />
-                      <span className="text-muted-foreground">{t.columns.msp}</span>
+                      <span className="text-muted-foreground text-xs">{t.columns.msp}</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1.5 bg-primary/5 rounded-lg py-2">
-                      <CellIcon value={row.dbcloud} />
-                      <span className="text-primary font-medium">{t.columns.dbcloud}</span>
+                    <div className="flex flex-col items-center gap-1.5">
+                      <Check className="h-5 w-5 text-accent" />
+                      <span className="text-muted-foreground text-xs">{t.columns.dbcloud}</span>
+                    </div>
+                  </div>
+                  {/* DBCloud reinforcement text - highlighted */}
+                  <div className="bg-accent/10 rounded-lg p-3 border-l-2 border-accent">
+                    <div className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                      <span className="text-sm font-semibold text-accent">{row.dbcloudText}</span>
                     </div>
                   </div>
                 </div>
