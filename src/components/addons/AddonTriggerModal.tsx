@@ -77,7 +77,7 @@ export function AddonTriggerModal({ isOpen, onClose, reason, email, plan }: Addo
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-addon-payment', {
-        body: { addonId: addon.id, email, plan },
+        body: { addonId: addon.id, plan },
       });
 
       if (error) throw error;

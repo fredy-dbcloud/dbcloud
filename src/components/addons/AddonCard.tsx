@@ -41,7 +41,7 @@ export function AddonCard({ addonKey, email, plan, compact = false }: AddonCardP
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-addon-payment', {
-        body: { addonId: addon.id, email, plan },
+        body: { addonId: addon.id, plan },
       });
 
       if (error) throw error;
