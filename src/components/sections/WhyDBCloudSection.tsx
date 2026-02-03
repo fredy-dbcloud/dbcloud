@@ -1,18 +1,15 @@
 import { motion } from 'framer-motion';
-import { Check, X, AlertCircle, Zap, Shield, Clock, Users, DollarSign, ArrowRight } from 'lucide-react';
+import { Check, X, AlertCircle, Zap, Shield, Users, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 
-type CellValue = 'yes' | 'no' | 'partial' | 'limited';
-
 interface ComparisonRow {
   feature: string;
-  freelancer: CellValue;
-  inhouse: CellValue;
-  msp: CellValue;
-  dbcloud: CellValue;
-  dbcloudText: string; // Reinforcement text for DBCloud column
+  freelancer: { icon: 'yes' | 'no' | 'partial'; text: string };
+  inhouse: { icon: 'yes' | 'no' | 'partial'; text: string };
+  msp: { icon: 'yes' | 'no' | 'partial'; text: string };
+  dbcloud: { icon: 'yes'; text: string };
 }
 
 const content = {
@@ -28,16 +25,16 @@ const content = {
       dbcloud: "DBCloud",
     },
     rows: [
-      { feature: "Senior-level engineers", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes", dbcloudText: "Always senior engineers" },
-      { feature: "AWS, Azure, GCP & Oracle expertise", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes", dbcloudText: "All major clouds covered" },
-      { feature: "SLA & response times", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes", dbcloudText: "Guaranteed SLAs" },
-      { feature: "Long-term contracts", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "No lock-in, cancel anytime" },
-      { feature: "Cost predictability", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Flat monthly, no surprises" },
-      { feature: "Coverage if someone is unavailable", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Full team backup" },
-      { feature: "Compliance-ready (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes", dbcloudText: "Audit-ready documentation" },
-      { feature: "AI-assisted operations", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "AI-powered monitoring" },
-      { feature: "Transparency & dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Real-time client portal" },
-      { feature: "Time to get started", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "48h onboarding" },
+      { feature: "Senior-level engineers", freelancer: { icon: "no", text: "Varies" }, inhouse: { icon: "partial", text: "Limited" }, msp: { icon: "partial", text: "Mixed" }, dbcloud: { icon: "yes", text: "Always senior" } },
+      { feature: "Multi-cloud expertise", freelancer: { icon: "no", text: "Usually 1" }, inhouse: { icon: "no", text: "Depends" }, msp: { icon: "partial", text: "Partial" }, dbcloud: { icon: "yes", text: "All major clouds" } },
+      { feature: "SLA & response times", freelancer: { icon: "no", text: "None" }, inhouse: { icon: "partial", text: "Informal" }, msp: { icon: "yes", text: "Standard" }, dbcloud: { icon: "yes", text: "Guaranteed" } },
+      { feature: "Long-term contracts", freelancer: { icon: "yes", text: "No" }, inhouse: { icon: "no", text: "N/A" }, msp: { icon: "no", text: "Required" }, dbcloud: { icon: "yes", text: "No lock-in" } },
+      { feature: "Cost predictability", freelancer: { icon: "no", text: "Hourly" }, inhouse: { icon: "no", text: "High fixed" }, msp: { icon: "partial", text: "Variable" }, dbcloud: { icon: "yes", text: "Flat monthly" } },
+      { feature: "Backup coverage", freelancer: { icon: "no", text: "Single person" }, inhouse: { icon: "no", text: "Single team" }, msp: { icon: "partial", text: "Rotations" }, dbcloud: { icon: "yes", text: "Team-based" } },
+      { feature: "Compliance-ready", freelancer: { icon: "no", text: "No" }, inhouse: { icon: "partial", text: "Partial" }, msp: { icon: "partial", text: "Extra cost" }, dbcloud: { icon: "yes", text: "Audit-ready" } },
+      { feature: "AI-assisted ops", freelancer: { icon: "no", text: "No" }, inhouse: { icon: "no", text: "No" }, msp: { icon: "no", text: "No" }, dbcloud: { icon: "yes", text: "AI-powered" } },
+      { feature: "Transparency", freelancer: { icon: "no", text: "None" }, inhouse: { icon: "no", text: "None" }, msp: { icon: "partial", text: "Reports" }, dbcloud: { icon: "yes", text: "Live dashboards" } },
+      { feature: "Time to start", freelancer: { icon: "partial", text: "Days" }, inhouse: { icon: "no", text: "Weeks" }, msp: { icon: "partial", text: "Days" }, dbcloud: { icon: "yes", text: "48h onboarding" } },
     ] as ComparisonRow[],
     differenceTitle: "The DBCloud Difference",
     differences: [
@@ -70,16 +67,16 @@ const content = {
       dbcloud: "DBCloud",
     },
     rows: [
-      { feature: "Ingenieros nivel senior", freelancer: "no", inhouse: "limited", msp: "partial", dbcloud: "yes", dbcloudText: "Siempre ingenieros senior" },
-      { feature: "Experiencia AWS, Azure, GCP y Oracle", freelancer: "partial", inhouse: "no", msp: "limited", dbcloud: "yes", dbcloudText: "Todas las nubes cubiertas" },
-      { feature: "SLA y tiempos de respuesta", freelancer: "no", inhouse: "partial", msp: "yes", dbcloud: "yes", dbcloudText: "SLAs garantizados" },
-      { feature: "Contratos a largo plazo", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "Sin candados, cancela cuando quieras" },
-      { feature: "Costos predecibles", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Tarifa fija mensual" },
-      { feature: "Cobertura si alguien no está disponible", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Respaldo de equipo completo" },
-      { feature: "Listo para cumplimiento (SOC 2, HIPAA, GDPR)", freelancer: "no", inhouse: "partial", msp: "partial", dbcloud: "yes", dbcloudText: "Documentación lista para auditoría" },
-      { feature: "Operaciones asistidas por IA", freelancer: "no", inhouse: "no", msp: "no", dbcloud: "yes", dbcloudText: "Monitoreo con IA" },
-      { feature: "Transparencia y dashboards", freelancer: "no", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Portal cliente en tiempo real" },
-      { feature: "Tiempo para comenzar", freelancer: "partial", inhouse: "no", msp: "partial", dbcloud: "yes", dbcloudText: "Onboarding en 48h" },
+      { feature: "Ingenieros nivel senior", freelancer: { icon: "no", text: "Varía" }, inhouse: { icon: "partial", text: "Limitado" }, msp: { icon: "partial", text: "Mixto" }, dbcloud: { icon: "yes", text: "Siempre senior" } },
+      { feature: "Experiencia multi-cloud", freelancer: { icon: "no", text: "Usualmente 1" }, inhouse: { icon: "no", text: "Depende" }, msp: { icon: "partial", text: "Parcial" }, dbcloud: { icon: "yes", text: "Todas las nubes" } },
+      { feature: "SLA y tiempos de respuesta", freelancer: { icon: "no", text: "Ninguno" }, inhouse: { icon: "partial", text: "Informal" }, msp: { icon: "yes", text: "Estándar" }, dbcloud: { icon: "yes", text: "Garantizados" } },
+      { feature: "Contratos a largo plazo", freelancer: { icon: "yes", text: "No" }, inhouse: { icon: "no", text: "N/A" }, msp: { icon: "no", text: "Requerido" }, dbcloud: { icon: "yes", text: "Sin candados" } },
+      { feature: "Costos predecibles", freelancer: { icon: "no", text: "Por hora" }, inhouse: { icon: "no", text: "Alto y fijo" }, msp: { icon: "partial", text: "Variable" }, dbcloud: { icon: "yes", text: "Tarifa fija" } },
+      { feature: "Cobertura de respaldo", freelancer: { icon: "no", text: "Una persona" }, inhouse: { icon: "no", text: "Un equipo" }, msp: { icon: "partial", text: "Rotaciones" }, dbcloud: { icon: "yes", text: "Equipo completo" } },
+      { feature: "Listo para cumplimiento", freelancer: { icon: "no", text: "No" }, inhouse: { icon: "partial", text: "Parcial" }, msp: { icon: "partial", text: "Costo extra" }, dbcloud: { icon: "yes", text: "Listo para auditoría" } },
+      { feature: "Operaciones con IA", freelancer: { icon: "no", text: "No" }, inhouse: { icon: "no", text: "No" }, msp: { icon: "no", text: "No" }, dbcloud: { icon: "yes", text: "Con IA" } },
+      { feature: "Transparencia", freelancer: { icon: "no", text: "Ninguna" }, inhouse: { icon: "no", text: "Ninguna" }, msp: { icon: "partial", text: "Reportes" }, dbcloud: { icon: "yes", text: "Dashboards en vivo" } },
+      { feature: "Tiempo para comenzar", freelancer: { icon: "partial", text: "Días" }, inhouse: { icon: "no", text: "Semanas" }, msp: { icon: "partial", text: "Días" }, dbcloud: { icon: "yes", text: "48h onboarding" } },
     ] as ComparisonRow[],
     differenceTitle: "La Diferencia DBCloud",
     differences: [
@@ -102,19 +99,19 @@ const content = {
   },
 };
 
-function CellIcon({ value }: { value: CellValue }) {
-  switch (value) {
-    case 'yes':
-      return <Check className="h-5 w-5 text-accent" />;
-    case 'no':
-      return <X className="h-5 w-5 text-muted-foreground/40" />;
-    case 'partial':
-      return <AlertCircle className="h-4 w-4 text-yellow-500" />;
-    case 'limited':
-      return <AlertCircle className="h-4 w-4 text-orange-400" />;
-    default:
-      return null;
-  }
+function CellContent({ icon, text, isDbCloud = false }: { icon: 'yes' | 'no' | 'partial'; text: string; isDbCloud?: boolean }) {
+  const iconElement = {
+    yes: <Check className={`h-4 w-4 flex-shrink-0 ${isDbCloud ? 'text-accent' : 'text-green-500'}`} />,
+    no: <X className="h-4 w-4 flex-shrink-0 text-red-400" />,
+    partial: <AlertCircle className="h-4 w-4 flex-shrink-0 text-yellow-500" />,
+  }[icon];
+
+  return (
+    <div className={`flex items-center gap-1.5 justify-center ${isDbCloud ? 'font-semibold text-accent' : ''}`}>
+      {iconElement}
+      <span className={`text-sm ${isDbCloud ? '' : 'text-muted-foreground'}`}>{text}</span>
+    </div>
+  );
 }
 
 export function WhyDBCloudSection() {
@@ -167,14 +164,11 @@ export function WhyDBCloudSection() {
                   {t.rows.map((row, idx) => (
                     <tr key={idx} className={idx !== t.rows.length - 1 ? 'border-b' : ''}>
                       <td className="p-4 text-base font-medium">{row.feature}</td>
-                      <td className="p-4 text-center"><CellIcon value={row.freelancer} /></td>
-                      <td className="p-4 text-center"><CellIcon value={row.inhouse} /></td>
-                      <td className="p-4 text-center"><CellIcon value={row.msp} /></td>
+                      <td className="p-4"><CellContent icon={row.freelancer.icon} text={row.freelancer.text} /></td>
+                      <td className="p-4"><CellContent icon={row.inhouse.icon} text={row.inhouse.text} /></td>
+                      <td className="p-4"><CellContent icon={row.msp.icon} text={row.msp.text} /></td>
                       <td className="p-4 bg-accent/10 border-l-2 border-accent">
-                        <div className="flex items-center gap-2 justify-center">
-                          <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                          <span className="text-sm font-semibold text-accent">{row.dbcloudText}</span>
-                        </div>
+                        <CellContent icon={row.dbcloud.icon} text={row.dbcloud.text} isDbCloud />
                       </td>
                     </tr>
                   ))}
@@ -185,31 +179,42 @@ export function WhyDBCloudSection() {
             {/* Mobile Cards */}
             <div className="md:hidden divide-y">
               {t.rows.map((row, idx) => (
-                <div key={idx} className="p-5">
-                  <p className="font-medium text-base mb-4">{row.feature}</p>
-                  <div className="grid grid-cols-4 gap-2 text-sm mb-3">
-                    <div className="flex flex-col items-center gap-1.5">
-                      <CellIcon value={row.freelancer} />
-                      <span className="text-muted-foreground text-xs">{t.columns.freelancer}</span>
+                <div key={idx} className="p-4">
+                  <p className="font-semibold text-base mb-3">{row.feature}</p>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                      {row.freelancer.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                      {row.freelancer.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                      {row.freelancer.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">{t.columns.freelancer}</span>
+                        <span className="text-xs">{row.freelancer.text}</span>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-1.5">
-                      <CellIcon value={row.inhouse} />
-                      <span className="text-muted-foreground text-xs">{t.columns.inhouse}</span>
+                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                      {row.inhouse.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                      {row.inhouse.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                      {row.inhouse.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">{t.columns.inhouse}</span>
+                        <span className="text-xs">{row.inhouse.text}</span>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-1.5">
-                      <CellIcon value={row.msp} />
-                      <span className="text-muted-foreground text-xs">{t.columns.msp}</span>
+                    <div className="flex items-center gap-2 p-2 rounded bg-muted/30">
+                      {row.msp.icon === 'no' && <X className="h-4 w-4 text-red-400 flex-shrink-0" />}
+                      {row.msp.icon === 'yes' && <Check className="h-4 w-4 text-green-500 flex-shrink-0" />}
+                      {row.msp.icon === 'partial' && <AlertCircle className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">{t.columns.msp}</span>
+                        <span className="text-xs">{row.msp.text}</span>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-1.5">
-                      <Check className="h-5 w-5 text-accent" />
-                      <span className="text-muted-foreground text-xs">{t.columns.dbcloud}</span>
-                    </div>
-                  </div>
-                  {/* DBCloud reinforcement text - highlighted */}
-                  <div className="bg-accent/10 rounded-lg p-3 border-l-2 border-accent">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 p-2 rounded bg-accent/10 border border-accent/30">
                       <Check className="h-4 w-4 text-accent flex-shrink-0" />
-                      <span className="text-sm font-semibold text-accent">{row.dbcloudText}</span>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-accent font-medium">{t.columns.dbcloud}</span>
+                        <span className="text-xs font-semibold text-accent">{row.dbcloud.text}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
