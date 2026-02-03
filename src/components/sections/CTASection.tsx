@@ -29,14 +29,14 @@ export function CTASection() {
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             {lang === 'es' 
-              ? '¿Listo para simplificar tu operación cloud?'
-              : 'Ready to simplify your cloud operations?'}
+              ? '¿DBCloud es ideal para tu negocio?'
+              : 'Is DBCloud a Fit for Your Business?'}
           </h2>
 
           <p className="text-xl text-white/90 mb-12 max-w-xl mx-auto">
             {lang === 'es'
-              ? 'Agenda una llamada de 30 minutos. Sin compromiso, sin presión.'
-              : 'Book a 30-minute call. No commitment, no pressure.'}
+              ? 'Obtén una revisión gratuita de costos y riesgos cloud con un ingeniero senior. Sin compromiso.'
+              : 'Get a free cloud cost & risk review with a senior engineer. No commitment.'}
           </p>
 
           {/* Single Primary CTA - End of page natural pause point */}
@@ -47,7 +47,9 @@ export function CTASection() {
               className="bg-accent text-accent-foreground px-10 py-6 text-base shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                {t.cta.schedule}
+                {lang === 'es' 
+                  ? 'Habla con un Ingeniero Senior — Gratis'
+                  : 'Talk to a Senior Engineer — Free'}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
