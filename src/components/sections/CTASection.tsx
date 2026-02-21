@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
+import { AiAdvisorInlineCTA } from '@/components/ai-advisor/AiAdvisorInlineCTA';
 
 export function CTASection() {
   const { lang, getLocalizedPath } = useLang();
@@ -51,6 +52,10 @@ export function CTASection() {
             >
               {lang === 'es' ? 'Contáctanos' : 'Contact us'}
             </Link>
+            
+            <div className="mt-2">
+              <AiAdvisorInlineCTA />
+            </div>
           </div>
         </motion.div>
       </div>
