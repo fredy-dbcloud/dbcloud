@@ -173,7 +173,7 @@ export default function PricingPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-hero-gradient">
+      <section className="pt-40 pb-20 bg-hero-gradient">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
