@@ -46,7 +46,7 @@ export default function AIOperationsPage() {
       ],
       pricing: {
         title: 'Simple Pricing',
-        price: 'From $499/mo',
+        price: 'From $299/mo',
         desc: 'Predictable monthly cost. No long-term contracts. Start in 48 hours.',
       },
     },
@@ -84,7 +84,7 @@ export default function AIOperationsPage() {
       ],
       pricing: {
         title: 'Precios Simples',
-        price: 'Desde $499/mes',
+        price: 'Desde $299/mes',
         desc: 'Costo mensual predecible. Sin contratos largos. Inicia en 48 horas.',
       },
     },

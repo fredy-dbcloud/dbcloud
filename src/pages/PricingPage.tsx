@@ -101,7 +101,7 @@ export default function PricingPage() {
       key: 'starter',
       name: t.pricing.starter.name,
       subtitle: (t.pricing.starter as any).subtitle || '',
-      price: isYearly ? '$399' : '$499',
+      price: isYearly ? '$249' : '$299',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.starter.description,
       features: t.pricing.starter.features as unknown as string[],
@@ -115,7 +115,7 @@ export default function PricingPage() {
       key: 'growth',
       name: t.pricing.growth.name,
       subtitle: (t.pricing.growth as any).subtitle || '',
-      price: isYearly ? '$1,199' : '$1,499',
+      price: isYearly ? '$699' : '$899',
       period: isYearly ? '/mo (billed yearly)' : '/mo',
       description: t.pricing.growth.description,
       features: t.pricing.growth.features as unknown as string[],
@@ -206,7 +206,7 @@ export default function PricingPage() {
                 )}
               >
                 {t.pricing.yearly} 
-                <span className="text-accent font-semibold">-20%</span>
+                <span className="text-accent font-semibold">Save</span>
                 {isYearly && <Sparkles className="h-4 w-4 text-accent" />}
               </button>
             </div>

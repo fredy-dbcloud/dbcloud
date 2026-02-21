@@ -12,13 +12,13 @@ const content = {
     plans: [
       {
         name: 'Starter',
-        price: 'Starting at $2,000/month',
+        price: 'Starting at $1,500/month',
         features: ['1 Cloud environment', 'Managed database', 'SLA-backed response times', 'Security baseline'],
         popular: false,
       },
       {
         name: 'Growth',
-        price: 'Starting at $3,500/month',
+        price: 'Starting at $2,900/month',
         features: ['Multi-cloud support', '24/7 monitoring', 'Compliance-ready architecture', 'Cost optimization'],
         popular: true,
         badge: 'Most Popular',
@@ -42,13 +42,13 @@ const content = {
     inhouseTotal: '$185,000+ per year',
     dbcloudTitle: 'DBCloud Managed Team',
     dbcloudItems: [
-      'Starting at $24,000/year',
+      'Starting at $18,000/year',
       'Senior-level engineers only',
       'Multi-cloud coverage',
       'Backup team structure',
       'Built-in compliance readiness',
     ],
-    savings: 'Save $160,000+ annually',
+    savings: 'Save $167,000+ annually',
     roiNote: 'Most clients reduce cloud-related operational costs by 60–80% within the first year.',
     // CTA
     ctaHeadline: 'Get a Free Cloud Cost & Risk Assessment',
@@ -62,13 +62,13 @@ const content = {
     plans: [
       {
         name: 'Starter',
-        price: 'Desde $2,000/mes',
+        price: 'Desde $1,500/mes',
         features: ['1 Entorno Cloud', 'Base de datos administrada', 'Tiempos de respuesta con SLA', 'Línea base de seguridad'],
         popular: false,
       },
       {
         name: 'Growth',
-        price: 'Desde $3,500/mes',
+        price: 'Desde $2,900/mes',
         features: ['Soporte multi-cloud', 'Monitoreo 24/7', 'Arquitectura lista para cumplimiento', 'Optimización de costos'],
         popular: true,
         badge: 'Más elegido',
@@ -91,13 +91,13 @@ const content = {
     inhouseTotal: '$185,000+ al año',
     dbcloudTitle: 'Equipo Gestionado DBCloud',
     dbcloudItems: [
-      'Desde $24,000/año',
+      'Desde $18,000/año',
       'Solo ingenieros senior',
       'Cobertura multi-cloud',
       'Estructura de equipo de respaldo',
       'Cumplimiento integrado',
     ],
-    savings: 'Ahorra $160,000+ al año',
+    savings: 'Ahorra $167,000+ al año',
     roiNote: 'La mayoría de nuestros clientes reducen costos operativos cloud entre un 60% y 80% durante el primer año.',
     ctaHeadline: 'Obtén una Evaluación Gratuita de Costos y Riesgos Cloud',
     ctaDescription: 'En una breve llamada identificaremos fugas de costos, riesgos y oportunidades de optimización.',

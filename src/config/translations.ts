@@ -153,7 +153,7 @@ export const translations = {
       starter: {
         name: "Starter Consulting",
         subtitle: "Cloud & AI advisory for small businesses getting started",
-        price: "$499",
+        price: "$299",
         description: "Strategic guidance with clear execution plans. Changes implemented only with your approval.",
         hours: "4 hours/month",
         responseTime: "1–2 business days",
@@ -189,7 +189,7 @@ export const translations = {
       growth: {
         name: "Growth Consulting",
         subtitle: "For companies that need execution — not just advice",
-        price: "$1,499",
+        price: "$899",
         description: "Hands-on support for companies moving faster. Includes execution, not just advice.",
         hours: "10 hours/month",
         responseTime: "Same or next business day",
@@ -601,7 +601,7 @@ export const translations = {
       starter: {
         name: "Starter Consulting",
         subtitle: "Asesoría Cloud & AI para pequeñas empresas que comienzan",
-        price: "$499",
+        price: "$299",
         description: "Orientación estratégica con planes de ejecución claros. Cambios implementados solo con tu aprobación.",
         hours: "4 horas/mes",
         responseTime: "1–2 días hábiles",
@@ -637,7 +637,7 @@ export const translations = {
       growth: {
         name: "Growth Consulting",
         subtitle: "Para empresas que necesitan ejecución — no solo consejos",
-        price: "$1,499",
+        price: "$899",
         description: "Soporte práctico para empresas que se mueven más rápido. Incluye ejecución, no solo consejos.",
         hours: "10 horas/mes",
         responseTime: "Mismo día o siguiente día hábil",

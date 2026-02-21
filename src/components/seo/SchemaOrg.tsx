@@ -14,15 +14,15 @@ function getOrganizationSchema(lang: 'en' | 'es') {
     "url": siteConfig.url,
     "logo": `${siteConfig.url}/logo.png`,
     "description": lang === 'es' 
-      ? "Soporte cloud y bases de datos fraccional para pequeñas y medianas empresas en EE.UU. DBA como servicio, migración cloud, y soluciones de IA práctica. Planes desde $499/mes."
-      : "Fractional cloud and database support for US small and mid-sized businesses. DBA as a service, cloud migration, and practical AI solutions. Plans from $499/month.",
+      ? "Soporte cloud y bases de datos fraccional para pequeñas y medianas empresas en EE.UU. DBA como servicio, migración cloud, y soluciones de IA práctica. Planes desde $299/mes."
+      : "Fractional cloud and database support for US small and mid-sized businesses. DBA as a service, cloud migration, and practical AI solutions. Plans from $299/month.",
     "slogan": lang === 'es'
       ? "Deja de preocuparte por tu base de datos"
       : "Stop worrying about your database",
     "email": siteConfig.email,
     "telephone": siteConfig.phone,
     "foundingDate": "2020",
-    "priceRange": "$499 - $1499/month",
+    "priceRange": "$299 - $899/month",
     "areaServed": {
       "@type": "Country",
       "name": "United States"
@@ -146,15 +146,15 @@ function getServiceSchemas(lang: 'en' | 'es') {
       "serviceType": lang === 'es' ? "DBA como Servicio" : "DBA as a Service",
       "name": lang === 'es' ? "Administración de Bases de Datos para PyMEs" : "Database Administration for Small Businesses",
       "description": lang === 'es' 
-        ? "Acceso a DBAs senior sin contratar personal de tiempo completo. Administración de PostgreSQL, MySQL, SQL Server, Oracle. Planes desde $499/mes para empresas de 10-200 empleados."
-        : "Access to senior DBAs without hiring full-time staff. PostgreSQL, MySQL, SQL Server, Oracle administration. Plans from $499/month for 10-200 employee companies.",
+        ? "Acceso a DBAs senior sin contratar personal de tiempo completo. Administración de PostgreSQL, MySQL, SQL Server, Oracle. Planes desde $299/mes para empresas de 10-200 empleados."
+        : "Access to senior DBAs without hiring full-time staff. PostgreSQL, MySQL, SQL Server, Oracle administration. Plans from $299/month for 10-200 employee companies.",
       "provider": { "@id": `${siteConfig.url}/#organization` },
       "areaServed": "United States",
       "offers": {
         "@type": "Offer",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "499",
+          "price": "299",
           "priceCurrency": "USD",
           "referenceQuantity": {
             "@type": "QuantitativeValue",
@@ -196,8 +196,8 @@ function getServiceSchemas(lang: 'en' | 'es') {
       "serviceType": lang === 'es' ? "IA Práctica" : "Practical AI",
       "name": lang === 'es' ? "Automatización con IA para PyMEs" : "AI Automation for SMBs",
       "description": lang === 'es'
-        ? "IA que ahorra tiempo y reduce costos. Automatización de tareas, reportes inteligentes, asistentes privados. Desde $499/mes."
-        : "AI that saves time and reduces costs. Task automation, smart reporting, private assistants. From $499/month.",
+        ? "IA que ahorra tiempo y reduce costos. Automatización de tareas, reportes inteligentes, asistentes privados. Desde $299/mes."
+        : "AI that saves time and reduces costs. Task automation, smart reporting, private assistants. From $299/month.",
       "provider": { "@id": `${siteConfig.url}/#organization` },
       "areaServed": "United States"
     }
@@ -217,7 +217,7 @@ function getProductSchemas(lang: 'en' | 'es') {
       "brand": { "@type": "Brand", "name": siteConfig.name },
       "offers": {
         "@type": "Offer",
-        "price": "499",
+        "price": "299",
         "priceCurrency": "USD",
         "priceValidUntil": "2027-12-31",
         "availability": "https://schema.org/InStock",
@@ -234,7 +234,7 @@ function getProductSchemas(lang: 'en' | 'es') {
       "brand": { "@type": "Brand", "name": siteConfig.name },
       "offers": {
         "@type": "Offer",
-        "price": "1499",
+        "price": "899",
         "priceCurrency": "USD",
         "priceValidUntil": "2027-12-31",
         "availability": "https://schema.org/InStock",
@@ -316,8 +316,8 @@ function getWebPageSchema(pathname: string, lang: 'en' | 'es') {
       es: { name: "Servicios Cloud y Bases de Datos para PyMEs", description: "Soporte fraccional de bases de datos y cloud para PyMEs en EE.UU. Sin contratos largos, inicia en 48 horas." }
     },
     '/ai': {
-      en: { name: "Practical AI Solutions for Small Business", description: "AI automation, reporting, and assistants designed for SMBs. Save time, reduce costs. From $499/month." },
-      es: { name: "Soluciones IA Prácticas para PyMEs", description: "Automatización IA, reportes y asistentes diseñados para PyMEs. Ahorra tiempo, reduce costos. Desde $499/mes." }
+      en: { name: "Practical AI Solutions for Small Business", description: "AI automation, reporting, and assistants designed for SMBs. Save time, reduce costs. From $299/month." },
+      es: { name: "Soluciones IA Prácticas para PyMEs", description: "Automatización IA, reportes y asistentes diseñados para PyMEs. Ahorra tiempo, reduce costos. Desde $299/mes." }
     },
     '/ai/operations': {
       en: { name: "AI for Operations - Automate Repetitive Tasks", description: "AI automation for small business operations. Save 10+ hours/week on data entry and workflows." },
@@ -332,8 +332,8 @@ function getWebPageSchema(pathname: string, lang: 'en' | 'es') {
       es: { name: "Asistentes IA para Equipos - Base de Conocimiento Privada", description: "Asistentes IA privados que responden desde tus documentos. 100% privado, tus datos nunca salen de tu ambiente." }
     },
     '/pricing': {
-      en: { name: "Simple Pricing for SMBs", description: "Cloud and database support from $499/month. No long contracts, no hidden fees. Perfect for small businesses." },
-      es: { name: "Precios Simples para PyMEs", description: "Soporte cloud y bases de datos desde $499/mes. Sin contratos largos, sin costos ocultos. Ideal para PyMEs." }
+      en: { name: "Simple Pricing for SMBs", description: "Cloud and database support from $299/month. No long contracts, no hidden fees. Perfect for small businesses." },
+      es: { name: "Precios Simples para PyMEs", description: "Soporte cloud y bases de datos desde $299/mes. Sin contratos largos, sin costos ocultos. Ideal para PyMEs." }
     },
     '/faq': {
       en: { name: "Frequently Asked Questions", description: "Common questions about managed database support, cloud services, and AI for small businesses." },

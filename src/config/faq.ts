@@ -3,12 +3,12 @@ export const faqData = {
     // HIGH PURCHASE INTENT - Cost & Value
     {
       question: "How much does managed database support cost for small businesses?",
-      answer: "Our Starter plan is $499/month for advisory support, and Growth is $1,499/month for hands-on execution. No hidden fees, no long-term contracts. Most small businesses start with Starter and upgrade as they grow.",
+      answer: "Our Starter plan is $299/month for advisory support, and Growth is $899/month for hands-on execution. No hidden fees, no long-term contracts. Most small businesses start with Starter and upgrade as they grow.",
       link: "/en/pricing",
     },
     {
       question: "Is this cheaper than hiring an in-house DBA?",
-      answer: "Yes. A full-time DBA in the US costs $120,000-$180,000/year plus benefits. Our Growth plan at $1,499/month provides senior-level database support for a fraction of that cost, with no HR overhead or training requirements.",
+      answer: "Yes. A full-time DBA in the US costs $120,000-$180,000/year plus benefits. Our Growth plan at $899/month provides senior-level database support for a fraction of that cost, with no HR overhead or training requirements.",
       link: "/en/pricing",
     },
     {
@@ -72,7 +72,7 @@ export const faqData = {
     },
     {
       question: "What's the difference between your Starter and Growth plans?",
-      answer: "Starter ($499/month) provides advisory support—we guide and recommend, you execute. Growth ($1,499/month) includes hands-on execution—we implement changes directly. Choose Starter for guidance, Growth for action.",
+      answer: "Starter ($299/month) provides advisory support—we guide and recommend, you execute. Growth ($899/month) includes hands-on execution—we implement changes directly. Choose Starter for guidance, Growth for action.",
       link: "/en/pricing",
     },
     {
@@ -112,12 +112,12 @@ export const faqData = {
     // ALTA INTENCIÓN DE COMPRA - Costo y Valor
     {
       question: "¿Cuánto cuesta el soporte de bases de datos administradas para pequeñas empresas?",
-      answer: "Nuestro plan Starter es $499/mes para soporte de asesoría, y Growth es $1,499/mes para ejecución práctica. Sin costos ocultos, sin contratos a largo plazo. La mayoría de las pequeñas empresas comienzan con Starter y escalan según crecen.",
+      answer: "Nuestro plan Starter es $299/mes para soporte de asesoría, y Growth es $899/mes para ejecución práctica. Sin costos ocultos, sin contratos a largo plazo. La mayoría de las pequeñas empresas comienzan con Starter y escalan según crecen.",
       link: "/es/pricing",
     },
     {
       question: "¿Es esto más barato que contratar un DBA interno?",
-      answer: "Sí. Un DBA de tiempo completo en EE.UU. cuesta $120,000-$180,000/año más beneficios. Nuestro plan Growth a $1,499/mes proporciona soporte de nivel senior por una fracción de ese costo, sin gastos de HR ni requerimientos de capacitación.",
+      answer: "Sí. Un DBA de tiempo completo en EE.UU. cuesta $120,000-$180,000/año más beneficios. Nuestro plan Growth a $899/mes proporciona soporte de nivel senior por una fracción de ese costo, sin gastos de HR ni requerimientos de capacitación.",
       link: "/es/pricing",
     },
     {
@@ -181,7 +181,7 @@ export const faqData = {
     },
     {
       question: "¿Cuál es la diferencia entre sus planes Starter y Growth?",
-      answer: "Starter ($499/mes) proporciona soporte de asesoría—guiamos y recomendamos, tú ejecutas. Growth ($1,499/mes) incluye ejecución práctica—implementamos cambios directamente. Elige Starter para orientación, Growth para acción.",
+      answer: "Starter ($299/mes) proporciona soporte de asesoría—guiamos y recomendamos, tú ejecutas. Growth ($899/mes) incluye ejecución práctica—implementamos cambios directamente. Elige Starter para orientación, Growth para acción.",
       link: "/es/pricing",
     },
     {
