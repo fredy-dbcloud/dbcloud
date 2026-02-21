@@ -1,79 +1,57 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
-import { TrustSignals } from './TrustSignals';
 
 export function CTASection() {
-  const { lang, t, getLocalizedPath } = useLang();
-  
-  const whatsappUrl = siteConfig.WHATSAPP[lang]?.url || siteConfig.WHATSAPP.en.url;
+  const { lang, getLocalizedPath } = useLang();
 
   return (
-    <section className="py-24 bg-hero-gradient relative overflow-hidden">
-      {/* Background decoration */}
+    <section className="py-28 bg-hero-gradient relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-      
+
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center text-white"
+          className="max-w-2xl mx-auto text-center text-white"
         >
-          <div className="inline-flex p-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
-            <Sparkles className="h-5 w-5 text-accent" />
-          </div>
-
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            {lang === 'es' 
-              ? '¿DBCloud es ideal para tu negocio?'
-              : 'Is DBCloud a Fit for Your Business?'}
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-3">
+            {lang === 'es'
+              ? '¿Listo para simplificar tu cloud?'
+              : 'Ready to simplify your cloud?'}
           </h2>
 
-          <p className="text-xl text-white/90 mb-12 max-w-xl mx-auto">
+          <p className="text-lg text-white/80 mb-10">
             {lang === 'es'
-              ? 'Obtén una revisión gratuita de costos y riesgos cloud con un ingeniero senior. Sin compromiso.'
-              : 'Get a free cloud cost & risk review with a senior engineer. No commitment.'}
+              ? 'Habla directamente con un ingeniero senior.'
+              : 'Talk directly with a senior engineer.'}
           </p>
 
-          {/* Single Primary CTA - End of page natural pause point */}
-          <div className="flex flex-col items-center gap-5 mb-8">
+          <div className="flex flex-col items-center gap-4">
             <Button
               asChild
               size="lg"
               className="bg-accent text-accent-foreground px-10 py-6 text-base shadow-lg hover:shadow-xl hover:bg-accent/90 active:scale-[0.98] transition-all"
             >
               <a href={siteConfig.SCHEDULE_URL} target="_blank" rel="noopener noreferrer">
-                {lang === 'es' 
-                  ? 'Habla con un Ingeniero Senior — Gratis'
-                  : 'Talk to a Senior Engineer — Free'}
+                {lang === 'es'
+                  ? 'Agenda tu revisión gratuita'
+                  : 'Schedule your free review'}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
-            {/* Secondary text links - reduced visual weight */}
-            <div className="flex flex-wrap items-center justify-center gap-5 text-base text-white/70">
-              <Link 
-                to={getLocalizedPath('/contact')}
-                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
-              >
-                {t.cta.contact}
-              </Link>
-              <span className="text-white/30">•</span>
-              <a 
-                href={whatsappUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors underline-offset-4 hover:underline"
-              >
-                {t.cta.whatsapp}
-              </a>
-            </div>
+
+            <Link
+              to={getLocalizedPath('/contact')}
+              className="text-sm text-white/60 hover:text-accent transition-colors underline-offset-4 hover:underline"
+            >
+              {lang === 'es' ? 'Contáctanos' : 'Contact us'}
+            </Link>
           </div>
-          {/* Subtle trust reinforcement */}
-          <TrustSignals variant="dark" />
         </motion.div>
       </div>
     </section>
