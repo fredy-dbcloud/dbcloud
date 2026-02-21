@@ -6,6 +6,7 @@ import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
 import logoHorizontalLight from '@/assets/logos/logo-dbcloud-horizontal-light.png';
 import { CloudCheckModal } from '@/components/modals/CloudCheckModal';
+import { AiAdvisorInlineCTA } from '@/components/ai-advisor/AiAdvisorInlineCTA';
 
 export function HeroSection() {
   const { t, lang } = useLang();
@@ -121,6 +122,10 @@ export function HeroSection() {
               <span className="text-white/60 text-xs mt-2">
                 {lang === 'es' ? '3 preguntas → Llamada personalizada' : '3 questions → Personalized call'}
               </span>
+              
+              <div className="mt-3">
+                <AiAdvisorInlineCTA />
+              </div>
             </motion.div>
           </div>
 

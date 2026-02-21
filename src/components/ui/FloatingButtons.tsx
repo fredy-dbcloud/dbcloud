@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { siteConfig } from '@/config/site';
-import { ChatWidget } from '@/components/chat/ChatWidget';
+import { AiAdvisorWidget } from '@/components/ai-advisor/AiAdvisorWidget';
 import { useLang } from '@/hooks/useLang';
 import { useAuth } from '@/hooks/useAuth';
 import {
@@ -69,8 +69,8 @@ export function FloatingButtons() {
         </TooltipContent>
       </Tooltip>
 
-      {/* Chat Widget */}
-      <ChatWidget />
+      {/* AI Advisor Widget */}
+      <AiAdvisorWidget />
     </TooltipProvider>
   );
 }
