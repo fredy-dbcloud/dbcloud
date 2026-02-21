@@ -46,7 +46,7 @@ export default function AIAssistantsPage() {
       ],
       pricing: {
         title: 'Simple Pricing',
-        price: 'From $499/mo',
+        price: 'From $299/mo',
         desc: 'Setup included. No AI expertise required. Start in 48 hours.',
       },
     },
@@ -84,7 +84,7 @@ export default function AIAssistantsPage() {
       ],
       pricing: {
         title: 'Precios Simples',
-        price: 'Desde $499/mes',
+        price: 'Desde $299/mes',
         desc: 'Setup incluido. No requiere expertos en IA. Inicia en 48 horas.',
       },
     },

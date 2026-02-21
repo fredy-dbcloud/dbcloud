@@ -40,7 +40,7 @@ export default function AIPage() {
       },
       bundles: {
         title: 'AI Bundles for Your Business',
-        subtitle: 'Plans from $499/month (starter bundles). Most teams launch an MVP in 2–3 weeks.',
+        subtitle: 'Plans from $299/month (starter bundles). Most teams launch an MVP in 2–3 weeks.',
         operations: {
           icon: Zap,
           title: 'AI for Operations',
@@ -79,7 +79,7 @@ export default function AIPage() {
         },
         investment: {
           title: '$ Clear investment',
-          items: ['Plans from $499/month', 'No long contracts', 'No surprises'],
+          items: ['Plans from $299/month', 'No long contracts', 'No surprises'],
         },
         results: {
           title: '⚡ Fast results',
@@ -123,7 +123,7 @@ export default function AIPage() {
       },
       bundles: {
         title: 'Paquetes de IA para tu Negocio',
-        subtitle: 'Planes desde $499/mes (paquetes iniciales). La mayoría de equipos lanzan un MVP en 2–3 semanas.',
+        subtitle: 'Planes desde $299/mes (paquetes iniciales). La mayoría de equipos lanzan un MVP en 2–3 semanas.',
         operations: {
           icon: Zap,
           title: 'IA para Operaciones',
@@ -162,7 +162,7 @@ export default function AIPage() {
         },
         investment: {
           title: '$ Inversión clara',
-          items: ['Planes desde $499/mes', 'Sin contratos largos', 'Sin sorpresas'],
+          items: ['Planes desde $299/mes', 'Sin contratos largos', 'Sin sorpresas'],
         },
         results: {
           title: '⚡ Resultados rápidos',

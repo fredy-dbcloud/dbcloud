@@ -46,7 +46,7 @@ export default function AIReportingPage() {
       ],
       pricing: {
         title: 'Simple Pricing',
-        price: 'From $499/mo',
+        price: 'From $299/mo',
         desc: 'No hidden fees. Cancel anytime. Start in 48 hours.',
       },
     },
@@ -84,7 +84,7 @@ export default function AIReportingPage() {
       ],
       pricing: {
         title: 'Precios Simples',
-        price: 'Desde $499/mes',
+        price: 'Desde $299/mes',
         desc: 'Sin costos ocultos. Cancela cuando quieras. Inicia en 48 horas.',
       },
     },
