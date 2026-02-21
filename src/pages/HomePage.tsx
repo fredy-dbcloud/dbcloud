@@ -1,5 +1,6 @@
 import { Layout } from '@/components/layout/Layout';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { MonetizationSection } from '@/components/sections/MonetizationSection';
 import { TrustedTechnologiesSection } from '@/components/sections/TrustedTechnologiesSection';
 import { EnterpriseStandardsSection } from '@/components/sections/EnterpriseStandardsSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <Layout>
       <HeroSection />
+      <MonetizationSection />
       <TrustedTechnologiesSection />
       <EnterpriseStandardsSection />
       <ServicesSection />
