@@ -3,12 +3,15 @@ import { Check, TrendingDown, TrendingUp, Shield, Server, BarChart3, Globe } fro
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLang } from '@/hooks/useLang';
+import { CaseStudiesSection } from './monetization/CaseStudiesSection';
+import { HowItWorksSection } from './monetization/HowItWorksSection';
 
 /* ─── Data ─── */
 
 const plans = [
   {
     name: 'Starter',
+    subtitle: { en: 'For small teams with one cloud environment', es: 'Para equipos pequeños con un entorno cloud' },
     price: { en: '$1,500', es: '/mes' },
     period: { en: '/month', es: '' },
     features: {
@@ -19,6 +22,7 @@ const plans = [
   },
   {
     name: 'Growth',
+    subtitle: { en: 'For scaling businesses with multi-cloud needs', es: 'Para empresas en crecimiento con necesidades multi-cloud' },
     price: { en: '$2,900', es: '/mes' },
     period: { en: '/month', es: '' },
     features: {
@@ -30,6 +34,7 @@ const plans = [
   },
   {
     name: 'Enterprise',
+    subtitle: { en: 'For regulated or high-complexity environments', es: 'Para entornos regulados o de alta complejidad' },
     price: { en: 'Custom', es: '' },
     period: { en: 'Pricing', es: 'Precio personalizado' },
     features: {
@@ -136,12 +141,16 @@ export function MonetizationSection() {
                   </div>
                 )}
                 <CardContent className="p-8 pt-10">
-                  <div className="flex items-center gap-3 mb-5">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className="p-2.5 rounded-xl bg-primary/5">
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">{plan.name}</h3>
                   </div>
+                  <p className="text-xs text-muted-foreground/60 mb-5 ml-[3.25rem]">
+                    {plan.subtitle.en}
+                    <span className="block text-muted-foreground/35 mt-0.5">{plan.subtitle.es}</span>
+                  </p>
 
                   {/* Price */}
                   <div className="mb-2">
@@ -177,7 +186,7 @@ export function MonetizationSection() {
         </motion.div>
 
         {/* Risk-reversal microcopy */}
-        <div className="text-center mb-28 space-y-1">
+        <div className="text-center mb-10 space-y-1">
           <p className="text-sm text-muted-foreground/70">
             No setup fees · Cancel anytime · Start in 48 hours
           </p>
@@ -185,6 +194,12 @@ export function MonetizationSection() {
             Sin costos de implementación · Cancela cuando quieras · Inicia en 48 horas
           </p>
         </div>
+
+        {/* Overage microcopy */}
+        <p className="text-center text-xs text-muted-foreground/40 mb-28">
+          Overage or additional scope billed separately upon approval.
+          <span className="block mt-0.5 text-muted-foreground/30">Excedentes o alcance adicional facturados por separado previa aprobación.</span>
+        </p>
 
         {/* ── Divider ── */}
         <div className="w-16 h-px bg-border mx-auto mb-28" />
@@ -294,7 +309,13 @@ export function MonetizationSection() {
           <span>Built for SOC 2, HIPAA, and GDPR-aligned operations.</span>
         </div>
 
-        {/* ── PART 3 — Dual CTA ── */}
+        {/* ── PART 3 — Case Studies ── */}
+        <CaseStudiesSection />
+
+        {/* ── PART 4 — How It Works ── */}
+        <HowItWorksSection />
+
+        {/* ── PART 5 — Dual CTA ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
