@@ -12,6 +12,7 @@ import { EvaluationRequestModal } from '@/components/pricing/EvaluationRequestMo
 import { ClientPortalNotice, EmergencyExclusionNotice } from '@/components/pricing/DeliveryModelSection';
 import { ComparisonSection } from '@/components/pricing/ComparisonSection';
 import { ROICalculator } from '@/components/pricing/ROICalculator';
+import { GrowthSubtitle, GrowthWhoIsFor, GrowthIncidentExpectation, GrowthOveragePolicy, GrowthUseCaseExample, GrowthSoftGuarantee } from '@/components/pricing/GrowthPlanExtras';
 import { TierKey } from '@/config/stripe';
 
 export default function PricingPage() {
@@ -226,8 +227,8 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={cn(
-                  "relative p-8 rounded-2xl bg-card border shadow-card flex flex-col",
-                  plan.popular ? "border-accent shadow-glow" : "border-border"
+                  "relative rounded-2xl bg-card border shadow-card flex flex-col",
+                  plan.popular ? "border-accent shadow-glow p-8 md:p-9 md:scale-[1.03] z-10" : "border-border p-8"
                 )}
               >
                 {plan.popular && (
@@ -238,9 +239,11 @@ export default function PricingPage() {
 
                 <div className="text-center mb-6">
                   <h3 className="font-display text-2xl font-bold mb-1">{plan.name}</h3>
-                  {plan.subtitle && (
+                  {plan.key === 'growth' ? (
+                    <GrowthSubtitle />
+                  ) : plan.subtitle ? (
                     <p className="text-sm text-accent font-medium mb-4">{plan.subtitle}</p>
-                  )}
+                  ) : null}
                   <div className="flex items-baseline justify-center gap-1 pt-2">
                     <span className="font-display text-4xl sm:text-5xl font-bold leading-tight">{plan.price}</span>
                     <span className="text-muted-foreground text-base">{plan.period}</span>
@@ -269,6 +272,14 @@ export default function PricingPage() {
                   <p className="text-xs text-muted-foreground text-center italic mb-5 -mt-2">
                     {dm.noRollover}
                   </p>
+                )}
+
+                {/* Growth: Incident Expectation + Overage Policy */}
+                {plan.key === 'growth' && (
+                  <>
+                    <GrowthIncidentExpectation />
+                    <GrowthOveragePolicy />
+                  </>
                 )}
 
                 {/* Features */}
@@ -321,8 +332,16 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                {/* Best For */}
-                {plan.bestFor && (
+                {/* Growth: Who Is For + Use Case */}
+                {plan.key === 'growth' && (
+                  <>
+                    <GrowthWhoIsFor />
+                    <GrowthUseCaseExample />
+                  </>
+                )}
+
+                {/* Best For (non-Growth) */}
+                {plan.bestFor && plan.key !== 'growth' && (
                   <div className="mb-6 p-4 rounded-lg bg-muted/50">
                     <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                       {l.bestFor}:
@@ -367,6 +386,8 @@ export default function PricingPage() {
                       {lang === 'es' ? 'Ver Demo →' : 'View Demo →'}
                     </Link>
                   </p>
+                  {/* Growth: Soft Guarantee */}
+                  {plan.key === 'growth' && <GrowthSoftGuarantee />}
                 </div>
               </motion.div>
             ))}
