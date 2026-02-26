@@ -4,13 +4,12 @@ import { MonetizationSection } from '@/components/sections/MonetizationSection';
 import { TrustedTechnologiesSection } from '@/components/sections/TrustedTechnologiesSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { DiscoveryPackagesSection } from '@/components/sections/DiscoveryPackagesSection';
-import { UnifiedDifferentiationSection } from '@/components/sections/UnifiedDifferentiationSection';
 import { WhyDBCloudSection } from '@/components/sections/WhyDBCloudSection';
 import { CTASection } from '@/components/sections/CTASection';
 
 /**
  * HomePage - SMB-focused B2B Landing Page
- * Optimized for cold traffic conversion with reduced cognitive load
+ * Flow: Hero → Pricing anchors → Tech logos → Services → Quick wins → Why us → CTA
  */
 export default function HomePage() {
   return (
@@ -20,7 +19,6 @@ export default function HomePage() {
       <TrustedTechnologiesSection />
       <ServicesSection />
       <DiscoveryPackagesSection />
-      <UnifiedDifferentiationSection />
       <WhyDBCloudSection />
       <CTASection />
     </Layout>

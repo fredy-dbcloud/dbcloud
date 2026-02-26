@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check, X, AlertCircle, Zap } from 'lucide-react';
+import { Check, X, AlertCircle, Zap, Users, Globe, FileText, Shield } from 'lucide-react';
 import { useLang } from '@/hooks/useLang';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -10,6 +10,21 @@ interface ComparisonRow {
   msp: { icon: 'yes' | 'no' | 'partial'; text: string };
   dbcloud: { icon: 'yes'; text: string };
 }
+
+const differentiators = {
+  en: [
+    { icon: Users, text: 'Senior engineers only' },
+    { icon: Globe, text: 'AWS, Azure, GCP, Oracle' },
+    { icon: FileText, text: 'No long-term contracts' },
+    { icon: Shield, text: 'Team structure — no SPOF' },
+  ],
+  es: [
+    { icon: Users, text: 'Solo ingenieros senior' },
+    { icon: Globe, text: 'AWS, Azure, GCP, Oracle' },
+    { icon: FileText, text: 'Sin contratos largos' },
+    { icon: Shield, text: 'Equipo — sin punto único de falla' },
+  ],
+};
 
 const content = {
   en: {
@@ -41,11 +56,11 @@ const content = {
       dbcloud: 'DBCloud',
     },
     rows: [
-      { feature: 'Ingenieros senior', freelancer: { icon: 'no', text: 'Impredecible' }, inhouse: { icon: 'partial', text: 'Habilidades limitadas' }, msp: { icon: 'partial', text: 'Inconsistente' }, dbcloud: { icon: 'yes', text: 'Siempre senior' } },
-      { feature: 'Experiencia multi-cloud', freelancer: { icon: 'no', text: 'Solo una nube' }, inhouse: { icon: 'no', text: 'Depende de disponibilidad' }, msp: { icon: 'partial', text: 'Brechas de cobertura' }, dbcloud: { icon: 'yes', text: 'Todas las nubes' } },
-      { feature: 'SLAs y tiempos de respuesta', freelancer: { icon: 'no', text: 'Sin SLAs' }, inhouse: { icon: 'partial', text: 'Solo informal' }, msp: { icon: 'yes', text: 'Estándar' }, dbcloud: { icon: 'yes', text: 'SLAs garantizados' } },
-      { feature: 'Contratos', freelancer: { icon: 'yes', text: 'Ninguno' }, inhouse: { icon: 'no', text: 'Carga de nómina' }, msp: { icon: 'no', text: 'Lock-in requerido' }, dbcloud: { icon: 'yes', text: 'Cancela cuando quieras' } },
-      { feature: 'Tiempo para comenzar', freelancer: { icon: 'partial', text: 'Días a semanas' }, inhouse: { icon: 'no', text: 'Meses para contratar' }, msp: { icon: 'partial', text: 'Semanas' }, dbcloud: { icon: 'yes', text: 'Onboarding 48h' } },
+      { feature: 'Ingenieros senior', freelancer: { icon: 'no', text: 'Impredecible' }, inhouse: { icon: 'partial', text: 'Limitado' }, msp: { icon: 'partial', text: 'Inconsistente' }, dbcloud: { icon: 'yes', text: 'Siempre senior' } },
+      { feature: 'Experiencia multi-cloud', freelancer: { icon: 'no', text: 'Solo una nube' }, inhouse: { icon: 'no', text: 'Depende' }, msp: { icon: 'partial', text: 'Brechas' }, dbcloud: { icon: 'yes', text: 'Todas las nubes' } },
+      { feature: 'SLAs y tiempos', freelancer: { icon: 'no', text: 'Sin SLAs' }, inhouse: { icon: 'partial', text: 'Informal' }, msp: { icon: 'yes', text: 'Estándar' }, dbcloud: { icon: 'yes', text: 'SLAs garantizados' } },
+      { feature: 'Contratos', freelancer: { icon: 'yes', text: 'Ninguno' }, inhouse: { icon: 'no', text: 'Nómina' }, msp: { icon: 'no', text: 'Lock-in' }, dbcloud: { icon: 'yes', text: 'Cancela cuando quieras' } },
+      { feature: 'Tiempo para iniciar', freelancer: { icon: 'partial', text: 'Días-semanas' }, inhouse: { icon: 'no', text: 'Meses' }, msp: { icon: 'partial', text: 'Semanas' }, dbcloud: { icon: 'yes', text: 'Onboarding 48h' } },
     ] as ComparisonRow[],
   },
 };
@@ -68,6 +83,7 @@ function CellContent({ icon, text, isDbCloud = false }: { icon: 'yes' | 'no' | '
 export function WhyDBCloudSection() {
   const { lang } = useLang();
   const t = content[lang];
+  const diffs = differentiators[lang];
   const isMobile = useIsMobile();
 
   return (
@@ -77,7 +93,7 @@ export function WhyDBCloudSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-5">
             <Zap className="h-4 w-4" />
@@ -88,6 +104,17 @@ export function WhyDBCloudSection() {
           </h2>
         </motion.div>
 
+        {/* Differentiators strip */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mb-12">
+          {diffs.map((item, i) => (
+            <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <item.icon className="h-4 w-4 text-accent flex-shrink-0" />
+              <span className="font-medium">{item.text}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Comparison table */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
