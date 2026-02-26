@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Clock, Calendar, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Clock, Calendar, ArrowRight } from 'lucide-react';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { useLang } from '@/hooks/useLang';
 import { siteConfig } from '@/config/site';
@@ -17,12 +17,6 @@ export default function ContactPage() {
       title: 'Email',
       value: siteConfig.email,
       href: `mailto:${siteConfig.email}`,
-    },
-    {
-      icon: Phone,
-      title: lang === 'es' ? 'Teléfono' : 'Phone',
-      value: siteConfig.phone,
-      href: `tel:${siteConfig.phone}`,
     },
     {
       icon: MapPin,

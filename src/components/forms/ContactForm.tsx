@@ -73,7 +73,7 @@ const placeholders = {
   en: {
     name: 'John Doe',
     email: 'john.doe@company.com',
-    phone: '+1 929 733 8260',
+    phone: '+1 (555) 123-4567',
     company: 'Acme Inc.',
     interest: 'Select an option',
     message: 'Briefly describe your needs (e.g. migrate Oracle to cloud)',
@@ -82,7 +82,7 @@ const placeholders = {
   es: {
     name: 'Juan Pérez',
     email: 'juan.perez@empresa.com',
-    phone: '+1 929 733 8260',
+    phone: '+1 (555) 123-4567',
     company: 'Empresa S.A.',
     interest: 'Selecciona una opción',
     message: 'Describe brevemente tu necesidad (ej. migrar Oracle a la nube)',
