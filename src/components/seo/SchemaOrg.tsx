@@ -20,7 +20,6 @@ function getOrganizationSchema(lang: 'en' | 'es') {
       ? "Deja de preocuparte por tu base de datos"
       : "Stop worrying about your database",
     "email": siteConfig.email,
-    "telephone": siteConfig.phone,
     "foundingDate": "2020",
     "priceRange": "$299 - $899/month",
     "areaServed": {
@@ -47,15 +46,14 @@ function getOrganizationSchema(lang: 'en' | 'es') {
     "contactPoint": [
       {
         "@type": "ContactPoint",
-        "telephone": siteConfig.phone,
         "contactType": "sales",
         "email": siteConfig.salesEmail,
+        "url": siteConfig.SCHEDULE_URL,
         "availableLanguage": ["English", "Spanish"],
         "areaServed": "US"
       },
       {
         "@type": "ContactPoint",
-        "telephone": siteConfig.phone,
         "contactType": "customer support",
         "email": siteConfig.supportEmail,
         "availableLanguage": ["English", "Spanish"]
@@ -75,7 +73,6 @@ function getLocalBusinessSchema(lang: 'en' | 'es') {
       ? "Equipo de cloud y bases de datos fraccional para PyMEs en EE.UU. Sin contratos largos."
       : "Fractional cloud and database team for US SMBs. No long-term contracts.",
     "url": siteConfig.url,
-    "telephone": siteConfig.phone,
     "email": siteConfig.email,
     "priceRange": "$$",
     "areaServed": {
@@ -125,15 +122,7 @@ function getWebsiteSchema(lang: 'en' | 'es') {
     "name": siteConfig.name,
     "url": siteConfig.url,
     "inLanguage": lang === 'es' ? 'es-US' : 'en-US',
-    "publisher": { "@id": `${siteConfig.url}/#organization` },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${siteConfig.url}/search?q={search_term_string}`
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "publisher": { "@id": `${siteConfig.url}/#organization` }
   };
 }
 

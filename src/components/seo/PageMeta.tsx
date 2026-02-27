@@ -47,8 +47,8 @@ export function PageMeta() {
               ? 'Precios | DBCloud - Planes y Tarifas'
               : 'Pricing | DBCloud - Plans & Rates',
             description: lang === 'es'
-              ? 'Precios transparentes para servicios de bases de datos administradas. Desde $499/mes.'
-              : 'Transparent pricing for managed database services. Starting at $499/month.',
+              ? 'Precios transparentes para servicios cloud y bases de datos administradas. Desde $299/mes.'
+              : 'Transparent pricing for managed cloud and database services. Starting at $299/month.',
           };
         case '/faq':
           return {

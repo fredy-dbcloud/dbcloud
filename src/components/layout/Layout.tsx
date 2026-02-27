@@ -2,10 +2,10 @@ import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { ChatWidget } from '@/components/chat/ChatWidget';
 import { FloatingButtons } from '@/components/ui/FloatingButtons';
 import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { PageMeta } from '@/components/seo/PageMeta';
+import { CookieConsentBanner } from '@/components/ui/CookieConsentBanner';
 
 interface LayoutProps {
   children: ReactNode;
@@ -30,6 +30,7 @@ export function Layout({ children }: LayoutProps) {
         <Footer />
       </div>
       <FloatingButtons />
+      <CookieConsentBanner />
     </>
   );
 }
